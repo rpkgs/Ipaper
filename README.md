@@ -1,11 +1,11 @@
 # Ipaper  
 R package: Ipaper  
 
-## Download paper batchly with the help `aria2` and `httr` package.
+## Batch download paper with the help `aria2` and `httr` package.
 
 ### 01. You need to get doi;
 
-If you want to download paper use that package, you need to get the corresponding DOI. First of all, you should be confirm that your IP have the right to download that paper. And if you want to download paper batchly, I suggest you get the DOIs from [Web Of Science](http://login.webofknowledge.com/).
+If you want to download paper use that package, you need to get the corresponding DOI. First of all, you should be confirm that your IP have the right to download that paper. And if you want to batch download paper, I suggest you get the DOIs from [Web Of Science](http://login.webofknowledge.com/).
 
 ### 02. You need to select the suitable srcFUN of corresponding database. 
 If this package have not yet, you can consider to extend the srcFUN, or contact me directly.
