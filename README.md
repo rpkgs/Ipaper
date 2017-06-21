@@ -1,7 +1,19 @@
 # Ipaper  
 R package: Ipaper  
 
-## Batch download paper with the help `aria2` and `httr` package.
+### Batch download paper with the help `aria2` and `httr` package.
+
+Install:
+
+```{r}
+install.packages("devtools")
+library(devtools)
+install_github("kongdd/Ipaper")
+```
+
+you also need to download [aria2](https://github.com/aria2/aria2/releases/tag/release-1.32.0), and add 
+aria2 path to your system environment variables. For the convenience of spell in cmd, I rename aira2c as aria2.
+
 
 ### 01. You need to get doi;
 
@@ -14,8 +26,7 @@ If this package have not yet, you can consider to extend the srcFUN, or contact 
 Their are two way, we provide to download paper.    
 - 1. [aria2](https://aria2.github.io/manual/en/html/), which is same like wget, but can download parallel.  
 
-you should download aria2, and add aria2 path to your system environment variables.
-For the convenience of spell in cmd, I rename aira2c as aria2.  
+  
 
 - 2. [httr](https://cran.r-project.org/web/packages/httr/index.html) package by hadley, which download files with the help of `curl`.
 
