@@ -1,3 +1,36 @@
+#' download web file through web link src
+#' 
+#' #http://www.sciencedirect.com/science/article/pii/S0034425701002310/pdfft?md5=2e6dfdaa5b680d49fbe09360b5bed6b4&pid=1-s2.0-S0034425701002310-main.pdf
+#' # has an error: for above url
+#' 
+#' @export
+write_webfile <- function(src, outdir = "./", file = NULL, ...){
+  # extract pdf filename from src, and combine with outdir
+  if (is.null(file)) {
+    # strs <- strsplit(src, "\\?")[[1]]
+    # file <- str_extract(basename(strs[1]), ".*pdf$") %>% paste0(outdir, .)
+
+    # match '-', 'alphabet and number', '\\.'
+    file <- str_extract(src, "[-\\w\\.]*\\.pdf")[[1]][1] %>% paste0(outdir, .)
+  }else{
+    #make sure outdir is correct, the last character of outdir, should be '/'
+    file <- paste0(outdir, basename(file)) 
+  }
+  
+  # IF file exist then break out the function
+  if (!file.exists(file)){
+    tryCatch({
+      GET(src, add_headers(`User-Agent` = header),
+          write_disk(file, overwrite = TRUE), progress(), ...)
+      cat("\n") #offset the deficiency of progress (without newline at the end)
+    }, 
+    error = function(e) {
+      message(e)
+      return(e)
+    })
+  }
+}
+
 #' srcFUN
 #' 
 #' simplest srcFUN, just treat doi as download links  
@@ -12,20 +45,69 @@ src_URL <- function(doi) doi
 #' base on pdf urls, likes other database.
 #' This function was need to further test, whether this function can support 
 #' download with urls
-#' @param  srcDownload If true, it will will download pdf directly, and return 
+#' @param DOIs according to doi, it find corresponding paper and download it. 
+#' such as "10.1175/JHM-D-15-0157.1". URLencoding format, like 
+#' "10.1175\%2FJHM-D-15-0157.1" is also support.
+#' @param outdir output file directory
+#' @param srcDownload If true, it will will download pdf directly, and return 
 #' pdf src. If false, only pdf src returned, without downlaoding pdf.
 #' @param ... other parameters pass to httr::GET
 #' @export
-src_wiley_I <- function(doi, outdir = "./", srcDownload = TRUE, ...){
-  doi %<>% Init_Check(outdir)
+src_wiley_I <- function(DOIs, outdir = "./", srcDownload = TRUE, ...){
+  DOIs %<>% Init_Check(outdir)
   
-  url <- paste0("http://onlinelibrary.wiley.com/doi/", doi, "/pdf")
-  p <- GET(url, add_headers(`User-Agent`= header))
+  urls <- paste0("http://onlinelibrary.wiley.com/doi/", DOIs, "/pdf")
+  # for every single url; modified to support batch download model
+  FUN <- function(url){
+    tryCatch({
+      p <- GET(url, add_headers(`User-Agent` = header)) %>% content(p)
+      src <- xml_find_all(p, "//iframe[@id='pdfDocument']") %>% xml_attr("src")
+      # file_pdf <- str_extract(src, ".*pdf") %>% basename %>% paste0(outdir, .)
+      if (srcDownload) write_webfile(src, outdir, ...)
+      return(src)
+    }, error = function(e) {
+      message(e)
+      return("")
+    })
+  }
   
-  src <- content(p) %>% xml_find_all("//iframe[@id='pdfDocument']") %>% xml_attr("src")
-  # file_pdf <- str_extract(src, ".*pdf") %>% basename %>% paste0(outdir, .)
-  if (srcDownload) write_webfile(src, outdir, ...)
-  return(src)
+  sapply(DOIs, FUN, USE.NAMES = FALSE)#return srcs
+}
+
+#' srcFUN of elsevier database
+#' @description Just pdf src returned. If you want to download directly you 
+#' can use download_httr(doi, journal = '.', srcFUN = src_SciDirect)
+#' 
+#' @param DOIs according to doi, it find corresponding paper and download it. 
+#' such as "10.1175/JHM-D-15-0157.1". URLencoding format, like 
+#' "10.1175\%2FJHM-D-15-0157.1" is also support.
+#' @param outdir output file directory
+#' @export
+src_SciDirect_I <- function(DOIs, outdir = "./", srcDownload = TRUE, ...){
+  DOIs %<>% Init_Check(outdir)
+  FUN <- function(doi){
+    tryCatch({
+      p <- POST("http://dx.doi.org/", encode = "form",
+                body = list(hdl = doi)) %>% content(encoding = "UTF-8")
+      json <- xml_find_first(p, "//script[@type='application/json']") %>% xml_text
+      
+      if (is.na(json)){
+        href <- xml_find_first(p, "//a[@id='pdfLink']") %>% xml_attr("href")
+        # or "//div[@class='PdfDropDownMenu']"
+      }else{
+        href <- fromJSON(json)$article$pdfDownload$linkToPdf %>% 
+          paste0("http://www.sciencedirect.com", .)
+      }
+      # file <- paste0(outdir, doi, ".pdf")
+      if (srcDownload) write_webfile(src, outdir, ...)
+      href#return trycatch
+    }, error = function(e) {
+      message(e)
+      return("")
+    })
+  }
+  sapply(DOIs, FUN, USE.NAMES = FALSE)#return srcs
+  # return(src)
 }
 
 #' srcFUN of American Meteorological Society. 
@@ -65,29 +147,4 @@ src_hess <- function(doi){
   paste0("http://www.hydrol-earth-syst-sci.net/", 
          gsub("hess-", "", doi) %>% gsub("-", "/", .), "/", 
          doi, ".pdf")
-}
-
-#' srcFUN of elsevier database
-#' @description Just pdf src returned. If you want to download directly you 
-#' can use download_httr(doi, journal = '.', srcFUN = src_SciDirect)
-#' @export
-src_SciDirect <- function(doi){
-  src <- tryCatch({
-    p <- POST("http://dx.doi.org/", encode = "form",
-              body = list(hdl = doi)) %>% content(encoding = "UTF-8")
-    json <- xml_find_first(p, "//script[@type='application/json']") %>% xml_text
-    
-    if (is.na(json)){
-      href <- xml_find_first(p, "//a[@id='pdfLink']") %>% xml_attr("href")
-      # or "//div[@class='PdfDropDownMenu']"
-    }else{
-      href <- fromJSON(json)$article$pdfDownload$linkToPdf %>% 
-        paste0("http://www.sciencedirect.com", .)
-    }
-    href#return trycatch
-  }, error = function(e) {
-    message(e)
-    return("")
-  })
-  return(src)
 }

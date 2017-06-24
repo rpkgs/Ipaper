@@ -13,32 +13,6 @@
 header <- "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
 
 ## global functions -------------------------------------------------------
-#' download web file through web link src
-#' 
-#' @export
-write_webfile <- function(src, outdir = "./", file = NULL, ...){
-  # extract pdf filename from src, and combine with outdir
-  if (is.null(file)) {
-    file <- str_extract(src, ".*pdf") %>% basename %>% paste0(outdir, .)
-  }else{
-    #make sure outdir is correct, the last character of outdir, should be '/'
-    file <- paste0(outdir, basename(file)) 
-  }
-  
-  # IF file exist then break out the function
-  if (!file.exists(file)){
-    tryCatch({
-      GET(src, add_headers(`User-Agent` = header),
-          write_disk(file, overwrite = TRUE), progress(), ...)
-      cat("\n") #offset the deficiency of progress (without newline at the end)
-    }, 
-    error = function(e) {
-      message(e)
-      return(e)
-    })
-  }
-}
-
 #' write_urls
 #' 
 #' write character vectors of urls into text file, in order to the use of 
@@ -71,6 +45,10 @@ get_DOI <- function(x) {
 Init_Check <- function(doi, outdir){
   if (!dir.exists(outdir)) dir.create(outdir)
   sapply(doi, URLdecode, USE.NAMES = F)
+}
+
+DOIs_web <- function(file){
+  
 }
 
 # download_AMS_I <- function(doi, outdir, ...){

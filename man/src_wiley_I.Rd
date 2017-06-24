@@ -4,9 +4,15 @@
 \alias{src_wiley_I}
 \title{srcFUN of WILEY library}
 \usage{
-src_wiley_I(doi, outdir = "./", srcDownload = TRUE, ...)
+src_wiley_I(DOIs, outdir = "./", srcDownload = TRUE, ...)
 }
 \arguments{
+\item{DOIs}{according to doi, it find corresponding paper and download it. 
+such as "10.1175/JHM-D-15-0157.1". URLencoding format, like 
+"10.1175\%2FJHM-D-15-0157.1" is also support.}
+
+\item{outdir}{output file directory}
+
 \item{srcDownload}{If true, it will will download pdf directly, and return 
 pdf src. If false, only pdf src returned, without downlaoding pdf.}
 

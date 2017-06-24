@@ -5,6 +5,7 @@
 #' @docType package
 #' @keywords download paper DOI
 #' @importFrom stringr str_extract
+#' @importFrom jsonlite fromJSON
 #' @import httr xml2 magrittr
 NULL
 
