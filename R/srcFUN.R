@@ -60,7 +60,7 @@ src_wiley_I <- function(DOIs, outdir = "./", srcDownload = TRUE, ...){
   # for every single url; modified to support batch download model
   FUN <- function(url){
     tryCatch({
-      p <- GET(url, add_headers(`User-Agent` = header)) %>% content(p)
+      p <- GET(url, add_headers(`User-Agent` = header)) %>% content()
       src <- xml_find_all(p, "//iframe[@id='pdfDocument']") %>% xml_attr("src")
       # file_pdf <- str_extract(src, ".*pdf") %>% basename %>% paste0(outdir, .)
       if (srcDownload) write_webfile(src, outdir, ...)
@@ -71,7 +71,7 @@ src_wiley_I <- function(DOIs, outdir = "./", srcDownload = TRUE, ...){
     })
   }
   
-  sapply(DOIs, FUN, USE.NAMES = FALSE)#return srcs
+  sapply(urls, FUN, USE.NAMES = FALSE)#return srcs
 }
 
 #' srcFUN of elsevier database
@@ -85,29 +85,36 @@ src_wiley_I <- function(DOIs, outdir = "./", srcDownload = TRUE, ...){
 #' @export
 src_SciDirect_I <- function(DOIs, outdir = "./", srcDownload = TRUE, ...){
   DOIs %<>% Init_Check(outdir)
-  FUN <- function(doi){
+  FUN <- function(doi, ...){
     tryCatch({
       p <- POST("http://dx.doi.org/", encode = "form",
                 body = list(hdl = doi)) %>% content(encoding = "UTF-8")
       json <- xml_find_first(p, "//script[@type='application/json']") %>% xml_text
       
       if (is.na(json)){
-        href <- xml_find_first(p, "//a[@id='pdfLink']") %>% xml_attr("href")
+        src <- xml_find_first(p, "//a[@id='pdfLink']") %>% xml_attr("href")
         # or "//div[@class='PdfDropDownMenu']"
       }else{
-        href <- fromJSON(json)$article$pdfDownload$linkToPdf %>% 
+        src <- fromJSON(json)$article$pdfDownload$linkToPdf %>% 
           paste0("http://www.sciencedirect.com", .)
       }
       # file <- paste0(outdir, doi, ".pdf")
       if (srcDownload) write_webfile(src, outdir, ...)
-      href#return trycatch
+      src#return trycatch
     }, error = function(e) {
       message(e)
       return("")
     })
   }
-  sapply(DOIs, FUN, USE.NAMES = FALSE)#return srcs
-  # return(src)
+
+  srcs <- character()
+  for (i in seq_along(DOIs)){
+    cat(sprintf("[%d]: downloading %s\n", i, DOIs[i]))
+    srcs[i] <- FUN(DOIs[i], ...)
+  }
+
+  # sapply(DOIs, FUN, USE.NAMES = FALSE)#return srcs
+  return(srcs)
 }
 
 #' srcFUN of American Meteorological Society. 
