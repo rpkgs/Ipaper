@@ -114,7 +114,7 @@ download_aria2 <- function(DOIs, journal = '.', srcFUN = NULL, n = 8, Rshell = F
   write_urls(urls, paste0(journal, ".txt"))
   
   # --header "%s"
-  cmd <- sprintf('aria2 -x%d -s%d -j%d -k1M -c -i %s.txt -d %s', n, n, n, journal, journal)
+  cmd <- sprintf('aria2c -x%d -s%d -j%d -k1M -c -i %s.txt -d %s', n, n, n, journal, journal)
   writeLines(cmd, "clipboard") 
   if (Rshell) shell(cmd)
 }

@@ -74,6 +74,33 @@ src_wiley_I <- function(DOIs, outdir = "./", srcDownload = TRUE, ...){
   sapply(urls, FUN, USE.NAMES = FALSE)#return srcs
 }
 
+.SciDirect <- function(url, type = c("url", "doi"), .download = TRUE, outdir, ...){
+  tryCatch({
+    if (type[1] == "doi"){
+      p <- POST("http://dx.doi.org/", encode = "form",
+                body = list(hdl = url)) %>% content(encoding = "UTF-8")
+    }else if (type[1] == "url"){
+      p <- GET(url) %>% content(encoding = "UTF-8")
+    }
+    
+    json <- xml_find_first(p, "//script[@type='application/json']") %>% xml_text
+    
+    if (is.na(json)){
+      src <- xml_find_first(p, "//a[@id='pdfLink']") %>% xml_attr("href")
+      # or "//div[@class='PdfDropDownMenu']"
+    }else{
+      src <- fromJSON(json)$article$pdfDownload$linkToPdf %>% 
+        paste0("http://www.sciencedirect.com", .)
+    }
+    # file <- paste0(outdir, doi, ".pdf")
+    if (.download) write_webfile(src, outdir, ...)
+    src#return trycatch
+  }, error = function(e) {
+    message(e)
+    return("")
+  })
+}
+
 #' srcFUN of elsevier database
 #' @description Just pdf src returned. If you want to download directly you 
 #' can use download_httr(doi, journal = '.', srcFUN = src_SciDirect)
@@ -83,36 +110,30 @@ src_wiley_I <- function(DOIs, outdir = "./", srcDownload = TRUE, ...){
 #' "10.1175\%2FJHM-D-15-0157.1" is also support.
 #' @param outdir output file directory
 #' @export
-src_SciDirect_I <- function(DOIs, outdir = "./", srcDownload = TRUE, ...){
+src_SciDirect.doi <- function(DOIs, outdir = "./", .download = TRUE, ...){
   DOIs %<>% Init_Check(outdir)
-  FUN <- function(doi, ...){
-    tryCatch({
-      p <- POST("http://dx.doi.org/", encode = "form",
-                body = list(hdl = doi)) %>% content(encoding = "UTF-8")
-      json <- xml_find_first(p, "//script[@type='application/json']") %>% xml_text
-      
-      if (is.na(json)){
-        src <- xml_find_first(p, "//a[@id='pdfLink']") %>% xml_attr("href")
-        # or "//div[@class='PdfDropDownMenu']"
-      }else{
-        src <- fromJSON(json)$article$pdfDownload$linkToPdf %>% 
-          paste0("http://www.sciencedirect.com", .)
-      }
-      # file <- paste0(outdir, doi, ".pdf")
-      if (srcDownload) write_webfile(src, outdir, ...)
-      src#return trycatch
-    }, error = function(e) {
-      message(e)
-      return("")
-    })
-  }
 
   srcs <- character()
   for (i in seq_along(DOIs)){
     cat(sprintf("[%d]: downloading %s\n", i, DOIs[i]))
-    srcs[i] <- FUN(DOIs[i], ...)
+    srcs[i] <- .SciDirect(DOIs[i], type = "doi", .download, outdir, ...)
   }
+  # sapply(DOIs, FUN, USE.NAMES = FALSE)#return srcs
+  return(srcs)
+}
 
+
+#' srcFUN of elsevier database
+#' 
+#' download pdfs tthrough urls other than DOIs
+#' @export
+src_SciDirect.url <- function(urls, outdir = "./", .download = TRUE, ...){
+  urls %<>% Init_Check(outdir)
+  srcs <- character()
+  for (i in seq_along(urls)){
+    cat(sprintf("[%d]: downloading %s\n", i, urls[i]))
+    srcs[i] <- .SciDirect(urls[i], type = "url", .download, outdir, ...)
+  }
   # sapply(DOIs, FUN, USE.NAMES = FALSE)#return srcs
   return(srcs)
 }
