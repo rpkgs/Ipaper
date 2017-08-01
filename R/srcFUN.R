@@ -92,6 +92,12 @@ src_wiley_I <- function(DOIs, outdir = "./", srcDownload = TRUE, ...){
       src <- fromJSON(json)$article$pdfDownload$linkToPdf %>% 
         paste0("http://www.sciencedirect.com", .)
     }
+    
+    # meta http-equiv refresh; Update 01 Aug, 2017, kongdd
+    p <- GET(src) %>% content(encoding = "UTF-8")
+    src <- xml_find_first(p, '//meta[@http-equiv="Refresh"]') %>% 
+      xml_attr("content") %>% gsub("^0;URL=", "", .)
+    
     # file <- paste0(outdir, doi, ".pdf")
     if (.download) write_webfile(src, outdir, ...)
     src#return trycatch
