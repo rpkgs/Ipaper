@@ -4,7 +4,7 @@
 \alias{src_SciDirect.url}
 \title{srcFUN of elsevier database}
 \usage{
-src_SciDirect.url(urls, outdir = "./", srcDownload = TRUE, ...)
+src_SciDirect.url(urls, outdir = "./", .download = TRUE, ...)
 }
 \description{
 download pdfs tthrough urls other than DOIs

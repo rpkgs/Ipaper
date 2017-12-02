@@ -4,7 +4,7 @@
 \alias{src_SciDirect.doi}
 \title{srcFUN of elsevier database}
 \usage{
-src_SciDirect.doi(DOIs, outdir = "./", srcDownload = TRUE, ...)
+src_SciDirect.doi(DOIs, outdir = "./", .download = TRUE, ...)
 }
 \arguments{
 \item{DOIs}{according to doi, it find corresponding paper and download it. 

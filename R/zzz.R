@@ -36,3 +36,18 @@ getwd_clip <- function(){
 #' @description set directory path in clipboard, same as setwd function
 #' @export
 setwd_clip <- function() setwd(getwd_clip())
+
+#' @title makeVIDEO
+#' @description make video through ffmpeg
+#' @export
+makeVIDEO <- function(file = "ffmpeg_%d.avi", path, 
+                      mode = c("ultrafast", "slow", "veryslow")){
+  mode <- mode[1]
+  shell(sprintf("(for %%i in (%s\\*.png) do @echo file '%%i') > list.txt", 
+                gsub("/", "\\\\", path)))
+  shell(sprintf("ffmpeg -safe 0 -f concat -r 2 -i list.txt -c:v libx264 -preset %s -crf 0 %s", 
+                mode, gsub("/", "\\\\", file)))
+  file.remove("list.txt") #remove list.txt, return null
+}
+
+  
