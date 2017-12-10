@@ -7,6 +7,5 @@
 dir.show(path = getwd())
 }
 \description{
-open assign path in windows explorer, and default path is 
-current directory. This function is only designed for windows system.
+open assign path in windows explorer, and default path is current directory
 }

@@ -47,10 +47,6 @@ Init_Check <- function(doi, outdir){
   sapply(doi, URLdecode, USE.NAMES = F)
 }
 
-DOIs_web <- function(file){
-  
-}
-
 # download_AMS_I <- function(doi, outdir, ...){
 #   doi %<>% Init_Check(outdir)
 #   url <- paste0("http://journals.ametsoc.org/doi/pdf/", doi)
