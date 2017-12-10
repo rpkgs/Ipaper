@@ -1,11 +1,11 @@
 Package: Ipaper
 Type: Package
-Title: download papers using DOI
+Title: Paper writing tools
 Version: 0.1.0
 Authors@R: person("Dongdong", "Kong", email = "kongdd@live.cn",
   role = c("aut", "cre"))
 Maintainer: kongdd<kongdd@live.cn>
-Description: download papers batchly using DOIs from many database
+Description: Download papers batchly using DOIs from many database. And some practical functions.
 License: MIT
 LazyData: TRUE
 import:
