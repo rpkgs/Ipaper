@@ -1,5 +1,4 @@
 # library(openxlsx)
-# library(floodmap)
 # library(reshape2)
 # library(plyr)
 
@@ -45,10 +44,6 @@ get_DOI <- function(x) {
 Init_Check <- function(doi, outdir){
   if (!dir.exists(outdir)) dir.create(outdir)
   sapply(doi, URLdecode, USE.NAMES = F)
-}
-
-DOIs_web <- function(file){
-  
 }
 
 # download_AMS_I <- function(doi, outdir, ...){

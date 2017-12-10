@@ -35,6 +35,20 @@ dir.show <- function(path = getwd()){
   suppressWarnings(shell(commandStr))
 }
 
+#' @title getwd_clip
+#' @description get directory path in clipboard, same as getwd function
+#' @export
+getwd_clip <- function(){
+  path <- suppressWarnings(gsub("\\\\", "/", readLines("clipboard")))
+  writeLines(path, "clipboard", sep = "")
+  path#quickly return
+}
+
+#' @title setwd_clip
+#' @description set directory path in clipboard, same as setwd function
+#' @export
+setwd_clip <- function() setwd(getwd_clip())
+
 #' @title fprintf
 #' @description print sprintf result into console just like C style fprintf function
 #' @export
@@ -45,20 +59,6 @@ fprintf <- function(fmt, ...) cat(sprintf(fmt, ...))
 runningId <- function(i, step = 1) {
     if (mod(i, step) == 0) cat(sprintf("running %d ...\n", i))
 }
-
-#' @title getwd_clip
-#' @description get directory path in clipboard, same as getwd function
-#' @export
-getwd_clip <- function(){
-  path <- suppressWarnings(gsub("\\\\", "/",readLines("clipboard")))
-  writeLines(path, "clipboard", sep = "")
-  path#quickly return
-}
-
-#' @title setwd_clip
-#' @description set directory path in clipboard, same as setwd function
-#' @export
-setwd_clip <- function() setwd(getwd_clip())
 
 #' @title makeVIDEO
 #' @description make video through ffmpeg
