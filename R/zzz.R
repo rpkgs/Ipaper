@@ -9,11 +9,11 @@
 #' @import httr xml2 magrittr
 NULL
 
-windowsFonts(
-  Times = windowsFont("Times New Roman"), 
-  ST    = windowsFont("宋体"), 
-  YH    = windowsFont("Microsoft Yahei"), 
-  Arial = windowsFont("Arial"))
+# windowsFonts(
+#   Times = windowsFont("Times New Roman"), 
+#   ST    = windowsFont("宋体"), 
+#   YH    = windowsFont("Microsoft Yahei"), 
+#   Arial = windowsFont("Arial"))
 
 #' pal
 #' show colors in figure device
