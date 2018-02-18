@@ -77,7 +77,7 @@ src_wiley_I <- function(DOIs, outdir = "./", srcDownload = TRUE, ...){
 .SciDirect <- function(url, type = c("url", "doi"), .download = TRUE, outdir, ...){
   tryCatch({
     if (type[1] == "doi"){
-      p <- POST("http://dx.doi.org/", encode = "form",
+      p <- POST("https://doi.org/", encode = "form",
                 body = list(hdl = url)) %>% content(encoding = "UTF-8")
     }else if (type[1] == "url"){
       p <- GET(url) %>% content(encoding = "UTF-8")
