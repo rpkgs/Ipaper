@@ -74,30 +74,53 @@ src_wiley_I <- function(DOIs, outdir = "./", srcDownload = TRUE, ...){
   sapply(urls, FUN, USE.NAMES = FALSE)#return srcs
 }
 
+# get refreshed URL from https://doi.org/
+getRefreshUrl_DOI <- function(p){
+    url <- tryCatch({
+    xml_find_first(p, "//meta[@http-equiv='REFRESH']") %>% xml_attr("content") %>% 
+        str_extract("(?<=Redirect=).*(?='$)") %>% URLdecode()
+    }, error = function(e){NA})
+    return(url)
+}
+
+# get refreshed download URL from SciDirect
+getRefreshUrl_SD <- function(p){
+    url <- tryCatch({
+        xml_find_first(p, '//div[@id="redirect-message"]/p/a') %>% xml_attr("href")
+    }, error = function(e){NA})
+    return(url)
+}
+
 .SciDirect <- function(url, type = c("url", "doi"), .download = TRUE, outdir, ...){
   tryCatch({
     if (type[1] == "doi"){
-      p <- POST("https://doi.org/", encode = "form",
-                body = list(hdl = url)) %>% content(encoding = "UTF-8")
+        p <- POST("https://doi.org/", encode = "form",
+                  body = list(hdl = url)) %>% content(encoding = "UTF-8") 
+        
+        ## 1. redirect by DOI: "//meta[@http-equiv='REFRESH']"
+        url <- getRefreshUrl_DOI(p)
+        if (!is.na(url)){
+            p <- GET(url) %>% content(encoding = "UTF-8")
+        }
     }else if (type[1] == "url"){
-      p <- GET(url) %>% content(encoding = "UTF-8")
+        p <- GET(url) %>% content(encoding = "UTF-8")
     }
     
     json <- xml_find_first(p, "//script[@type='application/json']") %>% xml_text
     
     if (is.na(json)){
-      src <- xml_find_first(p, "//a[@id='pdfLink']") %>% xml_attr("href")
-      # or "//div[@class='PdfDropDownMenu']"
+        src <- xml_find_first(p, "//a[@id='pdfLink']") %>% xml_attr("href")
+        # or "//div[@class='PdfDropDownMenu']"
     }else{
-      src <- fromJSON(json)$article$pdfDownload$linkToPdf %>% 
-        paste0("http://www.sciencedirect.com", .)
+        src <- fromJSON(json)$article$pdfDownload$linkToPdf %>% 
+            paste0("http://www.sciencedirect.com", .)
     }
     
-    # meta http-equiv refresh; Update 01 Aug, 2017, kongdd
-    p <- GET(src) %>% content(encoding = "UTF-8")
-    src <- xml_find_first(p, '//meta[@http-equiv="Refresh"]') %>% 
-      xml_attr("content") %>% gsub("^0;URL=", "", .)
-    
+    ## 2. redirect by ScienceDirect
+    p       <- GET(src) %>% content(encoding = "UTF-8")
+    src_new <- getRefreshUrl_SD(p)
+
+    if (!is.na(src_new)) { src <- src_new }
     # file <- paste0(outdir, doi, ".pdf")
     if (.download) write_webfile(src, outdir, ...)
     src#return trycatch

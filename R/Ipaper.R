@@ -9,7 +9,7 @@
 
 # source("E:/GitHub/RCurl_project/R/MainFunction.R", encoding = "utf-8")
 # httpheader: used to cheat web server
-header <- "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
+header <- "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
 
 ## global functions -------------------------------------------------------
 #' write_urls
@@ -26,9 +26,15 @@ write_urls <- function(urls, file){
 
 #' get DOIs from endnote export xml files
 #' 
-#' @export 
-get_DOI <- function(x) {
-  xml_find_first(x, "electronic-resource-num") %>% xml_text() %>% gsub("\r\n| ", "", .)
+#' @param file Endnote exported xml file path, DOI information must be included.
+#' @export
+get_DOIs <- function(file) {
+    doc    <- read_xml(file)
+    titles <- xml_find_all(doc, "//title") %>% xml_text()
+    dois   <- xml_find_all(doc, "//electronic-resource-num") %>% xml_text() %>% 
+        gsub("\r\n| ", "", .)
+
+    data.frame(title = titles, DOI = dois, stringsAsFactors = F)#quickly return
 }
 
 #' check outdir and doi
