@@ -6,12 +6,11 @@ prj84 <- sp::CRS("+proj=longlat +ellps=WGS84 +datum=WGS84")
 
 #' extractId
 #' @export
-extractId <- function(station, shpFname){
-    coordinates(station) <- ~long + lat
-    proj4string(station) <- prj
+extractId <- function(station, shpFname, formula = ~lon+lat){
+    sp    <- df2sp(station, formula, prj84)
 
-    shp   <- readShapePoly(shpFname, proj4string = prj)
-    bound <- SpatialPolygons(shp@polygons, proj4string = prj)
+    shp   <- readShapePoly(shpFname, proj4string = prj84)
+    bound <- SpatialPolygons(shp@polygons, proj4string = prj84)
     ## clipped station
     clipId <- which(!is.na(over(station, bound))) %>% as.numeric
 
@@ -59,11 +58,12 @@ get_grid <- function(range, cellsize, midgrid = c(TRUE, TRUE)) {
 #' df2sp
 #' Convert dataframe data into SpatialPointsDataframe
 #' @export
-df2sp <- function(x, prj){  
-  if (missing(prj)) prj <- sp::CRS("+proj=longlat +ellps=WGS84 +datum=WGS84")
-  coordinates(x) <- ~long + lat
-  proj4string(x) <- prj
-  return(x)
+df2sp <- function (x, formula = ~lon + lat, prj){
+    if (missing(prj))
+        prj <- sp::CRS("+proj=longlat +ellps=WGS84 +datum=WGS84")
+    coordinates(x) <- formula
+    proj4string(x) <- prj
+    return(x)
 }
 
 #' rdist.earth
