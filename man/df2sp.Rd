@@ -5,7 +5,7 @@
 \title{df2sp
 Convert dataframe data into SpatialPointsDataframe}
 \usage{
-df2sp(x, prj)
+df2sp(x, formula = ~lon + lat, prj)
 }
 \description{
 df2sp

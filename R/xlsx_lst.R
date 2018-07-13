@@ -2,9 +2,6 @@
 #' @description base function, write list x into fileName with each list in workbook,
 #' write shapefile dbf table into excel *.xlsx
 #' @details should be cautious that x attribute name can't be NULL should be
-#' @examples
-#' data(hydrodata)
-#' writelist_ToXlsx("hydrodata.xlsx", hydrodata, .progress = "text")
 #' @import openxlsx
 #' @export
 #'
@@ -34,9 +31,6 @@ writelist_ToXlsx <- function (x, fname, .progress = "text", rowNames = FALSE, ..
 #' @description base function, if one excel file hava many sheets, this function will be work
 #' @details should be cautious that x attribute name can't be NULL should be
 #' @param fname file name included path going to be read.
-#' @examples
-#' fname <- system.file("data", "hydrodata.xlsx", package = "floodmap")
-#' x <- readxlsx_ToList(fname)
 #' @import openxlsx readxl
 #' @importFrom plyr llply
 #' @export

@@ -4,8 +4,7 @@
 \alias{par_sbatch}
 \title{par_sbatch}
 \usage{
-par_sbatch(X, FUN, ..., save = F, outdir = ".", nodes = 8,
-  cpus_per_node = 16)
+par_sbatch(X, FUN, ..., return.res = F, Save = F, outdir = ".")
 }
 \arguments{
 \item{X}{a vector (atomic or list) or an expressions vector. Other objects
@@ -16,13 +15,11 @@ par_sbatch(X, FUN, ..., save = F, outdir = ".", nodes = 8,
 
 \item{...}{other parameters passed to mclapply}
 
-\item{nodes}{The (maximum) number of cluster nodes to spread the calculation
-over. slurm_apply automatically divides params in chunks of approximately
-equal size to send to each node. Less nodes are allocated if the parameter
-set is too small to use all CPUs on the requested nodes.}
+\item{return.res}{Default is no return result.}
 
-\item{cpus_per_node}{The number of CPUs per node on the cluster;
-determines how many processes are run in parallel per node.}
+\item{Save}{save result in rda file or not?}
+
+\item{outdir}{String, output directory for rda file if Save = true.}
 }
 \description{
 R parallel function, designed for linux sbatch model.

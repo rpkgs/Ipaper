@@ -8,10 +8,12 @@
 #' (mcmapply) in parallel to ....
 #' @param ... other parameters passed to mclapply
 #' @param return.res Default is no return result.
+#' @param Save save result in rda file or not?
+#' @param outdir String, output directory for rda file if Save = true.
 #' 
 #' @importFrom parallel mclapply
 #' @export
-par_sbatch <- function(X, FUN, ..., return.res = F, save = F, outdir = '.'){
+par_sbatch <- function(X, FUN, ..., return.res = F, Save = F, outdir = '.'){
     nparams <- length(X)
     # NODES, CPUS_PER_NODE are defined in sbatch file
     # READ NODES AND CPUS FROM SYSTEM ENV
@@ -59,7 +61,7 @@ par_sbatch <- function(X, FUN, ..., return.res = F, save = F, outdir = '.'){
     #     message(sprintf('[warning]: %s', w$message))
     #     # stopCluster(cl)
     # } #can't write warning here, code break
-    if (save){
+    if (Save){
         if (!dir.exists(outdir)) dir.create(outdir)
         saveRDS(res, file = paste0(outdir, '/results_', I_node, '.RDS'))        
     }
@@ -68,16 +70,24 @@ par_sbatch <- function(X, FUN, ..., return.res = F, save = F, outdir = '.'){
     NULL 
 }
 
-#' get_slurm_out
+#' get_sbatch
+#' 
 #' Merge the slurm result.
+#' 
+#' @param indir directory to search rda files
+#' @param pattern an optional regular expression. Only file names which match 
+#' the regular expression will be returned.
+#' @param Save save result in rda file or not?
+#' @param outfile If Save = T, output rda file name.
+#' 
 #' @export
-get_slurm_out <- function(indir = '.', pattern = 'result.*.RDS',
-                          outfile = "result.rda", IsSave = TRUE){
+get_sbatch <- function(indir = '.', pattern = 'result.*.RDS',
+                          Save = TRUE, outfile = "result.rda"){
     files <- dir(indir, pattern, full.names = T)
     cat('OUTPUTs:', "\n")
     print(basename(files))
     RES <- lapply(files, readRDS) %>% do.call(c, .)
 
-    if (IsSave) save(RES, file = outfile)
+    if (Save) save(RES, file = outfile)
     return(RES)
 }

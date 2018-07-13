@@ -15,6 +15,9 @@ get_grid(range, cellsize, midgrid = c(TRUE, TRUE))
 begin point and end point locate on grid lines; If true, then begin point and
 end point in the middle of grid.}
 }
+\description{
+construct SpatialGridDataFrame
+}
 \examples{
 range <- c(25, 40, 73, 105) # Tibetan Plateau
 Grid  <- get_grid(range, cellsize = 1/12, midgrid = TRUE)

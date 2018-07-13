@@ -15,7 +15,3 @@ base function, if one excel file hava many sheets, this function will be work
 \details{
 should be cautious that x attribute name can't be NULL should be
 }
-\examples{
-fname <- system.file("data", "hydrodata.xlsx", package = "floodmap")
-x <- readxlsx_ToList(fname)
-}

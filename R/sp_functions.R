@@ -57,6 +57,7 @@ get_grid <- function(range, cellsize, midgrid = c(TRUE, TRUE)) {
 
 #' df2sp
 #' Convert dataframe data into SpatialPointsDataframe
+#' 
 #' @export
 df2sp <- function (x, formula = ~lon + lat, prj){
     if (missing(prj))

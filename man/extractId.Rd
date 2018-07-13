@@ -4,7 +4,7 @@
 \alias{extractId}
 \title{extractId}
 \usage{
-extractId(station, shpFname)
+extractId(station, shpFname, formula = ~lon + lat)
 }
 \description{
 extractId

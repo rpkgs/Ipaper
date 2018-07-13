@@ -13,7 +13,3 @@ write shapefile dbf table into excel *.xlsx
 \details{
 should be cautious that x attribute name can't be NULL should be
 }
-\examples{
-data(hydrodata)
-writelist_ToXlsx("hydrodata.xlsx", hydrodata, .progress = "text")
-}
