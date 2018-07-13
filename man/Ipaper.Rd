@@ -4,10 +4,8 @@
 \name{Ipaper}
 \alias{Ipaper}
 \alias{Ipaper-package}
+\alias{Ipaper-package}
 \title{Ipaper}
-\description{
-Ipaper
-}
 \keyword{DOI}
 \keyword{download}
 \keyword{paper}

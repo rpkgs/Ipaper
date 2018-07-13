@@ -2,10 +2,30 @@
 % Please edit documentation in R/zzz.R
 \name{fprintf}
 \alias{fprintf}
-\title{fprintf}
+\alias{runningId}
+\title{fprintf
+print sprintf result into console just like C style fprintf function}
 \usage{
 fprintf(fmt, ...)
+
+runningId(i, step = 1, prefix = "")
+}
+\arguments{
+\item{fmt}{a character vector of format strings, each of up to 8192 bytes.}
+
+\item{...}{values to be passed into fmt. Only logical, integer, real and 
+character vectors are supported, but some coercion will be done: see the 
+‘Details’ section. Up to 100.}
+
+\item{i}{the running Id.}
+
+\item{step}{how long of print step.}
+
+\item{prefix}{prefix string}
 }
 \description{
+fprintf
 print sprintf result into console just like C style fprintf function
+
+print the running ID in the console
 }

@@ -7,6 +7,11 @@ show colors in figure device}
 \usage{
 pal(col, border = "light gray")
 }
+\arguments{
+\item{col}{colors to be visualize.}
+
+\item{border}{rect border for each color}
+}
 \description{
 pal
 show colors in figure device

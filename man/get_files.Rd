@@ -9,7 +9,12 @@ get_files(indir, pattern = "*.txt", full.names = F)
 \arguments{
 \item{indir}{directory where stored results}
 
-\item{pattern}{certain file with assign pattern returned by dir function in remote computer indir}
+\item{pattern}{certain file with assign pattern returned by dir function in 
+remote computer indir.}
+
+\item{full.names}{a logical value. If TRUE, the directory path is prepended 
+to the file names to give a relative file path. If FALSE, the file names 
+(rather than paths) are returned.}
 }
 \description{
 store calculated result in remote computers, and retrieve them later

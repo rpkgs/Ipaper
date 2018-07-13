@@ -4,23 +4,29 @@ Title: Paper writing tools
 Version: 0.1.1
 Authors@R: person("Dongdong", "Kong", email = "kongdd.sysu@gmail.com",
   role = c("aut", "cre"))
-Maintainer: kongdd<kongdd@live.cn>
+Maintainer: kongdd<kongdd.sysu@gmail.com>
 Description: Download papers batchly using DOIs from many database. And some practical functions.
-License: MIT
+License: MIT + file LICENSE
 LazyData: TRUE
-import:
-RoxygenNote: 6.0.1.9000
+import: 
+RoxygenNote: 6.0.1
 Suggests: testthat,
     knitr,
     rmarkdown
-LinkingTo:
+LinkingTo: 
 Imports:
     httr,
     xml2,
     magrittr,
-    stringr,
+    stringr, purrr, 
     jsonlite, 
     maptools,
     sp,
-    data.table
+    data.table,
+    openxlsx, readxl, 
+    plyr, 
+    rgdal, 
+    RANN, 
+    reshape2,
+    graphics, methods
 VignetteBuilder: knitr

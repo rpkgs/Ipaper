@@ -2,10 +2,19 @@
 % Please edit documentation in R/parallel_remote_functions.R
 \name{sysinfo}
 \alias{sysinfo}
-\title{sysinfo}
+\title{sysinfo
+
+Get CPU and MEMORY information of parallel remote computers. About 1.6s 
+return the information}
 \usage{
 sysinfo(client)
 }
-\description{
-get CPU and MEMORY information of parallel remote computers. About 1.6s return the information
+\arguments{
+\item{client}{List object
+\itemize{
+\item \code{rshcmd} The command to be run on the master to launch a process 
+on another host. Defaults to ssh.
+\item \code{user} The user name to be used when communicating with another host.
+\item \code{host} Host ip or name
+}}
 }

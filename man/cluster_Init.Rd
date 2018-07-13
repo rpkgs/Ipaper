@@ -6,10 +6,21 @@
 \usage{
 cluster_Init(ncluster = 4, pkgs, vars, expr)
 }
+\arguments{
+\item{ncluster}{How many clusters to open?}
+
+\item{pkgs}{loaded packages for every cluster}
+
+\item{vars}{common variables for every cluster}
+
+\item{expr}{expressions to be evaluated for every cluster}
+}
 \description{
 Initial clusters for parallel computing based on parallel package
 }
 \examples{
+\dontrun{
 cluster_Init(pkgs = "httr",
      expr = source("R/mainfunc/main.R", encoding = "utf-8"))
+}
 }

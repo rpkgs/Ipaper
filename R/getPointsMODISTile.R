@@ -17,6 +17,7 @@
 #' 
 #' @export
 #' @importFrom data.table data.table
+#' @importFrom rgdal project
 getPointsMODISTile <- function(coor, cellsize = 1/240){
     scale    <- 463.312716528 *cellsize*240 # meter; 1km: 926.625433055833
     nline    <- 1/cellsize*10               # how many lines per tile?
@@ -24,7 +25,7 @@ getPointsMODISTile <- function(coor, cellsize = 1/240){
     proj_sin <- "+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +a=6371007.181 +b=6371007.181 +units=m +no_defs"
 
     # coor: coordinate matrix, (longitude, latitude)
-    sin_xy <- project(coor, proj)
+    sin_xy <- project(coor, proj_sin)
     sin_ij <- sin_xy/scale
     
     h <- floor(sin_ij[, 1]/nline) + 18

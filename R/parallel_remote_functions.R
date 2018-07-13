@@ -1,10 +1,18 @@
 #' Initial Clusters
 #' 
 #' Initial clusters for parallel computing based on parallel package
+#' 
+#' @param ncluster How many clusters to open?
+#' @param pkgs loaded packages for every cluster
+#' @param vars common variables for every cluster
+#' @param expr expressions to be evaluated for every cluster
+#' 
 #' @import parallel
 #' @examples 
+#' \dontrun{
 #' cluster_Init(pkgs = "httr",
 #'      expr = source("R/mainfunc/main.R", encoding = "utf-8"))
+#' }
 #' @export
 cluster_Init <- function(ncluster = 4, pkgs, vars, expr) {
     cl <- makeCluster(ncluster, type = "SOCK", outfile = "log.txt")
@@ -58,8 +66,13 @@ check_dir <- function(indir){
 
 #' @title get_files
 #' @description  store calculated result in remote computers, and retrieve them later
+#' 
 #' @param indir directory where stored results
-#' @param pattern certain file with assign pattern returned by dir function in remote computer indir
+#' @param pattern certain file with assign pattern returned by dir function in 
+#' remote computer indir.
+#' @param full.names a logical value. If TRUE, the directory path is prepended 
+#' to the file names to give a relative file path. If FALSE, the file names 
+#' (rather than paths) are returned.
 #' @export
 get_files <- function(indir, pattern="*.txt", full.names = F){
   files <- NULL
@@ -80,7 +93,17 @@ selectHost <- function(cl){
 }
 
 #' @title sysinfo
-#' @description get CPU and MEMORY information of parallel remote computers. About 1.6s return the information
+#' 
+#' Get CPU and MEMORY information of parallel remote computers. About 1.6s 
+#' return the information
+#' 
+#' @param client List object
+#' \itemize{
+#' \item \code{rshcmd} The command to be run on the master to launch a process 
+#' on another host. Defaults to ssh.
+#' \item \code{user} The user name to be used when communicating with another host.
+#' \item \code{host} Host ip or name
+#' }
 #' @export
 sysinfo <- function(client){
   # Sys.info()
@@ -90,10 +113,10 @@ sysinfo <- function(client){
     cmd_login <- sprintf("%s %s@%s ", client$rshcmd, client$user, client$host)
   }
   # system.time({
-  cpu <- shell(paste0(cmd_login,"wmic cpu get loadpercentage,NumberOfLogicalProcessors /format:value"), wait=F,intern=T)
-  memo.total <- shell(paste0(cmd_login,"%SystemRoot%\\System32\\wbem\\wmic.exe ComputerSystem get TotalPhysicalMemory /format:value"), 
+  cpu <- system(paste0(cmd_login,"wmic cpu get loadpercentage,NumberOfLogicalProcessors /format:value"), wait=F,intern=T)
+  memo.total <- system(paste0(cmd_login,"%SystemRoot%\\System32\\wbem\\wmic.exe ComputerSystem get TotalPhysicalMemory /format:value"), 
                       wait=F,intern=T)
-  memo.free <- shell(paste0(cmd_login,"%SystemRoot%\\System32\\wbem\\wmic.exe OS get FreePhysicalMemory /format:value"), 
+  memo.free <- system(paste0(cmd_login,"%SystemRoot%\\System32\\wbem\\wmic.exe OS get FreePhysicalMemory /format:value"), 
                      wait=F,intern=T)
   # })
   ## extact information from cmd results

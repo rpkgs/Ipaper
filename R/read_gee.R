@@ -7,6 +7,8 @@
 #' @param IsSave save or not?
 #' 
 #' @rdname read_gee
+#' @importFrom purrr map reduce
+#' @importFrom data.table data.table as.data.table setkeyv fwrite
 #' @export
 read_jsons.gee <- function(indir,
                            pattern = "phenoflux212.*.geojson",
@@ -16,7 +18,10 @@ read_jsons.gee <- function(indir,
         set_names(str_extract(., "(?<=_)\\d+[km]{1,2}(?=_buffer)"))
     lst <- llply(files, read_json.gee, baseprob = baseprob, .progress = "text")
 
-    df <- melt_list(lst, "scale")
+    # fix colnames not same in the lst
+    names_common <- reduce(llply(lst, names), intersect)
+    df <- map(lst, ~.x[, ..names_common]) %>% melt_list("scale") # only for data.table
+
     setkeyv(df, baseprob)
     setkeyv(df, "scale")
 
@@ -29,6 +34,7 @@ read_jsons.gee <- function(indir,
 #' read json file exported from GEE
 #' 
 #' @inheritParams read_jsons.gee
+#' @param file json file path
 #' @param is_buffer buffered or not?
 #' 
 #' @rdname read_gee
@@ -39,8 +45,8 @@ read_json.gee <- function(file, baseprob = c("site", "date"), is_buffer){
     lst <- read_json(file)$features %>% map("properties")
 
     varnames  <- names(lst[[1]])
-    baseprob  <- intersect(varnames, c("site", "date"))
-    bandNames <- setdiff(varnames, c("site", "date"))
+    baseprob  <- intersect(varnames, baseprob)
+    bandNames <- setdiff(varnames, baseprob)
 
     # get value from every site and every date
     getEach <- function(x){

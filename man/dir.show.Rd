@@ -6,6 +6,9 @@
 \usage{
 dir.show(path = getwd())
 }
+\arguments{
+\item{path}{the path you want to open}
+}
 \description{
 open assign path in windows explorer, and default path is 
 current directory. This function is only designed for windows system.

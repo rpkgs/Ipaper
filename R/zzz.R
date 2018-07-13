@@ -4,9 +4,14 @@
 #' @aliases Ipaper-package
 #' @docType package
 #' @keywords download paper DOI
+#' 
 #' @importFrom stringr str_extract
-#' @importFrom jsonlite fromJSON
-#' @import httr xml2 magrittr
+#' @importFrom jsonlite fromJSON read_json
+#' @importFrom purrr is_empty map transpose
+#' @importFrom methods as
+#' @importFrom data.table data.table
+#' @importFrom graphics plot rect
+#' @import httr xml2 magrittr plyr
 NULL
 
 # windowsFonts(
@@ -17,6 +22,10 @@ NULL
 
 #' pal
 #' show colors in figure device
+#' 
+#' @param col colors to be visualize.
+#' @param border rect border for each color
+#' 
 #' @export
 pal <- function(col, border = "light gray")
 {
@@ -29,19 +38,29 @@ pal <- function(col, border = "light gray")
 #' @title dir.show
 #' @description open assign path in windows explorer, and default path is 
 #' current directory. This function is only designed for windows system.
+#' 
+#' @param path the path you want to open
 #' @export
 dir.show <- function(path = getwd()){
-  commandStr <- paste("Explorer /e, ", gsub("/", "\\\\", path))
-  suppressWarnings(shell(commandStr))
+    if (.Platform$OS.type == 'windows'){
+        commandStr <- paste("Explorer /e, ", gsub("/", "\\\\", path))
+        suppressWarnings(shell(commandStr))  
+    }
 }
 
-#' @title getwd_clip
-#' @description get directory path in clipboard, same as getwd function
+#' getwd_clip
+#' 
+#' get directory path in clipboard, same as getwd function
+#' 
+#' @references
+#' https://stackoverflow.com/questions/10959521/how-to-write-to-clipboard-on-ubuntu-linux-in-r
 #' @export
 getwd_clip <- function(){
-  path <- suppressWarnings(gsub("\\\\", "/", readLines("clipboard")))
-  writeLines(path, "clipboard", sep = "")
-  path#quickly return
+    if (.Platform$OS.type == 'windows') {
+        path <- suppressWarnings(gsub("\\\\", "/", readLines("clipboard")))
+        writeLines(path, "clipboard", sep = "")
+        path#quickly return
+    }
 }
 
 #' @title setwd_clip
@@ -49,16 +68,29 @@ getwd_clip <- function(){
 #' @export
 setwd_clip <- function() setwd(getwd_clip())
 
-#' @title fprintf
-#' @description print sprintf result into console just like C style fprintf function
+#' fprintf
+#' print sprintf result into console just like C style fprintf function
+#' 
+#' @param fmt a character vector of format strings, each of up to 8192 bytes.
+#' @param ... values to be passed into fmt. Only logical, integer, real and 
+#' character vectors are supported, but some coercion will be done: see the 
+#' ‘Details’ section. Up to 100.
+#' 
 #' @export
 fprintf <- function(fmt, ...) cat(sprintf(fmt, ...))
 
-#' @title runningId
+#' print the running ID in the console
+#' 
+#' @param i the running Id.
+#' @param step how long of print step.
+#' @param prefix prefix string
+#' 
+#' @rdname fprintf
 #' @export
-runningId <- function(i, step = 1) {
-    if (mod(i, step) == 0) cat(sprintf("running %d ...\n", i))
+runningId <- function(i, step = 1, prefix = "") {
+  if (mod(i, step) == 0) cat(sprintf("%s running %d ...\n", prefix, i))
 }
+
 
 #' @title makeVIDEO
 #' @description make video through ffmpeg
@@ -73,9 +105,9 @@ makeVIDEO <- function(file = "ffmpeg_%d.avi",
                       path = ".", pattern = "*.png",
                       mode = c("ultrafast", "slow", "veryslow")){
   mode <- mode[1]
-  shell(sprintf("(for %%i in (%s\\%s) do @echo file '%%i') > list.txt", 
+  system(sprintf("(for %%i in (%s\\%s) do @echo file '%%i') > list.txt", 
                 gsub("/", "\\\\", path), pattern))
-  shell(sprintf("ffmpeg -safe 0 -f concat -r 2 -i list.txt -c:v libx264 -preset %s -crf 0 %s", 
+  system(sprintf("ffmpeg -safe 0 -f concat -r 2 -i list.txt -c:v libx264 -preset %s -crf 0 %s", 
                 mode, gsub("/", "\\\\", file) ))
   file.remove("list.txt") #remove list.txt, return null
 }

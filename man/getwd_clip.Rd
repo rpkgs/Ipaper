@@ -9,3 +9,6 @@ getwd_clip()
 \description{
 get directory path in clipboard, same as getwd function
 }
+\references{
+https://stackoverflow.com/questions/10959521/how-to-write-to-clipboard-on-ubuntu-linux-in-r
+}

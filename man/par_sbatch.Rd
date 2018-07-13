@@ -4,7 +4,8 @@
 \alias{par_sbatch}
 \title{par_sbatch}
 \usage{
-par_sbatch(X, FUN, ..., return.res = F, Save = F, outdir = ".")
+par_sbatch(X, FUN, ..., return.res = F, Save = F, outdir = ".",
+  prefix = "results_", overwrite = T)
 }
 \arguments{
 \item{X}{a vector (atomic or list) or an expressions vector. Other objects
@@ -20,6 +21,10 @@ par_sbatch(X, FUN, ..., return.res = F, Save = F, outdir = ".")
 \item{Save}{save result in rda file or not?}
 
 \item{outdir}{String, output directory for rda file if Save = true.}
+
+\item{prefix}{File name prefix.}
+
+\item{overwrite}{Boolean, overwrite exist files or not.}
 }
 \description{
 R parallel function, designed for linux sbatch model.

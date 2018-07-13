@@ -5,9 +5,15 @@ sudo: false
 cache: packages
 warnings_are_errors: false
 
+addons:
+  apt:
+    packages:
+      - libgdal-dev
+      - libproj-dev
+      - xclip
+
 r_github_packages:
   - r-lib/covr
 
 after_success:
   - Rscript -e 'covr::codecov()'
-  

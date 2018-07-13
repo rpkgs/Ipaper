@@ -10,10 +10,15 @@
 #' @param return.res Default is no return result.
 #' @param Save save result in rda file or not?
 #' @param outdir String, output directory for rda file if Save = true.
+#' @param prefix File name prefix.
+#' @param overwrite Boolean, overwrite exist files or not.
 #' 
 #' @importFrom parallel mclapply
 #' @export
-par_sbatch <- function(X, FUN, ..., return.res = F, Save = F, outdir = '.'){
+par_sbatch <- function(X, FUN, ..., 
+                       return.res = F, Save = F, 
+                       outdir = '.', prefix = 'results_', overwrite = T)
+{
     nparams <- length(X)
     # NODES, CPUS_PER_NODE are defined in sbatch file
     # READ NODES AND CPUS FROM SYSTEM ENV
@@ -29,7 +34,12 @@ par_sbatch <- function(X, FUN, ..., return.res = F, Save = F, outdir = '.'){
     cpus_per_node <- as.numeric(Sys.getenv('SLURM_CPUS_ON_NODE'))
     
     if (is.na(I_node)) I_node <- 0 # sinteractive mode
+    if (is.na(nodes))  nodes  <- 1
+    if (is.na(cpus_per_node)) cpus_per_node <- 1
     
+    outfile = paste0(outdir, '/', prefix, I_node, '.RDS')
+    if (Save && file.exists(outfile) && !overwrite) return(NULL)
+
     if (nparams < cpus_per_node * nodes) {
         nchunk <- cpus_per_node
     }else {
@@ -62,9 +72,10 @@ par_sbatch <- function(X, FUN, ..., return.res = F, Save = F, outdir = '.'){
     #     # stopCluster(cl)
     # } #can't write warning here, code break
     if (Save){
-        if (!dir.exists(outdir)) dir.create(outdir)
-        saveRDS(res, file = paste0(outdir, '/results_', I_node, '.RDS'))        
+        if (!dir.exists(outdir)) dir.create(outdir, recursive = T)
+        saveRDS(res, file = outfile)        
     }
+
     # stopCluster(cl)
     if (return.res) return(res)
     NULL 
