@@ -18,3 +18,9 @@ on another host. Defaults to ssh.
 \item \code{host} Host ip or name
 }}
 }
+\description{
+sysinfo
+
+Get CPU and MEMORY information of parallel remote computers. About 1.6s 
+return the information
+}

@@ -1,15 +1,14 @@
 Package: Ipaper
 Type: Package
 Title: Paper writing tools
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: person("Dongdong", "Kong", email = "kongdd.sysu@gmail.com",
   role = c("aut", "cre"))
-Maintainer: kongdd<kongdd.sysu@gmail.com>
 Description: Download papers batchly using DOIs from many database. And some practical functions.
 License: MIT + file LICENSE
 LazyData: TRUE
 import: 
-RoxygenNote: 6.0.1
+    RoxygenNote: 6.1.0
 Suggests: testthat,
     knitr,
     rmarkdown
@@ -22,11 +21,11 @@ Imports:
     jsonlite, 
     maptools,
     sp,
+    rgdal,
     data.table,
     openxlsx, readxl, 
     plyr, 
-    rgdal, 
-    RANN, 
     reshape2,
     graphics, methods
 VignetteBuilder: knitr
+RoxygenNote: 6.1.0

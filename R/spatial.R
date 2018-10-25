@@ -107,31 +107,31 @@ rdist.earth <- function (x1, x2 = NULL){
   return(R * acos(ifelse(abs(pp) > 1, 1 * sign(pp), pp)))
 }
 
-#' get_nearGrids
-#' 
-#' find nearest 3*3 grids of points
-#'
-#' with the help of RANN package to quickly select nearest 3*3 grids
-#' use line dist to replace sphere distance
-#' 
-#' @param grid SpatialGridDataFrame object
-#' @param sp SpatialPointDataframe object
-#' @param ngrid how many nearest grids to be extracted?
-#' @return nearId nearest order
-#' 
-#' @importFrom RANN nn2
-#' @export
-get_nearGrids <- function(grid, station, ngrid = 3*3){
-  loc_grid    <- coordinates(grid)
-  loc_station <- coordinates(station)
-  x   <- nn2(loc_grid, loc_station, ngrid)
-  res <- data.frame(stationId = rep(station@data$stationId, ngrid),
-                    nearId = rep(1:ngrid, rep(nrow(station), ngrid)),
-                    idx = as.numeric(x$nn.idx),
-                    dists = as.numeric(x$nn.dists) *6371 * pi/180)
-  # rdist.earth(loc_grid[res$idx, ], loc_station)
-  return(res)
-}
+# #' get_nearGrids
+# #' 
+# #' find nearest 3*3 grids of points
+# #'
+# #' with the help of RANN package to quickly select nearest 3*3 grids
+# #' use line dist to replace sphere distance
+# #' 
+# #' @param grid SpatialGridDataFrame object
+# #' @param sp SpatialPointDataframe object
+# #' @param ngrid how many nearest grids to be extracted?
+# #' @return nearId nearest order
+# #' 
+# #' @importFrom RANN nn2
+# #' @export
+# get_nearGrids <- function(grid, station, ngrid = 3*3){
+#   loc_grid    <- coordinates(grid)
+#   loc_station <- coordinates(station)
+#   x   <- nn2(loc_grid, loc_station, ngrid)
+#   res <- data.frame(stationId = rep(station@data$stationId, ngrid),
+#                     nearId = rep(1:ngrid, rep(nrow(station), ngrid)),
+#                     idx = as.numeric(x$nn.idx),
+#                     dists = as.numeric(x$nn.dists) *6371 * pi/180)
+#   # rdist.earth(loc_grid[res$idx, ], loc_station)
+#   return(res)
+# }
 
 #' gridSaveToPoly
 #'
