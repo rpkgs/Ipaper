@@ -17,7 +17,8 @@
 #' @export
 par_sbatch <- function(X, FUN, ..., 
                        return.res = F, Save = F, 
-                       outdir = '.', prefix = 'results_', overwrite = T)
+                       outdir = '.', prefix = 'results_', overwrite = T, 
+                       cpus_per_node = NULL)
 {
     nparams <- length(X)
     # NODES, CPUS_PER_NODE are defined in sbatch file
@@ -31,13 +32,18 @@ par_sbatch <- function(X, FUN, ...,
     # determines how many processes are run in parallel per node.
     I_node        <- as.numeric(Sys.getenv('SLURM_ARRAY_TASK_ID')) #node ID
     nodes         <- as.numeric(Sys.getenv('SLURM_JOB_NUM_NODES'))
-    cpus_per_node <- as.numeric(Sys.getenv('SLURM_CPUS_ON_NODE'))
+
+    if (is.null(cpus_per_node)){
+        cpus_per_node <- as.numeric(Sys.getenv('SLURM_CPUS_ON_NODE'))
+    }
     
     if (is.na(I_node)) I_node <- 0 # sinteractive mode
     if (is.na(nodes))  nodes  <- 1
     if (is.na(cpus_per_node)) cpus_per_node <- 1
     
-    outfile = paste0(outdir, '/', prefix, I_node, '.RDS')
+    str_node <- ifelse(nodes > 1, I_node, "")
+    outfile = paste0(outdir, '/', prefix, str_node, '.RDS')
+
     if (Save && file.exists(outfile) && !overwrite) return(NULL)
 
     if (nparams < cpus_per_node * nodes) {
@@ -93,7 +99,7 @@ par_sbatch <- function(X, FUN, ...,
 #' 
 #' @export
 get_sbatch <- function(indir = '.', pattern = 'result.*.RDS',
-                          Save = TRUE, outfile = "result.rda"){
+                          outfile = NULL, Save = !is.null(outfile)){
     files <- dir(indir, pattern, full.names = T)
     cat('OUTPUTs:', "\n")
     print(basename(files))

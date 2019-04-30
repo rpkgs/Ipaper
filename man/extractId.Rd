@@ -4,14 +4,12 @@
 \alias{extractId}
 \title{extractId}
 \usage{
-extractId(station, shpfile, formula = ~lon + lat)
+extractId(sp, shpfile)
 }
 \arguments{
-\item{station}{A data.frame with the station coordinates information}
+\item{sp}{A SpatialPointDataFrame with the station coordinates information}
 
 \item{shpfile}{A character, shape file path.}
-
-\item{formula}{~longitude+latitude}
 }
 \description{
 extractId

@@ -7,7 +7,6 @@
 #' @param vars common variables for every cluster
 #' @param expr expressions to be evaluated for every cluster
 #' 
-#' @import parallel
 #' @examples 
 #' \dontrun{
 #' cluster_Init(pkgs = "httr",
@@ -15,6 +14,7 @@
 #' }
 #' @export
 cluster_Init <- function(ncluster = 4, pkgs, vars, expr) {
+    e <- parent.frame()
     cl <- makeCluster(ncluster, type = "SOCK", outfile = "log.txt")
     pkgs_Init <- function(pkgs) {
         for (i in pkgs) 
@@ -24,11 +24,11 @@ cluster_Init <- function(ncluster = 4, pkgs, vars, expr) {
         clusterCall(cl, pkgs_Init, pkgs)
     }
     if (!missing(vars)){
-        clusterExport(cl, vars, envir = environment())
+        clusterExport(cl, vars, envir = e)
     }
     if (!missing(expr)){
         # clusterEvalQ(cl, expr = expr)
-        clusterCall(cl, eval, substitute(expr), env = .GlobalEnv)
+        clusterCall(cl, eval, substitute(expr), env = e)
     }
     assign("cl", cl, envir = .GlobalEnv)
     

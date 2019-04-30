@@ -1,7 +1,7 @@
 Package: Ipaper
 Type: Package
 Title: Paper writing tools
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: person("Dongdong", "Kong", email = "kongdd.sysu@gmail.com",
   role = c("aut", "cre"))
 Description: Download papers batchly using DOIs from many database. And some practical functions.
@@ -13,6 +13,7 @@ Suggests: testthat,
     knitr,
     rmarkdown
 LinkingTo: 
+  Rcpp, RcppArmadillo
 Imports:
     httr,
     xml2,
@@ -26,6 +27,9 @@ Imports:
     openxlsx, readxl, 
     plyr, 
     reshape2,
-    graphics, methods
+    graphics, methods,
+    Rcpp,
+    parallel,
+    doParallel
 VignetteBuilder: knitr
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

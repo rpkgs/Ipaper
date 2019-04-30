@@ -8,7 +8,7 @@ print sprintf result into console just like C style fprintf function}
 \usage{
 fprintf(fmt, ...)
 
-runningId(i, step = 1, prefix = "")
+runningId(i, prefix = "", step = 1)
 }
 \arguments{
 \item{fmt}{a character vector of format strings, each of up to 8192 bytes.}
@@ -19,9 +19,9 @@ character vectors are supported, but some coercion will be done: see the
 
 \item{i}{the running Id.}
 
-\item{step}{how long of print step.}
-
 \item{prefix}{prefix string}
+
+\item{step}{how long of print step.}
 }
 \description{
 fprintf

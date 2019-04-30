@@ -4,8 +4,8 @@
 \alias{get_sbatch}
 \title{get_sbatch}
 \usage{
-get_sbatch(indir = ".", pattern = "result.*.RDS", Save = TRUE,
-  outfile = "result.rda")
+get_sbatch(indir = ".", pattern = "result.*.RDS", outfile = NULL,
+  Save = !is.null(outfile))
 }
 \arguments{
 \item{indir}{directory to search rda files}
@@ -13,9 +13,9 @@ get_sbatch(indir = ".", pattern = "result.*.RDS", Save = TRUE,
 \item{pattern}{an optional regular expression. Only file names which match 
 the regular expression will be returned.}
 
-\item{Save}{save result in rda file or not?}
-
 \item{outfile}{If Save = T, output rda file name.}
+
+\item{Save}{save result in rda file or not?}
 }
 \description{
 Merge the slurm result.

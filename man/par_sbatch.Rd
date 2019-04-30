@@ -5,7 +5,7 @@
 \title{par_sbatch}
 \usage{
 par_sbatch(X, FUN, ..., return.res = F, Save = F, outdir = ".",
-  prefix = "results_", overwrite = T)
+  prefix = "results_", overwrite = T, cpus_per_node = NULL)
 }
 \arguments{
 \item{X}{a vector (atomic or list) or an expressions vector. Other objects

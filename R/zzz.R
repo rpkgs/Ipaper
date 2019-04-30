@@ -1,4 +1,3 @@
-
 #' @title Ipaper
 #' @name Ipaper
 #' @aliases Ipaper-package
@@ -10,10 +9,12 @@
 #' @importFrom purrr is_empty map transpose
 #' @importFrom methods as
 #' @importFrom data.table data.table
-#' @importFrom graphics plot rect
+#' @importFrom graphics rect
 #' @import httr xml2 magrittr plyr
+#' 
+#' @useDynLib Ipaper, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
 NULL
-
 # windowsFonts(
 #   Times = windowsFont("Times New Roman"), 
 #   ST    = windowsFont("宋体"), 
@@ -82,13 +83,13 @@ fprintf <- function(fmt, ...) cat(sprintf(fmt, ...))
 #' print the running ID in the console
 #' 
 #' @param i the running Id.
-#' @param step how long of print step.
 #' @param prefix prefix string
+#' @param step how long of print step.
 #' 
 #' @rdname fprintf
 #' @export
-runningId <- function(i, step = 1, prefix = "") {
-  if (mod(i, step) == 0) cat(sprintf("%s running %d ...\n", prefix, i))
+runningId <- function(i, prefix = "", step = 1) {
+    if (mod(i, step) == 0) cat(sprintf("%s | running i=%5d ...\n", prefix, i))
 }
 
 
@@ -111,5 +112,3 @@ makeVIDEO <- function(file = "ffmpeg_%d.avi",
                 mode, gsub("/", "\\\\", file) ))
   file.remove("list.txt") #remove list.txt, return null
 }
-
-  

@@ -47,13 +47,13 @@ readxlsx_ToList <- function(file, ...){
   cat(sprintf("[---- Reading File: %s ----]\n", file))
   ## judge whether it's xls or xlsx
   #  if file is *.xls use readxl::read_excel
-  if (length(grep("xls", basename(file))) != 0){
+  if (length(grep("xls$", basename(file))) != 0){
     sheetNames <- excel_sheets(file)
     x <- llply(sheetNames, function(sheet) as.data.frame(read_excel(file, sheet, ...)),
                .progress = "text")
   }else{
     sheetNames <- getSheetNames(file)
-    x <- llply(sheetNames, function(sheet) read.xlsx(file, sheet),
+    x <- llply(sheetNames, function(sheet) read.xlsx(file, sheet, ...),
                .progress = "text")
   }
   names(x) <- sheetNames

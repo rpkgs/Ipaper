@@ -1,3 +1,4 @@
+#' @import parallel
 makePSOCKcluster <- function(names, ...)
 {
     newPSOCKnode <- function(machine = "localhost", ...,

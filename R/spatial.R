@@ -23,23 +23,23 @@ df2sp <- function (d, formula = ~lon + lat, prj){
 
 #' extractId
 #' 
-#' @param station A data.frame with the station coordinates information
+#' @param sp A SpatialPointDataFrame with the station coordinates information
 #' @param shpfile A character, shape file path.
 #' @inheritParams df2sp
 #' 
 #' @importFrom maptools readShapePoly
 #' @importFrom sp SpatialPolygons over
 #' @export
-extractId <- function(station, shpfile, formula = ~lon+lat){
-    sp    <- df2sp(station, formula, prj84)
-
+extractId <- function(sp, shpfile){
+    # formula <- ~lon+lat
+    # sp    <- df2sp(station, formula, prj84)
     shp   <- readShapePoly(shpfile, proj4string = prj84)
     bound <- SpatialPolygons(shp@polygons, proj4string = prj84)
     ## clipped station
-    clipId <- which(!is.na(over(station, bound))) %>% as.numeric
+    clipId <- which(!is.na(over(sp, bound))) %>% as.numeric
 
     plot(shp, axes = T)
-    plot(station[clipId, ], add = T)
+    plot(sp[clipId, ], add = T)
     clipId#return clipId
 }
 
@@ -71,7 +71,8 @@ get_grid <- function(range, cellsize, midgrid = c(TRUE, TRUE), prj = prj84) {
     }
     
     offset  <- c(long_range[1], lat_range[1]) + cellsize/2 * (midgrid)
-    dims    <- c(diff(long_range), diff(lat_range)) / cellsize + !midgrid
+    dims    <- {c(diff(long_range), diff(lat_range)) / cellsize + !midgrid} %>% 
+      ceiling()
 
     grid <- GridTopology(
         cellcentre.offset = offset,
