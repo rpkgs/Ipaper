@@ -1,12 +1,3 @@
-# library(openxlsx)
-# library(reshape2)
-# library(plyr)
-
-# library(httr)
-# library(xml2)
-# library(magrittr)
-# library(stringr)
-
 # httpheader: used to cheat web server
 header <- "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
 
@@ -20,7 +11,7 @@ header <- "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, 
 #' @param src download link
 #' @param outdir output directory
 #' @param file file name
-#' @param ... other parameters to \code{\link[httr]{GET}}
+#' @param ... other parameters to [httr::GET()]
 #' @export
 write_webfile <- function(src, outdir = "./", file = NULL, ...){
   # extract pdf filename from src, and combine with outdir
@@ -110,7 +101,7 @@ Init_Check <- function(doi, outdir){
 
 #' download using aria2
 #' 
-#' download papers batchly using aria2. \code{srcFUN} function is used 
+#' download papers batchly using aria2. `srcFUN` function is used 
 #' to generate pdf download links. You can also construct src function personally 
 #' to support more.
 #' 
@@ -121,13 +112,13 @@ Init_Check <- function(doi, outdir){
 #' @param n maximum number of parallel downloads. We used aria2c to download 
 #' papers batchly. In this function we set --max-concurrent-downloads, --split and  
 #' --max-connection-per-server all equal to n. Detailed information about this
-#' parameters could be find in aria2c document \url{https://aria2.github.io/manual/en/html/}. 
+#' parameters could be find in aria2c document <https://aria2.github.io/manual/en/html/>. 
 #' @param Rshell whether execute aria2c command in R shell. If false, it will save
 #' command string to clipboard, and then you can paste this command in cmd OR other 
 #' shells which can execute aria2c command
 #' @param ... other parameter pass to srcFUN.
 #' 
-#' @author Dongdong Kong \url{kongdd@live.cn}
+#' @author Dongdong Kong <kongdd@live.cn>
 #' 
 #' @examples
 #' # First, you need to get doi;
@@ -156,7 +147,7 @@ download_aria2 <- function(DOIs, journal = '.', srcFUN = NULL, n = 8, Rshell = F
   # --header "%s"
   cmd <- sprintf('aria2c -x%d -s%d -j%d -k1M -c -i %s.txt -d %s', n, n, n, journal, journal)
   if (.Platform$OS.type == 'windows') writeLines(cmd, "clipboard") 
-  if (Rshell) shell(cmd)
+  if (Rshell) system(cmd)
 }
 
 #' download using httr

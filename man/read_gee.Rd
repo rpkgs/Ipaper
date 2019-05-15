@@ -13,7 +13,7 @@ read_json.gee(file, baseprob = c("site", "date"), is_buffer)
 \arguments{
 \item{indir}{Input directory which contains the target json files}
 
-\item{pattern}{an optional regular expression. Only file names which match 
+\item{pattern}{an optional regular expression. Only file names which match
 the regular expression will be returned.}
 
 \item{baseprob}{the properties name of input point.}

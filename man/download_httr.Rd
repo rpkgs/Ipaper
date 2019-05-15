@@ -11,7 +11,7 @@ download_httr(DOIs, journal = ".", srcFUN = NULL, ...)
 
 \item{journal}{journal name, string used to make new directory to save papers}
 
-\item{srcFUN}{function used to generate pdf download links according to DOIs. 
+\item{srcFUN}{function used to generate pdf download links according to DOIs.
 If srcFUN is null, then this function will treat input parameter DOIs as download urls.}
 
 \item{...}{other parameter pass to srcFUN.}

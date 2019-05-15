@@ -12,23 +12,23 @@ download_aria2(DOIs, journal = ".", srcFUN = NULL, n = 8,
 
 \item{journal}{journal name, string used to make new directory to save papers}
 
-\item{srcFUN}{function used to generate pdf download links according to DOIs. 
+\item{srcFUN}{function used to generate pdf download links according to DOIs.
 If srcFUN is null, then this function will treat input parameter DOIs as download urls.}
 
-\item{n}{maximum number of parallel downloads. We used aria2c to download 
-papers batchly. In this function we set --max-concurrent-downloads, --split and  
+\item{n}{maximum number of parallel downloads. We used aria2c to download
+papers batchly. In this function we set --max-concurrent-downloads, --split and
 --max-connection-per-server all equal to n. Detailed information about this
 parameters could be find in aria2c document \url{https://aria2.github.io/manual/en/html/}.}
 
 \item{Rshell}{whether execute aria2c command in R shell. If false, it will save
-command string to clipboard, and then you can paste this command in cmd OR other 
+command string to clipboard, and then you can paste this command in cmd OR other
 shells which can execute aria2c command}
 
 \item{...}{other parameter pass to srcFUN.}
 }
 \description{
-download papers batchly using aria2. \code{srcFUN} function is used 
-to generate pdf download links. You can also construct src function personally 
+download papers batchly using aria2. \code{srcFUN} function is used
+to generate pdf download links. You can also construct src function personally
 to support more.
 }
 \examples{
@@ -43,5 +43,5 @@ download_aria2(DOIs, journal = "JHM", srcFUN = src_AMS, n = 4, Rshell = TRUE)
 }
 }
 \author{
-Dongdong Kong \url{kongdd@live.cn}
+Dongdong Kong \href{mailto:kongdd@live.cn}{kongdd@live.cn}
 }

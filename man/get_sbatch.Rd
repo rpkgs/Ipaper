@@ -10,7 +10,7 @@ get_sbatch(indir = ".", pattern = "result.*.RDS", outfile = NULL,
 \arguments{
 \item{indir}{directory to search rda files}
 
-\item{pattern}{an optional regular expression. Only file names which match 
+\item{pattern}{an optional regular expression. Only file names which match
 the regular expression will be returned.}
 
 \item{outfile}{If Save = T, output rda file name.}

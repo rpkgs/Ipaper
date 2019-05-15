@@ -7,9 +7,9 @@
 Init_Check(doi, outdir)
 }
 \arguments{
-\item{doi}{Character, Digital Object Identifier, like 
-"10.1175/JHM-D-15-0157.1", URLencoding format is also supported, i.e. 
-"10.1175\%2FJHM-D-15-0157.1".  
+\item{doi}{Character, Digital Object Identifier, like
+"10.1175/JHM-D-15-0157.1", URLencoding format is also supported, i.e.
+"10.1175\%2FJHM-D-15-0157.1".
 Based on doi, \code{srcFUN} find corresponding paper and download it.}
 
 \item{outdir}{Output file directory}
@@ -18,6 +18,6 @@ Based on doi, \code{srcFUN} find corresponding paper and download it.}
 URLdecode doi
 }
 \description{
-Check whether outdir exist, if not then will create it. If doi was URLencoded, 
+Check whether outdir exist, if not then will create it. If doi was URLencoded,
 then decode it.
 }

@@ -99,10 +99,10 @@ selectHost <- function(cl){
 #' 
 #' @param client List object
 #' \itemize{
-#' \item \code{rshcmd} The command to be run on the master to launch a process 
+#' \item `rshcmd` The command to be run on the master to launch a process 
 #' on another host. Defaults to ssh.
-#' \item \code{user} The user name to be used when communicating with another host.
-#' \item \code{host} Host ip or name
+#' \item `user` The user name to be used when communicating with another host.
+#' \item `host` Host ip or name
 #' }
 #' @export
 sysinfo <- function(client){

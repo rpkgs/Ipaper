@@ -1,3 +1,4 @@
+#' @importFrom ggplot2 ggplot_gtable
 #' @export
 ggplot_legend<-function(g){
     tmp <- ggplot_gtable(ggplot_build(g))

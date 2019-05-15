@@ -37,35 +37,35 @@ src_hess(doi)
 
 \item{outdir}{Output file directory}
 
-\item{.download}{If true, it will will download pdf directly, and return 
+\item{.download}{If true, it will will download pdf directly, and return
 pdf src. If false, only pdf src returned, without downlaoding pdf.}
 
-\item{...}{other parameters pass to \code{\link[httr]{GET}}}
+\item{...}{other parameters pass to \code{\link[httr:GET]{httr::GET()}}}
 
 \item{urls}{pdf urls}
 
-\item{doi}{Character, Digital Object Identifier, like 
-"10.1175/JHM-D-15-0157.1", URLencoding format is also supported, i.e. 
-"10.1175\%2FJHM-D-15-0157.1".  
+\item{doi}{Character, Digital Object Identifier, like
+"10.1175/JHM-D-15-0157.1", URLencoding format is also supported, i.e.
+"10.1175\%2FJHM-D-15-0157.1".
 Based on doi, \code{srcFUN} find corresponding paper and download it.}
 }
 \description{
 \itemize{
- \item \code{src_URL} simplest srcFUN, just treat the input url as download link.
- \item \code{src_wiley_I} wiley library. Journal like GRL, JGR, WRR, HP, 
- all in the database. Compared with other srcFUNs, this one is quite 
- complicated. It relies on previous web page identidy authentication. Hence, 
- it can't download simply by pdf urls, likes other database.   
- \item \code{src_SciDirect.doi} access elsevier database trough doi.
- \item \code{src_SciDirect.url} access elsevier database trough url.
- \item \code{src_AMS} American Meteorological Society.
- \item \code{src_Springer} Springer.
- \item \code{src_SciReps} Scientific Reports.
- \item \code{src_IOP} IOPscience database.
- \item \code{src_hess} HESS.
- \item \code{src_SciReps} Scientific Reports.
+\item \code{src_URL} simplest srcFUN, just treat the input url as download link.
+\item \code{src_wiley_I} wiley library. Journal like GRL, JGR, WRR, HP,
+all in the database. Compared with other srcFUNs, this one is quite
+complicated. It relies on previous web page identidy authentication. Hence,
+it can't download simply by pdf urls, likes other database.
+\item \code{src_SciDirect.doi} access elsevier database trough doi.
+\item \code{src_SciDirect.url} access elsevier database trough url.
+\item \code{src_AMS} American Meteorological Society.
+\item \code{src_Springer} Springer.
+\item \code{src_SciReps} Scientific Reports.
+\item \code{src_IOP} IOPscience database.
+\item \code{src_hess} HESS.
+\item \code{src_SciReps} Scientific Reports.
 }
 }
 \details{
-If just src returned, you need to download with \code{\link{download_httr}}
+If just src returned, you need to download with \code{\link[=download_httr]{download_httr()}}
 }

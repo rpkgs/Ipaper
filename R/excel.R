@@ -1,9 +1,9 @@
-#' @title writelist.xlsx
+#' write_list2xlsx
+#' 
 #' @description base function, write list x into fileName with each list in workbook,
 #' write shapefile dbf table into excel *.xlsx
-#' @details 
 #' 
-#' @param x List object to be saved, \code{x} should have names and can't be NULL.
+#' @param x List object to be saved, `x` should have names and can't be NULL.
 #' @param file xlsx file name
 #' @param .progress name of the progress bar to use, see create_progress_bar.
 #' @param rowNames a logical value indicating whether the row names are to 
@@ -11,7 +11,7 @@
 #' 
 #' @import openxlsx
 #' @export
-writelist_ToXlsx <- function (x, file, .progress = "text", rowNames = FALSE)
+write_list2xlsx <- function (x, file, .progress = "text", rowNames = FALSE)
 {
     sheetNames <- names(x)
     if (is.null(sheetNames))
@@ -33,17 +33,17 @@ writelist_ToXlsx <- function (x, file, .progress = "text", rowNames = FALSE)
     saveWorkbook(wb, file, overwrite = TRUE)
 }
 
-#' readxlsx_ToList
+#' read_xlsx2list
 #' 
 #' If excel file hava many sheets, this function also works.
 #' 
 #' @param file xlsx or xls file path
-#' @param ... other parameters to \code{\link[readxl]{read_excel}}
+#' @param ... other parameters to [readxl::read_excel()]
 #' 
 #' @import openxlsx readxl
 #' @importFrom plyr llply
 #' @export
-readxlsx_ToList <- function(file, ...){
+read_xlsx2list <- function(file, ...){
   cat(sprintf("[---- Reading File: %s ----]\n", file))
   ## judge whether it's xls or xlsx
   #  if file is *.xls use readxl::read_excel

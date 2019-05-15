@@ -1,5 +1,15 @@
+#' killCluster
+#' 
 #' @export
-killCluster <- function() system("taskkill /IM Rscript.exe -f")
+killCluster <- function(){
+    os = .Platform$OS.type
+    if (os == "windows") {
+        system("taskkill /IM Rscript.exe -f")
+    } else if (os == "unix"){
+        system("pkill -f R")
+        # NULL
+    }
+}
 
 #' @importFrom doParallel registerDoParallel
 #' @importFrom parallel makeCluster

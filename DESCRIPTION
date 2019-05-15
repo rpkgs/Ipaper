@@ -1,35 +1,32 @@
 Package: Ipaper
 Type: Package
 Title: Paper writing tools
-Version: 0.1.3
+Version: 0.1.4.9000
 Authors@R: person("Dongdong", "Kong", email = "kongdd.sysu@gmail.com",
   role = c("aut", "cre"))
 Description: Download papers batchly using DOIs from many database. And some practical functions.
-License: MIT + file LICENSE
+License: GPL-3
 LazyData: TRUE
 import: 
     RoxygenNote: 6.1.0
-Suggests: testthat,
+Suggests: 
+    testthat (>= 2.1.0),
     knitr,
     rmarkdown
-LinkingTo: 
-  Rcpp, RcppArmadillo
 Imports:
-    httr,
-    xml2,
+    httr, xml2, jsonlite, 
     magrittr,
     stringr, purrr, 
-    jsonlite, 
-    maptools,
-    sp,
-    rgdal,
+    lubridate, 
     data.table,
     openxlsx, readxl, 
-    plyr, 
     reshape2,
     graphics, methods,
-    Rcpp,
-    parallel,
-    doParallel
+    parallel, doParallel,
+    foreach, plyr
+Remotes:
+    kongdd/foreach,
+    kongdd/plyr
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)

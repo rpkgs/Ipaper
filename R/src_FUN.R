@@ -6,33 +6,31 @@ src_URL <- function(url) url
 
 #' srcFUN function
 #' 
-#' \itemize{
-#'  \item \code{src_URL} simplest srcFUN, just treat the input url as download link.
-#'  \item \code{src_wiley_I} wiley library. Journal like GRL, JGR, WRR, HP, 
+#' *  `src_URL` simplest srcFUN, just treat the input url as download link.
+#' *  `src_wiley_I` wiley library. Journal like GRL, JGR, WRR, HP, 
 #'  all in the database. Compared with other srcFUNs, this one is quite 
 #'  complicated. It relies on previous web page identidy authentication. Hence, 
 #'  it can't download simply by pdf urls, likes other database.   
-#'  \item \code{src_SciDirect.doi} access elsevier database trough doi.
-#'  \item \code{src_SciDirect.url} access elsevier database trough url.
-#'  \item \code{src_AMS} American Meteorological Society.
-#'  \item \code{src_Springer} Springer.
-#'  \item \code{src_SciReps} Scientific Reports.
-#'  \item \code{src_IOP} IOPscience database.
-#'  \item \code{src_hess} HESS.
-#'  \item \code{src_SciReps} Scientific Reports.
-#' }
+#' *  `src_SciDirect.doi` access elsevier database trough doi.
+#' *  `src_SciDirect.url` access elsevier database trough url.
+#' *  `src_AMS` American Meteorological Society.
+#' *  `src_Springer` Springer.
+#' *  `src_SciReps` Scientific Reports.
+#' *  `src_IOP` IOPscience database.
+#' *  `src_hess` HESS.
+#' *  `src_SciReps` Scientific Reports.
 #' 
-#' If just src returned, you need to download with \code{\link{download_httr}}
+#' If just src returned, you need to download with [download_httr()]
 #' 
 #' @param doi Character, Digital Object Identifier, like 
 #' "10.1175/JHM-D-15-0157.1", URLencoding format is also supported, i.e. 
 #' "10.1175\%2FJHM-D-15-0157.1".  
-#' Based on doi, \code{srcFUN} find corresponding paper and download it. 
-#' @param DOIs Character vectors, multiple \code{doi}.
+#' Based on doi, `srcFUN` find corresponding paper and download it. 
+#' @param DOIs Character vectors, multiple `doi`.
 #' @param outdir Output file directory
 #' @param .download If true, it will will download pdf directly, and return 
 #' pdf src. If false, only pdf src returned, without downlaoding pdf.
-#' @param ... other parameters pass to \code{\link[httr]{GET}}
+#' @param ... other parameters pass to [httr::GET()]
 #' @rdname srcFUN
 #' @export
 src_wiley_I <- function(DOIs, outdir = "./", .download = TRUE, ...){

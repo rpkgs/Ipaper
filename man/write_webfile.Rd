@@ -13,7 +13,7 @@ write_webfile(src, outdir = "./", file = NULL, ...)
 
 \item{file}{file name}
 
-\item{...}{other parameters to \code{\link[httr]{GET}}}
+\item{...}{other parameters to \code{\link[httr:GET]{httr::GET()}}}
 }
 \description{
 download web file through web link src

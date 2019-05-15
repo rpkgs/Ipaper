@@ -12,6 +12,6 @@ write_urls(urls, file)
 \item{file}{urls are written into file.}
 }
 \description{
-write character vectors of urls into text file, in order to the use of 
+write character vectors of urls into text file, in order to the use of
 subsequent aria2 download
 }

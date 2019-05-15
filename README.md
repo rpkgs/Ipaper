@@ -1,36 +1,23 @@
 # Ipaper  
-[![Travis Build Status](https://travis-ci.org/kongdd/Ipaper.svg?branch=master)](https://travis-ci.org/kongdd/Ipaper) 
-[![codecov](https://codecov.io/gh/kongdd/Ipaper/branch/master/graph/badge.svg)](https://codecov.io/gh/kongdd/Ipaper)
 
-# Batch download paper with `aria2` and `httr`.
+<!-- badges: start -->
+[![Travis Build Status](https://travis-ci.org/kongdd/Ipaper.svg?branch=master)](https://travis-ci.org/kongdd/Ipaper) 
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/kongdd/rwiki?branch=master&svg=true)](https://ci.appveyor.com/project/kongdd/Ipaper)
+[![codecov](https://codecov.io/gh/kongdd/Ipaper/branch/master/graph/badge.svg)](https://codecov.io/gh/kongdd/Ipaper)
+[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+[![CRAN](http://www.r-pkg.org/badges/version/rwiki)](https://cran.r-project.org/package=rwiki)
+<!-- badges: end -->
+
 
 ## Installation
-```{r}
-install.packages("devtools")
+``` r
 devtools::install_github("kongdd/Ipaper")
 ```
-you also need to download [aria2](https://github.com/aria2/aria2/releases/tag/release-1.32.0), and add 
-aria2 path to your system environment variables.
 
-## Get doi
+* Batch download paper with doi.
 
-If you want to download paper use that package, you need to get the corresponding DOI. First of all, you should be confirm that your IP have the right to download that paper. And if you want to batch download paper, I suggest you get the DOIs from [Web Of Science](http://login.webofknowledge.com/).
+* Base tools, e.g. `dir.show`, `runningId`, `subl` and `github`
 
-## Select suitable `srcFUN` according to paper database. 
-If this package have not yet, you can consider to extend the srcFUN, or contact me directly.
+* Parallel functions, e.g. `InitCluster`, `killCluster`.
 
-Their are two way, we provide to download paper.    
-- 1.[aria2](https://aria2.github.io/manual/en/html/), which is same like wget, but can download parallel.   
-
-- 2.[httr](https://cran.r-project.org/web/packages/httr/index.html) package by Hadley, which download files with the help of `curl`.
-
-## Examples
-
-```{r}
-# download_httr
-download_httr("10.1175%2FJHM-D-15-0157.1", journal = '.', srcFUN = src_AMS)
-
-# download_aria2
-DOIs <- rep("10.1175%2FJHM-D-15-0157.1", 4) #test aria2 parallel download
-download_aria2(DOIs, journal = "JHM", srcFUN = src_AMS, n = 4, Rshell = TRUE)
-```
