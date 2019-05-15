@@ -14,6 +14,7 @@ Suggests:
     knitr,
     rmarkdown
 Imports:
+    ggplot2,
     httr, xml2, jsonlite, 
     magrittr,
     stringr, purrr, 

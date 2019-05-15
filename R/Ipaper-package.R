@@ -9,7 +9,11 @@
 #' @importFrom purrr is_empty map transpose
 #' @importFrom methods as
 #' @importFrom data.table data.table
-#' @importFrom graphics rect
+#' @importFrom graphics rect plot
+#' @importFrom grid textGrob gpar grid.newpage
+#' @importFrom grDevices cairo_pdf dev.off svg tiff
+#' @importFrom stats quantile setNames
+#' @importFrom utils object.size
 #' @import httr xml2 magrittr plyr
 #' 
 #' @keywords internal
@@ -19,6 +23,6 @@
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 ## usethis namespace: end
-# ' @useDynLib Ipaper, .registration = TRUE
+# ' @useDynLib Ipaper .registration = TRUE
 # ' @importFrom Rcpp sourceCpp
 NULL

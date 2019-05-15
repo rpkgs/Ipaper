@@ -21,7 +21,7 @@ write_fig <- function(p, file = "Rplot.pdf", width = 10, height = 5, res = 300, 
     } else if (file_ext == "svg"){
         devicefun <- svg
     } else if (file_ext == "emf") {
-        devicefun <- win.metafile
+        devicefun <- grDevices::win.metafile
     } else {
         if (file_ext %in% c("tif", "tiff")){
             devicefun <- tiff
