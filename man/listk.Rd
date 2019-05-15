@@ -34,4 +34,13 @@ l1 <- listk(a, b, c)
 l2 <- listk(a, b, c = 1:3)
 l3 <- listk(a = 1, b = 1:2, c = 1:3)
 l4 <- listk(1, 1:2, c)
+# data.frame
+df <- data.frame(year = 2010, day = 1:3, month = 1, site = "A")
+l  <- list(a = df, b = df)
+df_new <- melt_list(l, "id")
+
+# data.table
+df <- data.table::data.table(year = 2010, day = 1:3, month = 1, site = "A")
+l  <- list(a = df, b = df)
+df_new <- melt_list(l, "id")
 }
