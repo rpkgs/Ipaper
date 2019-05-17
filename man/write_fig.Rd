@@ -5,7 +5,7 @@
 \title{write_fig}
 \usage{
 write_fig(p, file = "Rplot.pdf", width = 10, height = 5, res = 300,
-  show = T)
+  show = TRUE)
 }
 \description{
 show figure relies on SumatraPDF.exe, which needs add to path first.

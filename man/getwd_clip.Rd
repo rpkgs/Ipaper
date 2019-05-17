@@ -19,7 +19,11 @@ setwd_clip()
 Only works in windows
 }
 \examples{
+\dontrun{
 getwd_clip()
+setwd_clip()
+dir.show()
+}
 }
 \references{
 \enumerate{

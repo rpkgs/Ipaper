@@ -43,7 +43,11 @@ dir.show <- function(path = getwd()){
 #' @note Only works in windows
 #' 
 #' @examples
+#' \dontrun{
 #' getwd_clip()
+#' setwd_clip()
+#' dir.show()
+#' }
 #' @export
 getwd_clip <- function(){
     if (.Platform$OS.type == 'windows') {

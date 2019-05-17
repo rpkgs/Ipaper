@@ -4,7 +4,9 @@
 #' show figure relies on SumatraPDF.exe, which needs add to path first.
 #' 
 #' @export
-write_fig <- function(p, file = "Rplot.pdf", width = 10, height = 5, res = 300, show = T){
+write_fig <- function(p, file = "Rplot.pdf", width = 10, height = 5, res = 300, 
+    show = TRUE)
+{
     if (missing(p)) p <- last_plot()
 
     if ("grob" %in% class(p)) {
@@ -36,8 +38,17 @@ write_fig <- function(p, file = "Rplot.pdf", width = 10, height = 5, res = 300, 
     do.call(devicefun, param)
     FUN(p)
     dev.off()
+
     if (show) {
-        cmd <- sprintf('SumatraPDF.exe "%s"', file)
-        status <- suppressWarnings(shell(cmd, intern=FALSE, wait=FALSE))
+        if (file_ext %in% c("svg")) {
+            cmd <- sprintf('"%s"', file)
+        } else {
+            cmd <- sprintf('SumatraPDF.exe "%s"', file)
+        }
+        tryCatch({
+            status <- suppressWarnings(shell(cmd, intern=FALSE, wait=FALSE))    
+        }, error = function(e){
+            message(sprintf("[e] %s", e$message))
+        })
     }
 }

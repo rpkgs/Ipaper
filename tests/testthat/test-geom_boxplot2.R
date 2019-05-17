@@ -1,4 +1,4 @@
-test_that("multiplication works", {
+test_that("geom_boxplot2 works", {
     library(ggplot2)
     p <- ggplot(mpg, aes(class, hwy))
     p1 <- p + geom_boxplot()
