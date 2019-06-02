@@ -19,7 +19,7 @@ write_fig <- function(p, file = "Rplot.pdf", width = 10, height = 5, res = 300,
 
     param <- list(file, width = width, height = height)
     if (file_ext == "pdf"){
-        devicefun <- cairo_pdf # Cairo::CairoPDF #
+        devicefun <- Cairo::CairoPDF # cairo_pdf
     } else if (file_ext == "svg"){
         devicefun <- svg
     } else if (file_ext == "emf") {
