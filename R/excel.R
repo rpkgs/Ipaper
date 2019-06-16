@@ -11,7 +11,7 @@
 #' 
 #' @import openxlsx
 #' @export
-write_list2xlsx <- function (x, file, .progress = "text", rowNames = FALSE)
+write_list2xlsx <- function (x, file, .progress = "none", rowNames = FALSE)
 {
     sheetNames <- names(x)
     if (is.null(sheetNames))
@@ -25,11 +25,9 @@ write_list2xlsx <- function (x, file, .progress = "text", rowNames = FALSE)
         writeData(wb, sheetNames[i], x[[i]], colNames = TRUE, 
                   rowNames = rowNames, borders = "rows", headerStyle = hs1)
     }
-    if (.progress != "none")
-        cat(sprintf("[---- Writing into Workbook ----]\n"))
+    if (.progress != "none") cat(sprintf("[---- Writing into Workbook ----]\n"))
     tmp <- llply(seq_along(x), writeIn, .progress = .progress)
-    if (.progress != "none")
-        cat(sprintf("[---- Writing into xlsx file: %s ----]\n", file))
+    if (.progress != "none") cat(sprintf("[---- Writing into xlsx file: %s ----]\n", file))
     saveWorkbook(wb, file, overwrite = TRUE)
 }
 
@@ -44,18 +42,31 @@ write_list2xlsx <- function (x, file, .progress = "text", rowNames = FALSE)
 #' @importFrom plyr llply
 #' @export
 read_xlsx2list <- function(file, ...){
-  cat(sprintf("[---- Reading File: %s ----]\n", file))
-  ## judge whether it's xls or xlsx
-  #  if file is *.xls use readxl::read_excel
-  if (length(grep("xls$", basename(file))) != 0){
+    cat(sprintf("[---- Reading File: %s ----]\n", file))
+    ## judge whether it's xls or xlsx
+    #  if file is *.xls use readxl::read_excel
+    if (length(grep("xls$", basename(file))) != 0){
     sheetNames <- excel_sheets(file)
-    x <- llply(sheetNames, function(sheet) as.data.frame(read_excel(file, sheet, ...)),
+    x <- llply(sheetNames, function(sheet) as.data.table(read_excel(file, sheet, ...)),
                .progress = "text")
-  }else{
-    sheetNames <- getSheetNames(file)
-    x <- llply(sheetNames, function(sheet) read.xlsx(file, sheet, ...),
-               .progress = "text")
-  }
-  names(x) <- sheetNames
-  x#quickly return
+    }else{
+        sheetNames <- getSheetNames(file)
+        x <- llply(sheetNames, function(sheet) read.xlsx(file, sheet, ...),
+           .progress = "text")
+    }
+    names(x) <- sheetNames
+    x#quickly return
+}
+
+#' @export
+fwrite2 <- function(x, file){
+    write.table(x, file, sep = ",", row.names = FALSE, fileEncoding = "gbk")
+}
+
+#' read_xlsx
+#' 
+#' @importFrom openxlsx read.xlsx
+#' @export
+read_xlsx <- function(file, sheet = 1, ...){
+    read.xlsx(file, sheet, ...) %>% data.table()
 }

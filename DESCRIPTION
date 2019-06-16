@@ -1,7 +1,7 @@
 Package: Ipaper
 Type: Package
 Title: Paper writing tools
-Version: 0.1.4.9000
+Version: 0.1.4.9001
 Authors@R: person("Dongdong", "Kong", email = "kongdd.sysu@gmail.com",
   role = c("aut", "cre"))
 Description: Download papers batchly using DOIs from many database. And some practical functions.
@@ -24,7 +24,8 @@ Imports:
     reshape2,
     graphics, methods,
     parallel, doParallel,
-    foreach, plyr
+    foreach, plyr, 
+    Cairo
 Remotes:
     kongdd/foreach,
     kongdd/plyr

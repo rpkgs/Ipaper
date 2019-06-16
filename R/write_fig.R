@@ -36,7 +36,7 @@ write_fig <- function(p, file = "Rplot.pdf", width = 10, height = 5, res = 300,
     # print(FUN)
     # Cairo::CairoPDF, if only one figure cairo_pdf is the best
     do.call(devicefun, param)
-    FUN(p)
+    temp <- FUN(p)
     dev.off()
 
     if (show) {

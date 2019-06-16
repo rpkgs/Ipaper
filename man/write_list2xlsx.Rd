@@ -4,7 +4,7 @@
 \alias{write_list2xlsx}
 \title{write_list2xlsx}
 \usage{
-write_list2xlsx(x, file, .progress = "text", rowNames = FALSE)
+write_list2xlsx(x, file, .progress = "none", rowNames = FALSE)
 }
 \arguments{
 \item{x}{List object to be saved, \code{x} should have names and can't be NULL.}
