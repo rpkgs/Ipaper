@@ -17,10 +17,14 @@
 #' df <- data.table::data.table(year = 2010, day = 1:3, month = 1, site = "A")
 #' l  <- list(a = df, b = df)
 #' df_new <- melt_list(l, "id")
+#' 
 #' @importFrom reshape2 melt
 #' @importFrom data.table is.data.table
 #' @export
 melt_list <- function(list, var.name, na.rm = TRUE, ...){
+    if (is.null(list) || length(list) == 0) return(NULL)
+    if (is.null(names(list))) names(list) <- seq_along(list)
+
     if (is.data.table(list[[1]])){
         names <- names(list)
         for (i in seq_along(list)){

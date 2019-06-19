@@ -43,4 +43,5 @@ df_new <- melt_list(l, "id")
 df <- data.table::data.table(year = 2010, day = 1:3, month = 1, site = "A")
 l  <- list(a = df, b = df)
 df_new <- melt_list(l, "id")
+
 }
