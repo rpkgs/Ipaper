@@ -22,6 +22,8 @@
 # The following block is used by usethis to automatically manage
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
+#' @useDynLib Ipaper, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
 ## usethis namespace: end
 # ' @useDynLib Ipaper .registration = TRUE
 # ' @importFrom Rcpp sourceCpp

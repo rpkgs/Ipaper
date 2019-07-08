@@ -14,11 +14,39 @@ killCluster <- function(){
 #' @importFrom doParallel registerDoParallel
 #' @importFrom parallel makeCluster
 #' @export
-InitCluster <- function(ncluster = 4, outfile = "log.txt"){
-    # file_log <- "outfile.txt"
+#' @export
+InitCluster <- function (ncluster = 4, outfile = "log.txt", kill = TRUE) 
+{
+    if (kill) killCluster()
     if (file.exists(outfile)) file.remove(outfile)
-    cl <- makeCluster(ncluster, outfile = outfile)
-    registerDoParallel(cl)
+    
+    if (.Platform$OS.type == "unix") {
+        doMC::registerDoMC(ncluster)
+    } else {
+        cl <<- parallel::makeCluster(ncluster, outfile = outfile)
+        doParallel::registerDoParallel(cl)
+    }
+}
+
+#' @export
+gc_cluster <- function(n = NULL){
+    if (is.null(n)) {
+        n <- length(foreach:::.foreachGlobals$data)
+    }
+    ok(sprintf("[gc] %d clusters ...\n", n))
+    
+    temp <- foreach(i = seq_len(n)) %dopar% {
+        rm(list = ls())
+        gc(); gc()
+    }
+}
+
+# For bigmemory crash
+#' @export
+gc_linux <- function(){
+    if (.Platform$OS.type == "unix") {
+        system('rm /dev/shm -r', ignore.stderr = TRUE)
+    }
 }
 
 # #' @import doFuture 
