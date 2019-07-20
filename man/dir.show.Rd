@@ -3,6 +3,9 @@
 \name{dir.show}
 \alias{dir.show}
 \title{dir.show}
+\usage{
+dir.show(path = getwd())
+}
 \arguments{
 \item{path}{the path you want to open}
 }

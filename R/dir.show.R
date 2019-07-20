@@ -26,6 +26,21 @@ pal <- function(col, border = "light gray")
     rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
 }
 
+
+#' check_dir
+#' @param path character vectors 
+#' 
+#' @export
+check_dir <- function(path){
+    foreach(path_i = unique(path)) %do% {
+        if (!dir.exists(path_i)){
+            dir.create(path_i, recursive = TRUE)
+        }    
+    }
+    path
+}
+
+
 #' @title dir.show
 #' @name dir.show
 #' 
@@ -42,17 +57,4 @@ dir.show <- function (path = getwd()) {
         "windows" = paste("Explorer /e, ", gsub("/", "\\\\", path)), 
         "unix" = sprintf("nautilus '%s'", path))
     suppressWarnings(shell(cmd, ignore.stderr = TRUE, wait = FALSE))
-}
-
-#' check_dir
-#' @param path character vectors 
-#' 
-#' @export
-check_dir <- function(path){
-    foreach(path_i = unique(path)) %do% {
-        if (!dir.exists(path_i)){
-            dir.create(path_i, recursive = TRUE)
-        }    
-    }
-    path
 }

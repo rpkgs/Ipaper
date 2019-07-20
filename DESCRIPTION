@@ -1,7 +1,7 @@
 Package: Ipaper
 Type: Package
 Title: Paper writing tools
-Version: 0.1.4.9005
+Version: 0.1.4.9006
 Authors@R: person("Dongdong", "Kong", email = "kongdd.sysu@gmail.com",
   role = c("aut", "cre"))
 Description: Download papers batchly using DOIs from many database. And some practical functions.
