@@ -21,22 +21,40 @@
 #' @importFrom reshape2 melt
 #' @importFrom data.table is.data.table
 #' @export
-melt_list <- function(list, var.name, na.rm = TRUE, ...){
+melt_list <- function(list, var.name = "variable", na.rm = TRUE, ...){
     if (is.null(list) || length(list) == 0) return(NULL)
     if (is.null(names(list))) names(list) <- seq_along(list)
 
-    if (is.data.table(list[[1]])){
+    list  <- rm_empty(list)
+    first <- list[[1]]
+    if (is.data.table(first)){
         names <- names(list)
         for (i in seq_along(list)){
             x <- list[[i]]
             eval(parse(text = sprintf("x$%s <- names[i]", var.name)))
             list[[i]] <- x
         }
-        res <- do.call(rbind, list)#return
+        res <- do.call(rbind, list) # return
     } else{
-        id.vars <- colnames(list[[1]])
+        id.vars <- colnames(first)
         res <- reshape2::melt(list, ..., id.vars = id.vars, na.rm = na.rm)
         colnames(res) <- c(id.vars, var.name)
     }
     return(res)
+}
+
+#' @export
+melt_tree <- function(x, names) {
+    first <- x[[1]]
+    if (is.data.frame(first)) {
+        if (length(names) > 1) 
+            stop("length of `names` is not equal to the deep of list!")
+        melt_list(rm_empty(x), names[1])
+    } else if (is.list(first)){
+        # n <- length(names) # deeps of list
+        # names2 <- names[1:(n-1)]
+        map(x, melt_tree, names[-1]) %>% melt_list(names[1])
+    } else {
+        stop('Elements of x should be data.frame or list!')
+    }
 }

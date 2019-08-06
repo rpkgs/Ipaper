@@ -7,7 +7,7 @@
 \usage{
 listk(...)
 
-melt_list(list, var.name, na.rm = TRUE, ...)
+melt_list(list, var.name = "variable", na.rm = TRUE, ...)
 }
 \arguments{
 \item{...}{objects, possibly named.}
