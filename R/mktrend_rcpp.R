@@ -1,38 +1,3 @@
-#' Modified Mann Kendall
-#'
-#' If valid observations <= 5, NA will be returned.
-#' 
-#' Dongdong Kong
-#' 
-#' @param x numeric vector
-#' @param ci critical value of autocorrelation
-#' 
-#' @return
-#' * `Z0`   : The original (non corrected) Mann-Kendall test Z statistic. \cr
-#' * `pval0`: The original (non corrected) Mann-Kendall test p-value \cr
-#' * `Z`    : The new Z statistic after applying the correction \cr
-#' * `pval` : Corrected p-value after accounting for serial autocorrelation \cr
-#' `N/n*s` Value of the correction factor, representing the quotient of the number 
-#' of samples N divided by the effective sample size `n*s` \cr
-#' 
-#' slp  : Sen slope, The slope of the (linear) trend according to Sen test
-#' 
-#' @references
-#' Hipel, K.W. and McLeod, A.I. (1994),
-#' \emph{Time Series Modelling of Water Resources and Environmental Systems}. 
-#' New York: Elsevier Science.
-#'
-#' Libiseller, C. and Grimvall, A., (2002), Performance of partial
-#' Mann-Kendall tests for trend detection in the presence of covariates.
-#' \emph{Environmetrics} 13, 71--84, \url{http://dx.doi.org/10.1002/env.507}.
-#'
-#' @seealso `fume::mktrend` and `trend::mk.test`
-#' 
-#' @examples
-#' x <- c(4.81,4.17,4.41,3.59,5.87,3.83,6.03,4.89,4.32,4.69)
-#' r_cpp <- mkTrend_rcpp(x, IsPlot = TRUE)
-#' # r <- mkTrend(x)
-#' 
 #' @rdname mkTrend
 #' @export
 mkTrend_rcpp <- function(x, ci = 0.95, IsPlot = FALSE) {
@@ -40,6 +5,15 @@ mkTrend_rcpp <- function(x, ci = 0.95, IsPlot = FALSE) {
     pval0 = pval = NA_real_
     slp <- NA_real_
     intercept <- NA_real_
+
+    if (IsPlot) {
+        plot(x, type = "b")
+        grid()
+        rlm <- lm(x~seq_along(x))
+        abline(rlm$coefficients, col = "blue")
+        legend("topright", c('MK', 'lm'), col = c("red", "blue"), lty = 1)
+    }
+    names(x) <- NULL
 
     # if (is.vector(x) == FALSE) stop("Input data must be a vector")
     I_bad <- !is.finite(x) # NA or Inf
@@ -96,15 +70,7 @@ mkTrend_rcpp <- function(x, ci = 0.95, IsPlot = FALSE) {
 
     slp <- senslope(x)
     intercept <- mean(x - slp * seq_along(x), na.rm = T)
-
-    if (IsPlot) {
-        plot(x, type = "b")
-        grid()
-
-        rlm <- lm(x~seq_along(x))
-        abline(rlm$coefficients, col = "blue")
-        abline(b = slp, a = intercept, col = "red")
-        legend("topright", c('MK', 'lm'), col = c("red", "blue"), lty = 1)
-    }
+    if (IsPlot) abline(b = slp, a = intercept, col = "red")
+    
     c(z0 = z0, pval0 = pval0, z = z, pval = pval, slp = slp, intercept = intercept)
 } 

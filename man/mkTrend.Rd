@@ -13,23 +13,8 @@ mkTrend_rcpp(x, ci = 0.95, IsPlot = FALSE)
 \item{x}{numeric vector}
 
 \item{ci}{critical value of autocorrelation}
-
-\item{x}{numeric vector}
-
-\item{ci}{critical value of autocorrelation}
 }
 \value{
-\itemize{
-\item \code{Z0}   : The original (non corrected) Mann-Kendall test Z statistic. \cr
-\item \code{pval0}: The original (non corrected) Mann-Kendall test p-value \cr
-\item \code{Z}    : The new Z statistic after applying the correction \cr
-\item \code{pval} : Corrected p-value after accounting for serial autocorrelation \cr
-\code{N/n*s} Value of the correction factor, representing the quotient of the number
-of samples N divided by the effective sample size \code{n*s} \cr
-}
-
-slp  : Sen slope, The slope of the (linear) trend according to Sen test
-
 \itemize{
 \item \code{Z0}   : The original (non corrected) Mann-Kendall test Z statistic. \cr
 \item \code{pval0}: The original (non corrected) Mann-Kendall test p-value \cr
@@ -43,22 +28,14 @@ slp  : Sen slope, The slope of the (linear) trend according to Sen test
 }
 \description{
 If valid observations <= 5, NA will be returned.
-
-If valid observations <= 5, NA will be returned.
 }
 \details{
-Dongdong Kong
-
 Dongdong Kong
 }
 \examples{
 x <- c(4.81,4.17,4.41,3.59,5.87,3.83,6.03,4.89,4.32,4.69)
 # r_cpp <- mkTrend_rcpp(x, IsPlot = TRUE)
 r <- mkTrend(x)
-x <- c(4.81,4.17,4.41,3.59,5.87,3.83,6.03,4.89,4.32,4.69)
-r_cpp <- mkTrend_rcpp(x, IsPlot = TRUE)
-# r <- mkTrend(x)
-
 }
 \references{
 Hipel, K.W. and McLeod, A.I. (1994),
@@ -68,17 +45,7 @@ New York: Elsevier Science.
 Libiseller, C. and Grimvall, A., (2002), Performance of partial
 Mann-Kendall tests for trend detection in the presence of covariates.
 \emph{Environmetrics} 13, 71--84, \url{http://dx.doi.org/10.1002/env.507}.
-
-Hipel, K.W. and McLeod, A.I. (1994),
-\emph{Time Series Modelling of Water Resources and Environmental Systems}.
-New York: Elsevier Science.
-
-Libiseller, C. and Grimvall, A., (2002), Performance of partial
-Mann-Kendall tests for trend detection in the presence of covariates.
-\emph{Environmetrics} 13, 71--84, \url{http://dx.doi.org/10.1002/env.507}.
 }
 \seealso{
-\code{fume::mktrend} and \code{trend::mk.test}
-
 \code{fume::mktrend} and \code{trend::mk.test}
 }

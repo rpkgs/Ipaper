@@ -42,7 +42,8 @@ mkTrend <- function(x, ci = 0.95) {
     S = 0
     Tau = NULL
     essf = NULL
-    
+    names(x) <- NULL # rm names of x
+
     # if (is.vector(x) == FALSE) stop("Input data must be a vector")
     I_bad <- !is.finite(x) # NA or Inf
     if (any(I_bad)) {
