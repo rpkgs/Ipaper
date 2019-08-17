@@ -20,6 +20,7 @@ wrap <- function(x, y){
 #' @keywords internal
 #' @export
 colorkey_pos <- function(space, ncol = 3){
+    # nrow = 5
     # num begin from left-top
     ## main
     # How many columns in right key
@@ -167,18 +168,24 @@ key_label <- function(key.gf, key, labscat, labelsGrob, vp_label, axis.line, ...
 # key.gf <- key_border(key.gf, key, open.lower, open.upper, gp.border)
 #' @export
 key_border <- function(key.gf, key, open.lower, open.upper, gp.border){
-    space = key$space
-    
-    segment_bolder <- function(x0, y0, x1, y1, name) {
-        segmentsGrob(x0, y0, x1, y1,
+
+    segment_bolder <- function(x0, y0, x1, y1, rot = 0, name) {
+        segmentsGrob2(x0, y0, x1, y1, rot,
             default.units = "npc",
             name = trellis.grobname(sprintf("border.%s", name), type="colorkey"),
             gp = gp.border)   
     }
+    space = key$space
 
-    line_box <- segment_bolder(
-        c(0, 1, 0, 0), c(0, 0, 0, 1), c(0, 1, 1, 1), c(1, 1, 0, 1), name = 'sides')
-
+    if ((open.upper > 0) || (open.lower > 0)) {
+        rot_box <- ifelse(space %in% c("left", "right"), 0, 90)
+        line_box <- segment_bolder(
+            c(0, 1), c(0, 0), c(0, 1), c(1, 1), rot_box, name = 'sides')
+    } else {
+        line_box <- segment_bolder(
+            c(0, 1, 0, 0), c(0, 0, 0, 1), c(0, 1, 1, 1), c(1, 1, 0, 1), name = 'sides')
+    }
+    
     # parameters of right upper triangle, other triangles can be got by rotating
     param <- list(x0 = c(0, 1), y0 = c(0, 0), x1 = c(0.5, 0.5), y1 = c(1, 1))   
     
@@ -196,11 +203,13 @@ key_border <- function(key.gf, key, open.lower, open.upper, gp.border){
     l_upper <- do.call(segmentsGrob2, param_upper)
 
     pos <- colorkey_pos(space)
-    key.gf <- placeGrob(frame = key.gf, line_box, row = pos$box[1], col = pos$box[2])
     if (open.upper > 0)
         key.gf <- placeGrob(frame = key.gf, l_upper, row = pos$upper[1], col = pos$upper[2])
     if (open.lower > 0) 
         key.gf <- placeGrob(frame = key.gf, l_lower, row = pos$lower[1], col = pos$lower[2])
+
+    key.gf <- placeGrob(frame = key.gf, line_box, row = pos$box[1], col = pos$box[2])
+
     return(key.gf)
 }
 
@@ -257,7 +266,6 @@ rotate <- function(x, y, rot = 0, center = c(0.5, 0.5)){
 #' 
 #' @export
 segmentsGrob2 <- function(x0, y0, x1, y1, rot = 90, ...) {
-    center <- matrix(0.5, )
     P0 <- rotate(x0, y0, rot)
     P1 <- rotate(x1, y1, rot)
     g <- segmentsGrob(P0[, 1], P0[, 2], P1[, 1], P1[, 2], ...)

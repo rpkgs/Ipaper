@@ -1,31 +1,35 @@
 test_that("draw.colorkey works", {
     expect_silent({
+        # library(testthat)
+        # library(Ipaper)
         library(grid)
         library(gridExtra)
         brks_SOS  <- c(-Inf, seq(110, 150, 5), Inf)
         
-        test_legend <- function(space = "right") {
+        test_legend <- function(space = "right", heigh = 1) {
             key <- list(
                 at = brks_SOS, 
-                space = space, height = 1,
+                space = space, height = heigh,
                 tri.upper = 0.05,  tri.lower = 0.05, 
                 labels=list(cex=1.2, fontface='bold'), 
-                rect = list(col = "black", lwd = 0.5)
+                rect = list(col = "black", lwd = 0.3)
             )
             g <- draw.colorkey(key)
             # grid.newpage()
-            # grid.draw(g)    
+            # grid.draw(g)
             g
         }
         p11 <- test_legend('right')
         p12 <- test_legend('left')
         p1 <- arrangeGrob(p11, p12, nrow = 1)
-
-        p21 <- test_legend('top')
-        p22 <- test_legend('bottom')
+        
+        
+        p21 <- test_legend('top', 0.9)
+        p22 <- test_legend('bottom', 0.9)
         p2 <- arrangeGrob(p21, p22, nrow = 2)
 
-        grid.arrange(p1, p2, nrow = 2)
+        g <- grid.arrange(p1, p2, nrow = 2)
+        write_fig(g, "lgd.svg", 6,4.5)
     })
     
     ## sp

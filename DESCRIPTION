@@ -14,11 +14,14 @@ import:
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
-    rmarkdown
+    rmarkdown,
+    grid, 
+    gridExtra, 
+    sp
 Imports:
-    ggplot2,
-    httr,
+    lattice, 
     xml2,
+    ggplot2,
     jsonlite,
     magrittr,
     stringr,

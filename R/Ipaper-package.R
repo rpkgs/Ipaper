@@ -14,7 +14,7 @@
 #' @importFrom grDevices cairo_pdf dev.off svg tiff
 #' @importFrom stats quantile setNames
 #' @importFrom utils object.size
-#' @import httr xml2 magrittr plyr
+#' @import magrittr plyr
 #' 
 #' @keywords internal
 "_PACKAGE"

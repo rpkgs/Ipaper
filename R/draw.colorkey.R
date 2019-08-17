@@ -1,3 +1,4 @@
+#' @import lattice 
 #' @export
 process.colorkey <- function(
     col = regions$col,
@@ -175,7 +176,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     height.Tri <- key$height/numcol
     open.lower <- convertTri(key$tri.lower, scat[1] == -Inf, height = height.Tri)
     open.upper <- convertTri(key$tri.upper, scat[length(scat)] == Inf, height.Tri)
-    key.rect <- 1 - open.lower - open.upper
+    key.rect   <- 1 - open.lower - open.upper
 
     # legend
     just = switch(key$space, 
@@ -239,6 +240,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
 
     key.gf <- key_gf(key, key.layout, vp, vp_label, axis.line, reccentre, recdim, FALSE)
     key.gf <- key_triangle(key.gf, key, open.lower, open.upper)
+    
     key.gf <- key_border(key.gf, key, open.lower, open.upper, gp.border)
     key.gf <- key_label(key.gf, key, labscat, labelsGrob, vp_label, axis.line)
 
