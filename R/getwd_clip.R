@@ -16,11 +16,12 @@
 #' setwd_clip()
 #' dir.show()
 #' }
+#' @import clipr
 #' @export
 getwd_clip <- function(){
     if (.Platform$OS.type == 'windows') {
-        path <- suppressWarnings(gsub("\\\\", "/", readLines("clipboard")))
-        writeLines(path, "clipboard", sep = "")
+        path <- suppressWarnings(gsub("\\\\", "/", read_clip()))
+        write_clip(path)
         path#quickly return
     }
 }
@@ -28,4 +29,3 @@ getwd_clip <- function(){
 #' @rdname getwd_clip
 #' @export
 setwd_clip <- function() setwd(getwd_clip())
-

@@ -1,10 +1,10 @@
 Package: Ipaper
 Type: Package
 Title: Paper writing tools
-Version: 0.1.4.9006
+Version: 0.1.4.9007
 Authors@R: person("Dongdong", "Kong", email = "kongdd.sysu@gmail.com",
   role = c("aut", "cre"))
-Description: Download papers batchly using DOIs from many database. And some practical functions.
+Description: Awesome functions in R.
 License: GPL-3
 LazyData: TRUE
 LinkingTo: 
@@ -38,7 +38,9 @@ Imports:
     foreach,
     plyr,
     Cairo,
-    Rcpp
+    Rcpp, 
+    clipr, 
+    rstudioapi
 Remotes:
     kongdd/foreach,
     kongdd/plyr

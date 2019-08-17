@@ -1,0 +1,24 @@
+Name: Insert %in%
+Description: Inserts `%in%` at the cursor position.
+Binding: addin_insertIn
+Interactive: false
+
+Name: Insert %do% {}
+Description: Inserts `%do% {}` at the cursor position.
+Binding: addin_insertDo
+Interactive: false
+
+Name: Insert %<>%
+Description: Inserts `%<>%` at the cursor position.
+Binding: addin_insertReturn
+Interactive: false
+
+Name: Copy lines
+Description: Copy lines at the cursor position.
+Binding: addin_copyLines
+Interactive: false
+
+Name: Cut lines
+Description: Cut lines at the cursor position.
+Binding: addin_cutLines
+Interactive: false
