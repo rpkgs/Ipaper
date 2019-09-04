@@ -6,18 +6,12 @@ Authors@R: person("Dongdong", "Kong", email = "kongdd.sysu@gmail.com",
   role = c("aut", "cre"))
 Description: Awesome functions in R.
 License: GPL-3
+Encoding: UTF-8
 LazyData: TRUE
 LinkingTo: 
     Rcpp
 import: 
     RoxygenNote: 6.1.0
-Suggests: 
-    testthat (>= 2.1.0),
-    knitr,
-    rmarkdown,
-    grid, 
-    gridExtra, 
-    sp
 Imports:
     lattice, 
     xml2,
@@ -40,7 +34,15 @@ Imports:
     Cairo,
     Rcpp, 
     clipr, 
-    rstudioapi
+    rstudioapi, 
+    matrixStats
+Suggests: 
+    testthat (>= 2.1.0),
+    knitr,
+    rmarkdown,
+    grid, 
+    gridExtra, 
+    sp
 Remotes:
     kongdd/foreach,
     kongdd/plyr

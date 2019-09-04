@@ -7,7 +7,7 @@
 \alias{Ipaper-package}
 \title{Ipaper}
 \description{
-Download papers batchly using DOIs from many database. And some practical functions.
+Awesome functions in R.
 }
 \author{
 \strong{Maintainer}: Dongdong Kong \email{kongdd.sysu@gmail.com}

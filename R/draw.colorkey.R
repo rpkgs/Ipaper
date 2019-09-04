@@ -248,8 +248,10 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     key.gf
 }
 
-environment(draw.colorkey) <- environment(lattice::xyplot)
-assignInNamespace("draw.colorkey", draw.colorkey, ns="lattice")
+suppressWarnings({
+    environment(draw.colorkey) <- environment(lattice::xyplot)
+    assignInNamespace("draw.colorkey", draw.colorkey, ns="lattice")  
+})
 
 # updateList <- function(x, val)
 # {

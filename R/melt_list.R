@@ -40,7 +40,7 @@ melt_list <- function(list, var.name = "variable", na.rm = TRUE, ...){
         res <- reshape2::melt(list, ..., id.vars = id.vars, na.rm = na.rm)
         colnames(res) <- c(id.vars, var.name)
     }
-    return(res)
+    reorder_name(res, var.name)
 }
 
 #' @export

@@ -356,5 +356,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...) {
     key.gf
 }
 
-environment(draw.key) <- environment(lattice::xyplot)
-assignInNamespace("draw.key", draw.key, ns="lattice")
+suppressWarnings({
+    environment(draw.key) <- environment(lattice::xyplot)
+    assignInNamespace("draw.key", draw.key, ns="lattice")    
+})

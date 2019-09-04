@@ -5,3 +5,6 @@ inst/doc
 *.pdf
 *.txt
 *.html
+
+tests/testthat/*.svg
+tests/testthat/*.tif

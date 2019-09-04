@@ -68,6 +68,7 @@ addin_copyLines <- function(output = FALSE){
 }
 
 #' blind shortcuts to rstudio addin
+#' @export
 key_blind <- function(){
     # addins    
     # rstudio_bindings.json

@@ -65,23 +65,23 @@ devtools::install_github("kongdd/Ipaper")
 df <- data.frame(year = 2010, day = 1:2, month = 1, site = "A")
 l  <- list(a = df, b = df)
 melt_list(l, "id")
-#>   year day month site id
-#> 1 2010   1     1    A  a
-#> 2 2010   2     1    A  a
-#> 3 2010   1     1    A  b
-#> 4 2010   2     1    A  b
+#>   id year day month site
+#> 1  a 2010   1     1    A
+#> 2  a 2010   2     1    A
+#> 3  b 2010   1     1    A
+#> 4  b 2010   2     1    A
 
 l2 <- listk("type1" = l, "type2" = l)
 melt_tree(l2, c("type", "id"))
-#>   year day month site id  type
-#> 1 2010   1     1    A  a type1
-#> 2 2010   2     1    A  a type1
-#> 3 2010   1     1    A  b type1
-#> 4 2010   2     1    A  b type1
-#> 5 2010   1     1    A  a type2
-#> 6 2010   2     1    A  a type2
-#> 7 2010   1     1    A  b type2
-#> 8 2010   2     1    A  b type2
+#>    type id year day month site
+#> 1 type1  a 2010   1     1    A
+#> 2 type1  a 2010   2     1    A
+#> 3 type1  b 2010   1     1    A
+#> 4 type1  b 2010   2     1    A
+#> 5 type2  a 2010   1     1    A
+#> 6 type2  a 2010   2     1    A
+#> 7 type2  b 2010   1     1    A
+#> 8 type2  b 2010   2     1    A
 ```
 
   - `mkTrend`, `slope`
