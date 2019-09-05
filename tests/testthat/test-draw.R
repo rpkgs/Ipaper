@@ -2,6 +2,7 @@ test_that("draw.colorkey works", {
     expect_silent({
         # library(testthat)
         # library(Ipaper)
+        # library(lattice)
         library(grid)
         library(gridExtra)
         brks_SOS  <- c(-Inf, seq(110, 150, 5), Inf)

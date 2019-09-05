@@ -69,7 +69,6 @@ process.key <-
         )
     }
 
-#' @export
 draw.key <- function(key, draw = FALSE, vp = NULL, ...) {
     if (!is.list(key))
         stop("key must be a list")

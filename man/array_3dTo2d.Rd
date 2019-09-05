@@ -9,7 +9,7 @@ array_3dTo2d(array, I_grid)
 \arguments{
 \item{array}{array with the dimension of \code{[nlon, nlat, ntime]}}
 
-\item{I_grid}{}
+\item{I_grid}{subindex of \code{[nrow, ncol]}}
 }
 \value{
 \code{[nlat*nlon, ntime]}

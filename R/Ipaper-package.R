@@ -14,6 +14,9 @@
 #' @importFrom grDevices cairo_pdf dev.off svg tiff
 #' @importFrom stats quantile setNames
 #' @importFrom utils object.size
+#' @importFrom graphics abline grid legend
+#' @importFrom stats acf as.formula lm median na.omit pnorm qnorm
+#' @importFrom utils write.table
 #' @import magrittr plyr
 #' 
 #' @keywords internal

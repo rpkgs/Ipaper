@@ -1,7 +1,7 @@
 #' array_3dTo2d
 #' 
 #' @param array array with the dimension of `[nlon, nlat, ntime]`
-#' @param I_grid
+#' @param I_grid subindex of `[nrow, ncol]`
 #' 
 #' @return
 #' `[nlat*nlon, ntime]`
