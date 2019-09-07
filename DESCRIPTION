@@ -34,8 +34,10 @@ Imports:
     Cairo,
     Rcpp, 
     clipr, 
+    matrixStats, 
     rstudioapi, 
-    matrixStats
+    remotes, 
+    devtools
 Suggests: 
     testthat (>= 2.1.0),
     knitr,

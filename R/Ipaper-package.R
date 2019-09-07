@@ -31,3 +31,15 @@
 # ' @useDynLib Ipaper .registration = TRUE
 # ' @importFrom Rcpp sourceCpp
 NULL
+
+
+.onLoad <- function(libname, pkgname) {
+    # suppressMessages
+    # suppressWarnings
+    suppressMessages({
+        library(magrittr)
+        # library(lattice)
+        library(devtools)
+    })
+    invisible()
+}

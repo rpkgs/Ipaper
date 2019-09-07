@@ -11,12 +11,3 @@ subl <- function (path = getwd())
     # print(cmd)
     system(cmd)
 }
-
-
-
-#' github
-#' @export
-github <- function(path = getwd()){
-    cmd <- sprintf("github '%s'", path)
-    system(cmd)
-}
