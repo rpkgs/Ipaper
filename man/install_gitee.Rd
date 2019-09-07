@@ -2,19 +2,10 @@
 % Please edit documentation in R/git.R
 \name{install_gitee}
 \alias{install_gitee}
-\alias{install}
 \alias{install_github}
 \title{Attempts to install a package directly from gitee.}
 \usage{
 install_gitee(repo)
-
-install(path = ".", subdir = NULL, dependencies = NA,
-  upgrade = c("default", "ask", "always", "never"), force = FALSE,
-  quiet = FALSE, build = !is_binary_pkg(path),
-  build_opts = c("--no-resave-data", "--no-manual",
-  "--no-build-vignettes"), build_manual = FALSE,
-  build_vignettes = FALSE, repos = getOption("repos"),
-  type = getOption("pkgType"), ...)
 
 install_github(repo, ref = "master", subdir = NULL,
   auth_token = github_pat(), host = "api.github.com",
@@ -32,7 +23,19 @@ specify \code{subdir} and/or \code{ref} using the respective parameters
 (see below); if both is specified, the values in \code{repo} take
 precedence.}
 
+\item{ref}{Desired git reference. Could be a commit, tag, or branch
+name, or a call to \code{\link[=github_pull]{github_pull()}}. Defaults to \code{"master"}.}
+
 \item{subdir}{subdirectory within repo that contains the R package.}
+
+\item{auth_token}{To install from a private repo, generate a personal
+access token (PAT) in "https://github.com/settings/tokens" and
+supply to this argument. This is safer than using a password because
+you can easily delete a PAT without affecting any others. Defaults to
+the \code{GITHUB_PAT} environment variable.}
+
+\item{host}{GitHub API host to use. Override with your GitHub enterprise
+hostname, for example, \code{"github.hostname.com/api/v3"}.}
 
 \item{dependencies}{Which dependencies do you want to check?
 Can be a character vector (selecting from "Depends", "Imports",
@@ -69,18 +72,6 @@ is \code{TRUE}.}
 \item{type}{Type of package to \code{update}.}
 
 \item{...}{Other arguments passed on to \code{\link[utils:install.packages]{utils::install.packages()}}.}
-
-\item{ref}{Desired git reference. Could be a commit, tag, or branch
-name, or a call to \code{\link[=github_pull]{github_pull()}}. Defaults to \code{"master"}.}
-
-\item{auth_token}{To install from a private repo, generate a personal
-access token (PAT) in "https://github.com/settings/tokens" and
-supply to this argument. This is safer than using a password because
-you can easily delete a PAT without affecting any others. Defaults to
-the \code{GITHUB_PAT} environment variable.}
-
-\item{host}{GitHub API host to use. Override with your GitHub enterprise
-hostname, for example, \code{"github.hostname.com/api/v3"}.}
 }
 \description{
 Attempts to install a package directly from gitee.

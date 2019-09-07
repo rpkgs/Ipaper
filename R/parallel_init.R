@@ -14,7 +14,6 @@ killCluster <- function(){
 #' @importFrom doParallel registerDoParallel
 #' @importFrom parallel makeCluster
 #' @export
-#' @export
 InitCluster <- function (ncluster = 4, outfile = "log.txt", kill = TRUE) 
 {
     if (kill) killCluster()
@@ -47,6 +46,13 @@ gc_linux <- function(){
     if (.Platform$OS.type == "unix") {
         system('rm /dev/shm -r', ignore.stderr = TRUE)
     }
+}
+
+shell <- function(...){
+    FUN <- switch(.Platform$OS.type, 
+        "windows" = base::shell, 
+        "unix" = base::system)
+    FUN(...)
 }
 
 # #' @import doFuture 

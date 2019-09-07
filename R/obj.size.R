@@ -10,3 +10,11 @@
 obj.size <- function(obj, unit = "Mb"){
     cat(format(object.size(obj), unit), "\n")
 }
+
+#' file_size
+#' 
+#' @param file file path
+#' @export
+file_size <- function(file){
+    utils:::format.object_size(file.size(file), "auto")
+}
