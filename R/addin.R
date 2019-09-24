@@ -5,17 +5,17 @@
 #' @keywords internal
 #' @export
 addin_insertIn <- function() {
-  rstudioapi::insertText(" %in% ")
+  rstudioapi::insertText("%in% ")
 }
 
 #' @export
 addin_insertDo <- function() {
-  rstudioapi::insertText(" %do% {}")
+  rstudioapi::insertText("%do% {}")
 }
 
 #' @export
 addin_insertReturn <- function() {
-  rstudioapi::insertText(" %<>% ")
+  rstudioapi::insertText("%<>% ")
 }
 
 # fix new line ending in windows system

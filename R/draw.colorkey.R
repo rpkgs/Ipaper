@@ -14,6 +14,8 @@ process.colorkey <- function(
     tri.upper = NA,
     tri.lower = NA,
     title = NULL, 
+    unit = NULL,
+    unit.adj = 0.3, 
     cex.title = 1,
     axis.line = list(),
     axis.text = list(),
@@ -21,23 +23,25 @@ process.colorkey <- function(
     ...)
 {
     regions <- trellis.par.get("regions")
-    list(col = col,
-         alpha = alpha,
-         at = at,
+    list(col         = col,
+         alpha       = alpha,
+         at          = at,
          tick.number = tick.number,
-         tck = tck,
-         width = width,
-         height = height,
-         space = space,
-         raster = raster,
+         tck         = tck,
+         width       = width,
+         height      = height,
+         space       = space,
+         raster      = raster,
          interpolate = interpolate,
-         tri.upper = tri.upper,
-         tri.lower = tri.lower,
-         title = title,
-         cex.title = cex.title,
-         axis.line = axis.line,
-         axis.text = axis.text,
-         rect = rect,
+         tri.upper   = tri.upper,
+         tri.lower   = tri.lower,
+         title       = title,
+         unit        = unit,
+         unit.adj    = unit.adj,
+         cex.title   = cex.title,
+         axis.line   = axis.line,
+         axis.text   = axis.text,
+         rect        = rect,
          ...)
 }
 
@@ -83,6 +87,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     axis.line <- updateList(trellis.par.get("axis.line"), key$axis.line)
     axis.text <- updateList(trellis.par.get("axis.text"), key$axis.text)
 
+    key$axis.line <- axis.line
     # layout_name <- ifelse(key$space %in% c("top", "bottom"), "layout.heights", "layout.widths") 
     # colorkey.title.padding   <- lattice.options()[[layout_name]]$colorkey.title.padding
     # colorkey.title.padding$x <- colorkey.title.padding$x * 
@@ -185,6 +190,14 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
         top    = if (rot == 0) c("center","bottom") else c("left", "center"),
         bottom = if (rot == 0) c("center", "top") else c("right", "center"))
 
+    # add unit label, 20190924
+    if (!(is.null(key$unit) || key$unit == "")){
+        nlab <- length(labels)
+        delta <- labscat[nlab] - labscat[nlab - 1]
+        labscat[nlab+1] <- labscat[nlab] + delta*key$unit.adj
+        labels[nlab+1]  <- sprintf("(%s)", key$unit)
+    }
+
     if (key$space %in% c('right', 'left')) {
         vp_label <- viewport(yscale = atrange)
         x_lab = rep(0, length(labscat))
@@ -194,7 +207,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
         y_lab = rep(0, length(labscat))
         x_lab = labscat
     }
-
+    
     labelsGrob <-
         if (do.labels)
             textGrob(label = labels,
@@ -208,6 +221,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                               fontface = chooseFace(fontface, font),
                               lineheight = lineheight))
         else nullGrob()
+    # browser()
 
     # layout
     grobwidth <- ifelse(key$space %in% c("top", "bottom"), "grobheight", "grobwidth")
@@ -235,40 +249,44 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                         widths  = lgd_height)
     }
 
-    gp.border <- with(axis.line,
-        gpar(col = col, lty = lty, lwd = lwd, alpha = alpha, fill = "transparent"))
-
-    key.gf <- key_gf(key, key.layout, vp, vp_label, axis.line, reccentre, recdim, FALSE)
+    
+    key.gf <- key_gf(key, key.layout, vp, vp_label, reccentre, recdim, FALSE)
     key.gf <- key_triangle(key.gf, key, open.lower, open.upper)
     
-    key.gf <- key_border(key.gf, key, open.lower, open.upper, gp.border)
-    key.gf <- key_label(key.gf, key, labscat, labelsGrob, vp_label, axis.line)
+    key.gf <- key_border(key.gf, key, open.lower, open.upper)
+    key.gf <- key_label(key.gf, key, labscat, labelsGrob, vp_label)
 
-    if (draw) grid.draw(key.gf)
+    if (draw) {
+        grid.newpage()
+        grid.draw(key.gf)
+    }
     key.gf
 }
+
+#' @export
+draw.colorkey2 <- draw.colorkey
 
 suppressWarnings({
     environment(draw.colorkey) <- environment(lattice::xyplot)
     assignInNamespace("draw.colorkey", draw.colorkey, ns="lattice")  
 })
 
-# updateList <- function(x, val)
-# {
-#     if (is.null(x)) x <- list()
-#     modifyList(x, val)
-# }
+updateList <- function(x, val)
+{
+    if (is.null(x)) x <- list()
+    modifyList(x, val)
+}
 
-# is.characterOrExpression <- function(x){
-#     is.character(x) || is.expression(x) || is.call(x) || is.symbol(x)
-# }
+is.characterOrExpression <- function(x){
+    is.character(x) || is.expression(x) || is.call(x) || is.symbol(x)
+}
 
-# lpretty <- function(x, ...){
-#     eps <- 1e-10
-#     at <- pretty(x[is.finite(x)], ...)
-#     ifelse(abs(at-round(at, 3))<eps, round(at, 3), at)
-# }
+lpretty <- function(x, ...){
+    eps <- 1e-10
+    at <- pretty(x[is.finite(x)], ...)
+    ifelse(abs(at-round(at, 3))<eps, round(at, 3), at)
+}
 
-# chooseFace <- function(fontface = NULL, font = 1) {
-#     if (is.null(fontface)) font else fontface
-# }
+chooseFace <- function(fontface = NULL, font = 1) {
+    if (is.null(fontface)) font else fontface
+}

@@ -64,10 +64,11 @@ colorkey_pos <- function(space, ncol = 3){
 #' @keywords internal
 #' @export
 key_gf <- function(key, key.layout, vp, vp_label, 
-    axis.line, 
     reccentre, recdim, border = TRUE, ...)
 {
-    space <- key$space
+    space     <- key$space
+    axis.line <- key$axis.line
+
     height = recdim; width = 1 # for image
     # default param for: right and left
     x = rep(.5, length(reccentre))
@@ -129,10 +130,14 @@ key_gf <- function(key, key.layout, vp, vp_label,
 #' }
 #' @keywords internal
 #' @export
-key_label <- function(key.gf, key, labscat, labelsGrob, vp_label, axis.line, ...) 
+key_label <- function(key.gf, key, labscat, labelsGrob, vp_label, ...) 
 {
     do.labels <- (length(labscat) > 0)
-    space <- key$space
+    space     <- key$space
+    axis.line <- key$axis.line
+    
+    if (!(is.null(key$unit) || key$unit == "")) 
+        labscat <- labscat[1:(length(labscat)-1)]
     
     # default right
     y0 <- y1 <- labscat
@@ -151,23 +156,25 @@ key_label <- function(key.gf, key, labscat, labelsGrob, vp_label, axis.line, ...
     pos <- colorkey_pos(space)
     if (do.labels) {    
         if (key$tck != 0)
-            key.gf <- placeGrob(frame = key.gf,
-                segmentsGrob(x0, y0, x1, y1, 
-                             vp = vp_label,
-                             default.units = "native",
-                             name = trellis.grobname("ticks", type="colorkey"),
-                             gp = gpar(col = axis.line$col,
-                                      lty = axis.line$lty,
-                                      lwd = axis.line$lwd)),
-                row = pos$tick[1], col = pos$tick[2])
+        key.gf <- placeGrob(frame = key.gf,
+            segmentsGrob(x0, y0, x1, y1,
+                         vp = vp_label,
+                         default.units = "native",
+                         name = trellis.grobname("ticks", type="colorkey"),
+                         gp = gpar(col = axis.line$col,
+                                  lty = axis.line$lty,
+                                  lwd = axis.line$lwd)),
+            row = pos$tick[1], col = pos$tick[2])
         key.gf <- placeGrob(key.gf, labelsGrob, row = pos$label[1], col = pos$label[2])
     }
     return(key.gf)
 }
 
-# key.gf <- key_border(key.gf, key, open.lower, open.upper, gp.border)
+# key.gf <- key_border(key.gf, key, open.lower, open.upper)
 #' @export
-key_border <- function(key.gf, key, open.lower, open.upper, gp.border){
+key_border <- function(key.gf, key, open.lower, open.upper){
+    gp.border <- with(key$axis.line,
+        gpar(col = col, lty = lty, lwd = lwd, alpha = alpha, fill = "transparent"))
 
     segment_bolder <- function(x0, y0, x1, y1, rot = 0, name) {
         segmentsGrob2(x0, y0, x1, y1, rot,
@@ -217,9 +224,10 @@ key_border <- function(key.gf, key, open.lower, open.upper, gp.border){
 #' @export
 key_triangle <- function(key.gf, key, open.lower, open.upper){
     space = key$space
+    lwd = key$axis.line$lwd
 
-    gp_lower = gpar(fill = key$col[1], col = "transparent", alpha = key$alpha)
-    gp_upper = gpar(fill = key$col[length(key$col)], col = "transparent", alpha = key$alpha)
+    gp_lower = gpar(fill = key$col[1], col = "transparent", alpha = key$alpha, lwd = lwd)
+    gp_upper = gpar(fill = key$col[length(key$col)], col = "transparent", alpha = key$alpha, lwd = lwd)
     
     # right upper
     pnts0 <- cbind(x = c(0, 1, 0.5), 

@@ -6,6 +6,7 @@ test_that("draw.colorkey works", {
         library(grid)
         library(gridExtra)
         brks_SOS  <- c(-Inf, seq(110, 150, 5), Inf)
+        space = "right"; heigh = 1
         
         test_legend <- function(space = "right", heigh = 1) {
             key <- list(
@@ -13,24 +14,26 @@ test_that("draw.colorkey works", {
                 space = space, height = heigh,
                 tri.upper = 0.05,  tri.lower = 0.05, 
                 labels=list(cex=1.2, fontface='bold'), 
-                rect = list(col = "black", lwd = 0.3)
+                rect = list(col = "black", lwd = 0.3), 
+                unit = "%", 
+                unit.adj = 0.3
             )
-            g <- draw.colorkey(key)
-            # grid.newpage()
-            # grid.draw(g)
+            g <- draw.colorkey2(key, draw = TRUE)
+            grid.newpage()
+            grid.draw(g)
             g
         }
+        
         p11 <- test_legend('right')
         p12 <- test_legend('left')
-        p1 <- arrangeGrob(p11, p12, nrow = 1)
-        
+        p1  <- arrangeGrob(p11, p12, nrow = 1)
         
         p21 <- test_legend('top', 0.9)
         p22 <- test_legend('bottom', 0.9)
         p2 <- arrangeGrob(p21, p22, nrow = 2)
 
         g <- grid.arrange(p1, p2, nrow = 2)
-        write_fig(g, "lgd.svg", 6,4.5)
+        write_fig(g, "lgd.svg", 6, 12)
     })
     
     ## sp

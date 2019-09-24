@@ -1,9 +1,16 @@
 # save pdf just like `ggsave`
 #' write_fig
 #' 
-#' show figure relies on SumatraPDF.exe, which needs add to path first.
+#' write plot to *.pdf, *.tif, *.png, *.jpg according to file suffix.
+#' If show, pdf file will be shown in `SumatraPDF.exe`, which needs add to path first.
 #' 
-#' @export
+#' @param p could be one of `grid`, `ggplot` or `plot expression`
+#' @param file file path of output figure
+#' @inheritParams grDevices::svg
+#' @inheritParams grDevices::png
+#' 
+#' @seealso [grDevices::cairo()], [grDevices::png()]
+#' 
 #' @importFrom grDevices svg tiff
 #' @export
 write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5, res = 300, 
@@ -38,7 +45,13 @@ write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5, res = 300,
     }
     
     do.call(devicefun, param)
-    temp <- FUN(p)
+    # print plot
+    if (is.expression(p)) {
+        eval(p, envir = parent.frame())
+    } else {
+        temp <- FUN(p)    
+    }
+
     dev.off()
     
     if (show) {

@@ -7,6 +7,24 @@
 write_fig(p, file = "Rplot.pdf", width = 10, height = 5, res = 300,
   show = TRUE)
 }
+\arguments{
+\item{p}{could be one of \code{grid}, \code{ggplot} or \code{plot expression}}
+
+\item{file}{file path of output figure}
+
+\item{width}{the width of the device in inches.}
+
+\item{height}{the height of the device in inches.}
+
+\item{res}{The nominal resolution in ppi which will be recorded in the
+    bitmap file, if a positive integer.  Also used for units other than
+    the default.  If not specified, taken as 72 ppi to set the size of
+    text and line widths.}
+}
 \description{
-show figure relies on SumatraPDF.exe, which needs add to path first.
+write plot to *.pdf, *.tif, *.png, *.jpg according to file suffix.
+If show, pdf file will be shown in \code{SumatraPDF.exe}, which needs add to path first.
+}
+\seealso{
+\code{\link[grDevices:cairo]{grDevices::cairo()}}, \code{\link[grDevices:png]{grDevices::png()}}
 }

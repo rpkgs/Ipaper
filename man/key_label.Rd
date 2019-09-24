@@ -4,7 +4,7 @@
 \alias{key_label}
 \title{key_label}
 \usage{
-key_label(key.gf, key, labscat, labelsGrob, vp_label, axis.line, ...)
+key_label(key.gf, key, labscat, labelsGrob, vp_label, ...)
 }
 \description{
 key_label
