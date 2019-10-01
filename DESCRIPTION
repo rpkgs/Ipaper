@@ -1,7 +1,7 @@
 Package: Ipaper
 Type: Package
 Title: Paper writing tools
-Version: 0.1.4.9007
+Version: 0.1.5
 Authors@R: person("Dongdong", "Kong", email = "kongdd.sysu@gmail.com",
   role = c("aut", "cre"))
 Description: Awesome functions in R.
@@ -37,7 +37,10 @@ Imports:
     matrixStats, 
     rstudioapi, 
     remotes, 
-    devtools
+    devtools, 
+    IRdisplay,
+    RColorBrewer,
+    sp
 Suggests: 
     testthat (>= 2.1.0),
     knitr,

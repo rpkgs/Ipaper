@@ -1,4 +1,4 @@
-#' @import lattice 
+#' @import lattice
 #' @export
 process.colorkey <- function(
     col = regions$col,

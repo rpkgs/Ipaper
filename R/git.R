@@ -30,3 +30,10 @@ install_gitee <- function(repo){
 #' @importFrom devtools install_git install_github
 #' @export
 install_github <- install_github
+
+#' @importFrom devtools document load_all
+#' @export
+load_all2 <- function(path = ".", ...){
+    document(path, ...)
+    load_all(path, ...)
+}
