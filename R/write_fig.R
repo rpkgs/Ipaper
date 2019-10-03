@@ -54,13 +54,19 @@ write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5, res = 300,
 
     dev.off()
     
+    app <- "SumatraPDF.exe"
     if (show) {
         if (file.exists("/usr/sbin/rstudio-server")) {
-            file.show(file)
+            if (file_ext == "pdf") {
+                file.show(file)
+            } else {
+                # only suit for wsl mode
+                cmd <- sprintf("%s \"%s\"", app, file)
+                system(cmd, wait = FALSE)
+            }
         } else {
-            app <- "SumatraPDF.exe"
             if (.Platform$OS.type == "unix") app <- "evince"
-            if (file_ext %in% c("svg")) app <- ""
+            if (file_ext %in% c("svg", "emf")) app <- ""
             cmd <- sprintf("%s \"%s\"", app, file)
         
             check_dir(dirname(file))

@@ -147,7 +147,7 @@ panel.barchart2 <- function(z, subscripts, origin.x = 76, origin.y = 26.5, tck =
             cex = text.cex, adj = adj, font = 2, identifier = "xaxis.text")    
     }
     
-    panel.text(tick_xpos[1] - ylab.offset, origin.y - tck, "Friction (%)", 
+    panel.text(tick_xpos[1] - ylab.offset, origin.y - tck, "Fraction (%)", 
         srt = 90, font = 2, adj = c(0, 0.5), fontfamily = fontfamily, cex = text.cex, 
         identifier = "ylab.text")
 }

@@ -40,7 +40,8 @@ Imports:
     devtools, 
     IRdisplay,
     RColorBrewer,
-    sp
+    sp, 
+    boot
 Suggests: 
     testthat (>= 2.1.0),
     knitr,

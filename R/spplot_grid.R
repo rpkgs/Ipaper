@@ -46,6 +46,10 @@ check_brks <- function(brks){
     brks
 }
 
+#' panel_hist
+#' 
+#' @param par position of title, `list(title = list(x, y))`
+#' 
 #' @importFrom lattice panel.number panel.text 
 #' @export
 panel_hist <- function(x, y, z, subscripts, ...,  
@@ -103,7 +107,7 @@ panel_hist <- function(x, y, z, subscripts, ...,
     if (!is.null(data.stat)) {
         loc   <- data.stat$loc # 81.5, 26.5
         label <- data.stat$label[[i]]
-        panel.text(loc[[1]], loc[[2]], label, fontfamily = "Times", cex = 1.2, adj = c(0.5, 0))    
+        panel.text(loc[[1]], loc[[2]], label, fontfamily = "Times", cex = 1.2, adj = c(0, 0))    
     }
 
     if (sub.hist) {
@@ -125,7 +129,7 @@ panel_hist <- function(x, y, z, subscripts, ...,
 #' }
 #' 
 #' @importFrom sp spplot 
-#' @importFrom grid frameGrob placeGrob rectGrob segmentsGrob
+#' @importFrom grid frameGrob placeGrob rectGrob segmentsGrob polygonGrob 
 #' @importFrom lattice panel.number panel.segments panel.points panel.arrows
 #' @export
 spplot_grid <- function(
@@ -137,44 +141,70 @@ spplot_grid <- function(
         xlim = c(73.5049, 104.9725), ylim = c(25.99376, 40.12632),
         pars = list(title = list(x=77, y=39, cex=1.5), 
             hist = list(origin.x=77, origin.y=28, A=15, by = 0.4)), 
-        unit = "", 
+        unit = "",  
         unit.adj = 0.3, 
-        stat = list(show = FALSE, name="RC", loc = c(81.5, 26.5)),
+        stat = list(show = FALSE, name="RC", loc = c(81.5, 26.5), digit = 1, include.sd = FALSE),
+        area.weighted = FALSE, 
         panel.title = NULL, 
         legend.space = "right", 
-        layout = layout,
+        layout = NULL,
         colorkey = TRUE, 
         interpolate = TRUE,
         lgd.title = NULL, 
-        sp.layout = NULL, ...)
+        sp.layout = NULL, 
+        par.settings = opt_trellis_default, 
+        par.settings2 = list(axis.line = list(col = "white")),
+        ...)
 {
+    # update par.settings (20191003)
+    par.settings <- modifyList(par.settings, par.settings2)
+
     if (missing(zcols)) { zcols <- names(grid) }
     zcols %<>% intersect(names(grid@data))
 
     # statistic mean value 
     if (stat$show && !is.null(stat$loc)) {
-        if (class(grid) == "SpatialPolygonsDataFrame") {
-            area <- raster::area(grid)
-        } else {
-            area <- raster::area(raster::raster(grid))@data@values
-        }
+        if (area.weighted) {
+            if (class(grid) == "SpatialPolygonsDataFrame") {
+                area <- raster::area(grid)
+            } else {
+                grid2 <- grid[1]
+                grid2@data <- data.frame(id = 1:nrow(grid2))
+                r <- raster::raster(grid2)
+                I <- r[[1]]@data@values %>% which.notna() # pixel becomes data.frame
+                area <- raster::area(r)@data@values[I]
+            }
+        } else area <- rep(1, nrow(grid))
+        # browser()
 
         labels <- grid@data[, zcols, drop = FALSE] %>% map(function(x){
             # mu <- median(x, na.rm = TRUE)
-            mu <- weightedMedian(x, area, na.rm = TRUE) %>% sprintf("%.1f", .)
+            fmt = "%.1f"
+            if (!is.null(stat$digit)) fmt = sprintf("%%.%df", stat$digit)
+                
+            mu <- weightedMedian(x, area, na.rm = TRUE) %>% sprintf(fmt, .)
             # weightedMedian, weightedMean
-            sd <- weightedSd(x, area, na.rm = TRUE) %>% sprintf("%.1f", .)
+            sd <- weightedSd(x, area, na.rm = TRUE) %>% sprintf(fmt, .)
 
-            unit2 = unit
-            if(!(is.null(unit) || unit == "")) unit2 <- sprintf("(%s)", stat$unit)
-            label <- eval(substitute(expression(bar(bolditalic(name)) == mu * unit), 
-                c(list(mu=mu, sd=sd, unit = unit2), stat)))
+            unit2   = unit
+            if(!(is.null(unit) || unit == "")) {
+                unit2 <- unit
+                # unit2 <- sprintf(" (%s)", unit)
+            }
+
+            lst.env = c(list(mu=mu, sd=sd, unit = unit2), stat)
+            label <- if ( !is.null(stat$include.sd) && stat$include.sd ) {
+                eval(substitute(expression(bolditalic(name) == mu * "±" * sd * " " * unit), lst.env))
+            } else {
+                eval(substitute(expression(bar(bolditalic(name)) == mu * " " * unit), lst.env))
+            }
             label
         })
         data.stat <- list(loc = stat$loc, label = labels)
     } else {
         data.stat <- NULL
     }
+
 
     if (missing(colors)){ colors <- c("red", "grey80", "blue4") }
     if (missing(brks)) {
@@ -207,20 +237,20 @@ spplot_grid <- function(
     params <- list(
         grid, zcols,
         col.regions = cols,
-        panel.titles = zcols, 
+        panel.titles = zcols,
         panel = panel_hist, panel.title = panel.title,
-        sub.hist = sub.hist, 
+        sub.hist = sub.hist,
         brks = brks,
-        xlim = xlim, ylim = ylim, ..., 
+        xlim = xlim, ylim = ylim, ...,
         strip = FALSE, as.table = TRUE,
-        sp.layout = sp.layout, 
+        sp.layout = sp.layout,
         layout = layout,
-        drop.unused.levels = FALSE, 
-        par.settings = opt_trellis, 
-        grob = grob, bbox = bbox, 
+        # drop.unused.levels = FALSE, 
+        par.settings = par.settings,
+        grob = grob, bbox = bbox,
         pars = pars,
-        data.stat = data.stat, 
-        class = class, 
+        data.stat = data.stat,
+        class = class,
         w = w
     )
     is_factor <- is.factor(grid@data[, zcols, drop = FALSE][[1]])

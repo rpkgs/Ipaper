@@ -10,9 +10,11 @@ spplot_grid(grid, zcols, brks, colors, col.rev = FALSE,
   pars = list(title = list(x = 77, y = 39, cex = 1.5), hist =
   list(origin.x = 77, origin.y = 28, A = 15, by = 0.4)), unit = "",
   unit.adj = 0.3, stat = list(show = FALSE, name = "RC", loc = c(81.5,
-  26.5)), panel.title = NULL, legend.space = "right",
-  layout = layout, colorkey = TRUE, interpolate = TRUE,
-  lgd.title = NULL, sp.layout = NULL, ...)
+  26.5), digit = 1, include.sd = FALSE), area.weighted = FALSE,
+  panel.title = NULL, legend.space = "right", layout = NULL,
+  colorkey = TRUE, interpolate = TRUE, lgd.title = NULL,
+  sp.layout = NULL, par.settings = opt_trellis_default,
+  par.settings2 = list(axis.line = list(col = "white")), ...)
 }
 \description{
 spplot_grid

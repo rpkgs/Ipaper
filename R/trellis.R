@@ -48,7 +48,7 @@ opt_trellis_strip <- list(
 #  $ ylab             : num 1
 #  $ ylab.axis.padding: num 1
 #  $ ylab.right       : num 1
-## 
+## used by Rcmip5 Figures
 opt_trellis <- list(
     layout.heights = list(
         top.padding       = 0,
@@ -82,7 +82,7 @@ opt_trellis <- list(
 
 opt_trellis_default <- list(
     layout.heights = list(
-        top.padding       = 0,
+        top.padding       = 0.5,
         main.key.padding  = 0,
         key.axis.padding  = 0,
         axis.xlab.padding = 0,
