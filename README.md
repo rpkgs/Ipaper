@@ -18,6 +18,8 @@ Status](https://ci.appveyor.com/api/projects/status/github/kongdd/rwiki?branch=m
 
 ``` r
 devtools::install_github("kongdd/Ipaper")
+# or from gz file
+install.packages("Ipaper_0.1.5.tar.gz", repos = NULL, type = "source", dependencies = TRUE)
 ```
 
 ## FUNCTIONS

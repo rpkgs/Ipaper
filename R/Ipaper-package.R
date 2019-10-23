@@ -34,7 +34,6 @@
 NULL
 
 
-#' @importFrom grDevices windowsFonts windowsFont
 .onLoad <- function(libname, pkgname) {
     # suppressMessages
     # suppressWarnings
@@ -46,7 +45,6 @@ NULL
 
     OS.type = .Platform$OS.type
 	if (OS.type == 'windows') {
-
 	    grDevices::windowsFonts(
 	        Times = grDevices::windowsFont("Times New Roman"), 
 	        Arial = grDevices::windowsFont("Arial"), 
