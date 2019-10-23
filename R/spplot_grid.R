@@ -46,19 +46,33 @@ check_brks <- function(brks){
     brks
 }
 
+
+raster2poly <- function(r, I_grid = NULL){
+    if (is.null(I_grid)) I_grid <- 1:nrow(r)
+    as(r, "SpatialPolygonsDataFrame")
+}
+
+raster2SpatialPixel <- function(r, I_grid = NULL){
+    if (is.null(I_grid)) I_grid <- 1:nrow(r)
+    as(r, "SpatialPolygonsDataFrame")
+}
+
 #' panel_hist
 #' 
 #' @param par position of title, `list(title = list(x, y))`
 #' 
 #' @importFrom lattice panel.number panel.text 
 #' @export
-panel_hist <- function(x, y, z, subscripts, ...,  
+panel.spatial <- function(x, y, z, subscripts, ...,  
     contour = FALSE, 
     grob = NULL, bbox, sub.hist = TRUE, sp.layout, 
     pars, class = NULL, 
     interpolate = TRUE, 
+    df.pvalue = NULL, 
+    SpatialPixels = NULL,
     data.stat = NULL)
 {
+    NO_panel = panel.number()
     dot <- list(...)
 
     # print(str(listk(x, y, z, subscripts, ...)))#debug code
@@ -71,45 +85,40 @@ panel_hist <- function(x, y, z, subscripts, ...,
     }
     
     if (contour) {
-        # dot$at <- c(5000)
         panel.levelplot(x, y, z, subscripts, 
             region = TRUE, contour = TRUE, labels = TRUE, 
             interpolate = FALSE)  
-        # dot$region <- FALSE
-        # params <- listk(x, y, z, subscripts, contour = TRUE, interpolate = FALSE, 
-        #                 lwd = 0.1, lty =2,
-        #                 labels = FALSE, label.style = "flat") %>% c(dot)
-        # do.call(panel.contourplot, params)
-        # ----------------------------------
-        # params <- listk(x, y, z, subscripts, 
-        #                 # interpolate = TRUE, label.style = "flat", 
-        #                 lwd = 1, lty =1, col = "black", 
-        #                 at = 1:8, 
-        #                 # at = at,
-        #                 contour = TRUE, region = FALSE, 
-        #                 labels = TRUE) #%>% c(dot)
-        # save(params, file = "debug.rda")
-        # do.call(panel.levelplot, params)
     }
 
-    # subplot
-    if (!is.null(grob)) { panel.annotation(grob, bbox) }
+    if (!is.null(df.pvalue) && !is.null(SpatialPixels)) {
+        pvalue = df.pvalue[[NO_panel]]
+        I_sign <-which(pvalue <= 0.05)
 
+        poly_shade = raster2poly(SpatialPixels, I_sign)
+        panel.poly_grid(poly_shade, union = TRUE, density, angle, 
+            col = col, lwd = lwd, lty = lty, sp.layout = NULL, ...)
+    }
+
+    ## 3. panel.annotation
+    if (!is.null(grob)) { panel.annotation(grob, bbox) }
     sppanel(list(sp.layout), panel.number(), first = FALSE)
     
-    i <- ifelse(is.null(dot$order), panel.number(), dot$order)
+    ## 4. add panel title
+    i <- ifelse(is.null(dot$order), NO_panel, dot$order)
     panel.title <- ifelse(is.null(dot$panel.title), 
                           paste0("(",letters[i], ") ", dot$panel.titles[i]), 
                           dot$panel.title[i])
     panel.text(pars$title$x, pars$title$y, panel.title, #english name: New_names[i])
                fontfamily = "Times", cex = pars$title$cex, font = 2, adj = 0)
 
+    ## 5. panel.text statistic values
     if (!is.null(data.stat)) {
         loc   <- data.stat$loc # 81.5, 26.5
         label <- data.stat$label[[i]]
         panel.text(loc[[1]], loc[[2]], label, fontfamily = "Times", cex = 1.2, adj = c(0, 0))    
     }
 
+    ## 6. panel.hist
     if (sub.hist) {
         params <- listk(z, subscripts, ntick = 3, ...) %>% 
             c(., pars$hist)
@@ -205,7 +214,6 @@ spplot_grid <- function(
         data.stat <- NULL
     }
 
-
     if (missing(colors)){ colors <- c("red", "grey80", "blue4") }
     if (missing(brks)) {
         brks <- pretty(grid@data[[1]]) 
@@ -238,7 +246,7 @@ spplot_grid <- function(
         grid, zcols,
         col.regions = cols,
         panel.titles = zcols,
-        panel = panel_hist, panel.title = panel.title,
+        panel = panel.spatial, panel.title = panel.title,
         sub.hist = sub.hist,
         brks = brks,
         xlim = xlim, ylim = ylim, ...,
