@@ -8,6 +8,8 @@ Description: Awesome functions in R.
 License: GPL-3
 Encoding: UTF-8
 LazyData: TRUE
+Depends:
+    R (>= 3.1)
 LinkingTo: 
     Rcpp
 import: 
@@ -29,7 +31,7 @@ Imports:
     methods,
     parallel,
     doParallel,
-    foreach,
+    foreach, iterators,
     plyr,
     Cairo,
     Rcpp, 
@@ -40,7 +42,8 @@ Imports:
     devtools, 
     IRdisplay,
     RColorBrewer,
-    sp, 
+    sp, maptools, 
+    rgeos, 
     boot
 Suggests: 
     testthat (>= 2.1.0),

@@ -79,10 +79,12 @@ panel.shade <- function(
 #' @param lst List of coordinates matrix `[x, y]`
 #' 
 #' @rdname panel.shade
+#' 
+#' @importFrom iterators icount
 #' @export
 panel.shade.list <- function(lst, ...) {
-    foreach(lonlat = lst, i = icount()) %do% {
-        panel.shade(lonlat[, 1], lonlat[, 2], ...)        
+    for (i in seq_along(lst)) {
+        panel.shade(lst[[i]][, 1], lst[[i]][, 2], ...)        
     }
 }
 
@@ -146,8 +148,7 @@ polygon.onehatch <- function(x, y, x0, y0, xd, yd, ..debug.hatch = FALSE, fillOd
         panel.points(x0, y0)
         panel.arrows(x0, y0, x0 + xd, y0 + yd)
     }
-    halfplane <- as.integer(xd * (y - y0) - yd * (x - x0) <=
-        0)
+    halfplane <- as.integer(xd * (y - y0) - yd * (x - x0) <= 0)
     cross <- halfplane[-1L] - halfplane[-length(halfplane)]
     does.cross <- cross != 0
     if (!any(does.cross))
@@ -180,10 +181,10 @@ polygon.fullhatch <- function(x, y, density, angle, ..debug.hatch = FALSE, fillO
     x <- c(x, x[1L])
     y <- c(y, y[1L])
     angle <- angle%%180
-    if (par("xlog") || par("ylog")) {
-        warning("cannot hatch with logarithmic scale active")
-        return()
-    }
+    # if (par("xlog") || par("ylog")) {
+    #     warning("cannot hatch with logarithmic scale active")
+    #     return()
+    # }
     usr <- par("usr")
     pin <- par("pin")
     upi <- c(usr[2L] - usr[1L], usr[4L] - usr[3L])/pin
@@ -229,4 +230,53 @@ polygon.fullhatch <- function(x, y, density, angle, ..debug.hatch = FALSE, fillO
             x0 <- x0 + x.shift
         }
     }
+}
+
+#' @importFrom grid grid.segments
+lsegments <- function (x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL, 
+    col = add.line$col, alpha = add.line$alpha, lty = add.line$lty, 
+    lwd = add.line$lwd, font, fontface, ..., identifier = NULL, 
+    name.type = "panel") 
+{
+    if (missing(x0)) 
+        x0 <- x2
+    if (missing(y0)) 
+        y0 <- y2
+    add.line <- trellis.par.get("add.line")
+    ml <- max(length(x0), length(x1), length(y0), length(y1))
+    x0 <- rep(x0, length.out = ml)
+    x1 <- rep(x1, length.out = ml)
+    y0 <- rep(y0, length.out = ml)
+    y1 <- rep(y1, length.out = ml)
+    if (hasGroupNumber()) 
+        group <- list(...)$group.number
+    else group <- 0
+    grid.segments(x0 = x0, x1 = x1, y0 = y0, y1 = y1, 
+        name = primName("segments", identifier, name.type, group), 
+        gp = gpar(lty = lty, col = col, 
+            lwd = lwd, alpha = alpha, ...), default.units = "native")
+}
+
+panel.segments <- function(...) lsegments(...)
+
+hasGroupNumber <- function () {
+    aname <- "group.number"
+    fnames <- names(formals(sys.function(sys.parent())))
+    if (is.na(match(aname, fnames))) {
+        if (is.na(match("...", fnames))) 
+            FALSE
+        else {
+            dotsCall <- eval(quote(substitute(list(...))), sys.parent())
+            !is.na(match(aname, names(dotsCall)))
+        }
+    }
+    else FALSE
+}
+
+primName <- function (name, identifier = NULL, name.type = "panel", 
+    group = 0) 
+{
+    trellis.grobname(name = ifelse(is.null(identifier), name, 
+        paste(identifier, name, sep = ".")), type = name.type, 
+        group = group)
 }

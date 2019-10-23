@@ -2,8 +2,13 @@
 #' 
 #' @param x Polygons class
 #' @export
-coord.polygon <- function(x){ 
-    map(x@Polygons, ~.x@coords) %>% do.call(rbind, .)
+coord.polygon <- function(x){
+    res = list()
+    xs  = x@Polygons
+    for(i in seq_along(xs)) {
+        res[[i]] = xs[[i]]@coords
+    }
+    do.call(rbind, res)
 }
 
 #' coord.polygons

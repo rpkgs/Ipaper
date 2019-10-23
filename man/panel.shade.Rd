@@ -85,11 +85,8 @@ I <- c(1:2000, 4000:6000)
 poly   <- as(r[I, ], "SpatialPolygonsDataFrame")
 poly2  <- union_polygon(poly)
 
-expect_true({
-    print(spplot(poly2 , poly_shade = poly2, panel = panel.polygonsplot2, fill = "grey", col = "red"))
-    print(spplot(r[I, ], poly_shade = poly2, panel = panel.gridplot2    , fill = "grey", col = "red"))
-    TRUE
-})
+print(spplot(poly2 , poly_shade = poly2, panel = panel.polygonsplot2, fill = "grey", col = "red"))
+print(spplot(r[I, ], poly_shade = poly2, panel = panel.gridplot2    , fill = "grey", col = "red"))
 }
 }
 \seealso{

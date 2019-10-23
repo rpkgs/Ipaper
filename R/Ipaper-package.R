@@ -11,12 +11,13 @@
 #' @importFrom data.table data.table
 #' @importFrom graphics rect plot
 #' @importFrom grid textGrob gpar grid.newpage
-#' @importFrom grDevices cairo_pdf dev.off svg tiff
+#' @importFrom grDevices cairo_pdf dev.off svg tiff colorRampPalette xy.coords
 #' @importFrom stats quantile setNames
 #' @importFrom utils object.size
-#' @importFrom graphics abline grid legend
-#' @importFrom stats acf as.formula lm median na.omit pnorm qnorm
-#' @importFrom utils write.table
+#' @importFrom graphics abline grid legend par
+#' @importFrom stats acf as.formula lm median na.omit pnorm qnorm density
+#' @importFrom utils write.table modifyList str
+#' 
 #' @import magrittr plyr
 #' 
 #' @keywords internal
@@ -33,6 +34,7 @@
 NULL
 
 
+#' @importFrom grDevices windowsFonts windowsFont
 .onLoad <- function(libname, pkgname) {
     # suppressMessages
     # suppressWarnings
@@ -41,5 +43,24 @@ NULL
         # library(lattice)
         library(devtools)
     })
+
+    OS.type = .Platform$OS.type
+	if (OS.type == 'windows') {
+
+	    grDevices::windowsFonts(
+	        Times = grDevices::windowsFont("Times New Roman"), 
+	        Arial = grDevices::windowsFont("Arial"), 
+	        YH = grDevices::windowsFont("Microsoft Yahei"), 
+	        whit = grDevices::windowsFont("Whitney-Book")
+	    )
+	} else if (OS.type == 'unix'){
+	    Cairo::CairoFonts(
+	        regular="Times New Roman:style=Regular",
+	        bold="Times New Roman:style=Bold",
+	        italic="Times New Roman:style=Oblique",
+	        bolditalic="Times New Roman:style=BoldOblique"
+	    )
+	}
+
     invisible()
 }

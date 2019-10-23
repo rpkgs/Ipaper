@@ -1,54 +1,3 @@
-#' @import RColorBrewer
-#' @export
-get_colorkey <- function(breaks, space = "bottom", lgd.title = NULL, is_factor = FALSE, 
-    unit = NULL, unit.adj = 0.3, 
-    cex = 1.3, fontfamily = "Times", fontface = 2)
-{
-    ncolor <- length(breaks) - 1
-    cols <- colorRampPalette(c("firebrick1","orange3", "darkgoldenrod2", "grey90",
-                               brewer.pal(9, "YlGnBu")[c(4, 6, 7)], "green4"))(ncolor)#,colors()[504]
-    # prepare for spplot
-    colorkey <- list(
-        title = lgd.title,
-        labels = list(cex = cex, fontfamily = fontfamily, fontface = fontface),
-        axis.line = list(col = 'black'),
-        rect = list(col = "black", lwd = 0.4), 
-        # tri.upper = TRUE,  tri.lower = TRUE, 
-        height = 1, space = space, tck = 1, 
-        unit = unit, unit.adj = unit.adj
-    )
-
-    if (is_factor) {
-        at <- seq_along(breaks[-(1:2)]) + 0.5
-        labels <- breaks[-c(1, length(breaks))]
-        
-        colorkey$labels$at     <- at
-        colorkey$labels$labels <- labels
-    } else {
-        at <- breaks[-c(1, length(breaks))]
-    }
-
-    # colorkey$at <- at
-    list(cols = cols, colorkey = colorkey)#return
-}
-
-
-check_brks <- function(brks){
-    nbrk  <- length(brks)
-    delta <- median(diff(brks))
-    if (is.infinite(brks[1])) {
-        brks[1] <- brks[2] - delta
-    }
-
-    if (is.infinite(brks[nbrk])) {
-        brks[nbrk] <- brks[nbrk - 1] + delta
-    }
-    brks
-}
-
-# xlim <- c(73.5049, 104.9725)
-# ylim <- c(25.99376, 40.12632)
-
 #' Plot methods for spatial data with attributes
 #' 
 #' Lattice (trellis) plot methods for spatial data with attributes
@@ -56,17 +5,31 @@ check_brks <- function(brks){
 #' @inheritParams lattice::levelplot
 #' @inheritParams sp::spplot
 #' 
+#' @param formula a formula of the form z ~ x * y | g1 * g2 * ..., where z is a 
+#' numeric response, and x, y are numeric values evaluated on a rectangular grid. 
+#' g1, g2, ... are optional conditional variables, and must be either factors or 
+#' shingles if present.
+#' @param df data.table object, with columns e.g. lon, lat, and others
+#' @param df.mask NULL or same length data.table as df, with the columns of `mask`
+#' and same group variabes as `df`. Mask is used to distinguish significant pixels.
+#' 
+#' @param NO_begin beginning NO of the first panel
+#' 
 #' @example man/examples/ex-spplot_grid.R
 #' 
-#' @seealso [sp::spplot()], [lattice::levelplot()]
+#' @seealso [spplot_grid()], [sp::spplot()], [lattice::levelplot()]
 #' 
 #' @importFrom matrixStats weightedMedian weightedSd
-#' @importFrom sp spplot 
+#' @importFrom sp spplot coordinates 
 #' @importFrom grid frameGrob placeGrob rectGrob segmentsGrob polygonGrob 
 #' @importFrom lattice panel.number panel.segments panel.points panel.arrows
 #' @export
-spplot_grid <- function(
-    grid, zcols, 
+levelplot2 <- function(
+    formula, 
+    df,
+    SpatialPixel,
+    df.mask = NULL,
+    # grid, zcols, 
     brks, colors, col.rev = FALSE, 
     toFactor = FALSE, 
     sub.hist = TRUE, 
@@ -85,58 +48,65 @@ spplot_grid <- function(
     interpolate = TRUE,
     lgd.title = NULL, 
     sp.layout = NULL, 
+    NO_begin = 1, 
     par.settings = opt_trellis_default, 
     par.settings2 = list(axis.line = list(col = "white")),
     ...)
 {
-    # update par.settings (20191003)
+    info.formula = parse.formula(formula)
+    value.var = info.formula$value.var
+    groups    = info.formula$groups
+    
+    npixel = nrow(SpatialPixel)
     par.settings <- modifyList(par.settings, par.settings2)
 
-    if (missing(zcols)) { zcols <- names(grid) }
-    zcols %<>% intersect(names(grid@data))
+    list.mask = if (!is.null(df.mask)) {
+        dlply(df.mask, groups, function(d) d$mask)
+    } else NULL
 
     # statistic mean value 
     data.stat <- 
         if (stat$show && !is.null(stat$loc)) {
-            area = area.spatial(grid, area.weighted)
-            
-            labels <- grid@data[, zcols, drop = FALSE] %>% map(spatial_meansd, area, stat, unit)
+            area = area.spatial(SpatialPixel, area.weighted)
+            # need to debug for two variables group
+            labels = dlply(df, groups, function(d) spatial_meansd(d[[value.var]], area, stat, unit))
             list(loc = stat$loc, label = labels)
         } else NULL
     
     if (missing(colors)){ colors <- c("red", "grey80", "blue4") }
-
     if (missing(brks)) {
-        vals <- grid@data[[1]]
+        vals  <- df[[value.var]]
         range <- quantile(vals, c(0.05, 0.95), na.rm = TRUE)
         vals %<>% clamp(range)
         brks <- pretty(vals, n = 10) %>% c(-Inf, ., Inf)
         cols <- get_break_colors(colors, brks)
     } else {
-        cols <- get_break_colors(colors, brks)        
-        # cut into factor
-        df <- grid@data[, zcols, drop = FALSE]
-        if (toFactor) {
-            # drawkey can't support factor well
-            df <- lapply(df, cut, brks) %>% as.data.frame()
-        }
+        cols <- get_break_colors(colors, brks)
+        if (toFactor) df[[value.var]] %<>% cut(brks) # cut into factor
         levels <- cut(1, brks) %>% levels()
-        grid@data <- df
     }
     if (col.rev) cols %<>% rev()   
     
-    class  <- class(grid)
+    class  <- class(SpatialPixel)
+    data   <- coordinates(SpatialPixel) %>% as.data.table() %>% cbind(df)
     params <- list(
-        grid, zcols,
+        formula, data,
+        list.mask = list.mask, 
+        SpatialPixel = SpatialPixel, 
+        ...,
         col.regions = cols,
-        panel.titles = zcols,
-        panel = panel.spatial, panel.title = panel.title,
+        # panel.titles = zcols,
+        panel.titles_full = panel.title,
+        panel = panel.spatial, 
+        NO_begin = NO_begin,
         sub.hist = sub.hist,
         brks = brks,
-        xlim = xlim, ylim = ylim, ...,
+        xlim = xlim, ylim = ylim, 
         strip = FALSE, as.table = TRUE,
         sp.layout = sp.layout,
         layout = layout,
+        scales = list(draw = FALSE),
+        xlab = NULL, ylab = NULL, 
         # drop.unused.levels = FALSE, 
         interpolate = interpolate,
         par.settings = par.settings,
@@ -145,8 +115,7 @@ spplot_grid <- function(
         data.stat = data.stat,
         class = class
     )
-    is_factor <- is.factor(grid@data[, zcols, drop = FALSE][[1]])
- 
+    is_factor <- is.factor(df[[value.var]])
     if (!is_factor) params$at <- brks 
     
     if (colorkey) {
@@ -156,5 +125,6 @@ spplot_grid <- function(
     } else {
         params$colorkey <- FALSE
     }
-    do.call(spplot, params)
+    # browser()
+    do.call(levelplot, params)
 }

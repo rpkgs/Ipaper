@@ -21,3 +21,12 @@ tabular <- function(df, ...) {
     paste("\\tabular{", paste(col_align, collapse = ""), "}{\n  ",
         contents, "\n}\n", sep = "")
 }
+
+
+# for levelplot2
+parse.formula <- function(formula = x~s1+s2) {
+    str_formula <- gsub("s1 \\+ s2 *\\|*| ", "", as.character(formula))
+    value.var = str_formula[2]
+    groups    = strsplit(str_formula[3], "\\+|\\*")[[1]]
+    list(value.var = value.var, groups = groups)    
+}
