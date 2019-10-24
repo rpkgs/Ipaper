@@ -9,12 +9,6 @@ raster2SpatialPixel <- function(r, I_grid = NULL){
     as(r, "SpatialPolygonsDataFrame")
 }
 
-get_break_colors <- function(colors, brks) {
-    colfun <- colors %>% colorRampPalette()
-    
-    ncolor <- length(brks) - 1
-    colfun(ncolor)
-} 
 
 #' Calculate area of spatial object
 #' 
@@ -38,12 +32,13 @@ area.spatial <- function(grid, area.weighted = TRUE){
 }
 
 # Statistic of median±sd or median
-spatial_meansd <- function(x, area, stat, unit){
+spatial_meansd <- function(x, area, stat, unit, FUN = weightedMedian){
     # mu <- median(x, na.rm = TRUE)
     fmt = "%.1f"
-    if (!is.null(stat$digit)) fmt = sprintf("%%.%df", stat$digit)
-    
-    mu <- weightedMedian(x, area, na.rm = TRUE) %>% sprintf(fmt, .)
+    if (!is.null(stat$digit)) fmt = sprintf("%%.%df", stat$digit)    
+    if (is.null(FUN)) FUN = weightedMedian
+
+    mu <- FUN(x, area, na.rm = TRUE) %>% sprintf(fmt, .)
     # weightedMedian, weightedMean
     sd <- weightedSd(x, area, na.rm = TRUE) %>% sprintf(fmt, .)
 

@@ -26,6 +26,7 @@ panel.spatial <- function(x, y, z, subscripts,
 
     if (is.null(class) || class == "SpatialPixelsDataFrame") {
         panel.levelplot.raster(x, y, z, subscripts, ..., interpolate = interpolate)  
+        # panel.levelplot.raster, panel.levelplot
     } else {
         panel.polygonsplot(x, y, z, subscripts, ..., sp.layout = sp.layout)    
     }
@@ -52,7 +53,8 @@ panel.spatial <- function(x, y, z, subscripts,
     
     ## 4. add panel title
     i <- ifelse(is.null(dot$NO_begin), 0, dot$NO_begin-1) + NO_panel
-    panel.title <- ifelse(is.null(dot$panel.title), 
+    
+    panel.title <- ifelse(is.null(dot$panel.titles_full), 
                           paste0("(",letters[i], ") ", dot$panel.titles[NO_panel]), 
                           dot$panel.titles_full[NO_panel])
     panel.text(pars$title$x, pars$title$y, panel.title, #english name: New_names[i])

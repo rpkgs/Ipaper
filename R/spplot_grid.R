@@ -1,38 +1,3 @@
-#' @import RColorBrewer
-#' @export
-get_colorkey <- function(breaks, space = "bottom", lgd.title = NULL, is_factor = FALSE, 
-    unit = NULL, unit.adj = 0.3, 
-    cex = 1.3, fontfamily = "Times", fontface = 2)
-{
-    ncolor <- length(breaks) - 1
-    cols <- colorRampPalette(c("firebrick1","orange3", "darkgoldenrod2", "grey90",
-                               brewer.pal(9, "YlGnBu")[c(4, 6, 7)], "green4"))(ncolor)#,colors()[504]
-    # prepare for spplot
-    colorkey <- list(
-        title = lgd.title,
-        labels = list(cex = cex, fontfamily = fontfamily, fontface = fontface),
-        axis.line = list(col = 'black'),
-        rect = list(col = "black", lwd = 0.4), 
-        # tri.upper = TRUE,  tri.lower = TRUE, 
-        height = 1, space = space, tck = 1, 
-        unit = unit, unit.adj = unit.adj
-    )
-
-    if (is_factor) {
-        at <- seq_along(breaks[-(1:2)]) + 0.5
-        labels <- breaks[-c(1, length(breaks))]
-        
-        colorkey$labels$at     <- at
-        colorkey$labels$labels <- labels
-    } else {
-        at <- breaks[-c(1, length(breaks))]
-    }
-
-    # colorkey$at <- at
-    list(cols = cols, colorkey = colorkey)#return
-}
-
-
 check_brks <- function(brks){
     nbrk  <- length(brks)
     delta <- median(diff(brks))
@@ -129,8 +94,9 @@ spplot_grid <- function(
     params <- list(
         grid, zcols,
         col.regions = cols,
-        panel.titles = zcols,
-        panel = panel.spatial, panel.title = panel.title,
+        panel.titles      = zcols,
+        panel.titles_full = panel.title,
+        panel = panel.spatial, 
         sub.hist = sub.hist,
         brks = brks,
         xlim = xlim, ylim = ylim, ...,

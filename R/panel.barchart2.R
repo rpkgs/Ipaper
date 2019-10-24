@@ -10,13 +10,18 @@ get_perc.factor <- function(z, w=NULL){
     if (is.null(w)) {
         z <- z[!is.na(z)] # rm NAN value
         d <- table(z) %>% as.data.frame()
-        d$z %<>% as.character() %>% as.numeric()
         d$perc <- d$Freq/length(z)
     } else {
         df <- data.table(z, w)
-
         w_sum <- df[!is.na(z), sum(w)]
         d <- df[!is.na(z), .(Freq = .N, perc = sum(w)/w_sum), .(z)][order(z)]
+    }
+
+    zchr = d$z %<>% as.character()
+    if (is.na(suppressWarnings(as.numeric(zchr[1])))) {
+        d$z <- seq_along(zchr)
+    } else {
+        d$z <- as.numeric(zchr)
     }
 
     n_missing <- d$z[1] - 1    
@@ -52,7 +57,7 @@ panel.barchart2 <- function(z, subscripts, origin.x = 76, origin.y = 26.5, tck =
     axis.x.text = TRUE, axis.x.text.angle = 90,
     col, 
     fontfamily = "Times", border = "transparent", ntick = 2, 
-    ylab.offset = 2, 
+    ylab.offset = 2.5, 
     tick = NULL,
     w = NULL, 
     text.cex = 1, ...)
@@ -68,6 +73,7 @@ panel.barchart2 <- function(z, subscripts, origin.x = 76, origin.y = 26.5, tck =
         z <- cut(z, dots$at) %>% as.numeric()
     }
     
+    # browser()
     perc <- get_perc.factor(z, w)$perc
 
     # tck <- 0.2#tick length
@@ -92,7 +98,7 @@ panel.barchart2 <- function(z, subscripts, origin.x = 76, origin.y = 26.5, tck =
     ymax <- max(tick) + 0.1
 
     tick_ypos <- tick*A + origin.y
-    tick_xpos <- c(xpos - 0.5*by, max(xpos) + 0.5*by) 
+    tick_xpos <- c(xpos - 0.6*by, max(xpos) + 0.5*by) 
 
     # avoid overlap
     delta_x = pmax(tck/3 - (by - box.width)/2 , 0)
@@ -126,7 +132,7 @@ panel.barchart2 <- function(z, subscripts, origin.x = 76, origin.y = 26.5, tck =
         y1 = origin.y - tck/2, identifier = "xaxis.tick.minor"
     )
     # xaxis.tick.major
-    if (length(tick_xpos) <= 5) {
+    if (length(tick_xpos) <= 6) {
         I <- seq(1, length(tick_xpos)-1)
     } else {
         # I <- seq(2, length(tick_xpos)-1, 2)

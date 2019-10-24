@@ -5,17 +5,16 @@
 \title{Plot methods for spatial data with attributes}
 \usage{
 levelplot2(formula, df, SpatialPixel, df.mask = NULL, brks, colors,
-  col.rev = FALSE, toFactor = FALSE, sub.hist = TRUE, grob = NULL,
-  bbox = c(0, 0.5, 0.5, 1), xlim = c(73.5049, 104.9725),
-  ylim = c(25.99376, 40.12632), panel.title = NULL, unit = "",
-  unit.adj = 0.3, pars = list(title = list(x = 77, y = 39, cex = 1.5),
-  hist = list(origin.x = 77, origin.y = 28, A = 15, by = 0.4)),
-  stat = list(show = FALSE, name = "RC", loc = c(81.5, 26.5), digit = 1,
-  include.sd = FALSE), area.weighted = FALSE, legend.space = "right",
-  layout = NULL, colorkey = TRUE, interpolate = TRUE,
-  lgd.title = NULL, sp.layout = NULL, NO_begin = 1,
-  par.settings = opt_trellis_default, par.settings2 = list(axis.line =
-  list(col = "white")), ...)
+  col.rev = FALSE, toFactor = FALSE, grob = NULL, bbox = c(0, 0.5,
+  0.5, 1), xlim = c(73.5049, 104.9725), ylim = c(25.99376, 40.12632),
+  panel.title = NULL, unit = "", unit.adj = 0.3, pars = list(title
+  = list(x = 77, y = 39, cex = 1.5), hist = list(origin.x = 77, origin.y =
+  28, A = 15, by = 0.4)), stat = list(show = FALSE, name = "RC", loc =
+  c(81.5, 26.5), digit = 1, include.sd = FALSE), sub.hist = TRUE,
+  area.weighted = FALSE, legend.space = "right", layout = NULL,
+  colorkey = TRUE, interpolate = TRUE, lgd.title = NULL,
+  sp.layout = NULL, NO_begin = 1, par.settings = opt_trellis_default,
+  par.settings2 = list(axis.line = list(col = "white")), ...)
 }
 \arguments{
 \item{formula}{a formula of the form z ~ x * y | g1 * g2 * ..., where z is a
@@ -26,7 +25,8 @@ shingles if present.}
 \item{df}{data.table object, with columns e.g. lon, lat, and others}
 
 \item{df.mask}{NULL or same length data.table as df, with the columns of \code{mask}
-and same group variabes as \code{df}. Mask is used to distinguish significant pixels.}
+and same group variabes as \code{df}. Mask is used to distinguish significant pixels.
+Note that factor levels should be same for grouped variables in \code{df} and \code{df.mask}.}
 
 \item{xlim}{
     These arguments are described in the help page for

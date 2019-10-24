@@ -19,6 +19,7 @@ process.colorkey <- function(
     cex.title = 1,
     axis.line = list(),
     axis.text = list(),
+    key.padding = c(0, 0),
     rect = list(col = "black", lwd = 0.3), # rect of legend
     ...)
 {
@@ -41,6 +42,7 @@ process.colorkey <- function(
          cex.title   = cex.title,
          axis.line   = axis.line,
          axis.text   = axis.text,
+         key.padding = key.padding,
          rect        = rect,
          ...)
 }
@@ -164,13 +166,13 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
             check.overlap <- FALSE
             key$lab$lab
         } else format(at, trim = TRUE)
-        if (!is.null(key$lab$cex)) cex <- key$lab$cex
-        if (!is.null(key$lab$col)) col <- key$lab$col
+        if (!is.null(key$lab$cex))  cex  <- key$lab$cex
+        if (!is.null(key$lab$col))  col  <- key$lab$col
+        if (!is.null(key$lab$rot))  rot  <- key$lab$rot
         if (!is.null(key$lab$font)) font <- key$lab$font
-        if (!is.null(key$lab$fontface)) fontface <- key$lab$fontface
+        if (!is.null(key$lab$fontface))   fontface   <- key$lab$fontface
         if (!is.null(key$lab$fontfamily)) fontfamily <- key$lab$fontfamily
         if (!is.null(key$lab$lineheight)) lineheight <- key$lab$lineheight
-        if (!is.null(key$lab$rot)) rot <- key$lab$rot
     }
     else stop("malformed colorkey")
 
@@ -195,7 +197,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
         nlab <- length(labels)
         delta <- labscat[nlab] - labscat[nlab - 1]
         labscat[nlab+1] <- labscat[nlab] + delta*key$unit.adj
-        labels[nlab+1]  <- sprintf("(%s)", key$unit)
+        labels[nlab+1]  <- sprintf(" %s", key$unit)
     }
 
     if (key$space %in% c('right', 'left')) {
@@ -234,9 +236,10 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     lgd_width   <- unit(widths.x, widths_unit, data = widths_data) # for 'right' and 'bottom'
     if (key$space %in% c('left', 'top')) lgd_width <- rev(lgd_width)
     
-    heights.x <- c(0.5*(1 - key$height),
+    heights.x <- c(0.5*(1 - key$height) + key$key.padding[1],
                  key$height*c(open.upper, key.rect, open.lower),
-                 0.5*(1 - key$height))
+                 0.5*(1 - key$height) + key$key.padding[2])
+        
     lgd_height <- unit(heights.x, rep("null", 5))
 
     if (key$space %in% c("right", "left")) {
@@ -249,7 +252,6 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                         widths  = lgd_height)
     }
 
-    
     key.gf <- key_gf(key, key.layout, vp, vp_label, reccentre, recdim, FALSE)
     key.gf <- key_triangle(key.gf, key, open.lower, open.upper)
     
