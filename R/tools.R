@@ -30,3 +30,24 @@ parse.formula <- function(formula = x~s1+s2) {
     groups    = strsplit(str_formula[3], "\\+|\\*")[[1]]
     list(value.var = value.var, groups = groups)    
 }
+
+#' generate R script of character vector
+#' 
+#' @param x character vector, data.frame or list.
+#' @inheritParams base::paste
+#' 
+#' @export
+code_ChrVec <- function(x, collapse = '"') {
+    if(is.list(x)) {
+        x = names(x)
+    }
+    
+    head = sprintf('c(%s', collapse)
+    tail = sprintf('%s)', collapse)
+    collapse = sprintf('%s, %s', collapse, collapse) 
+    
+    script = paste(x, collapse = collapse) %>% paste0(head, ., tail)
+
+    if (.Platform$OS.type == "windows") writeLines(script, "clipboard")
+    cat(script)
+}

@@ -8,7 +8,7 @@ panel.barchart2(z, subscripts, origin.x = 76, origin.y = 26.5,
   tck = 0.2, A = 15, by = 0.6, box.width = by * 0.85,
   axis.x.text = TRUE, axis.x.text.angle = 90, col,
   fontfamily = "Times", border = "transparent", ntick = 2,
-  ylab.offset = 2, tick = NULL, w = NULL, text.cex = 1, ...)
+  ylab.offset = 2.5, tick = NULL, w = NULL, text.cex = 1, ...)
 }
 \arguments{
 \item{{[type]}}{perc      \link{description}}

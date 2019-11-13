@@ -51,13 +51,14 @@ spplot_grid <- function(
     lgd.title = NULL, 
     sp.layout = NULL, 
     par.settings = opt_trellis_default, 
-    par.settings2 = list(axis.line = list(col = "white")),
+    par.settings2 = list(axis.line = list(col = "transparent")),
     ...)
 {
     # update par.settings (20191003)
     par.settings <- modifyList(par.settings, par.settings2)
 
     if (missing(zcols)) { zcols <- names(grid) }
+    if (is.numeric(zcols)) { zcols <- names(grid)[zcols] }
     zcols %<>% intersect(names(grid@data))
 
     # statistic mean value 
@@ -72,7 +73,7 @@ spplot_grid <- function(
     if (missing(colors)){ colors <- c("red", "grey80", "blue4") }
 
     if (missing(brks)) {
-        vals <- grid@data[[1]]
+        vals <- grid@data[[zcols[1]]]
         range <- quantile(vals, c(0.05, 0.95), na.rm = TRUE)
         vals %<>% clamp(range)
         brks <- pretty(vals, n = 10) %>% c(-Inf, ., Inf)

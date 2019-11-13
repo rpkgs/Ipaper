@@ -10,10 +10,11 @@ levelplot2(formula, df, SpatialPixel, df.mask = NULL, brks, colors,
   panel.title = NULL, unit = "", unit.adj = 0.3, pars = list(title
   = list(x = 77, y = 39, cex = 1.5), hist = list(origin.x = 77, origin.y =
   28, A = 15, by = 0.4)), stat = list(show = FALSE, name = "RC", loc =
-  c(81.5, 26.5), digit = 1, include.sd = FALSE), sub.hist = TRUE,
-  area.weighted = FALSE, legend.space = "right", layout = NULL,
-  colorkey = TRUE, interpolate = TRUE, lgd.title = NULL,
-  sp.layout = NULL, NO_begin = 1, par.settings = opt_trellis_default,
+  c(81.5, 26.5), digit = 1, include.sd = FALSE, FUN = weightedMedian),
+  sub.hist = TRUE, area.weighted = FALSE, legend.space = "right",
+  layout = NULL, colorkey = TRUE, legend.num2factor = FALSE,
+  interpolate = TRUE, lgd.title = NULL, sp.layout = NULL,
+  NO_begin = 1, par.settings = opt_trellis_default,
   par.settings2 = list(axis.line = list(col = "white")), ...)
 }
 \arguments{

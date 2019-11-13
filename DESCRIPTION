@@ -53,7 +53,6 @@ Suggests:
     gridExtra, 
     sp
 Remotes:
-    kongdd/foreach,
     kongdd/plyr
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1

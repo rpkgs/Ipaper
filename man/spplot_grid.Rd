@@ -14,7 +14,7 @@ spplot_grid(grid, zcols, brks, colors, col.rev = FALSE,
   legend.space = "right", layout = NULL, colorkey = TRUE,
   interpolate = TRUE, lgd.title = NULL, sp.layout = NULL,
   par.settings = opt_trellis_default, par.settings2 = list(axis.line =
-  list(col = "white")), ...)
+  list(col = "transparent")), ...)
 }
 \arguments{
 \item{xlim}{
