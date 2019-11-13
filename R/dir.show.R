@@ -30,7 +30,7 @@ pal <- function(col, border = "light gray")
 #' check_dir
 #' @param path character vectors 
 #' 
-#' @import foreach
+#' @importFrom foreach %do%
 #' @export
 check_dir <- function(path){
     foreach(path_i = unique(path)) %do% {

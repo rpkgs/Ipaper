@@ -1,4 +1,4 @@
-
+#' @export
 foreach <- function(..., .combine, .init, .final=NULL, .inorder=TRUE,
                     .multicombine=FALSE,
                     .maxcombine=if (.multicombine) 100 else 2,

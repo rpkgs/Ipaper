@@ -91,7 +91,7 @@ key_blind <- function(){
     options_update(file_rstudio, options_rstudio)   
 }
 
-#' @importFrom foreach foreach %do%
+#' @importFrom foreach %do%
 #' @importFrom jsonlite write_json read_json
 #' @export
 options_update <- function(file, options.new) {

@@ -28,10 +28,10 @@ InitCluster <- function (ncluster = 4, outfile = "log.txt", kill = TRUE)
 }
 
 #' @export
-gc_cluster <- function(n = NULL){
-    if (is.null(n)) {
-        n <- length(foreach:::.foreachGlobals$data)
-    }
+gc_cluster <- function(n){
+    # if (is.null(n)) {
+    #     n <- length(foreach:::.foreachGlobals$data)
+    # }
     ok(sprintf("[gc] %d clusters ...\n", n))
     
     temp <- foreach(i = seq_len(n)) %dopar% {
