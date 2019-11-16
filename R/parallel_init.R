@@ -48,13 +48,6 @@ gc_linux <- function(){
     }
 }
 
-shell <- function(...){
-    FUN <- switch(.Platform$OS.type, 
-        "windows" = base::shell, 
-        "unix" = base::system)
-    FUN(...)
-}
-
 # #' @import doFuture 
 # #' @importFrom future makeClusterPSOCK plan
 # #' @export

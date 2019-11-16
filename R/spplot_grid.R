@@ -20,6 +20,10 @@ check_brks <- function(brks){
 #' 
 #' @inheritParams lattice::levelplot
 #' @inheritParams sp::spplot
+#' @param ... other parameters to spplot, for example:
+#' - xlim
+#' - ylim 
+#' - ...
 #' 
 #' @example man/examples/ex-spplot_grid.R
 #' 
@@ -36,7 +40,8 @@ spplot_grid <- function(
     toFactor = FALSE, 
     sub.hist = TRUE, 
     grob = NULL, bbox = c(0, 0.5, 0.5, 1),
-    xlim = c(73.5049, 104.9725), ylim = c(25.99376, 40.12632),
+    # xlim = NULL, #c(73.5049, 104.9725)
+    # ylim = NULL, #c(25.99376, 40.12632)
     panel.title = NULL, 
     unit = "",  
     unit.adj = 0.3, 
@@ -100,7 +105,8 @@ spplot_grid <- function(
         panel = panel.spatial, 
         sub.hist = sub.hist,
         brks = brks,
-        xlim = xlim, ylim = ylim, ...,
+        # xlim = xlim, ylim = ylim, 
+        ...,
         strip = FALSE, as.table = TRUE,
         sp.layout = sp.layout,
         layout = layout,

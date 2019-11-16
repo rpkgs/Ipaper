@@ -23,8 +23,7 @@ panel.spatial <- function(x, y, z, subscripts,
 
     # print(str(listk(x, y, z, subscripts, ...)))#debug code
     sppanel(list(sp.layout), panel.number(), first = TRUE)
-
-    if (is.null(class) || class == "SpatialPixelsDataFrame") {
+    if (is.null(class) || class %in% c("SpatialPixelsDataFrame", "SpatialGridDataFrame")) {
         panel.levelplot.raster(x, y, z, subscripts, ..., interpolate = interpolate)  
         # panel.levelplot.raster, panel.levelplot
     } else {

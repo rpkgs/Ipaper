@@ -1,3 +1,18 @@
+#' pal
+#' show colors in figure device
+#' 
+#' @param col colors to be visualize.
+#' @param border rect border for each color
+#' 
+#' @export
+pal <- function(col, border = "light gray")
+{
+    n <- length(col)
+    plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1), 
+         axes = FALSE, xlab = "", ylab = "")
+    rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
+}
+
 #' @import RColorBrewer
 #' @export
 get_colorkey <- function(breaks, space = "bottom", lgd.title = NULL, is_factor = FALSE, 

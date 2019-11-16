@@ -18,7 +18,7 @@ write_fig2ps <- function(ps, lgd, ylab.right, file, width = 10, height, nrow = 6
     if (missing(height)) height = nrow*1.6
 
     ylab.left        <- ps[[1]]$labels$y
-    ylab.left.color <- ps[[1]]$theme$axis.title.y.left$colour
+    ylab.left.color  <- ps[[1]]$theme$axis.title.y.left$colour
     ylab.right.color <- ps[[1]]$theme$axis.title.y.right$colour
 
     params <- list(ncol = 1, padding = unit(1, "line"),

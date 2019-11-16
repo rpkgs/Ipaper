@@ -6,27 +6,17 @@
 \usage{
 spplot_grid(grid, zcols, brks, colors, col.rev = FALSE,
   toFactor = FALSE, sub.hist = TRUE, grob = NULL, bbox = c(0, 0.5,
-  0.5, 1), xlim = c(73.5049, 104.9725), ylim = c(25.99376, 40.12632),
-  panel.title = NULL, unit = "", unit.adj = 0.3, pars = list(title
-  = list(x = 77, y = 39, cex = 1.5), hist = list(origin.x = 77, origin.y =
-  28, A = 15, by = 0.4)), stat = list(show = FALSE, name = "RC", loc =
-  c(81.5, 26.5), digit = 1, include.sd = FALSE), area.weighted = FALSE,
-  legend.space = "right", layout = NULL, colorkey = TRUE,
-  interpolate = TRUE, lgd.title = NULL, sp.layout = NULL,
+  0.5, 1), panel.title = NULL, unit = "", unit.adj = 0.3,
+  pars = list(title = list(x = 77, y = 39, cex = 1.5), hist =
+  list(origin.x = 77, origin.y = 28, A = 15, by = 0.4)), stat = list(show
+  = FALSE, name = "RC", loc = c(81.5, 26.5), digit = 1, include.sd =
+  FALSE), area.weighted = FALSE, legend.space = "right",
+  layout = NULL, colorkey = TRUE, interpolate = TRUE,
+  lgd.title = NULL, sp.layout = NULL,
   par.settings = opt_trellis_default, par.settings2 = list(axis.line =
   list(col = "transparent")), ...)
 }
 \arguments{
-\item{xlim}{
-    These arguments are described in the help page for
-    \code{\link{xyplot}}.
-  }
-
-\item{ylim}{
-    These arguments are described in the help page for
-    \code{\link{xyplot}}.
-  }
-
 \item{colorkey}{logical specifying whether a color key is to be drawn
     alongside the plot, or a list describing the color key. The list may
     contain the following components:
@@ -93,11 +83,12 @@ spplot_grid(grid, zcols, brks, colors, col.rev = FALSE,
 
 \item{sp.layout}{NULL or list; see notes below}
 
-\item{...}{
-    Further arguments may be supplied.  Some are processed by
-    \code{levelplot} or \code{contourplot}, and those that are
-    unrecognized are passed on to the panel function.
-  }
+\item{...}{other parameters to spplot, for example:
+\itemize{
+\item xlim
+\item ylim
+\item ...
+}}
 }
 \description{
 Lattice (trellis) plot methods for spatial data with attributes
