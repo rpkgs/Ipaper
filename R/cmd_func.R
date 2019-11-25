@@ -17,22 +17,29 @@ shell <- function(..., ignore.stderr = TRUE, wait = FALSE){
     invisible()
 }
 
-#' code editor 
+#' @title code editor
+#' @name code_editor
 #' 
-#' sublime text3 ad vscode
+#' @description sublime text3 ad vscode
 #' 
 #' @keywords internal
+NULL
+
+#' @rdname code_editor
 #' @export
 subl = cmd_func("subl")
 
-#' @rdname subl
+#' @rdname code_editor
 #' @export
 code = cmd_func("code")
 
-#' @rdname subl
+#' @rdname code_editor
 #' @export
-smerge = cmd_func("smerge")
+smerge = cmd_func("smerge.exe")
 
+#' @rdname code_editor
+#' @export
+SumatraPDF = cmd_func("SumatraPDF.exe")
 
 #' merge_pdf
 #'

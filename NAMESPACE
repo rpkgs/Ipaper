@@ -3,6 +3,7 @@
 S3method("+",trellis)
 export(GeomBoxplot2)
 export(InitCluster)
+export(SumatraPDF)
 export(add_dn)
 export(addin_copyLines)
 export(addin_cutLines)
