@@ -9,14 +9,13 @@
 #' @param ci critical value of autocorrelation
 #' 
 #' @return
-#' * `Z0`   : The original (non corrected) Mann-Kendall test Z statistic. \cr
-#' * `pval0`: The original (non corrected) Mann-Kendall test p-value \cr
-#' * `Z`    : The new Z statistic after applying the correction \cr
-#' * `pval` : Corrected p-value after accounting for serial autocorrelation \cr
+#' * `Z0`   : The original (non corrected) Mann-Kendall test Z statistic.
+#' * `pval0`: The original (non corrected) Mann-Kendall test p-value
+#' * `Z`    : The new Z statistic after applying the correction
+#' * `pval` : Corrected p-value after accounting for serial autocorrelation
 #' `N/n*s` Value of the correction factor, representing the quotient of the number 
-#' of samples N divided by the effective sample size `n*s` \cr
-#' 
-#' slp  : Sen slope, The slope of the (linear) trend according to Sen test
+#' of samples N divided by the effective sample size `n*s`
+#' * `slp`  : Sen slope, The slope of the (linear) trend according to Sen test
 #' 
 #' @references
 #' Hipel, K.W. and McLeod, A.I. (1994),

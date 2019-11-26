@@ -1,15 +1,21 @@
+cmd_wsl = "/mnt/c/WINDOWS/system32/cmd.exe"
+
+fix_win_path <- function(path){
+    gsub("/", "\\\\", path)
+}
+
 cmd_func <- function(command) {
+    app = ""
+    if (file.exists(cmd_wsl)) app = paste0(cmd_wsl, " /c")
+
     function (path = getwd()) {
-        path <- normalizePath(path)
-        cmd <- sprintf('%s "%s"', command, path)
-        # if (.Platform$OS.type == "windows"){
-        #     path <- gsub("/", "\\", path)
-        # }
+        path <- normalizePath(fix_win_path(path))
+        cmd <- sprintf('%s %s "%s"', app, command, path)
         shell(cmd)
     }
 }
 
-shell <- function(..., ignore.stderr = TRUE, wait = FALSE){
+shell <- function(..., ignore.stderr = FALSE, wait = FALSE){
     FUN <- switch(.Platform$OS.type, 
         "windows" = base::shell, 
         "unix" = base::system)
@@ -35,11 +41,43 @@ code = cmd_func("code")
 
 #' @rdname code_editor
 #' @export
-smerge = cmd_func("smerge.exe")
+smerge = cmd_func("smerge")
 
 #' @rdname code_editor
 #' @export
-SumatraPDF = cmd_func("SumatraPDF.exe")
+SumatraPDF = cmd_func("SumatraPDF")
+
+#' @rdname code_editor
+#' @export
+is_wsl <- function(){
+    file.exists("/mnt/c/WINDOWS/system32/cmd.exe")
+}
+
+#' @rdname code_editor
+#' @export
+OS_type <- function(){
+    OS.type = .Platform$OS.type
+    if (is_wsl()) OS.type = "wsl"
+    OS.type
+}
+
+#' Open directory in Explorer
+#' 
+#' @description open assign path in windows explorer, and default path is 
+#' current directory. This function is only designed for windows system.
+#' 
+#' @param path the path you want to open
+#' @export
+dir.show <- function (path = getwd()) {
+    path <- normalizePath(fix_win_path(path))
+    if (!dir.exists(path)) path %<>% dirname()
+    
+    cmd <- switch(OS_type(), 
+        "windows" = paste("Explorer /e, ", path), 
+        "unix" = sprintf("nautilus '%s'", path), 
+        "wsl" = sprintf("%s /c Explorer /e, '%s'", cmd_wsl, path))
+    shell(cmd)
+}
 
 #' merge_pdf
 #'
@@ -58,6 +96,10 @@ SumatraPDF = cmd_func("SumatraPDF.exe")
 #' @export
 merge_pdf <- function(outfile = "RPlot.pdf", indir = 'Figure', pattern = "*.pdf", del = FALSE){
     files <- dir(indir, pattern, full.names = TRUE)
+
+    order <- str_extract(basename(files), "(?<=\\[)\\d*(?=.*\\])") %>% as.numeric() 
+    if (all(is.finite(order))) files = files[order]
+
     cmd <- sprintf("pdfmerge -o %s %s", outfile, paste(files, collapse = " "))
 
     shell(cmd, wait = del)
@@ -78,24 +120,6 @@ display <- function(file, width = NULL, height = NULL, ...) {
     ext = tools::file_ext(file)
     FUN <- get(sprintf("display_%s", ext))
     FUN(file = file, width = width, height = height, ...)
-}
-
-#' @title dir.show
-#' @name dir.show
-#' 
-#' @description open assign path in windows explorer, and default path is 
-#' current directory. This function is only designed for windows system.
-#' 
-#' @param path the path you want to open
-#' @export
-dir.show <- function (path = getwd()) {
-    path <- normalizePath(path)
-    if (!dir.exists(path)) path %<>% dirname()
-
-    cmd <- switch(.Platform$OS.type, 
-        "windows" = paste("Explorer /e, ", gsub("/", "\\\\", path)), 
-        "unix" = sprintf("nautilus '%s'", path))
-    shell(cmd) 
 }
 
 #' check_dir

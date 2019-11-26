@@ -6,6 +6,8 @@
 \alias{code}
 \alias{smerge}
 \alias{SumatraPDF}
+\alias{is_wsl}
+\alias{OS_type}
 \title{code editor}
 \usage{
 subl(path = getwd())
@@ -15,6 +17,10 @@ code(path = getwd())
 smerge(path = getwd())
 
 SumatraPDF(path = getwd())
+
+is_wsl()
+
+OS_type()
 }
 \description{
 sublime text3 ad vscode

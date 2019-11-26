@@ -16,15 +16,14 @@ mkTrend_rcpp(x, ci = 0.95, IsPlot = FALSE)
 }
 \value{
 \itemize{
-\item \code{Z0}   : The original (non corrected) Mann-Kendall test Z statistic. \cr
-\item \code{pval0}: The original (non corrected) Mann-Kendall test p-value \cr
-\item \code{Z}    : The new Z statistic after applying the correction \cr
-\item \code{pval} : Corrected p-value after accounting for serial autocorrelation \cr
+\item \code{Z0}   : The original (non corrected) Mann-Kendall test Z statistic.
+\item \code{pval0}: The original (non corrected) Mann-Kendall test p-value
+\item \code{Z}    : The new Z statistic after applying the correction
+\item \code{pval} : Corrected p-value after accounting for serial autocorrelation
 \code{N/n*s} Value of the correction factor, representing the quotient of the number
-of samples N divided by the effective sample size \code{n*s} \cr
+of samples N divided by the effective sample size \code{n*s}
+\item \code{slp}  : Sen slope, The slope of the (linear) trend according to Sen test
 }
-
-slp  : Sen slope, The slope of the (linear) trend according to Sen test
 }
 \description{
 If valid observations <= 5, NA will be returned.

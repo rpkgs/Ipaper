@@ -2,7 +2,7 @@
 % Please edit documentation in R/cmd_func.R
 \name{dir.show}
 \alias{dir.show}
-\title{dir.show}
+\title{Open directory in Explorer}
 \usage{
 dir.show(path = getwd())
 }

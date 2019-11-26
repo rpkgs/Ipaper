@@ -10,3 +10,4 @@ tests/testthat/*.svg
 tests/testthat/*.tif
 
 *.svg
+*.exe
