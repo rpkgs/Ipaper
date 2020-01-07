@@ -10,7 +10,7 @@ listk(...)
 melt_list(list, var.name = "variable", na.rm = TRUE, ...)
 }
 \arguments{
-\item{...}{objects, possibly named.}
+\item{...}{other parameters to melt}
 
 \item{list}{A list object, with the same colnames data.frame in every element.}
 
@@ -18,8 +18,6 @@ melt_list(list, var.name = "variable", na.rm = TRUE, ...)
 or string (variable name). If blank, will use all non-measured variables.}
 
 \item{na.rm}{Boolean}
-
-\item{...}{other parameters to melt}
 }
 \description{
 listk

@@ -1,47 +1,19 @@
-#20161211 modified, avoid x length less then 5
-#' Modified Mann Kendall
-#'
-#' If valid observations <= 5, NA will be returned.
-#' 
-#' Dongdong Kong
-#' 
-#' @param x numeric vector
-#' @param ci critical value of autocorrelation
-#' 
-#' @return
-#' * `Z0`   : The original (non corrected) Mann-Kendall test Z statistic.
-#' * `pval0`: The original (non corrected) Mann-Kendall test p-value
-#' * `Z`    : The new Z statistic after applying the correction
-#' * `pval` : Corrected p-value after accounting for serial autocorrelation
-#' `N/n*s` Value of the correction factor, representing the quotient of the number 
-#' of samples N divided by the effective sample size `n*s`
-#' * `slp`  : Sen slope, The slope of the (linear) trend according to Sen test
-#' 
-#' @references
-#' Hipel, K.W. and McLeod, A.I. (1994),
-#' \emph{Time Series Modelling of Water Resources and Environmental Systems}. 
-#' New York: Elsevier Science.
-#'
-#' Libiseller, C. and Grimvall, A., (2002), Performance of partial
-#' Mann-Kendall tests for trend detection in the presence of covariates.
-#' \emph{Environmetrics} 13, 71--84, \url{http://dx.doi.org/10.1002/env.507}.
-#'
-#' @seealso `fume::mktrend` and `trend::mk.test`
-#' 
-#' @examples
-#' x <- c(4.81,4.17,4.41,3.59,5.87,3.83,6.03,4.89,4.32,4.69)
-#' # r_cpp <- mkTrend_rcpp(x, IsPlot = TRUE)
-#' r <- mkTrend(x)
+#' @rdname mkTrend_rcpp
 #' @export
-mkTrend <- function(x, ci = 0.95) {
-    z = NULL
-    z0 = NULL
-    pval = NULL
-    pval0 = NULL
-    S = 0
-    Tau = NULL
-    essf = NULL
-    names(x) <- NULL # rm names of x
+mkTrend <- function(x, ci = 0.95, IsPlot = FALSE) {
+    z0    = z = NA_real_
+    pval0 = pval = NA_real_
+    slp <- NA_real_
+    intercept <- NA_real_
+
+    if (IsPlot) {
+        plot(x, type = "b")
+        grid()
+        rlm <- lm(x~seq_along(x))
+        abline(rlm$coefficients, col = "blue")
+        legend("topright", c('MK', 'lm'), col = c("red", "blue"), lty = 1)
+    }
+    names(x) <- NULL
 
     # if (is.vector(x) == FALSE) stop("Input data must be a vector")
     I_bad <- !is.finite(x) # NA or Inf
@@ -52,6 +24,7 @@ mkTrend <- function(x, ci = 0.95) {
     }
 
     n <- length(x)
+    S = 0
     #20161211 modified, avoid x length less then 5, return rep(NA,5) c(z0, pval0, z, pval, slp)
     if (n < 5) return(rep(NA, 5))
     for (i in 1:(n - 1)) {
@@ -63,14 +36,6 @@ mkTrend <- function(x, ci = 0.95) {
     sig <- qnorm((1 + ci)/2)/sqrt(n)
     rof <- ifelse(abs(ro) > sig, ro, 0)#modified by dongdong Kong, 2017-04-03
     
-    rof <- rep(NA, length(ro))
-    for (i in 1:(length(ro))) {
-        if (ro[i] > sig || ro[i] < -sig) {
-            rof[i] <- ro[i]
-        } else {
-            rof[i] = 0
-        }
-    }
     cte <- 2/(n * (n - 1) * (n - 2))
     ess = 0
     for (i in 1:(n - 1)) {

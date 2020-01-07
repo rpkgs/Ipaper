@@ -4,9 +4,9 @@ raster2poly <- function(r, I_grid = NULL){
     as(r, "SpatialPolygonsDataFrame")
 }
 
-raster2SpatialPixel <- function(r, I_grid = NULL){
+raster2SpatialGrid <- function(r, I_grid = NULL){
     if (is.null(I_grid)) I_grid <- 1:nrow(r)
-    as(r, "SpatialPolygonsDataFrame")
+    as(r, "SpatialGridDataFrame")
 }
 
 

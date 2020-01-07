@@ -11,11 +11,11 @@ ggplot2-ggproto
 \section{Stats}{
 
 
-All \code{stat_*} functions (like \code{stat_bin}) return a layer that
-contains a \code{Stat*} object (like \code{StatBin}). The \code{Stat*}
+All \verb{stat_*} functions (like \code{stat_bin}) return a layer that
+contains a \verb{Stat*} object (like \code{StatBin}). The \verb{Stat*}
 object is responsible for rendering the data in the plot.
 
-Each of the \code{Stat*} objects is a \code{\link[=ggproto]{ggproto()}} object, descended
+Each of the \verb{Stat*} objects is a \code{\link[=ggproto]{ggproto()}} object, descended
 from the top-level \code{Stat}, and each implements various methods and
 fields. To create a new type of Stat object, you typically will want to
 override one or more of the following:

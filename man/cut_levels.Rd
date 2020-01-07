@@ -9,7 +9,7 @@ cut_levels(x, pvalue = c(0.01, 0.05, 0.1), verbose = FALSE)
 \arguments{
 \item{x}{numeric vector}
 
-\item{pvalue}{p <= \code{x\%}, means its significant at \code{x\%} level}
+\item{pvalue}{p <= \verb{x\%}, means its significant at \verb{x\%} level}
 }
 \description{
 cut_levels

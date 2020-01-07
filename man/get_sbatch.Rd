@@ -4,8 +4,12 @@
 \alias{get_sbatch}
 \title{get_sbatch}
 \usage{
-get_sbatch(indir = ".", pattern = "result.*.RDS", outfile = NULL,
-  Save = !is.null(outfile))
+get_sbatch(
+  indir = ".",
+  pattern = "result.*.RDS",
+  outfile = NULL,
+  Save = !is.null(outfile)
+)
 }
 \arguments{
 \item{indir}{directory to search rda files}

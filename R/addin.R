@@ -1,6 +1,6 @@
-#' Insert \%in\%.
+#' Insert %in%.
 #'
-#' Call this function as an addin to insert \code{ \%in\% } at the cursor position.
+#' Call this function as an addin to insert %in% at the cursor position.
 #' 
 #' @keywords internal
 #' @export

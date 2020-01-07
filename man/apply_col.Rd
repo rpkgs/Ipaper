@@ -10,18 +10,18 @@ apply_col(mat, by, FUN = colMeans2, ...)
 apply_row(mat, by, FUN = rowMeans2, ...)
 }
 \arguments{
-\item{mat}{matrix, \code{[nrow, ncol]}}
+\item{mat}{matrix, \verb{[nrow, ncol]}}
 
-\item{by}{integer vector, with the dim of \code{[ntime]}}
+\item{by}{integer vector, with the dim of \verb{[ntime]}}
 }
 \description{
 \itemize{
-\item \code{apply_col}: aggregate by col, return a \code{[ngrp, ncol]} matrix
-\item \code{apply_row}: aggregate by row, return a \code{[nrow, ngrp]} matrix
+\item \code{apply_col}: aggregate by col, return a \verb{[ngrp, ncol]} matrix
+\item \code{apply_row}: aggregate by row, return a \verb{[nrow, ngrp]} matrix
 }
 }
 \details{
-For example, setting the dimension of \code{mat} is \code{[ngrid, ntime]},
+For example, setting the dimension of \code{mat} is \verb{[ngrid, ntime]},
 if you want to aggregate by time, \code{apply_row} should be used here;
 if you want to aggregate by region (grids), \code{apply_col} should be used.
 }

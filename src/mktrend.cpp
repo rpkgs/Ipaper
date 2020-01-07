@@ -43,6 +43,57 @@ int Sf(NumericVector x) {
     return S;
 }
 
+// [[Rcpp::export]]
+NumericVector varS(NumericVector x, NumericVector rof, int S)
+{
+    int n = x.size();
+    // int S = 0;
+    double cte = 2.0/(n * (n - 1) * (n - 2));
+    double ess = 0;
+    for (int i =1; i <= n-1; i++) {
+        ess = ess + (n - i) * (n - i - 1) * (n - i - 2) * rof[i-1];
+    }
+
+    double essf = 1 + ess * cte;
+    double var_S = n * (n - 1) * (2 * n + 5)/18;
+
+    NumericVector aux = unique(x);
+    int m = aux.size();
+    if (m < n) {
+        int tie;
+        for (int i = 0; i < m; i++) {
+            tie = 0;
+            for (int j = 0; j < n; j++) {
+                if (x[j] == aux[i]) tie++;
+            }
+            if (tie > 1)
+                var_S = var_S - tie * (tie - 1) * (2 * tie + 5) / 18;
+        }
+    }
+
+    double VS = var_S * essf;
+    double z, z0;
+    if (S == 0) {
+        z = 0;
+        z0 = 0;
+    } else if (S > 0) {
+        z  = (S - 1) / sqrt(VS);
+        z0 = (S - 1) / sqrt(var_S);
+    } else {
+        z = (S + 1) / sqrt(VS);
+        z0 = (S + 1) / sqrt(var_S);
+    }
+
+    return NumericVector::create(
+        _["essf"] = essf,
+        _["var.S"] = var_S,
+        _["z0"] = z0,
+        _["z"] = z
+    );
+    // double VS = var_S * essf;    
+    // return S;
+}
+
 /*** R
 # x <- rnorm(50)
 # library(microbenchmark)

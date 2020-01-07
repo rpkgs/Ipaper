@@ -7,14 +7,24 @@
 \usage{
 install_gitee(repo)
 
-install_github(repo, ref = "master", subdir = NULL,
-  auth_token = github_pat(), host = "api.github.com",
-  dependencies = NA, upgrade = c("default", "ask", "always", "never"),
-  force = FALSE, quiet = FALSE, build = TRUE,
-  build_opts = c("--no-resave-data", "--no-manual",
-  "--no-build-vignettes"), build_manual = FALSE,
-  build_vignettes = FALSE, repos = getOption("repos"),
-  type = getOption("pkgType"), ...)
+install_github(
+  repo,
+  ref = "master",
+  subdir = NULL,
+  auth_token = github_pat(),
+  host = "api.github.com",
+  dependencies = NA,
+  upgrade = c("default", "ask", "always", "never"),
+  force = FALSE,
+  quiet = FALSE,
+  build = TRUE,
+  build_opts = c("--no-resave-data", "--no-manual", "--no-build-vignettes"),
+  build_manual = FALSE,
+  build_vignettes = FALSE,
+  repos = getOption("repos"),
+  type = getOption("pkgType"),
+  ...
+)
 }
 \arguments{
 \item{repo}{Repository address in the format
@@ -24,7 +34,7 @@ specify \code{subdir} and/or \code{ref} using the respective parameters
 precedence.}
 
 \item{ref}{Desired git reference. Could be a commit, tag, or branch
-name, or a call to \code{\link[=github_pull]{github_pull()}}. Defaults to \code{"master"}.}
+name, or a call to \code{\link[remotes:github_pull]{github_pull()}}. Defaults to \code{"master"}.}
 
 \item{subdir}{subdirectory within repo that contains the R package.}
 

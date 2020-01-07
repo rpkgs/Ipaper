@@ -4,8 +4,12 @@
 \alias{merge_pdf}
 \title{merge_pdf}
 \usage{
-merge_pdf(outfile = "RPlot.pdf", indir = "Figure", pattern = "*.pdf",
-  del = FALSE)
+merge_pdf(
+  outfile = "RPlot.pdf",
+  indir = "Figure",
+  pattern = "*.pdf",
+  del = FALSE
+)
 }
 \arguments{
 \item{outfile}{String}
@@ -17,7 +21,7 @@ merge_pdf(outfile = "RPlot.pdf", indir = "Figure", pattern = "*.pdf",
 \item{del}{Booolean. If true, after merge, original pdf files will be delete.}
 }
 \description{
-rely on python pdfmerge package, \code{pip install pdfmerge}
+rely on python pdfmerge package, \verb{pip install pdfmerge}
 }
 \examples{
 \dontrun{

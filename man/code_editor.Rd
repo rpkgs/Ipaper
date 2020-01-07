@@ -10,17 +10,20 @@
 \alias{OS_type}
 \title{code editor}
 \usage{
-subl(path = getwd())
+subl(path = getwd(), verbose = FALSE)
 
-code(path = getwd())
+code(path = getwd(), verbose = FALSE)
 
-smerge(path = getwd())
+smerge(path = getwd(), verbose = FALSE)
 
-SumatraPDF(path = getwd())
+SumatraPDF(path = getwd(), verbose = FALSE)
 
 is_wsl()
 
 OS_type()
+}
+\arguments{
+\item{verbose}{Boolean. Whether to print command into console?}
 }
 \description{
 sublime text3 ad vscode

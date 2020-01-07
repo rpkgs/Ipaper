@@ -4,10 +4,27 @@
 \alias{panel.spatial}
 \title{panel.spatial}
 \usage{
-panel.spatial(x, y, z, subscripts, ..., contour = FALSE, grob = NULL,
-  bbox, sub.hist = TRUE, sp.layout, pars, class = NULL,
-  interpolate = TRUE, list.mask = NULL, SpatialPixel = NULL,
-  density = 1, angle = 45, par.shade = NULL, data.stat = NULL)
+panel.spatial(
+  x,
+  y,
+  z,
+  subscripts,
+  ...,
+  contour = FALSE,
+  grob = NULL,
+  bbox,
+  sub.hist = TRUE,
+  sp.layout,
+  pars,
+  class = NULL,
+  interpolate = TRUE,
+  list.mask = NULL,
+  SpatialPixel = NULL,
+  density = 1,
+  angle = 45,
+  par.shade = NULL,
+  data.stat = NULL
+)
 }
 \arguments{
 \item{par}{position of title, \code{list(title = list(x, y))}}

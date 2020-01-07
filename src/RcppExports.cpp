@@ -27,10 +27,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// varS
+NumericVector varS(NumericVector x, NumericVector rof, int S);
+RcppExport SEXP _Ipaper_varS(SEXP xSEXP, SEXP rofSEXP, SEXP SSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type rof(rofSEXP);
+    Rcpp::traits::input_parameter< int >::type S(SSEXP);
+    rcpp_result_gen = Rcpp::wrap(varS(x, rof, S));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_Ipaper_senslope", (DL_FUNC) &_Ipaper_senslope, 1},
     {"_Ipaper_Sf", (DL_FUNC) &_Ipaper_Sf, 1},
+    {"_Ipaper_varS", (DL_FUNC) &_Ipaper_varS, 3},
     {NULL, NULL, 0}
 };
 

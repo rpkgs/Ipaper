@@ -4,11 +4,17 @@
 \alias{write_fig}
 \title{write_fig}
 \usage{
-write_fig(p, file = "Rplot.pdf", width = 10, height = 5, res = 300,
-  show = TRUE)
+write_fig(
+  p,
+  file = "Rplot.pdf",
+  width = 10,
+  height = 5,
+  res = 300,
+  show = TRUE
+)
 }
 \arguments{
-\item{p}{could be one of \code{grid}, \code{ggplot} or \code{plot expression}}
+\item{p}{could be one of \code{grid}, \code{ggplot} or \verb{plot expression}}
 
 \item{file}{file path of output figure}
 

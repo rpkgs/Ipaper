@@ -4,8 +4,7 @@
 \alias{key_gf}
 \title{key_gf_nonraster}
 \usage{
-key_gf(key, key.layout, vp, vp_label, reccentre, recdim, border = TRUE,
-  ...)
+key_gf(key, key.layout, vp, vp_label, reccentre, recdim, border = TRUE, ...)
 }
 \arguments{
 \item{...}{ignored.}

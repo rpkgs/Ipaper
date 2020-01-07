@@ -10,7 +10,7 @@ code_ChrVec(x, collapse = "\\"")
 \item{x}{character vector, data.frame or list.}
 
 \item{collapse}{an optional character string to separate the results.  Not
-    \code{\link{NA_character_}}.}
+    \code{\link[base]{NA_character_}}.}
 }
 \description{
 generate R script of character vector

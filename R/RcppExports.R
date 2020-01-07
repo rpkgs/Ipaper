@@ -9,3 +9,7 @@ Sf <- function(x) {
     .Call(`_Ipaper_Sf`, x)
 }
 
+varS <- function(x, rof, S) {
+    .Call(`_Ipaper_varS`, x, rof, S)
+}
+

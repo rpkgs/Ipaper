@@ -7,12 +7,12 @@
 array_3dTo2d(array, I_grid)
 }
 \arguments{
-\item{array}{array with the dimension of \code{[nlon, nlat, ntime]}}
+\item{array}{array with the dimension of \verb{[nlon, nlat, ntime]}}
 
-\item{I_grid}{subindex of \code{[nrow, ncol]}}
+\item{I_grid}{subindex of \verb{[nrow, ncol]}}
 }
 \value{
-\code{[nlat*nlon, ntime]}
+\verb{[nlat*nlon, ntime]}
 }
 \description{
 array_3dTo2d

@@ -18,11 +18,11 @@ the last dimension.}
 
 \item{by}{\itemize{
 \item If not provided (\code{NULL}), the aggregated dim will be disappear.
-For example, daily precipitation \code{[nrow, ncol, 31-days]} aggregate into
-monthly \code{[nrow, ncol]}.
+For example, daily precipitation \verb{[nrow, ncol, 31-days]} aggregate into
+monthly \verb{[nrow, ncol]}.
 \item If provided, \code{by} should be equal to the aggregated \code{dim}.
-For example, daily precipitation \code{[nrow, ncol, 365-days]} aggregate into
-monthly \code{[nrow, ncol, 12-months]}. In that situation, \code{by} should be equal
+For example, daily precipitation \verb{[nrow, ncol, 365-days]} aggregate into
+monthly \verb{[nrow, ncol, 12-months]}. In that situation, \code{by} should be equal
 to 365, and be \code{format(date, '\%Y\%m')}.
 }}
 }

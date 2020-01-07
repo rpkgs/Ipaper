@@ -1,16 +1,29 @@
 cmd_wsl = "/mnt/c/WINDOWS/system32/cmd.exe"
 
-fix_win_path <- function(path){
-    gsub("/", "\\\\", path)
+win_path <- function(path, winslash = "\\\\"){
+    if (substr(path, 1, 4) == "/mnt") {
+        pan = substr(path, 6, 6)
+        path = paste0(pan, ":", substr(path, 7, nchar(path)))
+    }
+    gsub("/", winslash, path)
+}
+
+check_path <- function(path) {
+    path = normalizePath(path)
+    if (OS_type() %in% c("wsl", "windows")) {
+        path <- win_path(path)
+    }
+    path
 }
 
 cmd_func <- function(command) {
     app = ""
     if (file.exists(cmd_wsl)) app = paste0(cmd_wsl, " /c")
 
-    function (path = getwd()) {
-        path <- normalizePath(fix_win_path(path))
-        cmd <- sprintf('%s %s "%s"', app, command, path)
+    function (path = getwd(), verbose = FALSE) {
+        path <- check_path(path)
+        cmd <- sprintf("%s %s '%s'", app, command, path)
+        if (verbose) print(cmd)
         shell(cmd)
     }
 }
@@ -28,6 +41,8 @@ shell <- function(..., ignore.stderr = FALSE, wait = FALSE){
 #' 
 #' @description sublime text3 ad vscode
 #' 
+#' @param verbose Boolean. Whether to print command into console?
+#' 
 #' @keywords internal
 NULL
 
@@ -38,6 +53,12 @@ subl = cmd_func("subl")
 #' @rdname code_editor
 #' @export
 code = cmd_func("code")
+# code <- function(path = getwd(), verbose = FALSE) {
+#     # path <- check_path(path)
+#     cmd <- sprintf("/opt/bin/code '%s'", path)
+#     if (verbose) print(cmd)
+#     shell(cmd)
+# }
 
 #' @rdname code_editor
 #' @export
@@ -69,8 +90,8 @@ OS_type <- function(){
 #' @param path the path you want to open
 #' @export
 dir.show <- function (path = getwd()) {
-    path <- normalizePath(fix_win_path(path))
     if (!dir.exists(path)) path %<>% dirname()
+    path <- check_path(path)
     
     cmd <- switch(OS_type(), 
         "windows" = paste("Explorer /e, ", path), 

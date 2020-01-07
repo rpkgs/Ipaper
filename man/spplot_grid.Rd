@@ -4,17 +4,34 @@
 \alias{spplot_grid}
 \title{Plot methods for spatial data with attributes}
 \usage{
-spplot_grid(grid, zcols, brks, colors, col.rev = FALSE,
-  toFactor = FALSE, sub.hist = TRUE, grob = NULL, bbox = c(0, 0.5,
-  0.5, 1), panel.title = NULL, unit = "", unit.adj = 0.3,
-  pars = list(title = list(x = 77, y = 39, cex = 1.5), hist =
-  list(origin.x = 77, origin.y = 28, A = 15, by = 0.4)), stat = list(show
-  = FALSE, name = "RC", loc = c(81.5, 26.5), digit = 1, include.sd =
-  FALSE), area.weighted = FALSE, legend.space = "right",
-  layout = NULL, colorkey = TRUE, interpolate = TRUE,
-  lgd.title = NULL, sp.layout = NULL,
-  par.settings = opt_trellis_default, par.settings2 = list(axis.line =
-  list(col = "transparent")), ...)
+spplot_grid(
+  grid,
+  zcols,
+  brks,
+  colors,
+  col.rev = FALSE,
+  toFactor = FALSE,
+  sub.hist = TRUE,
+  grob = NULL,
+  bbox = c(0, 0.5, 0.5, 1),
+  panel.title = NULL,
+  unit = "",
+  unit.adj = 0.3,
+  pars = list(title = list(x = 77, y = 39, cex = 1.5), hist = list(origin.x = 77,
+    origin.y = 28, A = 15, by = 0.4)),
+  stat = list(show = FALSE, name = "RC", loc = c(81.5, 26.5), digit = 1, include.sd =
+    FALSE),
+  area.weighted = FALSE,
+  legend.space = "right",
+  layout = NULL,
+  colorkey = TRUE,
+  interpolate = TRUE,
+  lgd.title = NULL,
+  sp.layout = NULL,
+  par.settings = opt_trellis_default,
+  par.settings2 = list(axis.line = list(col = "transparent")),
+  ...
+)
 }
 \arguments{
 \item{colorkey}{logical specifying whether a color key is to be drawn
@@ -33,7 +50,7 @@ spplot_grid(grid, zcols, brks, colors, col.rev = FALSE,
 
       \item{\code{col}:}{
 	A color ramp specification, as in the \code{col.regions}
-	argument in \code{\link{level.colors}}
+	argument in \code{\link[lattice]{level.colors}}
       }
       
       \item{\code{at}:}{
@@ -64,7 +81,7 @@ spplot_grid(grid, zcols, brks, colors, col.rev = FALSE,
       \item{\code{raster}:}{ A logical flag indicating whether the
 	colorkey should be rendered as a raster image using
 	\code{\link{grid.raster}}.  See also
-	\code{\link{panel.levelplot.raster}}.
+	\code{\link[lattice]{panel.levelplot.raster}}.
       }
 
       \item{\code{interpolate}:}{ Logical flag, passed to

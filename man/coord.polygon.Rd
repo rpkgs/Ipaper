@@ -10,8 +10,6 @@ coord.polygon(x)
 coord.polygons(x)
 }
 \arguments{
-\item{x}{Polygons class}
-
 \item{x}{spatialPolygons object}
 }
 \value{

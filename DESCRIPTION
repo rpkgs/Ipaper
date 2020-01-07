@@ -1,7 +1,7 @@
 Package: Ipaper
 Type: Package
 Title: Paper writing tools
-Version: 0.1.5
+Version: 0.1.5.9000
 Authors@R: person("Dongdong", "Kong", email = "kongdd.sysu@gmail.com",
   role = c("aut", "cre"))
 Description: Awesome functions in R.
@@ -44,7 +44,8 @@ Imports:
     RColorBrewer,
     sp, maptools, 
     rgeos, 
-    boot
+    boot,
+    fftwtools
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
@@ -55,5 +56,5 @@ Suggests:
 Remotes:
     kongdd/plyr
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.1
 Roxygen: list(markdown = TRUE)

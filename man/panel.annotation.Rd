@@ -9,7 +9,7 @@ panel.annotation(grob, bbox = c(0, 0.5, 0.5, 1), ...)
 \arguments{
 \item{grob}{grid object}
 
-\item{bbox}{\code{[xmin, xmax, ymin, ymax]}}
+\item{bbox}{\verb{[xmin, xmax, ymin, ymax]}}
 
 \item{...}{ignored}
 }

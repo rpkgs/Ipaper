@@ -8,21 +8,64 @@
 \alias{panel.gridplot2}
 \title{panel.shade}
 \usage{
-panel.shade(x, y = NULL, density = NULL, angle = 45, border = NULL,
-  col = NA, lty = par("lty"), fill = NA, fillOddEven = FALSE, ...)
+panel.shade(
+  x,
+  y = NULL,
+  density = NULL,
+  angle = 45,
+  border = NULL,
+  col = NA,
+  lty = par("lty"),
+  fill = NA,
+  fillOddEven = FALSE,
+  ...
+)
 
 panel.shade.list(lst, ...)
 
-panel.poly_grid(s, union = TRUE, density = 0.1, angle = 45,
-  col = "black", lwd = 1, lty = 1, border = NULL, ...)
+panel.poly_grid(
+  s,
+  union = TRUE,
+  density = 0.1,
+  angle = 45,
+  col = "black",
+  lwd = 1,
+  lty = 1,
+  border = NULL,
+  ...
+)
 
-panel.polygonsplot2(x, y, z, subscripts, ..., union = FALSE,
-  density = 0.2, angle = 45, col = "grey65", lwd = 0.5, lty = 1,
-  poly_shade, sp.layout)
+panel.polygonsplot2(
+  x,
+  y,
+  z,
+  subscripts,
+  ...,
+  union = FALSE,
+  density = 0.2,
+  angle = 45,
+  col = "grey65",
+  lwd = 0.5,
+  lty = 1,
+  poly_shade,
+  sp.layout
+)
 
-panel.gridplot2(x, y, z, subscripts, ..., union = FALSE, density = 0.2,
-  angle = 45, col = "grey65", lwd = 0.5, lty = 1, poly_shade,
-  sp.layout)
+panel.gridplot2(
+  x,
+  y,
+  z,
+  subscripts,
+  ...,
+  union = FALSE,
+  density = 0.2,
+  angle = 45,
+  col = "grey65",
+  lwd = 0.5,
+  lty = 1,
+  poly_shade,
+  sp.layout
+)
 }
 \arguments{
 \item{x}{vectors containing the coordinates of the vertices
@@ -41,7 +84,7 @@ panel.gridplot2(x, y, z, subscripts, ..., union = FALSE, density = 0.2,
      in degrees (counter-clockwise).}
 
 \item{border}{the color to draw the border.  The default, \code{NULL},
-    means to use \code{\link{par}("fg")}.  Use \code{border = NA} to
+    means to use \code{\link[graphics]{par}("fg")}.  Use \code{border = NA} to
     omit borders.
 
     For compatibility with S, \code{border} can also be logical, in
@@ -55,7 +98,7 @@ panel.gridplot2(x, y, z, subscripts, ..., union = FALSE, density = 0.2,
      \code{NA}.)  If \code{density} is specified with a positive value
      this gives the color of the shading lines.}
 
-\item{lty}{the line type to be used, as in \code{\link{par}}.}
+\item{lty}{the line type to be used, as in \code{\link[graphics]{par}}.}
 
 \item{fillOddEven}{logical controlling the polygon shading mode:  see
       below for details.  Default \code{FALSE}.}
@@ -65,7 +108,7 @@ panel.gridplot2(x, y, z, subscripts, ..., union = FALSE, density = 0.2,
 \item \code{panel.shade.list}: other parameters to \code{\link[=panel.shade]{panel.shade()}}
 }}
 
-\item{lst}{List of coordinates matrix \code{[x, y]}}
+\item{lst}{List of coordinates matrix \verb{[x, y]}}
 }
 \description{
 panel.shade
