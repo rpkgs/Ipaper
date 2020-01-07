@@ -11,3 +11,5 @@ tests/testthat/*.tif
 
 *.svg
 *.exe
+src-x64/
+src-i386/

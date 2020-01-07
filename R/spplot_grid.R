@@ -52,7 +52,7 @@ spplot_grid <- function(
     legend.space = "right", 
     layout = NULL,
     colorkey = TRUE, 
-    interpolate = TRUE,
+    interpolate = FALSE,
     lgd.title = NULL, 
     sp.layout = NULL, 
     par.settings = opt_trellis_default, 

@@ -56,5 +56,5 @@ Suggests:
 Remotes:
     kongdd/plyr
 VignetteBuilder: knitr
-RoxygenNote: 7.0.1
+RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
