@@ -22,7 +22,7 @@ cmd_func <- function(command) {
 
     function (path = getwd(), verbose = FALSE) {
         path <- check_path(path)
-        cmd <- sprintf("%s %s '%s'", app, command, path)
+        cmd <- sprintf('%s %s "%s"', app, command, path)
         if (verbose) print(cmd)
         shell(cmd)
     }
