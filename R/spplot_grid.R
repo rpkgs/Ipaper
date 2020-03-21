@@ -18,7 +18,7 @@ check_brks <- function(brks){
 #' 
 #' Lattice (trellis) plot methods for spatial data with attributes
 #' 
-#' @inheritParams lattice::levelplot
+#' @inheritParams levelplot2
 #' @inheritParams sp::spplot
 #' @param ... other parameters to spplot, for example:
 #' - xlim

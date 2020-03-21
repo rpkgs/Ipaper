@@ -1,28 +1,13 @@
 cmd_wsl = "/mnt/c/WINDOWS/system32/cmd.exe"
 
-win_path <- function(path, winslash = "\\\\"){
-    if (substr(path, 1, 4) == "/mnt") {
-        pan = substr(path, 6, 6)
-        path = paste0(pan, ":", substr(path, 7, nchar(path)))
-    }
-    gsub("/", winslash, path)
-}
-
-check_path <- function(path) {
-    path = normalizePath(path)
-    if (OS_type() %in% c("wsl", "windows")) {
-        path <- win_path(path)
-    }
-    path
-}
-
 cmd_func <- function(command) {
     app = ""
     if (file.exists(cmd_wsl)) app = paste0(cmd_wsl, " /c")
 
     function (path = getwd(), verbose = FALSE) {
         path <- check_path(path)
-        cmd <- sprintf('%s %s "%s"', app, command, path)
+        fmt = ifelse(command == "code", '%s %s "%s"', '%s ""%s" "%s""')
+        cmd <- sprintf(fmt, app, command, path)
         if (verbose) print(cmd)
         shell(cmd)
     }
@@ -66,7 +51,7 @@ smerge = cmd_func("smerge")
 
 #' @rdname code_editor
 #' @export
-SumatraPDF = cmd_func("SumatraPDF")
+SumatraPDF = cmd_func("C:/Program Files/RStudio/bin/sumatra/SumatraPDF.exe")
 
 #' @rdname code_editor
 #' @export

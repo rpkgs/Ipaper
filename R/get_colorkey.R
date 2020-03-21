@@ -13,6 +13,8 @@ pal <- function(col, border = "light gray")
     rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
 }
 
+#' Construct lattice colorkey
+#' 
 #' @import RColorBrewer
 #' @export
 get_colorkey <- function(breaks, space = "bottom", lgd.title = NULL, is_factor = FALSE, 

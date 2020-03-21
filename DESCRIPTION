@@ -1,7 +1,7 @@
 Package: Ipaper
 Type: Package
-Title: Paper writing tools
-Version: 0.1.5.9000
+Title: Collection of personal practical R functions
+Version: 0.1.6
 Authors@R: person("Dongdong", "Kong", email = "kongdd.sysu@gmail.com",
   role = c("aut", "cre"))
 Description: Awesome functions in R.
@@ -56,5 +56,5 @@ Suggests:
 Remotes:
     kongdd/plyr
 VignetteBuilder: knitr
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)

@@ -9,8 +9,7 @@ code_ChrVec(x, collapse = "\\"")
 \arguments{
 \item{x}{character vector, data.frame or list.}
 
-\item{collapse}{an optional character string to separate the results.  Not
-    \code{\link[base]{NA_character_}}.}
+\item{collapse}{an optional character string to separate the results. Not NA_character_.}
 }
 \description{
 generate R script of character vector

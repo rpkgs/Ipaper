@@ -7,12 +7,14 @@ github <- function(path = getwd()){
 
 #' Attempts to install a package directly from gitee.
 #' 
-#' @inheritParams remotes::install_github
+#' @param Repository address in the format `username/repo[/subdir][@ref|#pull]`. 
+#' Alternatively, you can specify subdir and/or ref using the respective parameters (see below); 
+#' if both is specified, the values in repo take precedence.
 #' 
 #' @examples
 #' \dontrun{
-#' install_gitee("kongdd/plyr")
-#' install_gitee("kongdd/plyr")
+#' install_gitee("adv-r/Ipaper")
+#' install_gitee("adv-r/plyr")
 #' }
 #' @export
 install_gitee <- function(repo){

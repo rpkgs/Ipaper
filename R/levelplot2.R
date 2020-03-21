@@ -19,6 +19,7 @@
 #' and same group variabes as `df`. Mask is used to distinguish significant pixels.
 #' Note that factor levels should be same for grouped variables in `df` and `df.mask`.
 #' 
+#' @param colorkey Boolean or list returned by [get_colorkey()].
 #' @param NO_begin beginning NO of the first panel
 #' 
 #' @example man/examples/ex-spplot_grid.R

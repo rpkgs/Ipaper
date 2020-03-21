@@ -34,69 +34,11 @@ spplot_grid(
 )
 }
 \arguments{
-\item{colorkey}{logical specifying whether a color key is to be drawn
-    alongside the plot, or a list describing the color key. The list may
-    contain the following components:
+\item{sub.hist}{Boolean. If false, hist will be eliminated.}
 
-    \describe{
-    
-      \item{\code{space}:}{
-        location of the colorkey, can be one of \code{"left"},
-	\code{"right"}, \code{"top"} and \code{"bottom"}.  Defaults to
-	\code{"right"}.
-      }
-      
-      \item{\code{x}, \code{y}:}{ location, currently unused }
+\item{pars}{parameters controlling hist, e.g. \code{list(title = list(x=77, y=39, cex=1.5),  hist = list(origin.x=77, origin.y=28, A=15, by = 0.4))}.}
 
-      \item{\code{col}:}{
-	A color ramp specification, as in the \code{col.regions}
-	argument in \code{\link[lattice]{level.colors}}
-      }
-      
-      \item{\code{at}:}{
-        numeric vector specifying where the colors change. must be of
-        length 1 more than the col vector.
-      }
-
-      \item{\code{labels}:}{
-        a character vector for labelling the \code{at} values, or more
-        commonly, a list describing characteristics of the labels.  This
-	list may include components \code{labels}, \code{at},
-	\code{cex}, \code{col}, \code{rot}, \code{font}, \code{fontface}
-	and \code{fontfamily}.
-      }
-
-      \item{\code{tick.number}:}{ The approximate number of ticks desired. }
-
-      \item{\code{tck}:}{ A (scalar) multipler for tick lengths. }
-
-      \item{\code{corner}:}{ Interacts with x, y; currently unimplemented }
-
-      \item{\code{width}:}{ The width of the key }
-
-      \item{\code{height}:}{ The length of key as a fraction of the
-	appropriate side of plot.
-      } 
-
-      \item{\code{raster}:}{ A logical flag indicating whether the
-	colorkey should be rendered as a raster image using
-	\code{\link{grid.raster}}.  See also
-	\code{\link[lattice]{panel.levelplot.raster}}.
-      }
-
-      \item{\code{interpolate}:}{ Logical flag, passed to
-	\code{\link{rasterGrob}} when \code{raster=TRUE}. }
-
-      \item{\code{axis.line}:}{ A list giving graphical parameters for
-	the color key boundary and tick marks.  Defaults to
-	\code{trellis.par.get("axis.line")}.  }
-
-      \item{\code{axis.text}:}{ A list giving graphical parameters for
-	the tick mark labels on the color key.  Defaults to
-	\code{trellis.par.get("axis.text")}.  }
-
-    }
-  }
+\item{colorkey}{Boolean or list returned by \code{\link[=get_colorkey]{get_colorkey()}}.}
 
 \item{sp.layout}{NULL or list; see notes below}
 

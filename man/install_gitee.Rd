@@ -27,68 +27,16 @@ install_github(
 )
 }
 \arguments{
-\item{repo}{Repository address in the format
-\code{username/repo[/subdir][@ref|#pull]}. Alternatively, you can
-specify \code{subdir} and/or \code{ref} using the respective parameters
-(see below); if both is specified, the values in \code{repo} take
-precedence.}
-
-\item{ref}{Desired git reference. Could be a commit, tag, or branch
-name, or a call to \code{\link[remotes:github_pull]{github_pull()}}. Defaults to \code{"master"}.}
-
-\item{subdir}{subdirectory within repo that contains the R package.}
-
-\item{auth_token}{To install from a private repo, generate a personal
-access token (PAT) in "https://github.com/settings/tokens" and
-supply to this argument. This is safer than using a password because
-you can easily delete a PAT without affecting any others. Defaults to
-the \code{GITHUB_PAT} environment variable.}
-
-\item{host}{GitHub API host to use. Override with your GitHub enterprise
-hostname, for example, \code{"github.hostname.com/api/v3"}.}
-
-\item{dependencies}{Which dependencies do you want to check?
-Can be a character vector (selecting from "Depends", "Imports",
-"LinkingTo", "Suggests", or "Enhances"), or a logical vector.
-
-\code{TRUE} is shorthand for "Depends", "Imports", "LinkingTo" and
-"Suggests". \code{NA} is shorthand for "Depends", "Imports" and "LinkingTo"
-and is the default. \code{FALSE} is shorthand for no dependencies (i.e.
-just check this package, not its dependencies).}
-
-\item{upgrade}{One of "default", "ask", "always", or "never". "default"
-respects the value of the \code{R_REMOTES_UPGRADE} environment variable if set,
-and falls back to "ask" if unset. "ask" prompts the user for which out of
-date packages to upgrade. For non-interactive sessions "ask" is equivalent
-to "always". \code{TRUE} and \code{FALSE} are also accepted and correspond to
-"always" and "never" respectively.}
-
-\item{force}{Force installation, even if the remote state has not changed
-since the previous install.}
-
-\item{quiet}{If \code{TRUE}, suppress output.}
-
-\item{build}{If \code{TRUE} build the package before installing.}
-
-\item{build_opts}{Options to pass to \code{R CMD build}, only used when \code{build}}
-
-\item{build_manual}{If \code{FALSE}, don't build PDF manual ('--no-manual').}
-
-\item{build_vignettes}{If \code{FALSE}, don't build package vignettes ('--no-build-vignettes').
-is \code{TRUE}.}
-
-\item{repos}{A character vector giving repositories to use.}
-
-\item{type}{Type of package to \code{update}.}
-
-\item{...}{Other arguments passed on to \code{\link[utils:install.packages]{utils::install.packages()}}.}
+\item{Repository}{address in the format \verb{username/repo[/subdir][@ref|#pull]}.
+Alternatively, you can specify subdir and/or ref using the respective parameters (see below);
+if both is specified, the values in repo take precedence.}
 }
 \description{
 Attempts to install a package directly from gitee.
 }
 \examples{
 \dontrun{
-install_gitee("kongdd/plyr")
-install_gitee("kongdd/plyr")
+install_gitee("adv-r/Ipaper")
+install_gitee("adv-r/plyr")
 }
 }

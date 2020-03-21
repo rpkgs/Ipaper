@@ -78,7 +78,10 @@ key_blind <- function(){
         "Ipaper::addin_cutLines"       = "Alt+X",
         "Ipaper::addin_insertDo"       = "Ctrl+Alt+D",
         "Ipaper::addin_insertIn"       = "Ctrl+Shift+I",
-        "Ipaper::addin_insertReturn"   = "Ctrl+Shift+,")
+        "Ipaper::addin_insertReturn"   = "Ctrl+Shift+,",
+        "Ipaper::smerge"         = "Ctrl+Shift+G", 
+        "Ipaper::subl"           = "Alt+Shift+L", 
+        "Ipaper::code"           = "Alt+Shift+C")
     
     file_rstudio <- "~/.R/rstudio/keybindings/rstudio_bindings.json"
     options_rstudio <- list(
@@ -106,30 +109,5 @@ options_update <- function(file, options.new) {
     temp <- foreach (name = names(options.new), value = options.new) %do% {
         options[[name]] <- value
     }
-    write_json(options, file)
+    write_json(options, file, pretty = TRUE)
 }
-
-# Name: Insert %in%
-# Description: Inserts `%in%` at the cursor position.
-# Binding: addin_insertIn
-# Interactive: false
-
-# Name: Insert %do%
-# Description: Inserts `%do%` at the cursor position.
-# Binding: addin_insertDo
-# Interactive: false
-
-# Name: Insert %<>%
-# Description: Inserts `%<>%` at the cursor position.
-# Binding: addin_insertReturn
-# Interactive: false
-
-# Name: Cut lines
-# Description: Cut lines at the cursor position.
-# Binding: addin_cutLines
-# Interactive: false
-
-# Name: Copy lines
-# Description: Copy lines at the cursor position.
-# Binding: addin_copyLines
-# Interactive: false

@@ -22,3 +22,18 @@ Name: Cut lines
 Description: Cut lines at the cursor position.
 Binding: addin_cutLines
 Interactive: false
+
+Name: Open in smerge (Ctrl+Shift+G)
+Description: Open current working project in smerge
+Binding: smerge
+Interactive: false
+
+Name: Open in subl
+Description: Open current working directory in sublime
+Binding: subl
+Interactive: false
+
+Name: Open in VSCode
+Description: Open current working directory in VSCode
+Binding: code
+Interactive: false

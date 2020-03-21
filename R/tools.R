@@ -34,7 +34,7 @@ parse.formula <- function(formula = x~s1+s2) {
 #' generate R script of character vector
 #' 
 #' @param x character vector, data.frame or list.
-#' @inheritParams base::paste
+#' @param collapse an optional character string to separate the results. Not NA_character_.
 #' 
 #' @export
 code_ChrVec <- function(x, collapse = '"') {
