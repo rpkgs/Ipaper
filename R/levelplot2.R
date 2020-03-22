@@ -162,7 +162,7 @@ levelplot2 <- function(
     params$at <- if (!is_factor) brks else seq(0.5, nbrk+1)
     if (is.list(colorkey) || colorkey) {
         is_factor2 = legend.num2factor || is_factor
-        colorkey.param <- get_colorkey2(brks, legend.space, lgd.title, is_factor2, cex = cex.lgd)        
+        colorkey.param <- get_colorkey2(brks, NULL, legend.space, lgd.title, is_factor2, cex = cex.lgd)        
         colorkey.param$unit     = unit
         colorkey.param$unit.adj = unit.adj
         

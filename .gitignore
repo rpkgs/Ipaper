@@ -9,6 +9,12 @@ inst/doc
 tests/testthat/*.svg
 tests/testthat/*.tif
 
+*.tif
+*.xml
+*.ovr
+*.jpg
+
+*.png
 *.svg
 *.exe
 src-x64/

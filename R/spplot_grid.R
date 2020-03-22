@@ -33,6 +33,8 @@ check_brks <- function(brks){
 #' @importFrom sp spplot 
 #' @importFrom grid frameGrob placeGrob rectGrob segmentsGrob polygonGrob 
 #' @importFrom lattice panel.number panel.segments panel.points panel.arrows
+#' 
+#' @importFrom raster plot
 #' @export
 spplot_grid <- function(
     grid, zcols, 
@@ -123,7 +125,7 @@ spplot_grid <- function(
     if (!is_factor) params$at <- brks 
     
     if (colorkey) {
-        params$colorkey <- get_colorkey(brks, legend.space, lgd.title, is_factor)$colorkey
+        params$colorkey <- get_colorkey2(brks, NULL, legend.space, lgd.title, is_factor)
         params$colorkey$unit     = unit
         params$colorkey$unit.adj = unit.adj
     } else {

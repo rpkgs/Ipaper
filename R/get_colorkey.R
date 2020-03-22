@@ -17,46 +17,13 @@ pal <- function(col, border = "light gray")
 #' 
 #' @import RColorBrewer
 #' @export
-get_colorkey <- function(breaks, space = "bottom", lgd.title = NULL, is_factor = FALSE, 
-    unit = NULL, unit.adj = 0.3, 
+get_colorkey2 <- function(breaks, cols = NULL, space = "bottom", lgd.title = NULL, is_factor = FALSE, 
+    unit = NULL, unit.adj = 0.3,  
     cex = 1.3, fontfamily = "Times", fontface = 2)
 {
     ncolor <- length(breaks) - 1
-    cols <- colorRampPalette(c("firebrick1","orange3", "darkgoldenrod2", "grey90",
-                               brewer.pal(9, "YlGnBu")[c(4, 6, 7)], "green4"))(ncolor) #,colors()[504]
-    # prepare for spplot
-    colorkey <- list(
-        title = lgd.title,
-        labels = list(cex = cex, fontfamily = fontfamily, fontface = fontface),
-        axis.line = list(col = 'black'),
-        rect = list(col = "black", lwd = 0.4), 
-        # tri.upper = TRUE,  tri.lower = TRUE, 
-        height = 1, space = space, tck = 1, 
-        unit = unit, unit.adj = unit.adj
-    )
-
-    if (is_factor) {
-        at <- seq_along(breaks[-(1:2)]) + 0.5
-        labels <- breaks[-c(1, length(breaks))]
-        
-        colorkey$labels$at     <- at
-        colorkey$labels$labels <- labels
-    } else {
-        colorkey$labels$at <- breaks[-c(1, length(breaks))]
-    }
-
-    # colorkey$at <- at
-    list(cols = cols, colorkey = colorkey)#return
-}
-
-# for levelplot2
-get_colorkey2 <- function(breaks, space = "bottom", lgd.title = NULL, is_factor = FALSE, 
-    unit = NULL, unit.adj = 0.3, 
-    cex = 1.3, fontfamily = "Times", fontface = 2)
-{
-    ncolor <- length(breaks) - 1
-    cols <- colorRampPalette(c("firebrick1","orange3", "darkgoldenrod2", "grey90",
-                               brewer.pal(9, "YlGnBu")[c(4, 6, 7)], "green4"))(ncolor)#,colors()[504]
+    # cols <- colorRampPalette(c("firebrick1","orange3", "darkgoldenrod2", "grey90",
+    #                            brewer.pal(9, "YlGnBu")[c(4, 6, 7)], "green4"))(ncolor)#,colors()[504]
     # prepare for spplot
     colorkey <- list(
         title = lgd.title,
@@ -90,6 +57,7 @@ get_colorkey2 <- function(breaks, space = "bottom", lgd.title = NULL, is_factor 
     } else {
         colorkey$labels$at <- breaks[-c(1, length(breaks))]
     }
+    if (!is.null(cols)) colorkey$col = cols
     colorkey
 }
 
