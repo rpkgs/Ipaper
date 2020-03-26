@@ -53,7 +53,7 @@ write_sp2rgb <- function(grid, brks, cols, file = "sp_rgb.tif",
 #     d_rgb[I_mask, ] = 
 # }
 get_legend <- function(brks) {
-    key = Ipaper::get_colorkey2(brks, cols, is_factor = TRUE)
+    key = Ipaper::get_colorkey(brks, cols, is_factor = TRUE)
     g <- draw.colorkey(key)
     write_fig(g, "test/dem_legend.jpg", 9.2, 0.75)
 }

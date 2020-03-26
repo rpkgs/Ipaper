@@ -125,7 +125,7 @@ spplot_grid <- function(
     if (!is_factor) params$at <- brks 
     
     if (colorkey) {
-        params$colorkey <- get_colorkey2(brks, NULL, legend.space, lgd.title, is_factor)
+        params$colorkey <- get_colorkey(brks, NULL, legend.space, lgd.title, is_factor)
         params$colorkey$unit     = unit
         params$colorkey$unit.adj = unit.adj
     } else {

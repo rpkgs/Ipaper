@@ -154,7 +154,7 @@ write_sp2rgb(grid, brks, cols, file = "dem_pearl_rgb.tif")
 ```{r, fig.width=8, fig.height=0.7}
 library(Ipaper)
 # 若无get_colorkey2函数，记得先更新下Ipaper
-key = Ipaper::get_colorkey2(brks2, cols, is_factor = TRUE)
+key = Ipaper::get_colorkey(brks2, cols, is_factor = TRUE)
 g <- draw.colorkey(key)
 grid::grid.draw(g)
 write_fig(g, "dem_legend.jpg", 9.2, 0.75, show = FALSE)

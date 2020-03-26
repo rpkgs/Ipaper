@@ -4,9 +4,9 @@ p <- ggplot(mpg, aes(class, hwy))
 p1 <- p + geom_boxplot2()
 
 ## ggplot version
-write_fig(p1, "fig_ggplot.pdf", show = TRUE)
-write_fig(p1, "fig_ggplot", show = TRUE)
-write_fig(p1, "fig_ggplot.pdf", show = TRUE, devices = c("jpg", "png", "svg", "pdf", "tif", "emf"))
+write_fig(p1, "Fig. 1. ggplot.pdf", show = TRUE)
+write_fig(p1, "Fig. 1. ggplot", show = TRUE)
+write_fig(p1, "Fig. 1. ggplot.pdf", show = TRUE, devices = c("jpg", "png", "svg", "pdf", "tif", "emf"))
 
 ## lattice
 x <- seq(pi/4, 5 * pi, length.out = 100)

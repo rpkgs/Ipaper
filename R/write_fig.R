@@ -33,6 +33,7 @@ write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5,
     file_exts = if (is.null(devices)) file_ext(file) else devices
     if (length(file_exts) == 1 && is.na(file_exts)) file_exts = "pdf"
 
+    env = parent.frame()
     for(i in seq_along(file_exts)) {
         file_ext = file_exts[i]
         outfile  = sprintf("%s/%s.%s", outdir, filename, file_ext)
@@ -40,13 +41,12 @@ write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5,
         dev_open(outfile, width, height, res)
         # 1. print plot
         if (is.expression(p)) {
-            eval(p, envir = parent.frame())
+            eval(p, envir = env)
         } else {
             temp <- FUN(p)    
         }
-
-        if (show) showfig(outfile)
         dev.off() # close device
+        if (show) showfig(outfile)
     }
 }
 

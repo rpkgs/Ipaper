@@ -17,7 +17,7 @@ pal <- function(col, border = "light gray")
 #' 
 #' @import RColorBrewer
 #' @export
-get_colorkey2 <- function(breaks, cols = NULL, space = "bottom", lgd.title = NULL, is_factor = FALSE, 
+get_colorkey <- function(breaks, cols = NULL, space = "bottom", lgd.title = NULL, is_factor = FALSE, 
     unit = NULL, unit.adj = 0.3,  
     cex = 1.3, fontfamily = "Times", fontface = 2)
 {

@@ -37,9 +37,20 @@ file_ext <- function(file) {
     str_extract(basename(file), "(?<=\\.).{1,4}$") 
 }
 
+#' @importFrom stringr str_locate_all
 #' @export
 file_name <- function(file) {
-    gsub("\\..*", "", basename(file))
+    file  <- basename(file)
+    pos   <- str_locate_all(file, "\\.")[[1]] 
+    I_dot <- pos[nrow(pos), 1]
+
+    postfix = substr(file, I_dot, nchar(file))
+    if (nchar(postfix) <= 5) {
+        gsub(postfix, "", file)
+    } else {
+        file
+    }
+    # gsub("\\..*", "", basename(file))
     # str_extract(basename(file), ".*(?=\\.?)")
     # ?: zero or one
     # *: zero or more
