@@ -43,7 +43,10 @@ file_name <- function(file) {
     file  <- basename(file)
     pos   <- str_locate_all(file, "\\.")[[1]] 
     I_dot <- pos[nrow(pos), 1]
-
+    
+    # no dot
+    if (length(I_dot) == 0) return(file)
+    
     postfix = substr(file, I_dot, nchar(file))
     if (nchar(postfix) <= 5) {
         gsub(postfix, "", file)

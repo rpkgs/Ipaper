@@ -25,7 +25,7 @@ g <- grid::circleGrob()
 write_fig(g, "fig_grid", show = TRUE)
 
 ## R expression
-write_fig(expression({
+write_fig({
     rx <- range(x <- 10*1:nrow(volcano))
     ry <- range(y <- 10*1:ncol(volcano))
     ry <- ry + c(-1, 1) * (diff(rx) - diff(ry))/2
@@ -39,5 +39,5 @@ write_fig(expression({
             vfont = c("sans serif", "plain"))
     title("A Topographic Map of Maunga Whau", font = 4)
     abline(h = 200*0:4, v = 200*0:4, col = "lightgray", lty = 2, lwd = 0.1)
-}), "fig_expr.pdf")
+}, "fig_expr.pdf")
 }

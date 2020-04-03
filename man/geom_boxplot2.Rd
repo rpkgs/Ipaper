@@ -131,12 +131,12 @@ See McGill et al. (1978) for more details.
 
 \code{geom_boxplot()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x} \emph{or} \code{y}}
-\item \strong{\code{lower} \emph{or} \code{xlower}}
-\item \strong{\code{upper} \emph{or} \code{xupper}}
-\item \strong{\code{middle} \emph{or} \code{xmiddle}}
-\item \strong{\code{ymin} \emph{or} \code{xmin}}
-\item \strong{\code{ymax} \emph{or} \code{xmax}}
+\item \strong{\code{x}}
+\item \strong{\code{lower}}
+\item \strong{\code{upper}}
+\item \strong{\code{middle}}
+\item \strong{\code{ymin}}
+\item \strong{\code{ymax}}
 \item \code{alpha}
 \item \code{colour}
 \item \code{fill}

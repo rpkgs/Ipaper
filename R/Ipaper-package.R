@@ -33,32 +33,14 @@
 # ' @importFrom Rcpp sourceCpp
 NULL
 
-
 .onLoad <- function(libname, pkgname) {
     # suppressMessages
     # suppressWarnings
-    suppressMessages({
-        library(magrittr)
-        # library(lattice)
-        library(devtools)
-    })
-
-    OS.type = .Platform$OS.type
-	if (OS.type == 'windows') {
-	    grDevices::windowsFonts(
-	        Times = grDevices::windowsFont("Times New Roman"), 
-	        Arial = grDevices::windowsFont("Arial"), 
-	        YH = grDevices::windowsFont("Microsoft Yahei"), 
-	        whit = grDevices::windowsFont("Whitney-Book")
-	    )
-	} else if (OS.type == 'unix'){
-	    Cairo::CairoFonts(
-	        regular="Times New Roman:style=Regular",
-	        bold="Times New Roman:style=Bold",
-	        italic="Times New Roman:style=Oblique",
-	        bolditalic="Times New Roman:style=BoldOblique"
-	    )
-	}
-
+    # suppressMessages({
+    #     library(magrittr)
+    #     # library(lattice)
+    #     library(devtools)
+    # })
+    set_font()
     invisible()
 }

@@ -19,3 +19,4 @@ tests/testthat/*.tif
 *.exe
 src-x64/
 src-i386/
+inst/font

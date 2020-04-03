@@ -1,0 +1,29 @@
+
+# 暂且使用rTIMES
+write_fig({
+    # plot(0)
+    plot.new()
+    str = "测试字体 Times New Roman"
+    x = 0.5
+    cex = 1.2
+    text(x, 0.5, str, family = "song", offset = c(0,0), font = 2)
+    text(x, 0.4, "(a) 华文仿宋 测试字体 Times New Roman Huawen Fangsong", family = "hwfsong", cex = cex)
+    text(x, 0.3, "(a) 仿宋   测试字体Times New Roman FangSong", family = "fsong", cex = cex)
+    text(x, 0.2, "(a) 测试字体 Times New Roman FangSong", family = "times", cex = cex)
+    text(x, 0.1, "(a) 测试字体 Times New Roman FangSong", family = "rTimes", cex = cex, font = 2)
+    text(x, 0, "(a) 测试字体 Times New Roman FangSong", family = "TimesSimSun", cex = cex, font = 2)
+}, "a.pdf", 10, 6)
+
+
+write_fig({
+    par(family = "TimesSimSun", cex = 1.4)
+    plot(0, main = "测试字体 Times New Roman")
+    plot(0, main = "测试字体 Times New Roman")
+}, "TimesSimSun.pdf", 10, 6)
+
+# 1. jpg, tif：对于中文可以自动设置宋体
+# 2. emf 可以自动设置中文字体，但是不支持AI编辑
+write_fig({
+    par(family = "Times", cex = 1.4)
+    plot(0, main = "测试字体 Times New Roman")
+}, "a.jpg", 10, 6, devices = c("tif", "jpg", "png", "emf", "svg"))

@@ -11,7 +11,8 @@ write_fig(
   height = 5,
   devices = NULL,
   res = 300,
-  show = TRUE
+  show = TRUE,
+  use.cairo_pdf = FALSE
 )
 }
 \arguments{
@@ -33,6 +34,9 @@ The default type is pdf.}
     text and line widths.}
 
 \item{show}{Boolean. Whether show file after finished writing?}
+
+\item{use.cairo_pdf}{This parameter is for pdf type. whether to use \code{\link[grDevices:cairo_pdf]{grDevices::cairo_pdf()}}?
+\code{cairo_pdf} supports self defined font, but can not create multiple page pdf.}
 }
 \description{
 write figure to pdf, tif, png, jpg, svg, or emf, according to file suffix.
@@ -44,9 +48,9 @@ p <- ggplot(mpg, aes(class, hwy))
 p1 <- p + geom_boxplot2()
 
 ## ggplot version
-write_fig(p1, "fig_ggplot.pdf", show = TRUE)
-write_fig(p1, "fig_ggplot", show = TRUE)
-write_fig(p1, "fig_ggplot.pdf", show = TRUE, devices = c("jpg", "png", "svg", "pdf", "tif", "emf"))
+write_fig(p1, "Fig. 1. ggplot.pdf", show = TRUE)
+write_fig(p1, "Fig. 1. ggplot", show = TRUE)
+write_fig(p1, "Fig. 1. ggplot.pdf", show = TRUE, devices = c("jpg", "png", "svg", "pdf", "tif", "emf"))
 
 ## lattice
 x <- seq(pi/4, 5 * pi, length.out = 100)
@@ -65,7 +69,7 @@ g <- grid::circleGrob()
 write_fig(g, "fig_grid", show = TRUE)
 
 ## R expression
-write_fig(expression({
+write_fig({
     rx <- range(x <- 10*1:nrow(volcano))
     ry <- range(y <- 10*1:ncol(volcano))
     ry <- ry + c(-1, 1) * (diff(rx) - diff(ry))/2
@@ -79,7 +83,7 @@ write_fig(expression({
             vfont = c("sans serif", "plain"))
     title("A Topographic Map of Maunga Whau", font = 4)
     abline(h = 200*0:4, v = 200*0:4, col = "lightgray", lty = 2, lwd = 0.1)
-}), "fig_expr.pdf")
+}, "fig_expr.pdf")
 }
 }
 \seealso{

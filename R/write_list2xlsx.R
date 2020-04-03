@@ -11,8 +11,14 @@
 #' 
 #' @import openxlsx
 #' @export
-write_list2xlsx <- function (x, file, .progress = "none", rowNames = FALSE)
+write_list2xlsx <- function(x, file, .progress = "none", rowNames = FALSE)
 {
+    file <- file_name(file) %>% {paste0(dirname(file), "/", ., ".xlsx")}
+    name <- deparse(substitute(x))
+    if ("data.frame" %in% class(x)) {
+        x <- setNames(list(x), name)
+    }
+    
     sheetNames <- names(x)
     if (is.null(sheetNames))
         sheetNames <- paste0("sheet", seq_along(x))
