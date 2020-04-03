@@ -23,7 +23,8 @@ panel.spatial(
   density = 1,
   angle = 45,
   par.shade = NULL,
-  data.stat = NULL
+  data.stat = NULL,
+  style = c("ZH", "EN")
 )
 }
 \arguments{

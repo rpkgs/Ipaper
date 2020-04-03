@@ -12,6 +12,7 @@ levelplot2(
   brks,
   colors,
   col.rev = FALSE,
+  strip = FALSE,
   toFactor = FALSE,
   grob = NULL,
   bbox = c(0, 0.5, 0.5, 1),
@@ -50,6 +51,11 @@ shingles if present.}
 \item{df.mask}{NULL or same length data.table as df, with the columns of \code{mask}
 and same group variabes as \code{df}. Mask is used to distinguish significant pixels.
 Note that factor levels should be same for grouped variables in \code{df} and \code{df.mask}.}
+
+\item{strip}{
+    These arguments are described in the help page for
+    \code{\link[lattice]{xyplot}}.
+  }
 
 \item{xlim, ylim}{The limits of x and y}
 

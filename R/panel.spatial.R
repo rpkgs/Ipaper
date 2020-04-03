@@ -16,7 +16,8 @@ panel.spatial <- function(x, y, z, subscripts,
     SpatialPixel = NULL,
     density = 1, angle = 45, 
     par.shade = NULL, 
-    data.stat = NULL)
+    data.stat = NULL, 
+    style = c("ZH", "EN"))
 {
     NO_panel = panel.number()
     dot <- list(...)
@@ -53,11 +54,13 @@ panel.spatial <- function(x, y, z, subscripts,
     ## 4. add panel title
     i <- ifelse(is.null(dot$NO_begin), 0, dot$NO_begin-1) + NO_panel
     
-    panel.title <- ifelse(is.null(dot$panel.titles_full), 
+    if (!(is.null(dot$panel.titles_full) && is.null(dot$panel.titles[NO_panel]))) {
+         panel.title <- ifelse(is.null(dot$panel.titles_full), 
                           paste0("(",letters[i], ") ", dot$panel.titles[NO_panel]), 
                           dot$panel.titles_full[NO_panel])
-    panel.text(pars$title$x, pars$title$y, panel.title, #english name: New_names[i])
-               fontfamily = "Times", cex = pars$title$cex, font = 2, adj = 0)
+        panel.text(pars$title$x, pars$title$y, panel.title, #english name: New_names[i])
+                   fontfamily = "Times", cex = pars$title$cex, font = 2, adj = 0)
+    }
 
     ## 5. panel.text statistic values
     if (!is.null(data.stat)) {
@@ -68,7 +71,7 @@ panel.spatial <- function(x, y, z, subscripts,
 
     ## 6. panel.hist
     if (sub.hist) {
-        params <- listk(z, subscripts, ntick = 3, ...) %>% 
+        params <- listk(z, subscripts, ntick = 3, style, ...) %>% 
             c(., pars$hist)
         do.call(panel.barchart2, params)
     }

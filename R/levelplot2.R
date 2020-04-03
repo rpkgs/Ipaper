@@ -39,6 +39,7 @@ levelplot2 <- function(
     df.mask = NULL,
     # grid, zcols, 
     brks, colors, col.rev = FALSE, 
+    strip = FALSE,
     toFactor = FALSE, 
     grob = NULL, bbox = c(0, 0.5, 0.5, 1),
     # xlim = c(73.5049, 104.9725), ylim = c(25.99376, 40.12632),
@@ -127,6 +128,15 @@ levelplot2 <- function(
     
     class  <- class(SpatialPixel)
     data   <- coordinates(SpatialPixel) %>% as.data.table() %>% cbind(df)
+
+    if (strip == TRUE) {
+        n = length(zcols)
+        strip_levels = sprintf("(%s) %s", letters[1:n], zcols)
+        strip = strip.custom(factor.levels=strip_levels)
+        # note here
+        zcols = NULL
+    }
+    
     params <- list(
         formula, data,
         list.mask = list.mask, 
@@ -140,7 +150,7 @@ levelplot2 <- function(
         sub.hist = sub.hist,
         brks = brks,
         # xlim = xlim, ylim = ylim, 
-        strip = FALSE, 
+        strip = strip, 
         as.table = TRUE,
         sp.layout = sp.layout,
         layout = layout,
@@ -172,6 +182,6 @@ levelplot2 <- function(
     } else {
         params$colorkey <- FALSE
     }
-    # browser()
+
     do.call(levelplot, params)
 }

@@ -23,6 +23,7 @@ panel.barchart2(
   tick = NULL,
   w = NULL,
   text.cex = 1,
+  style = c("ZH", "EN"),
   ...
 )
 }

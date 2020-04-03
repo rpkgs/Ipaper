@@ -93,7 +93,7 @@ opt_trellis_default <- list(
         strip = 1
     ), 
     layout.widths = list(
-        left.padding      = 0, # left
+        left.padding      = 1, # left
         right.padding     = 1, # right
         key.ylab.padding  = 0, # axis.y padding
         key.left          = 1, 

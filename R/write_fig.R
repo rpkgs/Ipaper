@@ -10,7 +10,7 @@
 #' @inheritParams grDevices::svg
 #' @inheritParams grDevices::png
 #' @param show Boolean. Whether show file after finished writing?
-#' @param use.cairo_pdf This parameter is for pdf type. whether to use [grDevices::cairo_pdf()]?
+#' @param use.cairo_pdf This parameter is for pdf type. whether to use `grDevices::cairo_pdf`?
 #' `cairo_pdf` supports self defined font, but can not create multiple page pdf.
 #' 
 #' @seealso [grDevices::cairo()], [grDevices::png()], [Cairo::Cairo()]

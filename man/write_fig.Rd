@@ -35,7 +35,7 @@ The default type is pdf.}
 
 \item{show}{Boolean. Whether show file after finished writing?}
 
-\item{use.cairo_pdf}{This parameter is for pdf type. whether to use \code{\link[grDevices:cairo_pdf]{grDevices::cairo_pdf()}}?
+\item{use.cairo_pdf}{This parameter is for pdf type. whether to use \code{grDevices::cairo_pdf}?
 \code{cairo_pdf} supports self defined font, but can not create multiple page pdf.}
 }
 \description{
