@@ -18,12 +18,14 @@ levelplot2(
   bbox = c(0, 0.5, 0.5, 1),
   xlim = NULL,
   ylim = NULL,
-  panel.title = NULL,
+  strip.factors = NULL,
+  panel.titles_full = NULL,
   unit = "",
   unit.adj = 0.3,
   pars = NULL,
   stat = list(show = FALSE, name = "RC", loc = c(81.5, 26.5), digit = 1, include.sd =
     FALSE, FUN = weightedMedian),
+  stat_sign = list(loc1 = c(78, 41), loc2 = c(78, 41 - 2)),
   sub.hist = TRUE,
   area.weighted = FALSE,
   legend.space = "right",
@@ -49,8 +51,11 @@ shingles if present.}
 \item{df}{data.table object, with columns e.g. lon, lat, and others}
 
 \item{df.mask}{NULL or same length data.table as df, with the columns of \code{mask}
-and same group variabes as \code{df}. Mask is used to distinguish significant pixels.
-Note that factor levels should be same for grouped variables in \code{df} and \code{df.mask}.}
+and same group variabes as \code{df}.
+\code{mask} is a boolean vector, which is used to distinguish significant pixels.
+Note that factor levels should be same for grouped variables in \code{df} and \code{df.mask}.
+
+If \code{mask} present in \code{df}, \code{df.mask} will be ignored.}
 
 \item{strip}{
     These arguments are described in the help page for
@@ -77,6 +82,13 @@ Note that factor levels should be same for grouped variables in \code{df} and \c
 }
 \description{
 Lattice (trellis) plot methods for spatial data with attributes
+}
+\note{
+parameter \code{panel.title} change to \code{panel.titles_full}
+\itemize{
+\item \code{panel.titles_full} is for tags.
+\item \code{strip.factors} is for strip factors
+}
 }
 \examples{
 data("grid_avhrr")

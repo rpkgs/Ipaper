@@ -107,3 +107,34 @@ which.na <- function(x) {
 which.notna <- function(x) {
     which(!is.na(x))
 }
+
+#' @export
+which.isnull <- function(x) {
+    which(sapply(x, is.null))
+}
+
+#' @export
+which.notnull <- function(x) {
+    which(!sapply(x, is.null))
+}
+
+#' @export
+label_tag <- function(labels, tag = TRUE) {
+    n <- length(labels)
+    foreach(name = labels, i = icount(), .combine = c) %do% {
+        data = list(tag = letters[i], x = name)
+        if (tag) {
+            eval(substitute(expression(bold("("*tag *")"~ x)), data))
+        } else {
+            eval(substitute(expression(bold(x)), data))
+        }
+    }
+    # sprintf("(%s) %s", letters[1:n], labels)
+}
+
+#' @export
+char2expr <- function(names) {
+    foreach(name = names, .combine = c) %do% {
+        eval(substitute(expression(bold(x)), list(x = name)))
+    }
+}

@@ -24,6 +24,7 @@ panel.spatial(
   angle = 45,
   par.shade = NULL,
   data.stat = NULL,
+  stat_sign = NULL,
   style = c("ZH", "EN")
 )
 }

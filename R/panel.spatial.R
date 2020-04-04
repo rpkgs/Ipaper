@@ -10,13 +10,15 @@ panel.spatial <- function(x, y, z, subscripts,
     ...,  
     contour = FALSE, 
     grob = NULL, bbox, sub.hist = TRUE, sp.layout, 
-    pars, class = NULL, 
+    pars, 
+    class = NULL, 
     interpolate = TRUE, 
     list.mask = NULL, 
     SpatialPixel = NULL,
     density = 1, angle = 45, 
     par.shade = NULL, 
     data.stat = NULL, 
+    stat_sign = NULL, 
     style = c("ZH", "EN"))
 {
     NO_panel = panel.number()
@@ -42,8 +44,8 @@ panel.spatial <- function(x, y, z, subscripts,
         par.shade %<>% as.list() %>% modifyList(options.spplot$shadePattern, .)
         poly_shade = raster2poly(SpatialPixel[I_sign, ])
         
-        params.shade = list(poly_shade, union = FALSE, density, angle, sp.layout = NULL) %>% 
-            c(., par.shade, ...)
+        params.shade = list(poly_shade, union = FALSE, density, angle, sp.layout = NULL) %>%
+            c(., par.shade, list(...))
         do.call(panel.poly_grid, params.shade)
     }
 
@@ -63,13 +65,26 @@ panel.spatial <- function(x, y, z, subscripts,
     }
 
     ## 5. panel.text statistic values
+    fontfamily = get_family()
     if (!is.null(data.stat)) {
         loc   <- data.stat$loc # 81.5, 26.5
         label <- data.stat$label[[NO_panel]]
-        panel.text(loc[[1]], loc[[2]], label, fontfamily = "Times", cex = 1.2, adj = c(0, 0))    
+        panel.text(loc[[1]], loc[[2]], label, fontfamily = fontfamily, cex = 1.2, adj = c(0, 0))    
     }
 
-    ## 6. panel.hist
+    ## 6. add significant statistic
+    if (!is.null(stat_sign)) {
+        d <- stat_sign$data[[NO_panel]]  
+        x1 <- stat_sign$loc1[1]
+        y1 <- stat_sign$loc1[2]
+        x2 <- stat_sign$loc2[1]
+        y2 <- stat_sign$loc2[2]
+        
+        panel.text(x1, y1, d$str_pos, fontfamily = "Times", fontface = 2, cex = 1.2, adj = c(0, 0), col = "blue")
+        panel.text(x2, y2, d$str_neg, fontfamily = "Times", fontface = 2, cex = 1.2, adj = c(0, 0), col = "red")
+    }
+    
+    ## 7. panel.hist
     if (sub.hist) {
         params <- listk(z, subscripts, ntick = 3, style, ...) %>% 
             c(., pars$hist)
@@ -78,5 +93,9 @@ panel.spatial <- function(x, y, z, subscripts,
 }
 
 options.spplot <- list(
-    shadePattern = list(col = "black", lwd = 1, lty = 1)
-    )
+    shadePattern = list(col = "black", lwd = 1, lty = 1))
+
+get_family <- function(){
+    fontfamily = "rTimes"
+    fontfamily
+}

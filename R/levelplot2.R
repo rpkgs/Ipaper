@@ -16,15 +16,20 @@
 #' shingles if present.
 #' @param df data.table object, with columns e.g. lon, lat, and others
 #' @param df.mask NULL or same length data.table as df, with the columns of `mask`
-#' and same group variabes as `df`. Mask is used to distinguish significant pixels.
+#' and same group variabes as `df`. 
+#' `mask` is a boolean vector, which is used to distinguish significant pixels.
 #' Note that factor levels should be same for grouped variables in `df` and `df.mask`.
 #' 
+#' If `mask` present in `df`, `df.mask` will be ignored.
 #' @param colorkey Boolean or list returned by [get_colorkey()].
 #' @param NO_begin beginning NO of the first panel
 #' 
 #' @example man/examples/ex-spplot_grid.R
 #' 
 #' @seealso [spplot_grid()], [sp::spplot()], [lattice::levelplot()]
+#' @note parameter `panel.title` change to `panel.titles_full`
+#' - `panel.titles_full` is for tags.
+#' - `strip.factors` is for strip factors
 #' 
 #' @importFrom matrixStats weightedMedian weightedSd
 #' @importFrom sp spplot coordinates 
@@ -44,11 +49,13 @@ levelplot2 <- function(
     grob = NULL, bbox = c(0, 0.5, 0.5, 1),
     # xlim = c(73.5049, 104.9725), ylim = c(25.99376, 40.12632),
     xlim = NULL, ylim = NULL, 
-    panel.title = NULL, 
+    strip.factors = NULL, 
+    panel.titles_full = NULL, 
     unit = "",  
     unit.adj = 0.3, 
     pars = NULL, 
     stat = list(show = FALSE, name="RC", loc = c(81.5, 26.5), digit = 1, include.sd = FALSE, FUN = weightedMedian),
+    stat_sign = list(loc1 = c(78, 41), loc2 = c(78, 41-2)),
     sub.hist = TRUE, 
     area.weighted = FALSE, 
     legend.space = "right", 
@@ -85,7 +92,13 @@ levelplot2 <- function(
     npixel = nrow(SpatialPixel)
     par.settings <- modifyList(par.settings, par.settings2)
 
-    list.mask = if (!is.null(df.mask)) {
+    if (is.null(df.mask) && "mask" %in% colnames(df)) {
+        df.mask <- df
+    }
+
+    list.mask = NULL
+    labels_sign = NULL
+    if (!is.null(df.mask)) {
         ## make sure factor is the same
         for (i in seq_along(groups)) {
             varname = groups[i]
@@ -93,8 +106,22 @@ levelplot2 <- function(
             if (is.null(levels)) levels = unique(df[[varname]])
             df.mask[[varname]] %<>% factor(levels = levels)
         }
-        dlply(df.mask, rev(groups), function(d) d$mask)
-    } else NULL
+        list.mask = dlply(df.mask, rev(groups), function(d) d$mask)
+
+        ## the percentage of significant or not
+        labels_sign = dlply(df, rev(groups), function(d) {
+            val <- sign(d[[value.var]])
+            mask <- d$mask
+            tbl <- table(mask, val)
+         
+            N <- sum(as.numeric(tbl))
+            perc <- tbl / N * 100
+            str_neg <- sprintf("N: %.1f%% (%.1f%%)", sum(perc[, 1]), perc[2, 1])
+            str_pos <- sprintf("P: %.1f%% (%.1f%%)", sum(perc[, 2]), perc[2, 2])
+            data.table(str_neg, str_pos)
+        })
+    }
+    stat_sign$data <- labels_sign
 
     # statistic mean value 
     data.stat <- 
@@ -131,20 +158,22 @@ levelplot2 <- function(
 
     if (strip == TRUE) {
         n = length(zcols)
-        strip_levels = sprintf("(%s) %s", letters[1:n], zcols)
+        if(is.null(strip.factors)) strip.factors <- zcols
+        # names <- if (is.null(strip.factors)) zcols else strip.factors
+        strip_levels = label_tag(strip.factors)
         strip = strip.custom(factor.levels=strip_levels)
-        # note here
         zcols = NULL
     }
-    
+
     params <- list(
         formula, data,
         list.mask = list.mask, 
         SpatialPixel = SpatialPixel, 
         ...,
+        stat_sign   = stat_sign, 
         col.regions = cols,
         panel.titles = zcols,
-        panel.titles_full = panel.title,
+        panel.titles_full = panel.titles_full,
         panel = panel.spatial, 
         NO_begin = NO_begin,
         sub.hist = sub.hist,
@@ -167,7 +196,6 @@ levelplot2 <- function(
     if (!is.null(xlim)) params$xlim <- xlim
     if (!is.null(ylim)) params$ylim <- ylim
     
-    # browser()
     nbrk = length(brks)
     params$at <- if (!is_factor) brks else seq(0.5, nbrk+1)
     if (is.list(colorkey) || colorkey) {
@@ -178,7 +206,6 @@ levelplot2 <- function(
         
         if (is.list(colorkey)) colorkey.param %<>% updateList(colorkey)
         params$colorkey <- colorkey.param
-        # browser()
     } else {
         params$colorkey <- FALSE
     }

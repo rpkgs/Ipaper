@@ -154,8 +154,9 @@ panel.barchart2 <- function(z, subscripts, origin.x = 76, origin.y = 26.5, tck =
             cex = text.cex, adj = adj, font = 2, identifier = "xaxis.text")    
     }
     
+    fontfamily = get_family()
     ylab = ifelse(style[1] =="EN", "Fraction (%)", "频率 (%)")
     panel.text(tick_xpos[1] - ylab.offset, origin.y - tck, ylab, 
-        srt = 90, font = 2, adj = c(0, 0.5), fontfamily = fontfamily, cex = text.cex, 
+        srt = 90, font = 2, adj = c(0, 0.5), fontfamily = fontfamily, cex = 1.2, 
         identifier = "ylab.text")
 }
