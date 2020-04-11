@@ -31,27 +31,6 @@ parse.formula <- function(formula = x~s1+s2) {
     list(value.var = value.var, groups = groups)    
 }
 
-#' generate R script of character vector
-#' 
-#' @param x character vector, data.frame or list.
-#' @param collapse an optional character string to separate the results. Not NA_character_.
-#' 
-#' @export
-code_ChrVec <- function(x, collapse = '"') {
-    if(is.list(x)) {
-        x = names(x)
-    }
-    
-    head = sprintf('c(%s', collapse)
-    tail = sprintf('%s)', collapse)
-    collapse = sprintf('%s, %s', collapse, collapse) 
-    
-    script = paste(x, collapse = collapse) %>% paste0(head, ., tail)
-
-    if (.Platform$OS.type == "windows") writeLines(script, "clipboard")
-    cat(script)
-}
-
 #' obj.size
 #'
 #' Get object size in `unit`
@@ -119,22 +98,29 @@ which.notnull <- function(x) {
 }
 
 #' @export
-label_tag <- function(labels, tag = TRUE) {
-    n <- length(labels)
-    foreach(name = labels, i = icount(), .combine = c) %do% {
-        data = list(tag = letters[i], x = name)
-        if (tag) {
-            eval(substitute(expression(bold("("*tag *")"~ x)), data))
-        } else {
-            eval(substitute(expression(bold(x)), data))
-        }
-    }
-    # sprintf("(%s) %s", letters[1:n], labels)
+first <- function(x, order_by = NULL, default = NA_real_) {
+    nth(x, 1L, order_by = order_by, default = default)
 }
 
 #' @export
-char2expr <- function(names) {
-    foreach(name = names, .combine = c) %do% {
-        eval(substitute(expression(bold(x)), list(x = name)))
+last <- function(x, order_by = NULL, default = NA_real_) {
+    nth(x, -1L, order_by = order_by, default = default)
+}
+
+#' @export
+nth <- function (x, n, order_by = NULL, default = NA_real_) {
+    stopifnot(length(n) == 1, is.numeric(n))
+    n <- trunc(n)
+    if (n == 0 || n > length(x) || n < -length(x)) {
+        return(default)
+    }
+    if (n < 0) {
+        n <- length(x) + n + 1
+    }
+    if (is.null(order_by)) {
+        x[[n]]
+    }
+    else {
+        x[[order(order_by)[[n]]]]
     }
 }
