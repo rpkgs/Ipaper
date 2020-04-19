@@ -40,13 +40,15 @@ panel.spatial <- function(x, y, z, subscripts,
     if (!is.null(list.mask) && !is.null(SpatialPixel)) {
         mask = list.mask[[NO_panel]]
         I_sign <- which(mask)
-    
-        par.shade %<>% as.list() %>% modifyList(options.spplot$shadePattern, .)
-        poly_shade = raster2poly(SpatialPixel[I_sign, ])
         
-        params.shade = list(poly_shade, union = FALSE, density, angle, sp.layout = NULL) %>%
-            c(., par.shade, list(...))
-        do.call(panel.poly_grid, params.shade)
+        if (length(I_sign) > 0) {
+            par.shade %<>% as.list() %>% modifyList(options.spplot$shadePattern, .)
+            poly_shade = raster2poly(SpatialPixel[I_sign, ])
+            
+            params.shade = list(poly_shade, union = FALSE, density, angle, sp.layout = NULL) %>%
+                c(., par.shade, list(...))
+            do.call(panel.poly_grid, params.shade)    
+        }
     }
 
     ## 3. panel.annotation

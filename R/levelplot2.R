@@ -110,14 +110,20 @@ levelplot2 <- function(
 
         ## the percentage of significant or not
         labels_sign = dlply(df, rev(groups), function(d) {
-            val <- sign(d[[value.var]])
-            mask <- d$mask
+            val <- sign(d[[value.var]]) # 只考虑-1, 1，不考虑0
+            val %<>% factor(c(-1, 0, 1), c("neg", NA, "pos"))
+            
+            mask <- d$mask %>% as.character() %>% factor(c("FALSE", "TRUE"))
             tbl <- table(mask, val)
-         
+            
+            # print(tbl)
+            # browser()
+            
             N <- sum(as.numeric(tbl))
             perc <- tbl / N * 100
+            # browser()
             str_neg <- sprintf("N: %.1f%% (%.1f%%)", sum(perc[, 1]), perc[2, 1])
-            str_pos <- sprintf("P: %.1f%% (%.1f%%)", sum(perc[, 2]), perc[2, 2])
+            str_pos <- sprintf("P: %.1f%% (%.1f%%)", sum(perc[, 3]), perc[2, 3])
             data.table(str_neg, str_pos)
         })
     }
