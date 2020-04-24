@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Travis Build
-Status](https://travis-ci.org/kongdd/Ipaper.svg?branch=master)](https://travis-ci.org/kongdd/Ipaper)
+Status](https://travis-ci.com/kongdd/Ipaper.svg?branch=master)](https://travis-ci.com/kongdd/Ipaper)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/kongdd/rwiki?branch=master&svg=true)](https://ci.appveyor.com/project/kongdd/Ipaper)
 [![codecov](https://codecov.io/gh/kongdd/Ipaper/branch/master/graph/badge.svg)](https://codecov.io/gh/kongdd/Ipaper)

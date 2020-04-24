@@ -42,7 +42,7 @@ Imports:
     devtools, 
     IRdisplay,
     RColorBrewer,
-    sp, maptools, 
+    sp, maptools, raster,
     rgeos, 
     boot,
     fftwtools

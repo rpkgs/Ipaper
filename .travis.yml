@@ -11,6 +11,7 @@ addons:
       - libgdal-dev
       - libproj-dev
       - xclip
+      - libfftw3-dev
 
 r_github_packages:
   - r-lib/covr
