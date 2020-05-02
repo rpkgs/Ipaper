@@ -53,7 +53,7 @@ array_3dTo2d <- function(array, I_grid){
 #' r2 <- apply_3d(arr, 3, by = by, FUN = rowMeans)
 #' @importFrom matrixStats rowMeans2 rowMins rowMaxs
 #' @export
-apply_3d <- function(array, dim = 3, FUN = rowMeans2, by = NULL, ...) {
+apply_3d <- function(array, dim = 3, FUN = rowMeans2, by = NULL, na.rm = TRUE, ...) {
     # TODO: add by at here
     dims <- dim(array)
     ndim <- length(dims) # dimensions
@@ -69,7 +69,7 @@ apply_3d <- function(array, dim = 3, FUN = rowMeans2, by = NULL, ...) {
     mat <- array_3dTo2d(array)
 
     if (is.null(by)) {
-        ans <- FUN(mat, ..., na.rm = TRUE)    
+        ans <- FUN(mat, ..., na.rm = na.rm)    
         dim_new <- dims_head
     } else {
         dim_new <- c(dims_head, length(unique(by)))

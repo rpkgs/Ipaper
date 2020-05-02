@@ -50,7 +50,7 @@ spatial_meansd <- function(x, area, stat, unit, FUN = weightedMedian){
 
     lst.env = c(list(mu=mu, sd=sd, unit = unit2), stat)
     label <- if ( !is.null(stat$include.sd) && stat$include.sd ) {
-        eval(substitute(expression(bold(name) == mu * "±" * sd * " " * unit), lst.env)) # bolditalic
+        eval(substitute(expression(bar(bold(name)) == mu * "±" * sd * " " * unit), lst.env)) # bolditalic
     } else {
         eval(substitute(expression(bar(bold(name)) == mu * " " * unit), lst.env))
     }

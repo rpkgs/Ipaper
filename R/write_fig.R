@@ -19,7 +19,7 @@
 #' @importFrom grDevices svg tiff
 #' @export
 write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5, 
-    devices = NULL, res = 300, show = TRUE, use.cairo_pdf = FALSE) 
+    devices = NULL, res = 300, show = TRUE, use.cairo_pdf = TRUE) 
 {
     ## begin of function -------------------------------------------------------
     showfig <- function(file) {

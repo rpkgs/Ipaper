@@ -1,9 +1,12 @@
 #' @export
-stat_sd <- function(x, ...){
+stat_sd <- function(x, digit = 2, ...){
     x <- x[!is.na(x)]
     y <- mean(x)
+    ymedian = median(x)
     sd <- sd(x)
-    c(y = y, ymin = y-sd, ymax = y+sd, sd = sd)
+    fmt <- sprintf("%%.%df±%%.%df", digit, digit)
+    label <- sprintf(fmt, ymedian, sd)
+    list(y = y, ymin = y-sd, ymax = y+sd, ymedian, sd = sd, label = label)
 }
 
 # 25% and 75% quantile
