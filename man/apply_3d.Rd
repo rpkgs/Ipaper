@@ -4,7 +4,7 @@
 \alias{apply_3d}
 \title{apply function for 3d array}
 \usage{
-apply_3d(array, dim = 3, FUN = rowMeans2, by = NULL, ...)
+apply_3d(array, dim = 3, FUN = rowMeans2, by = NULL, na.rm = TRUE, ...)
 }
 \arguments{
 \item{array}{A 3d array}

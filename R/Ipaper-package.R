@@ -41,6 +41,6 @@ NULL
     #     # library(lattice)
     #     library(devtools)
     # })
-    set_font()
+    # set_font()
     invisible()
 }

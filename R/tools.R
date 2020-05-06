@@ -22,15 +22,6 @@ tabular <- function(df, ...) {
         contents, "\n}\n", sep = "")
 }
 
-
-# for levelplot2
-parse.formula <- function(formula = x~s1+s2) {
-    str_formula <- gsub("s1 \\+ s2 *\\|*| ", "", as.character(formula))
-    value.var = str_formula[2]
-    groups    = strsplit(str_formula[3], "\\+|\\*")[[1]]
-    list(value.var = value.var, groups = groups)    
-}
-
 #' obj.size
 #'
 #' Get object size in `unit`
@@ -76,27 +67,6 @@ ifelse2 <- function(test, yes, no) {
 #' cat(fprintf("%s\n", "Hello phenofit!"))
 #' @export
 fprintf <- function(fmt, ...) cat(sprintf(fmt, ...))
-
-#' @export
-which.na <- function(x) {
-    which(is.na(x))
-}
-
-#' @export
-which.notna <- function(x) {
-    which(!is.na(x))
-}
-
-#' @export
-which.isnull <- function(x) {
-    which(sapply(x, is.null))
-}
-
-#' @export
-which.notnull <- function(x) {
-    which(!sapply(x, is.null))
-}
-
 
 #' @export
 mark_outlier <- function(x, nsd = 3) {

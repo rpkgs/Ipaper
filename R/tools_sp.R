@@ -8,7 +8,6 @@
 #' poly = sf_rect(range)
 #' write_sf(poly, "poly.shp")
 #' 
-#' @import sf
 #' @export
 sf_rect <- function(range, crs = st_crs(4326)){
     xlim = range[1:2]
