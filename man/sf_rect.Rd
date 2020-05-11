@@ -10,10 +10,11 @@ sf_rect(range, crs = st_crs(4326))
 sf_rect
 }
 \examples{
+\dontrun{
 xlim = c(112, 115)
 ylim = c(21, 23)
 range <- c(xlim, ylim)
 poly = sf_rect(range)
 write_sf(poly, "poly.shp")
-
+}
 }

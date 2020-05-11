@@ -28,5 +28,7 @@ write_sp2rgb(
 write_sp2rgb
 }
 \examples{
+\dontrun{
 write_sp2rgb(grid, brks, cols, file = "dem_pearl_rgb.tif")
+}
 }

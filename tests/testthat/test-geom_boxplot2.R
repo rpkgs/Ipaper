@@ -1,5 +1,8 @@
 test_that("geom_boxplot2 works", {
     library(ggplot2)
+    library(gridExtra)
+    
+    skip_on_appveyor()
     p <- ggplot(mpg, aes(class, hwy)) 
     p1 <- p + geom_boxplot() + 
         ggtitle("(a) geom_boxplot") + 

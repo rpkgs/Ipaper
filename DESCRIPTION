@@ -33,7 +33,6 @@ Imports:
     doParallel,
     foreach, iterators,
     plyr,
-    Cairo,
     Rcpp, 
     clipr, 
     matrixStats, 
@@ -42,8 +41,6 @@ Imports:
     devtools, 
     IRdisplay,
     RColorBrewer,
-    sp, maptools, raster,
-    rgeos, 
     boot,
     fftwtools
 Suggests: 

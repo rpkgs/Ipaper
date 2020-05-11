@@ -2,12 +2,13 @@
 #' sf_rect
 #' 
 #' @examples
+#' \dontrun{
 #' xlim = c(112, 115)
 #' ylim = c(21, 23)
 #' range <- c(xlim, ylim)
 #' poly = sf_rect(range)
 #' write_sf(poly, "poly.shp")
-#' 
+#' }
 #' @export
 sf_rect <- function(range, crs = st_crs(4326)){
     xlim = range[1:2]
@@ -31,7 +32,9 @@ sf_rect <- function(range, crs = st_crs(4326)){
 #' 
 #' 
 #' @examples
+#' \dontrun{
 #' write_sp2rgb(grid, brks, cols, file = "dem_pearl_rgb.tif")
+#' }
 #' @export
 write_sp2rgb <- function(grid, brks, cols, file = "sp_rgb.tif", 
     mask = NULL, col_mask = "transparent") 
