@@ -42,7 +42,8 @@ Imports:
     IRdisplay,
     RColorBrewer,
     boot,
-    fftwtools
+    fftwtools, 
+    plyr
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
@@ -51,8 +52,6 @@ Suggests:
     gridExtra, 
     sp,
     sf
-Remotes:
-    kongdd/plyr
 VignetteBuilder: knitr
 RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
