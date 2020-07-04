@@ -25,11 +25,14 @@ apply_col <- function(mat, by, FUN = colMeans2, ...) {
     }
     grps <- unique(by) %>% sort()
 
-    foreach(grp = grps, .combine = rbind) %do% {
+    ans <- foreach(grp = grps, .combine = rbind) %do% {
         I <- which(by == grp)
         FUN(mat[I, ], na.rm = TRUE)
-    } %>% set_rownames(grps) %>% 
-    set_colnames(colnames(mat))
+    }
+    
+    if (!is.matrix(ans)) ans <- as.matrix(ans)
+    ans %>% set_rownames(grps) %>% 
+        set_colnames(colnames(mat))
 }
 
 
@@ -41,9 +44,12 @@ apply_row <- function(mat, by, FUN = rowMeans2, ...) {
     }
     grps <- unique(by) %>% sort()
 
-    foreach(grp = grps, .combine = cbind) %do% {
+    ans <- foreach(grp = grps, .combine = cbind) %do% {
         I <- which(by == grp)
         FUN(mat[, I], na.rm = TRUE, ...)
-    } %>% set_colnames(grps) %>% 
-    set_rownames(rownames(mat))
+    }
+
+    if (!is.matrix(ans)) ans <- as.matrix(ans)
+    ans %>% set_colnames(grps) %>% 
+        set_rownames(rownames(mat))
 }

@@ -58,13 +58,13 @@ listk <- function (...)
 
 #' @rdname melt_list
 #' @export
-melt_tree <- function(x, names) {
+melt_tree <- function(x, names, ...) {
     first <- x[[1]]
     if (is.data.frame(first)) {
         if (length(names) > 1) {
               stop("length of `names` is not equal to the deep of list!")
           }
-        melt_list(rm_empty(x), names[1])
+        melt_list(rm_empty(x), names[1], ...)
     } else if (is.list(first)) {
         # n <- length(names) # deeps of list
         # names2 <- names[1:(n-1)]

@@ -7,7 +7,7 @@
 \usage{
 melt_list(list, var.name = "variable", na.rm = TRUE, ...)
 
-melt_tree(x, names)
+melt_tree(x, names, ...)
 }
 \arguments{
 \item{list}{A list object, with the same colnames data.frame in every element.}
