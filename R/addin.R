@@ -73,6 +73,11 @@ key_blind <- function(){
     # addins    
     # rstudio_bindings.json
     file_addin <- "~/.R/rstudio/keybindings/addins.json"
+    indir <- dirname(file_addin)
+    
+    if (!dir.exists(indir)) dir.create(indir, recursive = TRUE)
+    if (!file.exists(file_addin)) writeLines("{}", file_addin)
+
     options_addin <- list(
         "Ipaper::addin_copyLines"      = "Alt+C",
         "Ipaper::addin_cutLines"       = "Alt+X",

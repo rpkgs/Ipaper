@@ -9,7 +9,7 @@ install_gitee(repo)
 
 install_github(
   repo,
-  ref = "master",
+  ref = "HEAD",
   subdir = NULL,
   auth_token = github_pat(quiet),
   host = "api.github.com",
