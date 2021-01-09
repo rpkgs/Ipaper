@@ -39,7 +39,6 @@ Imports:
     rstudioapi, 
     remotes, 
     devtools, 
-    IRdisplay,
     RColorBrewer,
     boot,
     fftwtools, 
