@@ -29,13 +29,13 @@ install_gitee <- function(repo){
 # install <- install_local
 
 #' @rdname install_gitee
-#' @importFrom devtools install_git install_github
+#' @importFrom remotes install_git install_github
 #' @export
 install_github <- install_github
 
-#' @importFrom devtools document load_all
-#' @export
-load_all2 <- function(path = ".", ...){
-    document(path, ...)
-    load_all(path, ...)
-}
+# #' @importFrom devtools document load_all
+# #' @export
+# load_all2 <- function(path = ".", ...){
+#     document(path, ...)
+#     load_all(path, ...)
+# }
