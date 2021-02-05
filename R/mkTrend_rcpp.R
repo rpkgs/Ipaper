@@ -34,41 +34,42 @@
 #' 
 #' @examples
 #' x <- c(4.81, 4.17, 4.41, 3.59, 5.87, 3.83, 6.03, 4.89, 4.32, 4.69)
-#' r_cpp <- mkTrend(x, IsPlot = TRUE)
+#' r_cpp <- mkTrend_rcpp(x, IsPlot = TRUE)
 #' 
 #' @importFrom data.table frank
 #' @export
-mkTrend_rcpp <- function(x, ci = 0.95, IsPlot = FALSE) {
+mkTrend_rcpp <- function(y, x = seq_along(y), ci = 0.95, IsPlot = FALSE) {
     z0    = z = NA_real_
     pval0 = pval = NA_real_
     slp <- NA_real_
     intercept <- NA_real_
 
     if (IsPlot) {
-        plot(x, type = "b")
+        plot(x, y, type = "b")
         grid()
-        rlm <- lm(x~seq_along(x))
+        rlm <- lm(y~x)
         abline(rlm$coefficients, col = "blue")
         legend("topright", c('MK', 'lm'), col = c("red", "blue"), lty = 1)
     }
-    names(x) <- NULL
+    names(y) <- NULL
 
     # if (is.vector(x) == FALSE) stop("Input data must be a vector")
-    I_bad <- !is.finite(x) # NA or Inf
+    I_bad <- !is.finite(y) # NA or Inf
     if (any(I_bad)) {
+        y <- y[-which(I_bad)]
         x <- x[-which(I_bad)]
         # NA value also removed
         # warning("The input vector contains non-finite or NA values removed!")
     }
-    n <- length(x)
+    n <- length(y)
     #20161211 modified, avoid x length less then 5, return rep(NA,5) c(z0, pval0, z, pval, slp)
     if (n < 5) {
         return(c(z0 = z0, pval0 = pval0, z = z, pval = pval, slp = slp, intercept = intercept))
     }
 
-    S = Sf(x) # call cpp
+    S = Sf(y) # call cpp
 
-    resid = .lm.fit(cbind(matrix(1:n, ncol = 1), 1), x)$residuals 
+    resid = .lm.fit(cbind(x, 1), y)$residuals 
     resid %<>% rank()
     # resid = lm(x ~ I(1:n))$resid
     # ro <- acf(resid, lag.max = (n - 1), plot = FALSE)$acf[-1]
@@ -76,7 +77,7 @@ mkTrend_rcpp <- function(x, ci = 0.95, IsPlot = FALSE) {
     sig <- qnorm((1 + ci)/2)/sqrt(n)
     rof <- ifelse(abs(ro) > sig, ro, 0) # modified by dongdong Kong, 2017-04-03
 
-    temp = varS(x, rof, S)
+    temp = varS(y, rof, S)
     z  = temp["z"][[1]]
     z0 = temp["z0"][[1]]
     
@@ -84,14 +85,14 @@ mkTrend_rcpp <- function(x, ci = 0.95, IsPlot = FALSE) {
     pval0 = 2 * pnorm(-abs(z0))
     Tau = S/(0.5 * n * (n - 1))
 
-    slp <- senslope(x)
-    intercept <- mean(x - slp * seq_along(x), na.rm = T)
+    slp <- senslope(y, x)
+    intercept <- mean(y - slp * x, na.rm = T)
     if (IsPlot) abline(b = slp, a = intercept, col = "red")
-    
+
     c(z0 = z0, pval0 = pval0, z = z, pval = pval, slp = slp, intercept = intercept)
 } 
 
-senslope_r <- function(x) {
+senslope_r <- function(y, x = seq_along(y)) {
     n = length(x)
     V <- rep(NA, times = (n^2 - n) / 2)
     k = 0
@@ -99,18 +100,18 @@ senslope_r <- function(x) {
         for (j in 1:(i - 1)) {
             # for (j in 1:(n - 1)) {
             k = k + 1
-            V[k] = (x[i] - x[j]) / (i - j)
+            V[k] = (y[i] - y[j]) / (x[i] - x[j])
         }
     }
     median(na.omit(V))
 }
 
-Sf_r <- function(x) {
-    n = length(x)
+Sf_r <- function(y) {
+    n = length(y)
     S = 0
     for (i in 1:(n - 1)) {
         for (j in (i + 1):n) {
-            S = S + sign(x[j] - x[i])
+            S = S + sign(y[j] - y[i])
         }
     }
     S

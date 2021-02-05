@@ -6,13 +6,14 @@
 using namespace Rcpp;
 
 // senslope
-SEXP senslope(const NumericVector& x);
-RcppExport SEXP _Ipaper_senslope(SEXP xSEXP) {
+SEXP senslope(const NumericVector& y, Nullable<NumericMatrix> x);
+RcppExport SEXP _Ipaper_senslope(SEXP ySEXP, SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(senslope(x));
+    Rcpp::traits::input_parameter< const NumericVector& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< Nullable<NumericMatrix> >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(senslope(y, x));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -42,7 +43,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_Ipaper_senslope", (DL_FUNC) &_Ipaper_senslope, 1},
+    {"_Ipaper_senslope", (DL_FUNC) &_Ipaper_senslope, 2},
     {"_Ipaper_Sf", (DL_FUNC) &_Ipaper_Sf, 1},
     {"_Ipaper_varS", (DL_FUNC) &_Ipaper_varS, 3},
     {NULL, NULL, 0}

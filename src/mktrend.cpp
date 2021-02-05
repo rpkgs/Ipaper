@@ -2,26 +2,33 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-SEXP senslope(const NumericVector & x) {
-    NumericVector xx(x);
+SEXP senslope(const NumericVector& y, Nullable<NumericMatrix> x = R_NilValue) {
+    int n = y.size();
+    NumericVector xx;
+    // isNotNull
+    if (x.isNull()) {
+        xx = NumericVector(n);
+        for (int i = 0; i < n; i++) xx[i] = i;
+    } else {
+        xx = x;
+    }
+
     // return x * 2;
-    int n = xx.size();
     int len = (n * n - n) / 2;
     // Rcout << len << std::endl;
-
-    NumericVector V = NumericVector(len, NA_REAL); // int V[len];
+    NumericVector V = NumericVector(len, NA_REAL);  // int V[len];
 
     int k = 0;
     for (int j = 1; j < n; j++) {
         for (int i = 0; i < j; i++) {
-            V[k] = (xx[j] - xx[i]) / (j - i);
+            V[k] = (y[j] - y[i]) / (xx[j] - xx[i]);
             k++;
             // Rcout << i << "," << j << std::endl;
             // Rcout << "k = " << k << ": " << V[k] << std::endl;
         }
     }
     // Rcout << V << std::endl;
-    double slope = Rcpp::median(V, true); //rm_na is true
+    double slope = Rcpp::median(V, true);  //rm_na is true
     // Rcout << slope << std::endl;
     return wrap(slope);
 }
@@ -44,18 +51,17 @@ int Sf(NumericVector x) {
 }
 
 // [[Rcpp::export]]
-NumericVector varS(NumericVector x, NumericVector rof, int S)
-{
+NumericVector varS(NumericVector x, NumericVector rof, int S) {
     int n = x.size();
     // int S = 0;
-    double cte = 2.0/(n * (n - 1) * (n - 2));
+    double cte = 2.0 / (n * (n - 1) * (n - 2));
     double ess = 0;
-    for (int i =1; i <= n-1; i++) {
-        ess = ess + (n - i) * (n - i - 1) * (n - i - 2) * rof[i-1];
+    for (int i = 1; i <= n - 1; i++) {
+        ess = ess + (n - i) * (n - i - 1) * (n - i - 2) * rof[i - 1];
     }
 
     double essf = 1 + ess * cte;
-    double var_S = n * (n - 1) * (2 * n + 5)/18;
+    double var_S = n * (n - 1) * (2 * n + 5) / 18;
 
     NumericVector aux = unique(x);
     int m = aux.size();
@@ -77,7 +83,7 @@ NumericVector varS(NumericVector x, NumericVector rof, int S)
         z = 0;
         z0 = 0;
     } else if (S > 0) {
-        z  = (S - 1) / sqrt(VS);
+        z = (S - 1) / sqrt(VS);
         z0 = (S - 1) / sqrt(var_S);
     } else {
         z = (S + 1) / sqrt(VS);
@@ -88,9 +94,8 @@ NumericVector varS(NumericVector x, NumericVector rof, int S)
         _["essf"] = essf,
         _["var.S"] = var_S,
         _["z0"] = z0,
-        _["z"] = z
-    );
-    // double VS = var_S * essf;    
+        _["z"] = z);
+    // double VS = var_S * essf;
     // return S;
 }
 

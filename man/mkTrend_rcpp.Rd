@@ -5,7 +5,7 @@
 \alias{mkTrend}
 \title{Modified Mann Kendall}
 \usage{
-mkTrend_rcpp(x, ci = 0.95, IsPlot = FALSE)
+mkTrend_rcpp(y, x = seq_along(y), ci = 0.95, IsPlot = FALSE)
 
 mkTrend(x, ci = 0.95, IsPlot = FALSE)
 }
@@ -36,7 +36,7 @@ slp is significant, if pval < alpha.
 }
 \examples{
 x <- c(4.81, 4.17, 4.41, 3.59, 5.87, 3.83, 6.03, 4.89, 4.32, 4.69)
-r_cpp <- mkTrend(x, IsPlot = TRUE)
+r_cpp <- mkTrend_rcpp(x, IsPlot = TRUE)
 
 }
 \references{
