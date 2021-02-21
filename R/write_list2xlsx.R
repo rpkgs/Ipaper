@@ -74,5 +74,5 @@ fwrite2 <- function(x, file){
 #' @importFrom openxlsx read.xlsx
 #' @export
 read_xlsx <- function(file, sheet = 1, ...){
-    read.xlsx(file, sheet, ...) %>% data.table()
+    read.xlsx(file, sheet, ..., detectDates = TRUE) %>% data.table()
 }
