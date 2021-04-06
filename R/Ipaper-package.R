@@ -42,5 +42,6 @@ NULL
     #     library(devtools)
     # })
     # set_font()
+    # Sys.setenv(TZ = "Asia/Shanghai")
     invisible()
 }
