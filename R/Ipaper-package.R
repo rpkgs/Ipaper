@@ -4,7 +4,6 @@
 #' @docType package
 #' @keywords download paper DOI
 #' 
-#' @importFrom stringr str_extract
 #' @importFrom jsonlite fromJSON read_json
 #' @importFrom purrr is_empty map transpose
 #' @importFrom methods as
@@ -26,11 +25,7 @@
 # The following block is used by usethis to automatically manage
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
-#' @useDynLib Ipaper, .registration = TRUE
-#' @importFrom Rcpp sourceCpp
 ## usethis namespace: end
-# ' @useDynLib Ipaper .registration = TRUE
-# ' @importFrom Rcpp sourceCpp
 NULL
 
 .onLoad <- function(libname, pkgname) {

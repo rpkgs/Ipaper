@@ -20,12 +20,13 @@
 #' @importFrom data.table is.data.table
 #' @export
 melt_list <- function(list, var.name = "variable", na.rm = TRUE, ...) {
-    if (is.null(list) || length(list) == 0) {
-        return(NULL)
-    }
     if (is.null(names(list))) names(list) <- seq_along(list)
 
     list <- rm_empty(list)
+    if (is.null(list) || length(list) == 0) {
+        return(NULL)
+    }
+    
     first <- list[[1]]
     if (is.data.table(first)) {
         names <- names(list)
@@ -91,8 +92,13 @@ melt_tree <- function(x, names, ...) {
 #' @export
 rm_empty <- function(x){
     if (is.list(x)){
-        x[sapply(x, length) > 0]
+        x[!sapply(x, is_empty)]
     }else {
         x[!is.na(x)]
     }
+}
+
+is_empty <- function(x) {
+    is.null(x) || (is.data.frame(x) && nrow(x) == 0)
+    # (is.numeric(x) && is.na(x))
 }

@@ -92,14 +92,6 @@ melt_tree(l2, c("type", "id"))
 
 <!-- end list -->
 
-``` r
-x <- c(4.81,4.17,4.41,3.59,5.87,3.83, 6.03,4.89,4.32,10,4.69)
-# r <- mkTrend(x)
-par(mar = c(3, 3, 1, 1), mgp = c(2, 0.6, 0))
-r_cpp <- mkTrend_rcpp(x, IsPlot = TRUE)
-```
-
-<img src="man/figures/README-mkTrend-1.svg" width="100%" />
 
   - `reoder_name`, `rm_empty`, `match2`
   - `write_list2xlsx`, `read_xlsx2list`

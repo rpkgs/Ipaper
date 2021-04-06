@@ -77,3 +77,8 @@ mark_outlier <- function(x, nsd = 3) {
     x[x > max | x < min] <- NA_real_
     x
 }
+
+#' @export
+unique_length <- function(x) {
+    unique(x) %>% length()
+}

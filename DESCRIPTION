@@ -10,8 +10,6 @@ Encoding: UTF-8
 LazyData: TRUE
 Depends:
     R (>= 3.1)
-LinkingTo: 
-    Rcpp
 import: 
     RoxygenNote: 6.1.0
 Imports:
@@ -20,7 +18,6 @@ Imports:
     ggplot2,
     jsonlite,
     magrittr,
-    stringr,
     purrr,
     lubridate,
     data.table,
@@ -33,23 +30,18 @@ Imports:
     doParallel,
     foreach, iterators,
     plyr,
-    Rcpp, 
     clipr, 
     matrixStats, 
     rstudioapi, 
     remotes, 
     RColorBrewer,
-    boot,
-    fftwtools, 
     plyr
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
     rmarkdown,
     grid, 
-    gridExtra, 
-    sp,
-    sf
+    gridExtra
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)

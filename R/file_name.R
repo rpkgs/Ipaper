@@ -25,11 +25,8 @@ file_ext <- function(file) {
 file_name <- function(file) {
     file  <- basename(file)
     pos   <- str_locate_all(file, "\\.")
-    # browser()
     pos   <- pos[[length(pos)]]
     # I_dot <- pos[nrow(pos), 1]
-    # browser()
-
     # no dot
     if (pos < 0) return(file)
     

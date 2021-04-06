@@ -123,7 +123,7 @@ sysinfo <- function(client){
   tryCatch({
     vars <- c("CPU_used", "CPU_cores", "Memo_free", "Memo_total")
     info.str <- c(cpu, memo.free, memo.total) %>% .[-grep("^\\r", .)] %>% gsub("\\r", "", .) 
-    info <- stringr::str_extract(info.str,"\\d{1,}") %>% as.numeric(.)
+    info <- str_extract(info.str,"\\d{1,}") %>% as.numeric(.)
     n <- length(info)
     if (length(info) > 4){
       #for our windows server, hava two cpu series
