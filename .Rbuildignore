@@ -6,3 +6,4 @@
 ^README\.Rmd$
 ^vignettes$
 ^inst/font$
+^\.github$
