@@ -1,25 +1,3 @@
-#' array_3dTo2d
-#' 
-#' @param array array with the dimension of `[nlon, nlat, ntime]`
-#' @param I_grid subindex of `[nrow, ncol]`
-#' 
-#' @return
-#' `[nlat*nlon, ntime]`
-#' 
-#' @export
-array_3dTo2d <- function(array, I_grid){
-    # array <- fliplr.3d(array)
-    dim <- dim(array)
-    if (length(dim) >= 3) {
-        dim(array) <- c(prod(dim[1:2]), dim[3])
-    }
-    
-    if (!missing(I_grid)) {
-        array <-  array[I_grid, ]    
-    }
-    return(array)
-}
-
 #' apply function for 3d array
 #' 
 #' NA values will be removed automatically
@@ -77,6 +55,84 @@ apply_3d <- function(array, dim = 3, FUN = rowMeans2, by = NULL, na.rm = TRUE, .
     }
     dim(ans) <- dim_new
     ans
+}
+
+#' apply_col
+#' 
+#' * `apply_col`: aggregate by col, return a `[ngrp, ncol]` matrix
+#' * `apply_row`: aggregate by row, return a `[nrow, ngrp]` matrix
+#' 
+#' For example, setting the dimension of `mat` is `[ngrid, ntime]`, 
+#' if you want to aggregate by time, `apply_row` should be used here;
+#' if you want to aggregate by region (grids), `apply_col` should be used.
+#' 
+#' @param mat matrix, `[nrow, ncol]`
+#' @param by integer vector, with the dim of `[ntime]`
+#' 
+#' @note This function also suits for big.matrix object.
+#'
+#' @examples
+#' mat <- matrix(rnorm(4*6), 4, 6)
+#' mat_bycol <- apply_col(mat, c(1, 1, 2, 2), colMeans)
+#' mat_byrow <- apply_row(mat, c(1, 1, 2, 2, 3, 3), rowMeans)
+#' 
+#' @importFrom matrixStats colMeans2 rowMeans2 colMins colMaxs rowMins rowMaxs 
+#' @export
+apply_col <- function(mat, by, FUN = colMeans2, ...) {
+    if (length(by) != nrow(mat)) {
+        stop('Length of by is not equal to nrow of mat')
+    }
+    grps <- unique(by) %>% sort()
+
+    ans <- lapply(grps, function(grp) {
+        I <- which(by == grp)
+        FUN(mat[I,, drop = FALSE], na.rm = TRUE, ...)
+    }) %>% do.call(rbind, .)
+    
+    if (!is.matrix(ans)) ans <- as.matrix(ans)
+    ans %>% set_rownames(grps) %>% 
+        set_colnames(colnames(mat))
+}
+
+
+#' @rdname apply_col
+#' @export
+apply_row <- function(mat, by, FUN = rowMeans2, ...) {
+    if (length(by) != ncol(mat)) {
+        stop('Length of by is not equal to ncol of mat')
+    }
+    grps <- unique(by) %>% sort()
+
+    ans <- lapply(grps, function(grp) {
+        I <- which(by == grp)
+        FUN(mat[, I, drop = FALSE], na.rm = TRUE, ...)
+    }) %>% do.call(cbind, .)
+
+    if (!is.matrix(ans)) ans <- as.matrix(ans)
+    ans %>% set_colnames(grps) %>% 
+        set_rownames(rownames(mat))
+}
+
+#' array_3dTo2d
+#' 
+#' @param array array with the dimension of `[nlon, nlat, ntime]`
+#' @param I_grid subindex of `[nrow, ncol]`
+#' 
+#' @return
+#' `[nlat*nlon, ntime]`
+#' 
+#' @export
+array_3dTo2d <- function(array, I_grid){
+    # array <- fliplr.3d(array)
+    dim <- dim(array)
+    if (length(dim) >= 3) {
+        dim(array) <- c(prod(dim[1:2]), dim[3])
+    }
+    
+    if (!missing(I_grid)) {
+        array <-  array[I_grid, ]    
+    }
+    return(array)
 }
 
 #' Set dimensions of an Object

@@ -14,15 +14,16 @@ killCluster <- function(){
 #' @importFrom doParallel registerDoParallel
 #' @importFrom parallel makeCluster
 #' @export
-InitCluster <- function (ncluster = 4, outfile = "log.txt", kill = TRUE) 
+InitCluster <- function (ncluster = 4, outfile = "log.txt", FORK = TRUE, kill = TRUE) 
 {
     if (kill) killCluster()
     if (file.exists(outfile)) file.remove(outfile)
     
-    if (.Platform$OS.type == "unix") {
+    if (.Platform$OS.type == "unix" && FORK) {
         doMC::registerDoMC(ncluster)
     } else {
         cl <<- parallel::makeCluster(ncluster, outfile = outfile)
+        options(cl = cl)
         doParallel::registerDoParallel(cl)
     }
 }

@@ -5,9 +5,9 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/rpkgs/Ipaper/workflows/R-CMD-check/badge.svg)](https://github.com/rpkgs/Ipaper/actions)
-[![codecov](https://codecov.io/gh/kongdd/Ipaper/branch/master/graph/badge.svg)](https://codecov.io/gh/kongdd/Ipaper)
+[![codecov](https://codecov.io/gh/rpkgs/Ipaper/branch/master/graph/badge.svg)](https://codecov.io/gh/rpkgs/Ipaper)
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%203%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
-[![CRAN](http://www.r-pkg.org/badges/version/rwiki)](https://cran.r-project.org/package=rwiki)
+[![CRAN](http://www.r-pkg.org/badges/version/Ipaper)](https://cran.r-project.org/package=Ipaper)
 <!-- badges: end -->
 
 ## Installation
