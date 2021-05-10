@@ -54,16 +54,6 @@ clusterLCall <- function(cl, fun, ..., name=TRUE){
   return(RESULT)
 }
 
-#' @title check_dir
-#' @description check indir directory if exist in remote computer, if not create it
-#' @param indir which directory to detect in remote computer
-#' @return if indir directory if exist finally (TRUE or FALSE)
-#' @export
-check_dir <- function(indir){
-  if (!dir.exists(indir)) dir.create(indir, recursive = T)
-  return(dir.exists(indir))
-}
-
 #' @title get_files
 #' @description  store calculated result in remote computers, and retrieve them later
 #' 

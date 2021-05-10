@@ -23,15 +23,18 @@ which.notnull <- function(x) {
     which(!sapply(x, is.null))
 }
 
-last <- function (x, order_by = NULL, default = NA_real_) {
-    nth(x, -1L, order_by = order_by, default = default)
-}
-
+#' @export
 first <- function(x, order_by = NULL, default = NA_real_) {
     nth(x, 1L, order_by = order_by, default = default)
 }
 
-nth <- function (x, n, order_by = NULL, default = NA_real_)  {
+#' @export
+last <- function(x, order_by = NULL, default = NA_real_) {
+    nth(x, -1L, order_by = order_by, default = default)
+}
+
+#' @export
+nth <- function(x, n, order_by = NULL, default = NA_real_) {
     stopifnot(length(n) == 1, is.numeric(n))
     n <- trunc(n)
     if (n == 0 || n > length(x) || n < -length(x)) {

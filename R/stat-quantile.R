@@ -35,5 +35,4 @@ geom_quantile2 <- function(){
         labs(y = "Relative contribution to EOS change (%)", x = NULL)
 }
 
-# ggplot 打开了新大门
 # stat_summary(fun.data = stat_quantile, colour = "black", size = 1, geom = "errorbar")

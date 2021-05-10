@@ -21,29 +21,6 @@
 write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5, 
     devices = NULL, res = 300, show = TRUE, use.cairo_pdf = TRUE) 
 {
-    ## begin of function -------------------------------------------------------
-    showfig <- function(file) {
-        file_ext = file_ext(file)
-        app = ""
-        if (.Platform$OS.type == "windows") 
-            app = '"C:/Program Files/RStudio/bin/sumatra/SumatraPDF.exe"'
-        if (.Platform$OS.type == "unix") app <- "evince"
-
-        # if linux system
-        is_server_pdf = file.exists("/usr/sbin/rstudio-server") && file_ext == "pdf"
-        if (file_ext %in% c("svg", "emf", "jpg") || is_server_pdf) {
-            file.show(file)
-        } else {
-            cmd = sprintf('"%s "%s" "', app, file)
-            check_dir(dirname(file))
-            tryCatch({
-                status <- suppressWarnings(shell(cmd, intern = FALSE, wait = FALSE))
-            }, error = function(e) {
-                message(sprintf("[e] %s", e$message))
-            })
-        }
-    }
-
     # open device for writing
     dev_open <- function(file, width, height, res, use.cairo_pdf = FALSE) {
         file_ext = file_ext(file)
@@ -112,11 +89,25 @@ write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5,
     }
 }
 
-shell <- function(..., ignore.stderr = FALSE, wait = FALSE) {
-    FUN <- switch(.Platform$OS.type,
-        "windows" = base::shell,
-        "unix" = base::system
-    )
-    suppressWarnings(FUN(..., ignore.stderr = ignore.stderr, wait = wait))
-    invisible()
+#' @export
+showfig <- function(file) {
+    file_ext = file_ext(file)
+    app = ""
+    if (.Platform$OS.type == "windows") 
+        app = '"C:/Program Files/RStudio/bin/sumatra/SumatraPDF.exe"'
+    if (.Platform$OS.type == "unix") app <- "evince"
+
+    # if linux system
+    is_server_pdf = file.exists("/usr/sbin/rstudio-server") && file_ext == "pdf"
+    if (file_ext %in% c("svg", "emf", "jpg") || is_server_pdf) {
+        file.show(file)
+    } else {
+        cmd = sprintf('"%s "%s" "', app, file)
+        check_dir(dirname(file))
+        tryCatch({
+            status <- suppressWarnings(shell(cmd, intern = FALSE, wait = FALSE))
+        }, error = function(e) {
+            message(sprintf("[e] %s", e$message))
+        })
+    }
 }

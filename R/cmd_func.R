@@ -86,34 +86,6 @@ dir.show <- function (path = getwd()) {
     shell(cmd)
 }
 
-#' merge_pdf
-#'
-#' rely on python pdfmerge package, `pip install pdfmerge`
-#' 
-#' @param outfile String
-#' @param indir Directory to search pdfs
-#' @param pattern string used to match pdf filename
-#' @param del Booolean. If true, after merge, original pdf files will be delete.
-#' 
-#' @keywords internal
-#' @examples
-#' \dontrun{
-#' merge_pdf("RPlot.pdf", indir = 'Figure', pattern = "*.pdf") 
-#' }
-#' @export
-merge_pdf <- function(outfile = "RPlot.pdf", indir = 'Figure', pattern = "*.pdf", del = FALSE){
-    files <- dir(indir, pattern, full.names = TRUE)
-
-    order <- str_extract(basename(files), "(?<=\\[)\\d*(?=.*\\])") %>% as.numeric() 
-    if (all(is.finite(order))) files = files[order]
-
-    cmd <- sprintf("pdfmerge -o %s %s", outfile, paste(files, collapse = " "))
-
-    shell(cmd, wait = del)
-    # system(sprintf('pdfmerge -o %s %s', outfile, pattern) )
-    if (del) file.remove(files)
-}
-
 # # display_tif <- function (data = NULL, file = NULL, width = NULL, height = NULL) 
 # # IRdisplay:::display_raw("image/tif", TRUE, data, file, IRdisplay:::img_metadata(width,  height))
 # #' jupyter display images
@@ -135,10 +107,10 @@ merge_pdf <- function(outfile = "RPlot.pdf", indir = 'Figure', pattern = "*.pdf"
 #' @importFrom foreach %do%
 #' @export
 check_dir <- function(path){
-    foreach(path_i = unique(path)) %do% {
-        if (!dir.exists(path_i)){
-            dir.create(path_i, recursive = TRUE)
-        }    
+    for (path_i in unique(path)) {
+       if (!dir.exists(path_i)) {
+           dir.create(path_i, recursive = TRUE)
+       }
     }
     path
 }
