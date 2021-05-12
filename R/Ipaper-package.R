@@ -5,7 +5,7 @@
 #' @keywords download paper DOI
 #' 
 #' @importFrom jsonlite fromJSON read_json
-#' @importFrom purrr is_empty map transpose
+#' @importFrom purrr map transpose
 #' @importFrom methods as
 #' @importFrom data.table data.table
 #' @importFrom graphics rect plot

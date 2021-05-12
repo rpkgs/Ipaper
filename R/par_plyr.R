@@ -38,7 +38,7 @@ apply_par <- function(X, .margins = 1, FUN, ..., .progress = "text") {
         plyr::aaply(x, .margins, FUN, ..., .progress = .progress)
     }, byrow = byrow)
 
-    comb = if (is.matrix(res)) rbind else c
+    comb = if (is.matrix(res[[1]])) rbind else c
     do.call(comb, res)
 }
 
