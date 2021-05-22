@@ -14,7 +14,6 @@ github <- function(path = getwd()){
 #' @examples
 #' \dontrun{
 #' install_gitee("adv-r/Ipaper")
-#' install_gitee("adv-r/plyr")
 #' }
 #' @export
 install_gitee <- function(repo){

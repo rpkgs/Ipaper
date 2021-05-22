@@ -11,7 +11,9 @@ str_locate_all <- function(x, pattern) {
 #' @export
 #' @rdname file_name
 file_ext <- function(file) {
-    str_extract(basename(file), "(?<=\\.).{1,4}$") 
+    ext = str_extract(basename(file), "(?<=\\.).{1,4}$") 
+    if (grepl(" ", ext)) ext = ""
+    ext
 }
 
 #' get file name and extension

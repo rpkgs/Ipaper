@@ -16,7 +16,7 @@ add_dn <- function(d, days = 8){
     if (class(d$date) != 'Date')
         d$date %<>% ymd()
     
-    d %<>% plyr::mutate(d, year = year(date), doy = yday(date))
+    d %<>% dplyr::mutate(d, year = year(date), doy = yday(date))
     
     days <- floor(days)
     for (i in seq_along(days)){

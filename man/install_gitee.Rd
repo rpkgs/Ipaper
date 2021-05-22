@@ -37,6 +37,5 @@ Attempts to install a package directly from gitee.
 \examples{
 \dontrun{
 install_gitee("adv-r/Ipaper")
-install_gitee("adv-r/plyr")
 }
 }

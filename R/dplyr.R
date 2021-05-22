@@ -1,14 +1,11 @@
 #' @export
-mutate <- function (.data, ...) 
-{
-    stopifnot(is.data.frame(.data) || is.list(.data) || is.environment(.data))
-    cols <- as.list(substitute(list(...))[-1])
-    cols <- cols[names(cols) != ""]
-    for (col in names(cols)) {
-        .data[[col]] <- eval(cols[[col]], .data, parent.frame())
-    }
-    .data
+transpose <- purrr::transpose
+
+# ' @importFrom tidyselect where
+#' @importFrom dplyr mutate across
+#' @export
+dt_round <- function(d, digits = 2) {
+    mutate(d, across(where(is.double), ~ round(.x, digits)))
 }
 
-#' @export
-transpose <- purrr::transpose
+# https://stackoverflow.com/questions/54774280/plyrddply-equivalent-in-dplyr

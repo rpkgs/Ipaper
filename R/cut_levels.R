@@ -6,7 +6,6 @@
 #' @examples
 #' x <- c(-0.09, -0.4, 0.04, 0.15)
 #' cut_levels(x, verbose = TRUE)
-#' @importFrom plyr mapvalues
 #' @export
 cut_levels <- function(x, pvalue = c(0.01, 0.05, 0.1), verbose = FALSE){
     np <- length(pvalue) + 1
@@ -25,4 +24,27 @@ cut_levels <- function(x, pvalue = c(0.01, 0.05, 0.1), verbose = FALSE){
     
     xf <- cut(x, pvalue2) %>% factor(levels_num, levels_str)
     xf
+}
+
+#' @export
+mapvalues <- function (x, from, to, warn_missing = TRUE) {
+    if (length(from) != length(to)) {
+        stop("`from` and `to` vectors are not the same length.")
+    }
+    if (!is.atomic(x)) {
+        stop("`x` must be an atomic vector.")
+    }
+    if (is.factor(x)) {
+        levels(x) <- mapvalues(levels(x), from, to, warn_missing)
+        return(x)
+    }
+    mapidx <- match(x, from)
+    mapidxNA <- is.na(mapidx)
+    from_found <- sort(unique(mapidx))
+    if (warn_missing && length(from_found) != length(from)) {
+        message("The following `from` values were not present in `x`: ", 
+            paste(from[!(1:length(from) %in% from_found)], collapse = ", "))
+    }
+    x[!mapidxNA] <- to[mapidx[!mapidxNA]]
+    x
 }

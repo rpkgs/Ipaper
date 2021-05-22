@@ -23,23 +23,22 @@ Imports:
     data.table,
     openxlsx,
     readxl,
-    reshape2,
     graphics,
     methods,
     parallel,
     doParallel,
-    foreach, iterators,
+    foreach,
     plyr,
+    dplyr,
     clipr, 
     matrixStats, 
     rstudioapi, 
-    remotes, 
-    RColorBrewer,
-    plyr
+    remotes
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
     rmarkdown,
+    iterators,
     grid, 
     gridExtra
 VignetteBuilder: knitr

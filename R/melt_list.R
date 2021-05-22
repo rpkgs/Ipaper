@@ -16,7 +16,7 @@
 #' df <- data.table::data.table(year = 2010, day = 1:3, month = 1, site = "A")
 #' l <- list(a = df, b = df)
 #' df_new <- melt_list(l, "id")
-#' @importFrom reshape2 melt
+#' @importFrom data.table melt
 #' @importFrom data.table is.data.table
 #' @export
 melt_list <- function(list, var.name = "variable", na.rm = TRUE, ...) {
@@ -28,18 +28,18 @@ melt_list <- function(list, var.name = "variable", na.rm = TRUE, ...) {
     }
     
     first <- list[[1]]
-    if (is.data.table(first)) {
+    if (is.data.frame(first)) {
         names <- names(list)
         for (i in seq_along(list)) {
             x <- list[[i]]
             eval(parse(text = sprintf("x$%s <- names[i]", var.name)))
             list[[i]] <- x
         }
-        res <- do.call(rbind, list) # return
-    } else {
-        id.vars <- colnames(first)
-        res <- reshape2::melt(list, ..., id.vars = id.vars, na.rm = na.rm)
-        colnames(res) <- c(id.vars, var.name)
+        res <- do.call(rbind, list) %>% data.table() # return
+    # } else {
+    #     id.vars <- colnames(first)
+    #     res <- data.table::melt(list, ..., id.vars = id.vars, na.rm = na.rm)
+    #     colnames(res) <- c(id.vars, var.name)
     }
     reorder_name(res, var.name)
 }

@@ -16,8 +16,9 @@
 #' @importFrom graphics abline grid legend par
 #' @importFrom stats acf as.formula lm median na.omit pnorm qnorm density
 #' @importFrom utils write.table modifyList str
+#' @importFrom plyr llply ddply aaply
 #' 
-#' @import magrittr plyr
+#' @import magrittr
 #' 
 #' @keywords internal
 "_PACKAGE"
@@ -32,7 +33,7 @@ NULL
     # suppressMessages
     # suppressWarnings
     # suppressMessages({
-    #     library(magrittr)
+    library(magrittr)
     #     # library(lattice)
     #     library(devtools)
     # })

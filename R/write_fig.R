@@ -70,7 +70,7 @@ write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5,
     outdir    = dirname(file)
     filename  = file_name(file)
     file_exts = if (is.null(devices)) file_ext(file) else devices
-    if (length(file_exts) == 1 && is.na(file_exts)) file_exts = "pdf"
+    if (length(file_exts) == 1 && (is.na(file_exts) || file_exts == "")) file_exts = "pdf"
 
     env = parent.frame()
     for(i in seq_along(file_exts)) {
