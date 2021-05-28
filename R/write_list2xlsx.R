@@ -11,7 +11,7 @@
 #' 
 #' @import openxlsx
 #' @export
-write_list2xlsx <- function(x, file, .progress = "none", rowNames = FALSE)
+write_list2xlsx <- function(x, file, .progress = "none", rowNames = FALSE, show = TRUE)
 {
     file <- file_name(file) %>% {paste0(dirname(file), "/", ., ".xlsx")}
     name <- deparse(substitute(x))
@@ -35,6 +35,7 @@ write_list2xlsx <- function(x, file, .progress = "none", rowNames = FALSE)
     tmp <- llply(seq_along(x), writeIn, .progress = .progress)
     if (.progress != "none") cat(sprintf("[---- Writing into xlsx file: %s ----]\n", file))
     saveWorkbook(wb, file, overwrite = TRUE)
+    if (show) file.show(file)
 }
 
 #' read_xlsx2list
