@@ -15,8 +15,10 @@ split_data <- function(x, nchunk = 6, byrow = TRUE) {
     if (is.matrix(x)) {
         FUN <- if (byrow) . %>% x[., ] else . %>% x[, ., drop = FALSE]
         lapply(lst_inds, FUN)
-    } else if (is.list(x)) {
+    } else if (is.list(x) || is.vector(x)) {
         lapply(lst_inds, . %>% x[.])
+    } else {
+        stop("unsupported type!")
     }
 }
 
@@ -25,7 +27,7 @@ split_data <- function(x, nchunk = 6, byrow = TRUE) {
 llply_par <- function(X, FUN, ..., byrow = TRUE) {
     nchunk <- length(getOption("cl"))
     lst <- split_data(X, nchunk, byrow = byrow)
-    parLapply(getOption("cl"), lst, FUN, ...)
+    parLapply(getOption("cl"), lst, FUN, ...) %>% do.call(c, .)
 }
 
 #' @export
