@@ -36,7 +36,7 @@ parLapply2 <- llply_par
 #' @export
 apply_par <- function(X, .margins = 1, FUN, ..., .progress = "text") {
     byrow = .margins == 1
-    res = parLapply2(X, function(x) {
+    res = llply_par(X, function(x) {
         plyr::aaply(x, .margins, FUN, ..., .progress = .progress)
     }, byrow = byrow)
 

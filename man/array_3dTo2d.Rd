@@ -2,14 +2,19 @@
 % Please edit documentation in R/arr_3d.R
 \name{array_3dTo2d}
 \alias{array_3dTo2d}
+\alias{array_2dTo3d}
 \title{array_3dTo2d}
 \usage{
-array_3dTo2d(array, I_grid)
+array_3dTo2d(array, I_grid = NULL)
+
+array_2dTo3d(array, I_grid = NULL, dim)
 }
 \arguments{
 \item{array}{array with the dimension of \verb{[nlon, nlat, ntime]}}
 
 \item{I_grid}{subindex of \verb{[nrow, ncol]}}
+
+\item{dim}{\verb{[nrow, ncol]}}
 }
 \value{
 \verb{[nlat*nlon, ntime]}

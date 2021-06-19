@@ -122,17 +122,39 @@ apply_row <- function(mat, by, FUN = rowMeans2, ...) {
 #' `[nlat*nlon, ntime]`
 #' 
 #' @export
-array_3dTo2d <- function(array, I_grid){
-    # array <- fliplr.3d(array)
+array_3dTo2d <- function(array, I_grid = NULL) {
     dim <- dim(array)
+    names_last <- dimnames(array) %>% last()
+
     if (length(dim) >= 3) {
         dim(array) <- c(prod(dim[1:2]), dim[3])
     }
-    
-    if (!missing(I_grid)) {
-        array <-  array[I_grid, ]    
+    if (!is.null(I_grid)) {
+        array <- array[I_grid, ]
     }
+    if (!is.null(names_last)) array %<>% set_dimnames(list(NULL, names_last))
     return(array)
+}
+
+#' @param dim `[nrow, ncol]`
+#'
+#' @rdname array_3dTo2d
+#' @export
+array_2dTo3d <- function(array, I_grid = NULL, dim) {
+    ntime = dim(array) %>% last()
+    dim = c(dim, ntime)
+
+    temp = array(NA * array[1], dim = dim) %>%
+        array_3dTo2d()
+    if (is.null(I_grid)) {
+        temp = array
+    } else {
+        temp[I_grid, ] = array
+    }
+    ans = set_dim(temp, dim)
+    names_last = dimnames(array) %>% last()
+    if (!is.null(names_last)) ans %<>% set_dimnames(list(NULL, NULL, names_last))
+    ans
 }
 
 #' Set dimensions of an Object
@@ -147,5 +169,11 @@ array_3dTo2d <- function(array, I_grid){
 #' @export
 set_dim <- function(x, dim){
     dim(x) <- dim
+    x
+}
+
+#' @export
+set_dimnames <- function(x, value) {
+    dimnames(x) <- value
     x
 }
