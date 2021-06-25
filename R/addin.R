@@ -18,6 +18,13 @@ addin_insertReturn <- function() {
   rstudioapi::insertText("%<>% ")
 }
 
+#' @export
+addin_selectWord <- function() {
+  r = rstudioapi::getActiveDocumentContext()
+  browser()
+  print(r)
+}
+
 # fix new line ending in windows system
 # If content is empty, not write
 #' @import clipr
@@ -28,7 +35,7 @@ write_clip2 <- function(content, ...){
             utils::writeClipboard(charToRaw(paste0(content, ' ')))    
         } else {
             write_clip(content, ...)
-        } 
+        }
     }
 }
 
@@ -55,6 +62,7 @@ addin_copyLines <- function(output = FALSE){
     rng <- info$selection[[1]]$range
     nline <- rng$end[1] - rng$start[1] + 1
     nchar <- rng$end[2] - rng$start[2] + 1
+    
     if (nline == 1 & nchar == 1) {
         rng$start[2] <- 1
         rng$end[2] <- Inf
@@ -82,6 +90,7 @@ key_blind <- function(){
         "Ipaper::addin_copyLines"      = "Alt+C",
         "Ipaper::addin_cutLines"       = "Alt+X",
         "Ipaper::addin_insertDo"       = "Ctrl+Alt+D",
+        "Ipaper::addin_selectWord"     = "Alt+D",
         "Ipaper::addin_insertIn"       = "Ctrl+Shift+I",
         "Ipaper::addin_insertReturn"   = "Ctrl+Shift+,",
         "Ipaper::smerge"         = "Ctrl+Shift+G", 

@@ -37,3 +37,8 @@ Name: Open in VSCode
 Description: Open current working directory in VSCode
 Binding: code
 Interactive: false
+
+Name: Select word
+Description: Select word
+Binding: addin_selectWord
+Interactive: false

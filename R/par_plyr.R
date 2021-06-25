@@ -24,10 +24,12 @@ split_data <- function(x, nchunk = 6, byrow = TRUE) {
 
 #' @importFrom parallel parLapply
 #' @export
-llply_par <- function(X, FUN, ..., byrow = TRUE) {
+llply_par <- function(X, FUN, ..., byrow = TRUE, .combine = c) {
     nchunk <- length(getOption("cl"))
     lst <- split_data(X, nchunk, byrow = byrow)
-    parLapply(getOption("cl"), lst, FUN, ...) %>% do.call(c, .)
+    ans = parLapply(getOption("cl"), lst, FUN, ...) 
+    if (!is.null(.combine)) ans %<>% do.call(.combine, .)
+    ans
 }
 
 #' @export
@@ -38,8 +40,7 @@ apply_par <- function(X, .margins = 1, FUN, ..., .progress = "text") {
     byrow = .margins == 1
     res = llply_par(X, function(x) {
         plyr::aaply(x, .margins, FUN, ..., .progress = .progress)
-    }, byrow = byrow)
-
+    }, byrow = byrow, .combine = NULL)
     comb = if (is.matrix(res[[1]])) rbind else c
     do.call(comb, res)
 }
