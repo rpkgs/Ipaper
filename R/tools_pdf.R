@@ -36,14 +36,16 @@ pdf_to_emf <- function(filename) {
 #' }
 #' @export
 merge_pdf <- function(outfile = "RPlot.pdf", indir = "Figure",
-                      pattern = "*.pdf", del = FALSE) {
+         pattern = "*.pdf", del = FALSE) {
     files <- dir(indir, pattern, full.names = TRUE)
     order <- str_extract(basename(files), "(?<=\\[)\\d*(?=.*\\])") %>%
-        as.numeric()
+        as.numeric() %>% order()
     if (all(is.finite(order))) files <- files[order]
+    # print(basename(files))
     pdftools::pdf_combine(files, outfile)
     if (del) file.remove(files)
 }
+
 
 # merge_pdf <- function(outfile = "RPlot.pdf", indir = "Figure", pattern = "*.pdf", del = FALSE) {
 #     files <- dir(indir, pattern, full.names = TRUE)
