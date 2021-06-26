@@ -1,12 +1,29 @@
-# #' @export
-# first <- function(x) {
-#     x[[1]]
-# }
+#' fprintf
+#' Print sprintf result into console, just like C style fprintf function
+#' @param fmt a character vector of format strings, each of up to 8192 bytes.
+#' @param ... other parameters will be passed to `sprintf`
+#'
+#' @examples
+#' cat(fprintf("%s\n", "Hello phenofit!"))
+#' @export
+fprintf <- function(fmt, ...) cat(sprintf(fmt, ...))
 
-# #' @export
-# last <- function(x) {
-#     x[[length(x)]]
-# }
+#' print the running ID in the console
+#' 
+#' @param i the running Id.
+#' @param N The number of total iteration 
+#' @param step how long of print step.
+#' @param prefix prefix string
+#' 
+#' @examples
+#' for (i in 1:10){
+#'     runningId(i, prefix = "phenofit")
+#' }
+#' @export
+runningId <- function(i, step = 1, N, prefix = "") {
+    perc <- ifelse(missing(N), "", sprintf(", %.1f%% ", i/N*100))
+    if (mod(i, step) == 0) cat(sprintf("[%s] running%s %d ...\n", prefix, perc, i))    
+}
 
 #' @export
 tabular <- function(df, ...) {
@@ -58,16 +75,6 @@ ifelse2 <- function(test, yes, no) {
     if (test) yes else no
 }
 
-#' fprintf
-#' Print sprintf result into console, just like C style fprintf function
-#' @param fmt a character vector of format strings, each of up to 8192 bytes.
-#' @param ... other parameters will be passed to `sprintf`
-#'
-#' @examples
-#' cat(fprintf("%s\n", "Hello phenofit!"))
-#' @export
-fprintf <- function(fmt, ...) cat(sprintf(fmt, ...))
-
 #' @export
 mark_outlier <- function(x, nsd = 3) {
     sd <- sd(x, na.rm = TRUE)
@@ -82,3 +89,26 @@ mark_outlier <- function(x, nsd = 3) {
 unique_length <- function(x) {
     unique(x) %>% length()
 }
+
+#' @export
+match2 <- function(x, y) {
+    I <- match(x, y)
+    I_x <- which.notna(I)
+    I_y <- I[I_x]
+
+    d <- data.table(
+        x = x[I_x], y = y[I_y], I_x, I_y,
+        grp = cumsum(c(TRUE, diff(I_y) != 1))
+    )
+    d
+}
+
+# #' @export
+# first <- function(x) {
+#     x[[1]]
+# }
+
+# #' @export
+# last <- function(x) {
+#     x[[length(x)]]
+# }

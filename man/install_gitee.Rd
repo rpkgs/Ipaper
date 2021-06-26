@@ -2,29 +2,9 @@
 % Please edit documentation in R/git.R
 \name{install_gitee}
 \alias{install_gitee}
-\alias{install_github}
 \title{Attempts to install a package directly from gitee.}
 \usage{
 install_gitee(repo)
-
-install_github(
-  repo,
-  ref = "HEAD",
-  subdir = NULL,
-  auth_token = github_pat(quiet),
-  host = "api.github.com",
-  dependencies = NA,
-  upgrade = c("default", "ask", "always", "never"),
-  force = FALSE,
-  quiet = FALSE,
-  build = TRUE,
-  build_opts = c("--no-resave-data", "--no-manual", "--no-build-vignettes"),
-  build_manual = FALSE,
-  build_vignettes = FALSE,
-  repos = getOption("repos"),
-  type = getOption("pkgType"),
-  ...
-)
 }
 \arguments{
 \item{Repository}{address in the format \verb{username/repo[/subdir][@ref|#pull]}.

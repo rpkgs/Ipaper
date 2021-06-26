@@ -39,6 +39,7 @@ Suggests:
     knitr,
     rmarkdown,
     iterators,
+    sp,
     grid, 
     gridExtra
 VignetteBuilder: knitr

@@ -53,16 +53,16 @@ read_xlsx2list <- function(file, ...){
     ## judge whether it's xls or xlsx
     #  if file is *.xls use readxl::read_excel
     if (length(grep("xls$", basename(file))) != 0){
-    sheetNames <- excel_sheets(file)
-    x <- llply(sheetNames, function(sheet) as.data.table(read_excel(file, sheet, ...)),
-               .progress = "text")
+        sheetNames <- excel_sheets(file)
+        x <- llply(sheetNames, function(sheet) as.data.table(read_excel(file, sheet, ...)),
+                .progress = "text")
     }else{
         sheetNames <- getSheetNames(file)
-        x <- llply(sheetNames, function(sheet) read.xlsx(file, sheet, ...),
+        x <- llply(sheetNames, function(sheet) read.xlsx(file, sheet, ...) %>% as.data.table(),
            .progress = "text")
     }
     names(x) <- sheetNames
-    x#quickly return
+    x
 }
 
 #' @export
@@ -75,5 +75,5 @@ fwrite2 <- function(x, file){
 #' @importFrom openxlsx read.xlsx
 #' @export
 read_xlsx <- function(file, sheet = 1, ...){
-    read.xlsx(file, sheet, ..., detectDates = TRUE) %>% data.table()
+    read.xlsx(file, sheet, ..., detectDates = TRUE) %>% as.data.table()
 }
