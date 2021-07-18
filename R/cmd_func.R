@@ -6,9 +6,9 @@ cmd_func <- function(command) {
 
     function (path = getwd(), verbose = FALSE) {
         path <- check_path(path)
-        # fmt = ifelse(basename(command) != command, '%s %s "%s"', '%s ""%s" "%s""')
+        fmt = ifelse(basename(command) == command, '%s %s "%s"', '%s ""%s" "%s""')
         # fmt = ifelse(command %in% c("code", "subl"), '%s %s "%s"', '%s ""%s" "%s""')
-        fmt = '%s ""%s" "%s""'
+        # fmt = '%s ""%s" "%s""'
         cmd <- sprintf(fmt, app, command, path)
         if (verbose) cat(cmd, "\n")
         shell(cmd)
