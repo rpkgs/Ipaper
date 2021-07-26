@@ -21,7 +21,7 @@ library(Ipaper)
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/rpkgs/Ipaper/workflows/R-CMD-check/badge.svg)](https://github.com/rpkgs/Ipaper/actions)
-[![codecov](https://codecov.io/gh/kongdd/Ipaper/branch/master/graph/badge.svg)](https://codecov.io/gh/kongdd/Ipaper)
+[![codecov](https://codecov.io/gh/rpkgs/Ipaper/branch/master/graph/badge.svg)](https://codecov.io/gh/rpkgs/Ipaper)
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%203%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![CRAN](http://www.r-pkg.org/badges/version/rwiki)](https://cran.r-project.org/package=rwiki)
 <!-- badges: end -->
@@ -64,15 +64,15 @@ install.packages("../Ipaper_0.1.5.9000.tar.gz", repos = NULL, type = "source", d
 
 ### Parallel functions
 
-* e.g. `InitCluster`, `killCluster`.
+- `InitCluster`, `killCluster`.
+- `llply_par`, `apply_par`
 
 ### Base tools
 
+* `code`, `smerge`, `subl`, `github`: open app at assigned directory
 * `dir.show`: open at assigned directory in explorer
 * `runningId`: print the running ID in the console
 * `fprintf`: c style `fprintf`
-* `subl`: open sublime text at assigned directory
-* `github`: open github desktop at assigned directory
 * `melt_list`, `melt_tree`, `listk`, `dcast2`
 
 ```{r melt_list, echo = TRUE}
@@ -84,14 +84,10 @@ l2 <- listk("type1" = l, "type2" = l)
 melt_tree(l2, c("type", "id"))
 ```
 
-* `mkTrend`, `slope`
-```{r mkTrend, fig.height=2.5, fig.width=6}
-x <- c(4.81,4.17,4.41,3.59,5.87,3.83, 6.03,4.89,4.32,10,4.69)
-# r <- mkTrend(x)
-par(mar = c(3, 3, 1, 1), mgp = c(2, 0.6, 0))
-r_cpp <- mkTrend_rcpp(x, IsPlot = TRUE)
-```
-
 * `reoder_name`, `rm_empty`, `match2`
 * `write_list2xlsx`, `read_xlsx2list`
-* `which.na`, `which.notna`
+* `which.na`, `which.notna`, `which.isnull`, `which.notnull`
+
+## Updates
+
+- `mkTrend` and `slope` has been moved to the package [`rtrend`](https://cran.rstudio.com/web/packages/rtrend/index.html)

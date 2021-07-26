@@ -103,12 +103,38 @@ match2 <- function(x, y) {
     d
 }
 
-# #' @export
-# first <- function(x) {
-#     x[[1]]
-# }
+
+#' @importFrom dplyr first last mutate
+#' @export
+dplyr::first
+
+#' @export
+dplyr::last
+
+#' @export
+dplyr::mutate
+
+#' @export
+magrittr::`%>%`
+
+#' @export
+magrittr::`%<>%`
+
+#' @export
+purrr::map
+
+#' @importFrom data.table data.table is.data.table as.data.table
+#' @export
+data.table::data.table
+
+#' @export
+data.table::is.data.table
+
+#' @export
+data.table::as.data.table
 
 # #' @export
-# last <- function(x) {
-#     x[[length(x)]]
-# }
+# lubridate::yday
+
+# #' @export
+# lubridate::date
