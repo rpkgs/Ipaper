@@ -60,6 +60,9 @@ file_size <- function(file) {
     utils:::format.object_size(file.size(file), "auto")
 }
 
+#' @export
+str_year <- function(x) stringr::str_extract(basename(x), "\\d{4}")
+
 #' ifelse2
 #'
 #' ternary operator just like java `test ? yes : no`
