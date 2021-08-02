@@ -27,11 +27,19 @@ install.packages("../Ipaper_0.1.5.9000.tar.gz", repos = NULL, type = "source", d
 
 | Description                                       | Shortcut     |
 |---------------------------------------------------|--------------|
-| copy lines at the cursor position (sublime style) | Alt+c        |
-| clip lines at the cursor position                 | Alt+x        |
+| copy lines at the cursor position (sublime style) | Alt+C        |
+| clip lines at the cursor position                 | Ctrl+X       |
+| Select word                                       | Ctrl+D       |
 | Insert `%<>%`                                     | Ctrl+Shift+, |
 | Insert `%do% {}`                                  | Ctrl+Shift+D |
 | Insert `%in% {}`                                  | Ctrl+Shift+I |
+| Open in VSCode                                    | Alt+Shift+V  |
+| Open in smerge                                    | Ctrl+Shift+G |
+| Open in subl                                      | Alt+Shift+L  |
+
+Note that `VSCode`, `smerge` or `subl` should be in the system path, if you want to use it.
+
+After install, run `Ipaper::key_blind()` to make those shortcuts work.
 
 ### Visualization
 

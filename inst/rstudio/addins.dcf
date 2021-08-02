@@ -1,24 +1,24 @@
-Name: Insert %in%
+Name: Insert %in% (Ctrl+Shift+I)
 Description: Inserts `%in%` at the cursor position.
 Binding: addin_insertIn
 Interactive: false
 
-Name: Insert %do% {}
+Name: Insert %do% {} (Ctrl+Alt+D)
 Description: Inserts `%do% {}` at the cursor position.
 Binding: addin_insertDo
 Interactive: false
 
-Name: Insert %<>%
+Name: Insert %<>% (Ctrl+Shift+,)
 Description: Inserts `%<>%` at the cursor position.
 Binding: addin_insertReturn
 Interactive: false
 
-Name: Copy lines
+Name: Copy lines (Alt+C)
 Description: Copy lines at the cursor position.
 Binding: addin_copyLines
 Interactive: false
 
-Name: Cut lines
+Name: Cut lines (Ctrl+X)
 Description: Cut lines at the cursor position.
 Binding: addin_cutLines
 Interactive: false
@@ -28,17 +28,17 @@ Description: Open current working project in smerge
 Binding: smerge
 Interactive: false
 
-Name: Open in subl
+Name: Open in subl (Alt+Shift+L)
 Description: Open current working directory in sublime
 Binding: subl
 Interactive: false
 
-Name: Open in VSCode
+Name: Open in VSCode (Alt+Shift+V)
 Description: Open current working directory in VSCode
 Binding: code
 Interactive: false
 
-Name: Select word
+Name: Select word (Ctrl+D)
 Description: Select word
 Binding: addin_selectWord
 Interactive: false

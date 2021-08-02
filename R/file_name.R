@@ -3,9 +3,14 @@ str_extract <- function(x, pattern) {
     substr(x, ans, ans + attr(ans, "match.length"))
 }
 
-str_locate_all <- function(x, pattern) {
+str_locate_all.vec <- function(x, pattern) {
     ans <- gregexpr(pattern, x, perl = TRUE)[[1]]
     ans
+}
+
+str_locate_all <- function(x, pattern) {
+    ans <- gregexpr(pattern, x, perl = TRUE)[[1]]
+    data.table(I = seq_along(ans), start = ans, end = attr(ans, "match.length") + ans - 1)
 }
 
 #' @export
@@ -26,7 +31,7 @@ file_ext <- function(file) {
 #' @export
 file_name <- function(file) {
     file  <- basename(file)
-    pos   <- str_locate_all(file, "\\.")
+    pos   <- str_locate_all.vec(file, "\\.")
     pos   <- pos[[length(pos)]]
     # I_dot <- pos[nrow(pos), 1]
     # no dot
