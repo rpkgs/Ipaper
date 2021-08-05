@@ -32,8 +32,8 @@ check_path <- function(path) {
     path
 }
 
-#' edit R profile by sublime
-#' 
+#' edit R profile by VScode
+#' @keywords internal
 #' @export
 edit_r_profile_sys <- function(){
     code(file.path(R.home(), "etc")) # /Rprofile.site

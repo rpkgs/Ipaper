@@ -13,7 +13,5 @@ Awesome functions in R.
 \strong{Maintainer}: Dongdong Kong \email{kongdd.sysu@gmail.com}
 
 }
-\keyword{DOI}
-\keyword{download}
 \keyword{internal}
 \keyword{paper}

@@ -14,6 +14,9 @@ str_locate_all <- function(x, pattern) {
 }
 
 #' @export
+str_year <- function(x) str_extract(basename(x), "\\d{4}")
+
+#' @export
 #' @rdname file_name
 file_ext <- function(file) {
     ext = str_extract(basename(file), "(?<=\\.).{1,4}$") 
@@ -48,4 +51,25 @@ file_name <- function(file) {
     # ?: zero or one
     # *: zero or more
     # +:  one or more
+}
+
+#' obj.size
+#'
+#' Get object size in `unit`
+#' @param obj Object
+#' @param unit "Kb", "Mb" or "Gb"
+#'
+#' @examples
+#' obj.size(1:100)
+#' @export
+obj.size <- function(obj, unit = "Mb") {
+    cat(format(object.size(obj), unit), "\n")
+}
+
+#' file_size
+#'
+#' @param file file path
+#' @export
+file_size <- function(file) {
+    utils:::format.object_size(file.size(file), "auto")
 }

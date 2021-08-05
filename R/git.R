@@ -38,6 +38,25 @@ github <- function(path = getwd()) {
     system(cmd)
 }
 
+# #' @rdname install_gitee
+# #' @export
+# install <- install_local
+
+# #' @importFrom devtools document load_all
+# #' @export
+# load_all2 <- function(path = ".", ...){
+#     document(path, ...)
+#     load_all(path, ...)
+# }
+
+#' @importFrom remotes install_github
+#' @export
+remotes::install_github
+
+#' @importFrom remotes install_git
+#' @export
+remotes::install_git
+
 #' Attempts to install a package directly from gitee.
 #'
 #' @param Repository address in the format `username/repo[/subdir][@ref|#pull]`.
@@ -55,19 +74,3 @@ install_gitee <- function(repo) {
         install_git(url)
     }
 }
-
-# #' @rdname install_gitee
-# #' @export
-# install <- install_local
-
-# #' @rdname install_gitee
-# #' @importFrom remotes install_git install_github
-# #' @export
-# install_github <- install_github
-
-# #' @importFrom devtools document load_all
-# #' @export
-# load_all2 <- function(path = ".", ...){
-#     document(path, ...)
-#     load_all(path, ...)
-# }

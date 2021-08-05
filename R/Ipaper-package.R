@@ -2,7 +2,7 @@
 #' @name Ipaper
 #' @aliases Ipaper-package
 #' @docType package
-#' @keywords download paper DOI
+#' @keywords paper
 #' 
 #' @importFrom jsonlite fromJSON read_json
 #' @importFrom purrr map transpose

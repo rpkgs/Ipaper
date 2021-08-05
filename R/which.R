@@ -22,3 +22,8 @@ which.isnull <- function(x) {
 which.notnull <- function(x) {
     which(!sapply(x, is.null))
 }
+
+#' @export 
+`%!in%` <- function(x, table) {
+    !(x %in% table)
+}

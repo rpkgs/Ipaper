@@ -2,10 +2,11 @@
 % Please edit documentation in R/path_func.R
 \name{edit_r_profile_sys}
 \alias{edit_r_profile_sys}
-\title{edit R profile by sublime}
+\title{edit R profile by VScode}
 \usage{
 edit_r_profile_sys()
 }
 \description{
-edit R profile by sublime
+edit R profile by VScode
 }
+\keyword{internal}

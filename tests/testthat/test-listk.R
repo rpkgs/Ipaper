@@ -1,4 +1,4 @@
-test_that("multiplication works", {
+test_that("listk works", {
     a = 1
     b = 1:2
     c = 1:3

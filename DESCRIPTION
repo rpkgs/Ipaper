@@ -1,7 +1,7 @@
 Package: Ipaper
 Type: Package
 Title: Collection of personal practical R functions
-Version: 0.1.6.9000
+Version: 0.1.7
 Authors@R: person("Dongdong", "Kong", email = "kongdd.sysu@gmail.com",
   role = c("aut", "cre"))
 Description: Awesome functions in R.
@@ -27,7 +27,7 @@ Imports:
     methods,
     parallel,
     doParallel,
-    foreach,
+    foreach, iterators,
     plyr,
     dplyr,
     clipr, 
@@ -38,7 +38,6 @@ Suggests:
     testthat (>= 2.1.0),
     knitr,
     rmarkdown,
-    iterators,
     sp,
     grid, 
     gridExtra

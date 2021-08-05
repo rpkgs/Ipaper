@@ -30,7 +30,6 @@ sf_rect <- function(range, crs = st_crs(4326)){
 #' @param mask Boolean vector indicate where to mask
 #' @param col_mask
 #' 
-#' 
 #' @examples
 #' \dontrun{
 #' write_sp2rgb(grid, brks, cols, file = "dem_pearl_rgb.tif")

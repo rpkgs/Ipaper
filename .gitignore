@@ -13,6 +13,7 @@ tests/testthat/*.tif
 *.xml
 *.ovr
 *.jpg
+*.xlsx
 
 *.png
 *.svg
@@ -20,3 +21,5 @@ tests/testthat/*.tif
 src-x64/
 src-i386/
 inst/font
+
+*/temp

@@ -39,30 +39,6 @@ tabular <- function(df, ...) {
         contents, "\n}\n", sep = "")
 }
 
-#' obj.size
-#'
-#' Get object size in `unit`
-#' @param obj Object
-#' @param unit "Kb", "Mb" or "Gb"
-#'
-#' @examples
-#' obj.size(1:100)
-#' @export
-obj.size <- function(obj, unit = "Mb") {
-    cat(format(object.size(obj), unit), "\n")
-}
-
-#' file_size
-#'
-#' @param file file path
-#' @export
-file_size <- function(file) {
-    utils:::format.object_size(file.size(file), "auto")
-}
-
-#' @export
-str_year <- function(x) stringr::str_extract(basename(x), "\\d{4}")
-
 #' ifelse2
 #'
 #' ternary operator just like java `test ? yes : no`
@@ -106,38 +82,35 @@ match2 <- function(x, y) {
     d
 }
 
-
-#' @importFrom dplyr first last mutate
+#' cut_plevels
+#'
+#' @param x numeric vector
+#' @param pvalue p <= `x%`, means its significant at `x%` level
+#' 
+#' @examples
+#' x <- c(-0.09, -0.4, 0.04, 0.15)
+#' cut_plevels(x, verbose = TRUE)
 #' @export
-dplyr::first
+cut_plevels <- function(x, pvalue = c(0.01, 0.05, 0.1), verbose = FALSE) {
+    np <- length(pvalue) + 1
+    pvalue2 <- pvalue %>%
+        c(., 1) %>%
+        c(-rev(.), 0, .)
 
-#' @export
-dplyr::last
+    levels_num <- cut(1, pvalue2) %>%
+        levels() %>%
+        {
+            c(rev(.[1:np]), rev(.[-(1:np)])) %>% rev()
+        }
+    levels_str <- c(
+        sprintf("significant increasing at the %-4s level", as.character(pvalue)),
+        "insignificant increasing",
+        "insignificant decreasing",
+        sprintf("significant decreasing at the %-4s level", rev(as.character(pvalue)))
+    )
+    levels <- cbind(levels_num, levels_str)
+    if (verbose) print(levels)
 
-#' @export
-dplyr::mutate
-
-#' @export
-magrittr::`%>%`
-
-#' @export
-magrittr::`%<>%`
-
-#' @export
-purrr::map
-
-#' @importFrom data.table data.table is.data.table as.data.table
-#' @export
-data.table::data.table
-
-#' @export
-data.table::is.data.table
-
-#' @export
-data.table::as.data.table
-
-# #' @export
-# lubridate::yday
-
-# #' @export
-# lubridate::date
+    xf <- cut(x, pvalue2) %>% factor(levels_num, levels_str)
+    xf
+}
