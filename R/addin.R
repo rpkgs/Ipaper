@@ -25,7 +25,8 @@ addin_insertReturn <- function() {
 write_clip2 <- function(content, ...){
     if (!is.null(content) && content != "") {
         if (.Platform$OS.type == "windows") {        
-            utils::writeClipboard(charToRaw(paste0(content, ' ')))    
+            writeLines(content, "clipboard", sep = "")
+            # utils::writeClipboard(charToRaw(paste0(content, ' ')))    
         } else {
             write_clip(content, ...)
         }
@@ -57,9 +58,11 @@ addin_copyLines <- function(output = FALSE){
     
     if (nline == 1 & nchar == 1) {
         rng$start[2] <- 1
-        rng$end[2] <- Inf
+        rng$end[1]   <- rng$end[1] + 1 # row
+        rng$end[2]   <- 1              # column
+        # rng$end[2] <- Inf
         info$selection[[1]]$range <- rng
-        info$selection[[1]]$text <- info$contents[rng$start[1]]
+        info$selection[[1]]$text <- info$contents[rng$start[1]] %>% paste0("\n")
     }
 
     str <- info$selection[[1]]$text
