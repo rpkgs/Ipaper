@@ -5,14 +5,20 @@
 \alias{apply_row}
 \title{apply_col}
 \usage{
-apply_col(mat, by, FUN = colMeans2, ...)
+apply_col(mat, by, FUN = colMeans2, scale = 1, ...)
 
-apply_row(mat, by, FUN = rowMeans2, ...)
+apply_row(mat, by, FUN = rowMeans2, scale = 1, ...)
 }
 \arguments{
 \item{mat}{matrix, \verb{[nrow, ncol]}}
 
 \item{by}{integer vector, with the dim of \verb{[ntime]}}
+
+\item{scale}{in the same length of \code{by}, or a const value,
+\code{value_returned} = \code{FUN(x)*scale}. This parameter is designed for converting
+monthly to yearly, meanwhile multiply days in month.
+Currently, same group should have the same scale factor. Otherwise, only the
+first is used.}
 }
 \description{
 \itemize{

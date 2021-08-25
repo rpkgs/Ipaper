@@ -16,9 +16,13 @@
 \alias{is.data.table}
 \alias{as.data.table}
 \alias{make_date}
+\alias{days_in_month}
 \alias{\%dopar\%}
 \alias{\%do\%}
 \alias{iter}
+\alias{rowSums2}
+\alias{rowMeans2}
+\alias{rowQuantiles}
 \alias{icount}
 \title{Objects exported from other packages}
 \keyword{internal}
@@ -35,9 +39,11 @@ below to see their documentation.
 
   \item{iterators}{\code{\link[iterators]{icount}}, \code{\link[iterators]{iter}}}
 
-  \item{lubridate}{\code{\link[lubridate:make_datetime]{make_date}}}
+  \item{lubridate}{\code{\link[lubridate]{days_in_month}}, \code{\link[lubridate:make_datetime]{make_date}}}
 
   \item{magrittr}{\code{\link[magrittr:compound]{\%<>\%}}, \code{\link[magrittr:pipe]{\%>\%}}, \code{\link[magrittr:aliases]{set_names}}}
+
+  \item{matrixStats}{\code{\link[matrixStats]{rowMeans2}}, \code{\link[matrixStats]{rowQuantiles}}, \code{\link[matrixStats]{rowSums2}}}
 
   \item{purrr}{\code{\link[purrr]{map}}}
 

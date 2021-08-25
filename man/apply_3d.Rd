@@ -4,7 +4,15 @@
 \alias{apply_3d}
 \title{apply function for 3d array}
 \usage{
-apply_3d(array, dim = 3, FUN = rowMeans2, by = NULL, na.rm = TRUE, ...)
+apply_3d(
+  array,
+  dim = 3,
+  FUN = rowMeans2,
+  by = NULL,
+  scale = 1,
+  na.rm = TRUE,
+  ...
+)
 }
 \arguments{
 \item{array}{A 3d array}
@@ -25,6 +33,12 @@ For example, daily precipitation \verb{[nrow, ncol, 365-days]} aggregate into
 monthly \verb{[nrow, ncol, 12-months]}. In that situation, \code{by} should be equal
 to 365, and be \code{format(date, '\%Y\%m')}.
 }}
+
+\item{scale}{in the same length of \code{by}, or a const value,
+\code{value_returned} = \code{FUN(x)*scale}. This parameter is designed for converting
+monthly to yearly, meanwhile multiply days in month.
+Currently, same group should have the same scale factor. Otherwise, only the
+first is used.}
 }
 \description{
 NA values will be removed automatically
@@ -36,6 +50,10 @@ arr <- array(rnorm(10*8*31), dim = size)
 
 by <- c(rep(1, 10), rep(2, 21))
 r2 <- apply_3d(arr, 3, by = by, FUN = rowMeans)
+
+\dontrun{
+arr_yearly <- apply_3d(arr, year(dates), scale = days_in_month(dates))
+}
 }
 \seealso{
 \link{apply_row} \link[matrixStats:rowRanges]{matrixStats::rowRanges}

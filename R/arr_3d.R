@@ -29,9 +29,13 @@
 #' 
 #' by <- c(rep(1, 10), rep(2, 21))
 #' r2 <- apply_3d(arr, 3, by = by, FUN = rowMeans)
+#' 
+#' \dontrun{
+#' arr_yearly <- apply_3d(arr, by = year(dates), scale = days_in_month(dates))
+#' }
 #' @importFrom matrixStats rowMeans2 rowMins rowMaxs
 #' @export
-apply_3d <- function(array, dim = 3, FUN = rowMeans2, by = NULL, na.rm = TRUE, ...) {
+apply_3d <- function(array, dim = 3, FUN = rowMeans2, by = NULL, scale = 1, na.rm = TRUE, ...) {
     # TODO: add by at here
     dims <- dim(array)
     ndim <- length(dims) # dimensions
@@ -51,7 +55,7 @@ apply_3d <- function(array, dim = 3, FUN = rowMeans2, by = NULL, na.rm = TRUE, .
         dim_new <- dims_head
     } else {
         dim_new <- c(dims_head, length(unique(by)))
-        ans <- apply_row(mat, by, FUN)
+        ans <- apply_row(mat, by, FUN, scale = scale)
     }
     dim(ans) <- dim_new
     ans
@@ -68,7 +72,11 @@ apply_3d <- function(array, dim = 3, FUN = rowMeans2, by = NULL, na.rm = TRUE, .
 #' 
 #' @param mat matrix, `[nrow, ncol]`
 #' @param by integer vector, with the dim of `[ntime]`
-#' 
+#' @param scale in the same length of `by`, or a const value,
+#' `value_returned` = `FUN(x)*scale`. This parameter is designed for converting
+#' monthly to yearly, meanwhile multiply days in month.
+#' Currently, same group should have the same scale factor. Otherwise, only the
+#' first is used.
 #' @note This function also suits for big.matrix object.
 #'
 #' @examples
@@ -78,15 +86,17 @@ apply_3d <- function(array, dim = 3, FUN = rowMeans2, by = NULL, na.rm = TRUE, .
 #' 
 #' @importFrom matrixStats colMeans2 rowMeans2 colMins colMaxs rowMins rowMaxs 
 #' @export
-apply_col <- function(mat, by, FUN = colMeans2, ...) {
+apply_col <- function(mat, by, FUN = colMeans2, scale = 1, ...) {
     if (length(by) != nrow(mat)) {
         stop('Length of by is not equal to nrow of mat')
     }
+    if (length(scale) == 1) scale = rep(scale, length(by))
     grps <- unique(by) %>% sort()
 
     ans <- lapply(grps, function(grp) {
         I <- which(by == grp)
-        FUN(mat[I,, drop = FALSE], na.rm = TRUE, ...)
+        factor = scale[I][1]
+        FUN(mat[I,, drop = FALSE] * factor, na.rm = TRUE, ...)
     }) %>% do.call(rbind, .)
     
     if (!is.matrix(ans)) ans <- as.matrix(ans)
@@ -97,15 +107,17 @@ apply_col <- function(mat, by, FUN = colMeans2, ...) {
 
 #' @rdname apply_col
 #' @export
-apply_row <- function(mat, by, FUN = rowMeans2, ...) {
+apply_row <- function(mat, by, FUN = rowMeans2, scale = 1, ...) {
     if (length(by) != ncol(mat)) {
         stop('Length of by is not equal to ncol of mat')
     }
+    if (length(scale) == 1) scale = rep(scale, length(by))
     grps <- unique(by) %>% sort()
 
     ans <- lapply(grps, function(grp) {
         I <- which(by == grp)
-        FUN(mat[, I, drop = FALSE], na.rm = TRUE, ...)
+        factor = scale[I][1]
+        FUN(mat[, I, drop = FALSE] * factor, na.rm = TRUE, ...)
     }) %>% do.call(cbind, .)
 
     if (!is.matrix(ans)) ans <- as.matrix(ans)
