@@ -52,7 +52,7 @@ by <- c(rep(1, 10), rep(2, 21))
 r2 <- apply_3d(arr, 3, by = by, FUN = rowMeans)
 
 \dontrun{
-arr_yearly <- apply_3d(arr, year(dates), scale = days_in_month(dates))
+arr_yearly <- apply_3d(arr, by = year(dates), scale = days_in_month(dates))
 }
 }
 \seealso{

@@ -13,8 +13,6 @@ Depends:
 import: 
     RoxygenNote: 6.1.0
 Imports:
-    lattice, 
-    xml2,
     ggplot2,
     jsonlite,
     magrittr,

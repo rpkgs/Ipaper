@@ -70,6 +70,7 @@ install.packages("../Ipaper_0.1.5.9000.tar.gz", repos = NULL, type = "source", d
 ### Base tools
 
 * `code`, `smerge`, `subl`, `github`: open app at assigned directory
+* `mkdir`, `touch`
 * `dir.show`: open at assigned directory in explorer
 * `runningId`: print the running ID in the console
 * `fprintf`: c style `fprintf`

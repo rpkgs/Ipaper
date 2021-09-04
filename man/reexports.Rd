@@ -16,6 +16,7 @@
 \alias{is.data.table}
 \alias{as.data.table}
 \alias{make_date}
+\alias{make_datetime}
 \alias{days_in_month}
 \alias{\%dopar\%}
 \alias{\%do\%}
@@ -39,7 +40,7 @@ below to see their documentation.
 
   \item{iterators}{\code{\link[iterators]{icount}}, \code{\link[iterators]{iter}}}
 
-  \item{lubridate}{\code{\link[lubridate]{days_in_month}}, \code{\link[lubridate:make_datetime]{make_date}}}
+  \item{lubridate}{\code{\link[lubridate]{days_in_month}}, \code{\link[lubridate:make_datetime]{make_date}}, \code{\link[lubridate]{make_datetime}}}
 
   \item{magrittr}{\code{\link[magrittr:compound]{\%<>\%}}, \code{\link[magrittr:pipe]{\%>\%}}, \code{\link[magrittr:aliases]{set_names}}}
 

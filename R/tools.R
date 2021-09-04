@@ -98,8 +98,7 @@ cut_plevels <- function(x, pvalue = c(0.01, 0.05, 0.1), verbose = FALSE) {
         c(-rev(.), 0, .)
 
     levels_num <- cut(1, pvalue2) %>%
-        levels() %>%
-        {
+        levels() %>% {
             c(rev(.[1:np]), rev(.[-(1:np)])) %>% rev()
         }
     levels_str <- c(

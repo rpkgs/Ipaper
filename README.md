@@ -63,6 +63,7 @@ After install, run `Ipaper::key_blind()` to make those shortcuts work.
 ### Base tools
 
 -   `code`, `smerge`, `subl`, `github`: open app at assigned directory
+-   `mkdir`, `touch`
 -   `dir.show`: open at assigned directory in explorer
 -   `runningId`: print the running ID in the console
 -   `fprintf`: c style `fprintf`

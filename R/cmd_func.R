@@ -102,16 +102,28 @@ dir.show <- function (path = getwd()) {
 #     FUN(file = file, width = width, height = height, ...)
 # }
 
-#' check_dir
+#' mkdir
+#' 
 #' @param path character vectors 
 #' 
 #' @importFrom foreach %do%
 #' @export
-check_dir <- function(path){
+mkdir <- function(path){
     for (path_i in unique(path)) {
        if (!dir.exists(path_i)) {
            dir.create(path_i, recursive = TRUE)
        }
     }
     path
+}
+
+#' @rdname mkdir
+#' @export
+check_dir <- mkdir
+
+#' @keywords internal
+#' @export
+touch <- function(file) {
+    mkdir(dirname(file))
+    writeLines("", file)
 }
