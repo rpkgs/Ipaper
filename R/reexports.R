@@ -52,6 +52,10 @@ lubridate::make_date
 #' @export
 lubridate::make_datetime
 
+#' @import glue
+#' @export
+glue::glue
+
 #' @export
 lubridate::days_in_month
 

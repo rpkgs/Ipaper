@@ -17,6 +17,7 @@
 \alias{as.data.table}
 \alias{make_date}
 \alias{make_datetime}
+\alias{glue}
 \alias{days_in_month}
 \alias{\%dopar\%}
 \alias{\%do\%}
@@ -37,6 +38,8 @@ below to see their documentation.
   \item{dplyr}{\code{\link[dplyr:nth]{first}}, \code{\link[dplyr:nth]{last}}, \code{\link[dplyr]{mutate}}}
 
   \item{foreach}{\code{\link[foreach:foreach]{\%do\%}}, \code{\link[foreach:foreach]{\%dopar\%}}}
+
+  \item{glue}{\code{\link[glue]{glue}}}
 
   \item{iterators}{\code{\link[iterators]{icount}}, \code{\link[iterators]{iter}}}
 

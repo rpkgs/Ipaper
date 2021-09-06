@@ -28,7 +28,7 @@ Imports:
     foreach, iterators,
     plyr,
     dplyr,
-    clipr, 
+    clipr, glue,
     matrixStats, 
     rstudioapi, 
     remotes
