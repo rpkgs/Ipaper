@@ -35,3 +35,26 @@ get_legend <- function(brks) {
     g <- draw.colorkey(key)
     write_fig(g, "test/dem_legend.jpg", 9.2, 0.75)
 }
+
+#' get regular cdo grid
+#' 
+#' @param range `[lon_min, lon_max, lat_min, lat_max]`
+#' @param cellsize double
+#' @param outfile character, path of output file
+#' 
+#' @export 
+cdo_grid <- function(range = c(70, 140, 15, 55), cellsize = 0.1, outfile = "grid.txt") {
+    nlon = diff(range[1:2])/cellsize
+    nlat = diff(range[3:4])/cellsize
+
+    grid = glue("
+    gridtype = lonlat
+    xsize = {nlon}
+    ysize = {nlat}
+    xfirst = {range[1]}
+    xinc = {cellsize}
+    yfirst = {range[3]}
+    yinc = {cellsize}
+    ")
+    writeLines(grid, outfile)
+}
