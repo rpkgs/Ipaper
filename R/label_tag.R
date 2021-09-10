@@ -9,9 +9,10 @@
 #' @export
 label_tag <- function(labels, tag = TRUE) {
     n <- length(labels)
+    tags = c(letters, LETTERS)
     sapply(seq_along(labels), function(i) {
         name = labels[[i]]
-        data <- list(tag = letters[i], x = name)
+        data <- list(tag = tags[i], x = name)
         if (tag) {
             eval(substitute(expression(bold("(" * tag * ")" ~ x)), data))
             # eval(substitute(expression(bold(tag * ". " ~ x)), data))
