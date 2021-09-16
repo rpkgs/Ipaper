@@ -9,6 +9,7 @@
 #' The default type is pdf.
 #' @inheritParams grDevices::svg
 #' @inheritParams grDevices::png
+#' @inheritParams showfig
 #' @param show Boolean. Whether show file after finished writing?
 #' @param use.cairo_pdf This parameter is for pdf type. whether to use `grDevices::cairo_pdf`?
 #' `cairo_pdf` supports self defined font, but can not create multiple page pdf.
@@ -19,7 +20,7 @@
 #' @importFrom grDevices svg tiff
 #' @export
 write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5, 
-    devices = NULL, res = 300, show = TRUE, use.cairo_pdf = TRUE) 
+    devices = NULL, res = 300, show = TRUE, use.cairo_pdf = TRUE, pdf.viewer = FALSE) 
 {
     # open device for writing
     dev_open <- function(file, width, height, res, use.cairo_pdf = FALSE) {
@@ -89,8 +90,21 @@ write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5,
     }
 }
 
+#' showfig in external app
+#' @param pdf.viewer boolean, if set true, pdf viewer will be used mandatorily.
+#' 
 #' @export
-showfig <- function(file) {
+showfig <- function(file, pdf.viewer = FALSE) {
+    pdf_view <- function() {
+        cmd = sprintf('"%s" "%s"', app, file)
+        check_dir(dirname(file))
+        tryCatch({
+            status <- suppressWarnings(shell(cmd, intern = FALSE, wait = FALSE))
+        }, error = function(e) {
+            message(sprintf("[e] %s", e$message))
+        })
+    }
+
     file_ext = file_ext(file)
     app = ""
     if (.Platform$OS.type == "windows") 
@@ -98,16 +112,16 @@ showfig <- function(file) {
     if (.Platform$OS.type == "unix") app <- "evince"
 
     # if linux system
-    is_server_pdf = file.exists("/usr/sbin/rstudio-server") && file_ext == "pdf"
-    if (file_ext %in% c("svg", "emf", "jpg") || is_server_pdf) {
-        file.show(file)
+    if (pdf.viewer) {
+        pdf_view()
     } else {
-        cmd = sprintf('"%s "%s" "', app, file)
-        check_dir(dirname(file))
-        tryCatch({
-            status <- suppressWarnings(shell(cmd, intern = FALSE, wait = FALSE))
-        }, error = function(e) {
-            message(sprintf("[e] %s", e$message))
-        })
+        # if `is_wsl_rserver` is true, `file.show` will be called.
+        is_wsl_rserver = dir.exists("/mnt/c") &&
+            file.exists("/usr/sbin/rstudio-server") && file_ext == "pdf"
+        if (file_ext %in% c("svg", "emf", "jpg") || is_wsl_rserver) {
+            file.show(file)
+        } else {
+            pdf_view()
+        }
     }
 }
