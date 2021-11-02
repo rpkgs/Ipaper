@@ -103,3 +103,5 @@ is_empty <- function(x) {
     is.null(x) || (is.data.frame(x) && nrow(x) == 0) || length(x) == 0
     # (is.numeric(x) && is.na(x))
 }
+
+empty <- is_empty

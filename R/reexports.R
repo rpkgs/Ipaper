@@ -1,7 +1,7 @@
 #' @export
 transpose <- purrr::transpose
 
-#' @importFrom dplyr first last mutate
+#' @importFrom dplyr first last mutate top_n top_frac
 #' @export
 dplyr::first
 
@@ -10,6 +10,12 @@ dplyr::last
 
 #' @export
 dplyr::mutate
+
+#' @export
+dplyr::top_n
+
+#' @export
+dplyr::top_frac
 
 #' @export
 magrittr::`%>%`

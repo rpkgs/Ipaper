@@ -9,11 +9,11 @@ write_fig({
     text(x, 0.5, str, family = "song", offset = c(0,0), font = 2)
     text(x, 0.4, "(a) 华文仿宋 测试字体 Times New Roman Huawen Fangsong", family = "hwfsong", cex = cex)
     text(x, 0.3, "(a) 仿宋   测试字体Times New Roman FangSong", family = "fsong", cex = cex)
-    text(x, 0.2, "(a) 测试字体 Times New Roman FangSong", family = "times", cex = cex)
-    text(x, 0.1, "(a) 测试字体 Times New Roman FangSong", family = "rTimes", cex = cex, font = 2)
-    text(x, 0, "(a) 测试字体 Times New Roman FangSong", family = "TimesSimSun", cex = cex, font = 2)
+    text(x, 0.2, "(a) 测试字体 Times", family = "Times", cex = cex)
+    text(x, 0.1, "(a) 测试字体 rTimes", family = "rTimes", cex = cex, font = 2)
+    text(x, 0, "(a) 测试字体 TimesSimSun", family = "TimesSimSun", cex = cex, font = 2)
 }, "a.pdf", 10, 6)
-
+# `Times` also works for Linux system
 
 write_fig({
     par(family = "TimesSimSun", cex = 1.4)
