@@ -11,7 +11,8 @@
 #' @importFrom graphics rect plot
 #' @importFrom grid textGrob gpar grid.newpage
 #' @importFrom grDevices cairo_pdf dev.off svg tiff colorRampPalette xy.coords
-#' @importFrom stats quantile setNames
+#' col2rgb jpeg
+#' @importFrom stats quantile setNames end start
 #' @importFrom utils object.size
 #' @importFrom graphics abline grid legend par
 #' @importFrom stats acf as.formula lm median na.omit pnorm qnorm density

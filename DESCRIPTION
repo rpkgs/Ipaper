@@ -9,9 +9,7 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: TRUE
 Depends:
-    R (>= 3.1)
-import: 
-    RoxygenNote: 6.1.0
+    R (>= 3.4)
 Imports:
     ggplot2,
     jsonlite,
@@ -31,9 +29,10 @@ Imports:
     clipr, glue,
     matrixStats, 
     rstudioapi, 
-    remotes
+    remotes, 
+    crayon
 Suggests: 
-    testthat (>= 2.1.0),
+    testthat (>= 3.1.0),
     knitr,
     rmarkdown,
     sp,

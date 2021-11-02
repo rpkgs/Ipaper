@@ -51,7 +51,7 @@ data.table::is.data.table
 #' @export
 data.table::as.data.table
 
-#' @importFrom lubridate make_date make_datetime days_in_month
+#' @importFrom lubridate make_date make_datetime days_in_month month year day
 #' @export
 lubridate::make_date
 

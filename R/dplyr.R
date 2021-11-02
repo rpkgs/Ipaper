@@ -18,6 +18,8 @@ dt_chr2num <- function(d) {
 
 # https://stackoverflow.com/questions/54774280/plyrddply-equivalent-in-dplyr
 
+
+#' @importFrom data.table dcast
 #' @export
 dcast2 <- function(d, by, value.var = "value", ...) {
     vars_left <- setdiff(colnames(d), c(by, value.var)) %>% paste(collapse = "+")

@@ -4,6 +4,7 @@ loop_apply = plyr:::loop_apply
 splitter_d = plyr:::splitter_d
 
 #' @importFrom plyr . each progress_none create_progress_bar as.quoted 
+#' quickdf rbind.fill.matrix
 #' @export
 plyr::.
 
@@ -121,7 +122,7 @@ llply2 <- function (.data, .fun = NULL, ..., .progress = "none",
     }
 
     if (.parallel) {
-        setup_parallel()
+        plyr:::setup_parallel()
         i <- seq_len(n)
         fe_call <- as.call(c(list(quote(foreach::foreach), i = i), 
             .paropts))
