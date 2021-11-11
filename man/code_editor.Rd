@@ -2,25 +2,25 @@
 % Please edit documentation in R/cmd_func.R
 \name{code_editor}
 \alias{code_editor}
+\alias{is_wsl}
+\alias{is_win}
+\alias{OS_type}
 \alias{subl}
 \alias{code}
 \alias{smerge}
-\alias{SumatraPDF}
-\alias{is_wsl}
-\alias{OS_type}
 \title{code editor}
 \usage{
+is_wsl()
+
+is_win()
+
+OS_type()
+
 subl(path = getwd(), verbose = FALSE)
 
 code(path = getwd(), verbose = FALSE)
 
 smerge(path = getwd(), verbose = FALSE)
-
-SumatraPDF(path = getwd(), verbose = FALSE)
-
-is_wsl()
-
-OS_type()
 }
 \arguments{
 \item{verbose}{Boolean. Whether to print command into console?}

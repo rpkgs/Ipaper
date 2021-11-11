@@ -95,15 +95,6 @@ write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5,
 #' 
 #' @export
 showfig <- function(file, pdf.viewer = FALSE) {
-    pdf_view <- function() {
-        cmd = sprintf('"%s" "%s"', app, file)
-        check_dir(dirname(file))
-        tryCatch({
-            status <- suppressWarnings(shell(cmd, intern = FALSE, wait = FALSE))
-        }, error = function(e) {
-            message(sprintf("[e] %s", e$message))
-        })
-    }
 
     file_ext = file_ext(file)
     app = ""
@@ -121,7 +112,7 @@ showfig <- function(file, pdf.viewer = FALSE) {
         if (file_ext %in% c("svg", "emf", "jpg") || is_wsl_rserver) {
             file.show(file)
         } else {
-            pdf_view()
+            pdf_view(file)
         }
     }
 }

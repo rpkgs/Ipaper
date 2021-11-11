@@ -5,6 +5,7 @@ p1 <- p + geom_boxplot2()
 
 ## ggplot version
 write_fig(p1, "Fig. 1. ggplot.pdf", show = TRUE)
+# pdf_view("Fig. 1. ggplot.pdf")
 write_fig(p1, "Fig. 1. ggplot", show = TRUE)
 write_fig(p1, "Fig. 1. ggplot.pdf", show = TRUE, 
     devices = c("jpg", "png", "svg", "pdf", "tif", "emf"))

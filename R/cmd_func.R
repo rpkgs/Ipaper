@@ -2,13 +2,23 @@ cmd_wsl = "/mnt/c/WINDOWS/system32/cmd.exe"
 
 cmd_func <- function(command) {
     app = ""
-    if (file.exists(cmd_wsl)) app = paste0(cmd_wsl, " /c")
+    if (file.exists(cmd_wsl)) app = paste0(cmd_wsl, " /c ")
 
     function (path = getwd(), verbose = FALSE) {
-        path <- check_path(path)
-        fmt = ifelse(basename(command) == command, '%s %s "%s"', '%s ""%s" "%s""')
-        # fmt = ifelse(command %in% c("code", "subl"), '%s %s "%s"', '%s ""%s" "%s""')
-        # fmt = '%s ""%s" "%s""'
+        command %<>% path.mnt()
+        path %<>% normalizePath()
+        
+        # command %<>% path.mnt()
+        is_longname = !(basename(command) == command) # longname means windows 
+        # fmt = ifelse(is_longname, '%s""%s" "%s""',  '%s%s "%s"')
+        fmt = '%s%s "%s"'
+        if (is_wsl() || is_win()) path %<>% win_path()
+        
+        if (is_longname) {
+            app = ""
+            fmt = '%s"%s" "%s"'
+            if (is_win()) fmt = '%s""%s" "%s""'
+        }
         cmd <- sprintf(fmt, app, command, path)
         if (verbose) cat(cmd, "\n")
         shell(cmd)
@@ -35,6 +45,23 @@ NULL
 
 #' @rdname code_editor
 #' @export
+is_wsl <- function() file.exists("/mnt/c/WINDOWS/system32/cmd.exe")
+
+#' @rdname code_editor
+#' @export
+is_win <- function() .Platform$OS.type == "windows"
+
+
+#' @rdname code_editor
+#' @export
+OS_type <- function(){
+    OS.type = .Platform$OS.type
+    if (is_wsl()) OS.type = "wsl"
+    OS.type
+}
+
+#' @rdname code_editor
+#' @export
 subl = cmd_func("subl")
 
 #' @rdname code_editor
@@ -51,23 +78,28 @@ code = cmd_func("code")
 #' @export
 smerge = cmd_func("smerge")
 
-#' @rdname code_editor
+#' pdf_view
+#' @param file the path of pdf file
+#' 
+#' @note not work in wsl
 #' @export
-SumatraPDF = cmd_func("C:/Program Files/RStudio/bin/sumatra/SumatraPDF.exe")
-
-#' @rdname code_editor
-#' @export
-is_wsl <- function(){
-    file.exists("/mnt/c/WINDOWS/system32/cmd.exe")
+pdf_view <- function(file, ...) {
+    if (is_win() || is_wsl()) {
+        SumatraPDF(file, ...)
+    } else {
+        evince(file, ...)
+    }
 }
 
-#' @rdname code_editor
+#' @rdname pdf_view
 #' @export
-OS_type <- function(){
-    OS.type = .Platform$OS.type
-    if (is_wsl()) OS.type = "wsl"
-    OS.type
-}
+SumatraPDF <- cmd_func("C:/Program Files/RStudio/bin/sumatra/SumatraPDF.exe")
+
+#' @rdname pdf_view
+#' @export
+evince <- cmd_func("evince")
+
+
 
 #' Open directory in Explorer
 #' 

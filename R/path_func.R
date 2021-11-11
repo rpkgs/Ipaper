@@ -25,7 +25,7 @@ win_path <- function(path, winslash = "\\\\"){
 }
 
 check_path <- function(path) {
-    path = normalizePath(path)
+    if (file.exists(path)) path %<>% normalizePath()
     if (OS_type() %in% c("wsl", "windows")) {
         path <- win_path(path)
     }
