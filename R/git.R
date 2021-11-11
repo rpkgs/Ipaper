@@ -49,14 +49,6 @@ github <- function(path = getwd()) {
 #     load_all(path, ...)
 # }
 
-#' @importFrom remotes install_github
-#' @export
-remotes::install_github
-
-#' @importFrom remotes install_git
-#' @export
-remotes::install_git
-
 #' Attempts to install a package directly from gitee.
 #'
 #' @param Repository address in the format `username/repo[/subdir][@ref|#pull]`.

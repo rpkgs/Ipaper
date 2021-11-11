@@ -91,3 +91,13 @@ iterators::icount
 
 # #' @export
 # lubridate::date
+
+#' @importFrom remotes install_github install_gitlab install_git
+#' @export
+remotes::install_github
+
+#' @export
+remotes::install_gitlab
+
+#' @export
+remotes::install_git
