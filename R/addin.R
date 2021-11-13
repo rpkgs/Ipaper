@@ -105,7 +105,7 @@ key_blind <- function(){
     file_addin <- "~/.R/rstudio/keybindings/addins.json"
     indir <- dirname(file_addin)
     
-    if (!dir.exists(indir)) dir.create(indir, recursive = TRUE)
+    if (!dir.exists(indir)) mkdir(indir)
     if (!file.exists(file_addin)) writeLines("{}", file_addin)
     
     options_addin <- list(
@@ -138,7 +138,7 @@ options_update <- function(file, options.new) {
     if (file.exists(file)) {
         options <- read_json(file)
     } else {
-        check_dir(basename(file))
+        mkdir(dirname(file))
         options <- list()
     }
 
