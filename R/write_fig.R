@@ -20,7 +20,7 @@
 #' @importFrom grDevices svg tiff
 #' @export
 write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5, 
-    devices = NULL, res = 300, show = TRUE, use.cairo_pdf = TRUE, pdf.viewer = FALSE) 
+    devices = NULL, res = 300, show = TRUE, use.cairo_pdf = TRUE, use.file_show = FALSE) 
 {
     # open device for writing
     dev_open <- function(file, width, height, res, use.cairo_pdf = FALSE) {
@@ -86,33 +86,28 @@ write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5,
             temp <- suppressWarnings(FUN(p))
         }
         dev.off() # close device
-        if (show) showfig(outfile)
+        if (show) showfig(outfile, use.file_show)
     }
 }
 
 #' showfig in external app
-#' @param pdf.viewer boolean, if set true, pdf viewer will be used mandatorily.
-#' 
+#' @param use.file_show boolean. If true, `file.show` will be used mandatorily.
+#' @keywords internal
 #' @export
-showfig <- function(file, pdf.viewer = FALSE) {
+showfig <- function(file, use.file_show = FALSE) {
 
     file_ext = file_ext(file)
     app = ""
     if (.Platform$OS.type == "windows") 
         app = '"C:/Program Files/RStudio/bin/sumatra/SumatraPDF.exe"'
     if (.Platform$OS.type == "unix") app <- "evince"
-
-    # if linux system
-    if (pdf.viewer) {
-        pdf_view()
+    
+    # if `is_wsl_rserver` is true, `file.show` will be called.
+    is_wsl_rserver = dir.exists("/mnt/c") &&
+        file.exists("/usr/sbin/rstudio-server") && file_ext == "pdf"
+    if (file_ext %in% c("svg", "emf", "jpg") || (is_wsl_rserver && use.file_show)) {
+        file.show(file)
     } else {
-        # if `is_wsl_rserver` is true, `file.show` will be called.
-        is_wsl_rserver = dir.exists("/mnt/c") &&
-            file.exists("/usr/sbin/rstudio-server") && file_ext == "pdf"
-        if (file_ext %in% c("svg", "emf", "jpg") || is_wsl_rserver) {
-            file.show(file)
-        } else {
-            pdf_view(file)
-        }
+        pdf_view(file)
     }
 }

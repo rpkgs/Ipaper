@@ -13,7 +13,7 @@ write_fig(
   res = 300,
   show = TRUE,
   use.cairo_pdf = TRUE,
-  pdf.viewer = FALSE
+  use.file_show = FALSE
 )
 }
 \arguments{
@@ -39,7 +39,7 @@ The default type is pdf.}
 \item{use.cairo_pdf}{This parameter is for pdf type. whether to use \code{grDevices::cairo_pdf}?
 \code{cairo_pdf} supports self defined font, but can not create multiple page pdf.}
 
-\item{pdf.viewer}{boolean, if set true, pdf viewer will be used mandatorily.}
+\item{use.file_show}{boolean. If true, \code{file.show} will be used mandatorily.}
 }
 \description{
 write figure to pdf, tif, png, jpg, svg, or emf, according to file suffix.

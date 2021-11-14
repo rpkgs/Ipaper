@@ -4,6 +4,8 @@
 \name{reexports}
 \alias{reexports}
 \alias{.}
+\alias{mapvalues}
+\alias{revalue}
 \alias{first}
 \alias{last}
 \alias{mutate}
@@ -53,7 +55,7 @@ below to see their documentation.
 
   \item{matrixStats}{\code{\link[matrixStats]{rowMeans2}}, \code{\link[matrixStats]{rowQuantiles}}, \code{\link[matrixStats]{rowSums2}}}
 
-  \item{plyr}{\code{\link[plyr:quoted]{.}}}
+  \item{plyr}{\code{\link[plyr:quoted]{.}}, \code{\link[plyr]{mapvalues}}, \code{\link[plyr]{revalue}}}
 
   \item{purrr}{\code{\link[purrr]{map}}}
 

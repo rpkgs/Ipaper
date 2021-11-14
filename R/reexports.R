@@ -1,6 +1,13 @@
 #' @export
 transpose <- purrr::transpose
 
+#' @importFrom plyr mapvalues revalue
+#' @export
+plyr::mapvalues
+
+#' @export
+plyr::revalue
+
 #' @importFrom dplyr first last mutate top_n top_frac
 #' @export
 dplyr::first

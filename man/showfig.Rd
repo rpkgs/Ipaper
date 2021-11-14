@@ -4,11 +4,12 @@
 \alias{showfig}
 \title{showfig in external app}
 \usage{
-showfig(file, pdf.viewer = FALSE)
+showfig(file, use.file_show = FALSE)
 }
 \arguments{
-\item{pdf.viewer}{boolean, if set true, pdf viewer will be used mandatorily.}
+\item{use.file_show}{boolean. If true, \code{file.show} will be used mandatorily.}
 }
 \description{
 showfig in external app
 }
+\keyword{internal}
