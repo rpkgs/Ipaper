@@ -8,6 +8,7 @@ test_that("write_fig works", {
         write_fig(p1, "a.svg", show = FALSE)
         write_fig(p1, "a.pdf", show = FALSE)
         write_fig(p1, "a.tif", show = FALSE)
+        dev_off()
         TRUE    
     })
 })

@@ -22,43 +22,15 @@
 write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5, 
     devices = NULL, res = 300, show = TRUE, use.cairo_pdf = TRUE, use.file_show = FALSE) 
 {
-    # open device for writing
-    dev_open <- function(file, width, height, res, use.cairo_pdf = FALSE) {
-        file_ext = file_ext(file)
-        param <- list(file, width = width, height = height)
-
-        if (file_ext == "pdf") {
-            devicefun <- ifelse (use.cairo_pdf, cairo_pdf, Cairo::CairoPDF)
-            # param %<>% c(list(family = "Times"))
-        } else if (file_ext == "svg") {
-            devicefun <- svg
-        } else if (file_ext == "emf") {
-            devicefun <- switch(.Platform$OS.type, 
-                "windows" = grDevices::win.metafile, 
-                "unix" = devEMF::emf)
-        } else {
-            param %<>% c(list(units = "in", res = res))
-            
-            if (file_ext %in% c("tif", "tiff")) {
-                devicefun <- tiff
-                param$compression = "lzw"
-            } else if (file_ext == "png") {
-                devicefun <- Cairo::CairoPNG
-            } else if (file_ext == "jpg") {
-                devicefun <- jpeg
-            } else {
-                stop(sprintf("Unsupported type: %s", file_ext))
-            }
-        }
-        # listk(devicefun, param)
-        do.call(devicefun, param)
-    }
     ## end of function -------------------------------------------------------
     # if (missing(p)) p <- last_plot()
     expr  = substitute(p)
-    class = class(expr)
-    is_expr <- class %in% c("{")
-
+    is_expr <- "{" %in% class(expr)
+    if ("name" %in% class(expr) &&  "{" %in% class(p)) {
+        is_expr = TRUE
+        expr = p
+    }
+    
     FUN <- base::print
     if (!is_expr) {
         if ("grob" %in% class(p)) {
@@ -67,7 +39,6 @@ write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5,
             FUN <- base::print
         }    
     }
-    
     outdir    = dirname(file)
     filename  = file_name(file)
     file_exts = if (is.null(devices)) file_ext(file) else devices
@@ -88,6 +59,55 @@ write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5,
         dev.off() # close device
         if (show) showfig(outfile, use.file_show)
     }
+}
+
+#' open device for plot
+#' @inheritParams grDevices::cairo_pdf
+#' @inheritParams write_fig
+#' @keywords internal
+#' @export
+dev_open <- function(file, width, height, res, use.cairo_pdf = FALSE) {
+    file_ext = file_ext(file)
+    param <- list(file, width = width, height = height)
+
+    if (file_ext == "pdf") {
+        devicefun <- ifelse (use.cairo_pdf, cairo_pdf, Cairo::CairoPDF)
+        # param %<>% c(list(family = "Times"))
+    } else if (file_ext == "svg") {
+        devicefun <- svg
+    } else if (file_ext == "emf") {
+        devicefun <- switch(.Platform$OS.type, 
+            "windows" = grDevices::win.metafile, 
+            "unix" = devEMF::emf)
+    } else {
+        param %<>% c(list(units = "in", res = res))
+        
+        if (file_ext %in% c("tif", "tiff")) {
+            devicefun <- tiff
+            param$compression = "lzw"
+        } else if (file_ext == "png") {
+            devicefun <- Cairo::CairoPNG
+        } else if (file_ext == "jpg") {
+            devicefun <- jpeg
+        } else {
+            stop(sprintf("Unsupported type: %s", file_ext))
+        }
+    }
+    # listk(devicefun, param)
+    do.call(devicefun, param)
+}
+
+#' @rdname dev_open
+#' @export
+dev_off <- function () {
+    tryCatch({
+        while (TRUE) {     
+            cat("closed\n")
+            dev.off()      
+        }
+    }, error = function(e) {
+        return(invisible())
+    })
 }
 
 #' showfig in external app
