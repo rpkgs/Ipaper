@@ -7,12 +7,12 @@
 #' label_tag(1:5)
 #' char2expr(1:5)
 #' @export
-label_tag <- function(labels, tag = TRUE) {
+label_tag <- function(labels, tag = TRUE, letter_begin = 1) {
     n <- length(labels)
     tags = c(letters, LETTERS)
     sapply(seq_along(labels), function(i) {
         name = labels[[i]]
-        data <- list(tag = tags[i], x = name)
+        data <- list(tag = tags[i + letter_begin - 1], x = name)
         if (tag) {
             eval(substitute(expression(bold("(" * tag * ")" ~ x)), data))
             # eval(substitute(expression(bold(tag * ". " ~ x)), data))
