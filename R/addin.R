@@ -110,7 +110,7 @@ key_blind <- function(){
     
     options_addin <- list(
         "Ipaper::addin_copyLines"      = "Alt+C",
-        "Ipaper::addin_cutLines"       = "Ctrl+X",
+        # "Ipaper::addin_cutLines"       = "Ctrl+X",
         "Ipaper::addin_insertDo"       = "Ctrl+Alt+D",
         "Ipaper::addin_selectWord"     = "Ctrl+D",
         "Ipaper::addin_insertIn"       = "Ctrl+Shift+I",
