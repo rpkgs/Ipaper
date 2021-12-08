@@ -14,7 +14,7 @@ Imports:
     ggplot2,
     jsonlite,
     magrittr,
-    purrr, 
+    purrr, progress,
     lubridate,
     data.table,
     openxlsx,

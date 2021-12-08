@@ -16,8 +16,7 @@
 #' @examples
 #' x <- list(a = 1:10, beta = exp(-3:3), logic = c(TRUE,FALSE,FALSE,TRUE))
 #' llply(x, mean, .progress = "text")
-#' llply(x, ~mean(.x), .progress = T
-#' 
+#' llply(x, ~mean(.x), .progress = TRUE)
 #' llply(x, quantile, probs = 1:3 / 4)
 #' @export
 llply <- function(.data, .f = NULL, .progress = "none", ...) { 
