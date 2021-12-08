@@ -32,6 +32,10 @@
 \alias{install_github}
 \alias{install_gitlab}
 \alias{install_git}
+\alias{edit_r_environ}
+\alias{edit_r_profile}
+\alias{use_git_ignore}
+\alias{use_build_ignore}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -60,5 +64,7 @@ below to see their documentation.
   \item{purrr}{\code{\link[purrr]{map}}}
 
   \item{remotes}{\code{\link[remotes]{install_git}}, \code{\link[remotes]{install_github}}, \code{\link[remotes]{install_gitlab}}}
+
+  \item{usethis}{\code{\link[usethis:edit]{edit_r_environ}}, \code{\link[usethis:edit]{edit_r_profile}}, \code{\link[usethis]{use_build_ignore}}, \code{\link[usethis]{use_git_ignore}}}
 }}
 

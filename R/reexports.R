@@ -108,3 +108,16 @@ remotes::install_gitlab
 
 #' @export
 remotes::install_git
+
+#' @import usethis
+#' @export
+usethis::edit_r_environ
+
+#' @export
+usethis::edit_r_profile
+
+#' @export
+usethis::use_git_ignore
+
+#' @export
+usethis::use_build_ignore

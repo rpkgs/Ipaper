@@ -5,7 +5,13 @@
 \alias{dev_off}
 \title{open device for plot}
 \usage{
-dev_open(file, width, height, res, use.cairo_pdf = FALSE)
+dev_open(
+  file = "Rplot.pdf",
+  width = 10,
+  height = 5,
+  res = 300,
+  use.cairo_pdf = FALSE
+)
 
 dev_off()
 }

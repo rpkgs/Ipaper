@@ -14,7 +14,7 @@ Imports:
     ggplot2,
     jsonlite,
     magrittr,
-    purrr,
+    purrr, 
     lubridate,
     data.table,
     openxlsx,
@@ -29,13 +29,13 @@ Imports:
     clipr, glue,
     matrixStats, 
     rstudioapi, 
-    remotes, 
+    remotes, usethis, checkmate,
     crayon
 Suggests: 
     testthat (>= 3.1.0),
     knitr,
     rmarkdown,
-    Cairo,
+    Cairo, 
     sp,
     grid, 
     gridExtra

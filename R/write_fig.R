@@ -66,7 +66,7 @@ write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5,
 #' @inheritParams write_fig
 #' @keywords internal
 #' @export
-dev_open <- function(file, width, height, res, use.cairo_pdf = FALSE) {
+dev_open <- function(file = "Rplot.pdf", width = 10, height = 5, res = 300, use.cairo_pdf = FALSE) {
     file_ext = file_ext(file)
     param <- list(file, width = width, height = height)
 
@@ -125,7 +125,7 @@ showfig <- function(file, use.file_show = FALSE) {
     # if `is_wsl_rserver` is true, `file.show` will be called.
     is_wsl_rserver = dir.exists("/mnt/c") &&
         file.exists("/usr/sbin/rstudio-server") && file_ext == "pdf"
-    if (file_ext %in% c("svg", "emf", "jpg") || (is_wsl_rserver && use.file_show)) {
+    if (file_ext %in% c("svg", "emf", "jpg", "png") || (is_wsl_rserver && use.file_show)) {
         file.show(file)
     } else {
         pdf_view(file)
