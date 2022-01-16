@@ -73,3 +73,14 @@ obj.size <- function(obj, unit = "Mb") {
 file_size <- function(file) {
     utils:::format.object_size(file.size(file), "auto")
 }
+
+#' dir2
+#' 
+#' @inheritParams base::dir
+#' @param ... other parameters to [base::dir()]
+#' 
+#' @seealso [base::dir()]
+#' @export
+dir2 <- function(path = ".", pattern = NULL, full.names = TRUE, ...) {
+    dir(path, pattern, ..., full.names = full.names)
+}
