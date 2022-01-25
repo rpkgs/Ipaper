@@ -2,22 +2,27 @@
 % Please edit documentation in R/group_apply.R
 \name{group_apply}
 \alias{group_apply}
-\alias{group_upperEnvelope}
+\alias{upper_envelope}
 \title{group_apply}
 \usage{
-group_apply(x, y, step = 0.2, chunk = NULL, FUN = "mean", ...)
+group_apply(x, y, FUN = "mean", nchunk = 20, step = 0.2, brks = NULL, ...)
 
-group_upperEnvelope(x, y, step = 0.2, alpha = 0.95)
+upper_envelope(x, y, interval = c(0.5, 0.8, 0.9, 0.95), nchunk = 50)
 }
 \arguments{
-\item{chunk}{split data into nchunks, and apply \code{FUN} in every group}
-
 \item{FUN}{function of mean or median}
+
+\item{nchunk}{split data into n chunks by setting \code{brks = pretty(x, nchunk)},
+and apply \code{FUN} in every group. If \code{brks} provided, \code{step} will be ignored.}
+
+\item{step}{split data into chunks byn setting \code{brks = seq(xrange[1], xrange[2], by = step)}.
+If \code{brks} or \code{nchunk} provided, \code{step} will be ignored.}
+
+\item{brks}{a numeric vector}
 
 \item{...}{others to \code{FUN}}
 }
 \description{
 group_apply
-
-function to separate data to steps of x, obtain 95 quantile value for smooth
 }
+\keyword{internal}

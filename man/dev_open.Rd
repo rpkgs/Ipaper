@@ -23,8 +23,9 @@ dev_off()
 \item{height}{the height of the device in inches.}
 
 \item{res}{The nominal resolution in ppi which will be recorded in the
-    bitmap file, if a positive integer.  Also used for \code{units}
-    other than the default, and to convert points to pixels.}
+    bitmap file, if a positive integer.  Also used for units other than
+    the default.  If not specified, taken as 72 ppi to set the size of
+    text and line widths.}
 
 \item{use.cairo_pdf}{This parameter is for pdf type. whether to use \code{grDevices::cairo_pdf}?
 \code{cairo_pdf} supports self defined font, but can not create multiple page pdf.}

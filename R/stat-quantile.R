@@ -6,7 +6,7 @@ stat_sd <- function(x, digit = 2, ...){
     sd <- sd(x)
     fmt <- sprintf("%%.%df±%%.%df", digit, digit)
     label <- sprintf(fmt, ymedian, sd)
-    list(y = y, ymin = y-sd, ymax = y+sd, ymedian, sd = sd, label = label)
+    listk(y, ymin = y-sd, ymax = y+sd, ymedian, sd, label)
 }
 
 # 25% and 75% quantile
