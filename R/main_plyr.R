@@ -8,7 +8,8 @@
 
 #' plyr function in purrr style
 #' 
-#' @importFrom purrr as_mapper
+#' @inheritParams plyr::llply
+#' @param ... other arguments passed on to `.f`
 #' 
 #' @references
 #' 1. <https://github.com/TylerGrantSmith/purrrgress>
@@ -18,15 +19,24 @@
 #' llply(x, mean, .progress = "text")
 #' llply(x, ~mean(.x), .progress = TRUE)
 #' llply(x, quantile, probs = 1:3 / 4)
+#' 
+#' @importFrom purrr as_mapper
+#' @importFrom foreach %dopar% %do%
 #' @export
-llply <- function(.data, .f = NULL, .progress = "none", ...) { 
+llply <- function(.data, .f = NULL, .progress = "none", .parallel = FALSE, ...) { 
     if (is_empty(.data)) return(.data)
     n = length(.data)
+    
+    `%dof%` = ifelse(.parallel, `%dopar%`, `%do%`)
+    if (.parallel) .progress = FALSE
+
     if (isTRUE(.progress) || .progress == "text") {
         pro_map(.data, .f, ...)
     } else {
         .f <- as_mapper(.f, ...)
-        lapply(.data, .f)
+        foreach(x = .data) %dof% {
+            .f(x)
+        }
     }
 }
 

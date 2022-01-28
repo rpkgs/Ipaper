@@ -53,7 +53,9 @@ dt_ldply <- function(.data, .fun = NULL, ..., .progress = "none",
         .data <- as.list(.data)
     res <- llply2(.data = .data, .fun = .fun, ..., .progress = .progress, 
         .inform = .inform, .parallel = .parallel, .paropts = .paropts)
-    
+    # res <- llply(
+    #     .data = .data, .f = .fun, ..., .progress = .progress,
+    #     .parallel = .parallel)
     if (identical(.id, NA)) {
         .id <- ".id"
         id_as_factor <- FALSE

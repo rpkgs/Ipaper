@@ -7,13 +7,24 @@
 \alias{map_simplify}
 \title{plyr function in purrr style}
 \usage{
-llply(.data, .f = NULL, .progress = "none", ...)
+llply(.data, .f = NULL, .progress = "none", .parallel = FALSE, ...)
 
 ldply(.data, .f = NULL, ...)
 
 laply(.data, .f = NULL, ...)
 
 map_simplify(.data, .f = NULL, ...)
+}
+\arguments{
+\item{.data}{list to be processed}
+
+\item{.progress}{name of the progress bar to use, see
+\code{\link[plyr]{create_progress_bar}}}
+
+\item{.parallel}{if \code{TRUE}, apply function in parallel, using parallel
+backend provided by foreach}
+
+\item{...}{other arguments passed on to \code{.f}}
 }
 \description{
 plyr function in purrr style
@@ -23,6 +34,7 @@ x <- list(a = 1:10, beta = exp(-3:3), logic = c(TRUE,FALSE,FALSE,TRUE))
 llply(x, mean, .progress = "text")
 llply(x, ~mean(.x), .progress = TRUE)
 llply(x, quantile, probs = 1:3 / 4)
+
 }
 \references{
 \enumerate{
