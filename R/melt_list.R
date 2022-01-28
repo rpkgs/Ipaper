@@ -44,19 +44,6 @@ melt_list <- function(list, var.name = "variable", na.rm = TRUE, ...) {
     reorder_name(res, var.name)
 }
 
-listk <- function (...) 
-{
-    cols <- as.list(substitute(list(...)))[-1]
-    vars <- names(cols)
-    Id_noname <- if (is.null(vars)) 
-        seq_along(cols)
-    else which(vars == "")
-    if (length(Id_noname) > 0) 
-        vars[Id_noname] <- sapply(cols[Id_noname], deparse)
-    x <- setNames(list(...), vars)
-    return(x)
-}
-
 #' @rdname melt_list
 #' @export
 melt_tree <- function(x, names, ...) {

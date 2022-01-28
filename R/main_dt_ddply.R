@@ -31,7 +31,7 @@ unrowname <- . %>% set_rownames(NULL)
 #' @example R/examples/ex-ddply.R
 #' @export
 dt_ddply <- function(.data, .variables, .f = NULL, ..., .progress = "none",
-                   .inform = FALSE, .drop = TRUE, .parallel = FALSE, .paropts = NULL) {
+                   .inform = FALSE, .drop = TRUE, .parallel = FALSE) {
     if (empty(.data)) {
         return(.data)
     }
@@ -39,22 +39,23 @@ dt_ddply <- function(.data, .variables, .f = NULL, ..., .progress = "none",
     .variables <- as.quoted(.variables)
     pieces <- splitter_d(.data, .variables, drop = .drop)
     dt_ldply(
-        .data = pieces, .fun = .f, ..., .progress = .progress,
-        .inform = .inform, .parallel = .parallel, .paropts = .paropts
+        .data = pieces, .f = .f, ..., .progress = .progress,
+        .inform = .inform, .parallel = .parallel
     )
 }
 
 #' @rdname dt_ddply
 #' @export
-dt_ldply <- function(.data, .fun = NULL, ..., .progress = "none", 
-    .inform = FALSE, .parallel = FALSE, .paropts = NULL, .id = NA) {
+dt_ldply <- function(.data, .f = NULL, ..., .progress = "none", 
+    .inform = FALSE, .parallel = FALSE, .id = NA) {
 
      if (!inherits(.data, "split")) 
         .data <- as.list(.data)
-    res <- llply2(.data = .data, .fun = .fun, ..., .progress = .progress, 
-        .inform = .inform, .parallel = .parallel, .paropts = .paropts)
+     
+    res <- llply(.data = .data, .f = .f, ..., .progress = .progress, 
+        .inform = .inform, .parallel = .parallel)
     # res <- llply(
-    #     .data = .data, .f = .fun, ..., .progress = .progress,
+    #     .data = .data, .f = .f, ..., .progress = .progress,
     #     .parallel = .parallel)
     if (identical(.id, NA)) {
         .id <- ".id"
@@ -67,80 +68,14 @@ dt_ldply <- function(.data, .fun = NULL, ..., .progress = "none",
 
 #' @rdname dt_ddply
 #' @export
-dt_dlply <- function (.data, .variables, .fun = NULL, ..., .progress = "none", 
-    .inform = FALSE, .drop = TRUE, .parallel = FALSE, .paropts = NULL) 
+dt_dlply <- function (.data, .variables, .f = NULL, ..., .progress = "none", 
+    .inform = FALSE, .drop = TRUE, .parallel = FALSE) 
 {
     .variables <- as.quoted(.variables)
     pieces <- splitter_d(.data, .variables, drop = .drop)
-    llply2(.data = pieces, .fun = .fun, ..., .progress = .progress, 
-        .inform = .inform, .parallel = .parallel, .paropts = .paropts)
-}
-
-llply2 <- function (.data, .fun = NULL, ..., .progress = "none", 
-    .inform = FALSE, .parallel = FALSE, .paropts = NULL) 
-{
-    if (is.null(.fun)) 
-        return(as.list(.data))
-    if (is.character(.fun) || is.list(.fun)) 
-        .fun <- each(.fun)
-    if (!is.function(.fun)) 
-        stop(".fun is not a function.")
-    if (!inherits(.data, "split")) {
-        pieces <- as.list(.data)
-        fast_path <- .progress == "none" && !.inform && 
-            !.parallel
-        if (fast_path) {
-            return(structure(lapply(pieces, .fun, ...), dim = dim(pieces)))
-        }
-    } else {
-        pieces <- .data
-    }
-    n <- length(pieces)
-    if (n == 0) 
-        return(list())
-    if (.parallel && .progress != "none") {
-        message("Progress disabled when using parallel plyr")
-        .progress <- "none"
-    }
-    progress <- create_progress_bar(.progress)
-    progress$init(n)
-    on.exit(progress$term())
-    result <- vector("list", n)
-    # set_attr("vars", attr(pieces, "vars"))
-    do.ply <- function(i) {
-        # piece <- pieces[[i]]
-        piece <- pieces$data[pieces$index[[i]], ] 
-        if (.inform) {
-            res <- try(.fun(piece, ...))
-            if (inherits(res, "try-error")) {
-                piece <- paste(utils::capture.output(print(piece)), collapse = "\n")
-                stop("with piece ", i, ": \n", piece, call. = FALSE)
-            }
-        } else {
-            res <- .fun(piece, ...)
-        }
-        progress$step()
-        res
-    }
-
-    if (.parallel) {
-        plyr:::setup_parallel()
-        i <- seq_len(n)
-        fe_call <- as.call(c(list(quote(foreach::foreach), i = i), 
-            .paropts))
-        fe <- eval(fe_call)
-        result <- foreach::`%dopar%`(fe, do.ply(i))
-    } else {
-        result <- loop_apply(n, do.ply)
-    }
-    
-    attributes(result)[c("split_type", "split_labels")] <- 
-        attributes(pieces)[c("split_type", "split_labels")]
-    names(result) <- names(pieces)
-    if (!is.null(dim(pieces))) {
-        dim(result) <- dim(pieces)
-    }
-    result
+    llply(.data = pieces, .f = .f, ..., .progress = .progress, 
+        .inform = .inform, 
+        .parallel = .parallel)
 }
 
 list_to_dataframe <- function (res, labels = NULL, id_name = NULL, id_as_factor = FALSE) {

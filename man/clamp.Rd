@@ -3,11 +3,14 @@
 \name{clamp}
 \alias{clamp}
 \alias{clamp_min}
+\alias{clamp_max}
 \title{clamp}
 \usage{
 clamp(x, lims = c(0, 1), fill.na = FALSE)
 
 clamp_min(x, value = 0)
+
+clamp_max(x, value = 0)
 }
 \arguments{
 \item{x}{Numeric vector}

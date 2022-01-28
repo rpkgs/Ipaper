@@ -29,6 +29,11 @@ InitCluster <- function (ncluster = 4, outfile = "log.txt", FORK = TRUE, kill = 
 }
 
 #' @export
+check_cluster <- function(ncluster = 6) {
+    if (length(getOption("cl")) == 0) InitCluster(ncluster)
+}
+
+#' @export
 gc_cluster <- function(n){
     # if (is.null(n)) {
     #     n <- length(foreach:::.foreachGlobals$data)

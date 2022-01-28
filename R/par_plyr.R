@@ -54,7 +54,3 @@ apply_par <- function(X, .margins = 1, FUN, ..., .progress = "text") {
     }
 }
 
-#' @export
-check_cluster <- function(ncluster = 6) {
-    if (length(getOption("cl")) == 0) InitCluster(ncluster)
-}

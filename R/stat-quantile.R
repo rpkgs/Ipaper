@@ -17,7 +17,7 @@ stat_quantile2 <- function(x, probs = c(0.25, 0.75), ...){
     y <- median(x)
     # sd <- sd(x)
     r <- quantile(x, probs = probs, na.rm = TRUE)
-    c(y = y, ymin = r[[1]], ymax = r[[2]])
+    listk(y = y, ymin = r[[1]], ymax = r[[2]])
 }
 
 #' @export

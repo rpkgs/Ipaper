@@ -27,3 +27,10 @@ clamp_min <- function(x, value = 0){
     x[x < value] <- value
     x
 }
+
+#' @rdname clamp
+#' @export
+clamp_max <- function(x, value = 0){
+    x[x > value] <- value
+    x
+}
