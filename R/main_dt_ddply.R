@@ -129,3 +129,40 @@ list_to_dataframe <- function (res, labels = NULL, id_name = NULL, id_as_factor 
     labels <- labels[rep(1:nrow(labels), rows), cols, drop = FALSE]
     if (is_empty(cols)) set_rownames(resdf, NULL) else cbind(data.table(labels), resdf)
 }
+
+#' @export
+"[[.indexed_df" <- function(x, i) {
+  out <- extract_rows(x$data, x$index[[i]])  
+  attr(out, "vars") <- x$vars
+  out
+}
+
+extract_rows <- function(x, i) {
+  if (is.data.table(x)) return( data.table:::`[.data.table`(x, i, drop = FALSE) )
+  if (!is.data.frame(x)) return( x[i, , drop = FALSE] )
+
+  n <- ncol(x)
+
+  out <- lapply(seq_len(n), extract_col_rows, df = x, i = i)
+
+  names(out) <- names(x)
+  class(out) <- class(x) #"data.frame"
+  attr(out, "row.names") <- c(NA_integer_, -length(out[[1]]))
+
+  out
+}
+
+extract_col_rows <- function(df, i, j) {
+  col <- .subset2(df, j)
+  if (isS4(col)) return(col[i])
+
+  if (is.null(attr(col, "class"))) {
+    .subset(col, i)
+  } else if (inherits(col, "factor") || inherits(col, "POSIXt")) {
+    out <- .subset(col, i)
+    attributes(out) <- attributes(col)
+    out
+  } else {
+    col[i]
+  }
+}
