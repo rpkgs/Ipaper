@@ -130,8 +130,9 @@ list_to_dataframe <- function (res, labels = NULL, id_name = NULL, id_as_factor 
     if (is_empty(cols)) set_rownames(resdf, NULL) else cbind(data.table(labels), resdf)
 }
 
+# indexed, indexed_df
 #' @export
-"[[.indexed_df" <- function(x, i) {
+"[[.indexed" <- function(x, i) {
   out <- extract_rows(x$data, x$index[[i]])  
   attr(out, "vars") <- x$vars
   out
