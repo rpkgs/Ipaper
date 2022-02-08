@@ -47,13 +47,14 @@ cdo_grid <- function(range = c(70, 140, 15, 55), cellsize = 0.1, outfile = "grid
     nlon = diff(range[1:2])/cellsize
     nlat = diff(range[3:4])/cellsize
 
+    hcell = cellsize/2
     grid = glue("
     gridtype = lonlat
     xsize = {nlon}
     ysize = {nlat}
-    xfirst = {range[1]}
+    xfirst = {range[1] + hcell}
     xinc = {cellsize}
-    yfirst = {range[3]}
+    yfirst = {range[3] + hcell}
     yinc = {cellsize}
     ")
     writeLines(grid, outfile)

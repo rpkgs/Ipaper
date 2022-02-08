@@ -1,7 +1,7 @@
 Package: Ipaper
 Type: Package
 Title: Collection of personal practical R functions
-Version: 0.1.8
+Version: 0.1.9
 Authors@R: person("Dongdong", "Kong", email = "kongdd.sysu@gmail.com",
   role = c("aut", "cre"))
 Description: Awesome functions in R.
