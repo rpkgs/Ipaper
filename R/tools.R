@@ -113,3 +113,9 @@ cut_plevels <- function(x, pvalue = c(0.01, 0.05, 0.1), verbose = FALSE) {
     xf <- cut(x, pvalue2) %>% factor(levels_num, levels_str)
     xf
 }
+
+#' @export
+guess_names <- function(x) {
+    if (is.null(names(x))) names(x) = seq_along(x)
+    x
+}
