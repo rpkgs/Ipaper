@@ -2,6 +2,7 @@
 # Ipaper 0.1.9
 
 - fix `cdo_grid` corner coordinate error.
+- set `kill=FALSE` as default in `InitCluster`
 
 # Ipaper 0.1.7
 

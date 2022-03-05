@@ -14,7 +14,7 @@ killCluster <- function(){
 #' @importFrom doParallel registerDoParallel
 #' @importFrom parallel makeCluster
 #' @export
-InitCluster <- function (ncluster = 4, outfile = "log.txt", FORK = TRUE, kill = TRUE) 
+InitCluster <- function (ncluster = 4, outfile = "log.txt", FORK = TRUE, kill = FALSE) 
 {
     if (kill) killCluster()
     if (file.exists(outfile)) file.remove(outfile)
