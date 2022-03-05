@@ -4,12 +4,20 @@
 \alias{cdo_grid}
 \title{get regular cdo grid}
 \usage{
-cdo_grid(range = c(70, 140, 15, 55), cellsize = 0.1, outfile = "grid.txt")
+cdo_grid(
+  range = c(70, 140, 15, 55),
+  cellsize = 0.1,
+  mid = FALSE,
+  outfile = "grid.txt"
+)
 }
 \arguments{
 \item{range}{\verb{[lon_min, lon_max, lat_min, lat_max]}}
 
 \item{cellsize}{double}
+
+\item{mid}{If \code{TRUE}, the first coordinate is on the middle; otherwise, on the
+edge.}
 
 \item{outfile}{character, path of output file}
 }

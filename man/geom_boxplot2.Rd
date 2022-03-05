@@ -48,6 +48,9 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
+\item{stat}{Use to override the default connection between
+\code{geom_boxplot()} and \code{stat_boxplot()}.}
+
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
@@ -56,7 +59,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{outlier.colour, outlier.color, outlier.fill, outlier.shape, outlier.size, outlier.stroke, outlier.alpha}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
+\item{outlier.colour}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
 aesthetics used for the box.
 
 In the unlikely event you specify both US and UK spellings of colour, the
@@ -68,9 +71,77 @@ by setting \code{outlier.shape = NA}. Importantly, this does not remove the outl
 it only hides them, so the range calculated for the y-axis will be the
 same with outliers shown and outliers hidden.}
 
-\item{show.errorbar}{boolean}
+\item{outlier.color}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
+aesthetics used for the box.
 
-\item{width.errorbar}{width of errorbar.}
+In the unlikely event you specify both US and UK spellings of colour, the
+US spelling will take precedence.
+
+Sometimes it can be useful to hide the outliers, for example when overlaying
+the raw data points on top of the boxplot. Hiding the outliers can be achieved
+by setting \code{outlier.shape = NA}. Importantly, this does not remove the outliers,
+it only hides them, so the range calculated for the y-axis will be the
+same with outliers shown and outliers hidden.}
+
+\item{outlier.fill}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
+aesthetics used for the box.
+
+In the unlikely event you specify both US and UK spellings of colour, the
+US spelling will take precedence.
+
+Sometimes it can be useful to hide the outliers, for example when overlaying
+the raw data points on top of the boxplot. Hiding the outliers can be achieved
+by setting \code{outlier.shape = NA}. Importantly, this does not remove the outliers,
+it only hides them, so the range calculated for the y-axis will be the
+same with outliers shown and outliers hidden.}
+
+\item{outlier.shape}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
+aesthetics used for the box.
+
+In the unlikely event you specify both US and UK spellings of colour, the
+US spelling will take precedence.
+
+Sometimes it can be useful to hide the outliers, for example when overlaying
+the raw data points on top of the boxplot. Hiding the outliers can be achieved
+by setting \code{outlier.shape = NA}. Importantly, this does not remove the outliers,
+it only hides them, so the range calculated for the y-axis will be the
+same with outliers shown and outliers hidden.}
+
+\item{outlier.size}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
+aesthetics used for the box.
+
+In the unlikely event you specify both US and UK spellings of colour, the
+US spelling will take precedence.
+
+Sometimes it can be useful to hide the outliers, for example when overlaying
+the raw data points on top of the boxplot. Hiding the outliers can be achieved
+by setting \code{outlier.shape = NA}. Importantly, this does not remove the outliers,
+it only hides them, so the range calculated for the y-axis will be the
+same with outliers shown and outliers hidden.}
+
+\item{outlier.stroke}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
+aesthetics used for the box.
+
+In the unlikely event you specify both US and UK spellings of colour, the
+US spelling will take precedence.
+
+Sometimes it can be useful to hide the outliers, for example when overlaying
+the raw data points on top of the boxplot. Hiding the outliers can be achieved
+by setting \code{outlier.shape = NA}. Importantly, this does not remove the outliers,
+it only hides them, so the range calculated for the y-axis will be the
+same with outliers shown and outliers hidden.}
+
+\item{outlier.alpha}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
+aesthetics used for the box.
+
+In the unlikely event you specify both US and UK spellings of colour, the
+US spelling will take precedence.
+
+Sometimes it can be useful to hide the outliers, for example when overlaying
+the raw data points on top of the boxplot. Hiding the outliers can be achieved
+by setting \code{outlier.shape = NA}. Importantly, this does not remove the outliers,
+it only hides them, so the range calculated for the y-axis will be the
+same with outliers shown and outliers hidden.}
 
 \item{notch}{If \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, make a notched box plot. Notches are used to compare groups;
@@ -98,35 +169,12 @@ display.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
-
-\item{geom, stat}{Use to override the default connection between
-\code{geom_boxplot2} and \code{stat_boxplot}.}
 }
 \description{
 The boxplot compactly displays the distribution of a continuous variable.
 It visualises five summary statistics (the median, two hinges
 and two whiskers), and all "outlying" points individually.
 }
-\section{Summary statistics}{
-
-The lower and upper hinges correspond to the first and third quartiles
-(the 25th and 75th percentiles). This differs slightly from the method used
-by the \code{\link[=boxplot]{boxplot()}} function, and may be apparent with small samples.
-See \code{\link[=boxplot.stats]{boxplot.stats()}} for for more information on how hinge
-positions are calculated for \code{\link[=boxplot]{boxplot()}}.
-
-The upper whisker extends from the hinge to the largest value no further than
-1.5 * IQR from the hinge (where IQR is the inter-quartile range, or distance
-between the first and third quartiles). The lower whisker extends from the
-hinge to the smallest value at most 1.5 * IQR of the hinge. Data beyond the
-end of the whiskers are called "outlying" points and are plotted
-individually.
-
-In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}.
-This gives a roughly 95\\% confidence interval for comparing medians.
-See McGill et al. (1978) for more details.
-}
-
 \section{Aesthetics}{
 
 \code{geom_boxplot()} understands the following aesthetics (required aesthetics are in bold):
@@ -147,6 +195,28 @@ See McGill et al. (1978) for more details.
 \item \code{weight}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}
+
+\section{Summary statistics}{
+
+
+The lower and upper hinges correspond to the first and third quartiles
+(the 25th and 75th percentiles). This differs slightly from the method used
+by the \code{\link[=boxplot]{boxplot()}} function, and may be apparent with small samples.
+See \code{\link[=boxplot.stats]{boxplot.stats()}} for for more information on how hinge
+positions are calculated for \code{\link[=boxplot]{boxplot()}}.
+
+The upper whisker extends from the hinge to the largest value no further than
+1.5 * IQR from the hinge (where IQR is the inter-quartile range, or distance
+between the first and third quartiles). The lower whisker extends from the
+hinge to the smallest value at most 1.5 * IQR of the hinge. Data beyond the
+end of the whiskers are called "outlying" points and are plotted
+individually.
+
+In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}.
+This gives a roughly 95\% confidence interval for comparing medians.
+See McGill et al. (1978) for more details.
+
 }
 
 \examples{
@@ -199,8 +269,10 @@ ggplot(df, aes(x)) +
 
 }
 \references{
-McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
-box plots. The American Statistician 32, 12-16.
+\enumerate{
+\item McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of box plots.
+The American Statistician 32, 12-16.
+}
 }
 \seealso{
 \code{\link[=geom_quantile]{geom_quantile()}} for continuous \code{x},

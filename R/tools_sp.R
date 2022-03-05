@@ -41,13 +41,15 @@ get_legend <- function(brks) {
 #' @param range `[lon_min, lon_max, lat_min, lat_max]`
 #' @param cellsize double
 #' @param outfile character, path of output file
+#' @param mid If `TRUE`, the first coordinate is on the middle; otherwise, on the 
+#' edge. 
 #' 
 #' @export 
-cdo_grid <- function(range = c(70, 140, 15, 55), cellsize = 0.1, outfile = "grid.txt") {
+cdo_grid <- function(range = c(70, 140, 15, 55), cellsize = 0.1, mid = FALSE, outfile = "grid.txt") {
     nlon = diff(range[1:2])/cellsize
     nlat = diff(range[3:4])/cellsize
 
-    hcell = cellsize/2
+    hcell = cellsize/2 * mid
     grid = glue("
     gridtype = lonlat
     xsize = {nlon}

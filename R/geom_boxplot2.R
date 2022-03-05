@@ -4,65 +4,20 @@
 #' It visualises five summary statistics (the median, two hinges
 #' and two whiskers), and all "outlying" points individually.
 #'
-#' @section Summary statistics:
-#' The lower and upper hinges correspond to the first and third quartiles
-#' (the 25th and 75th percentiles). This differs slightly from the method used
-#' by the [boxplot()] function, and may be apparent with small samples.
-#' See [boxplot.stats()] for for more information on how hinge
-#' positions are calculated for [boxplot()].
-#'
-#' The upper whisker extends from the hinge to the largest value no further than
-#' 1.5 * IQR from the hinge (where IQR is the inter-quartile range, or distance
-#' between the first and third quartiles). The lower whisker extends from the
-#' hinge to the smallest value at most 1.5 * IQR of the hinge. Data beyond the
-#' end of the whiskers are called "outlying" points and are plotted
-#' individually.
-#'
-#' In a notched box plot, the notches extend `1.58 * IQR / sqrt(n)`.
-#' This gives a roughly 95\% confidence interval for comparing medians.
-#' See McGill et al. (1978) for more details.
+#' @inheritParams ggplot2::geom_boxplot
+#' @inheritSection ggplot2::geom_boxplot Summary statistics
 #'
 #' @eval ggplot2:::rd_aesthetics("geom", "boxplot")
-#'
 #' @seealso [geom_quantile()] for continuous `x`,
 #'   [geom_violin()] for a richer display of the distribution, and
 #'   [geom_jitter()] for a useful technique for small data.
-#' @inheritParams ggplot2::layer
-#' @inheritParams ggplot2::geom_point
-#' @param geom,stat Use to override the default connection between
-#'   `geom_boxplot2` and `stat_boxplot`.
-#' @param outlier.colour,outlier.color,outlier.fill,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
-#'   Default aesthetics for outliers. Set to `NULL` to inherit from the
-#'   aesthetics used for the box.
 #'
-#'   In the unlikely event you specify both US and UK spellings of colour, the
-#'   US spelling will take precedence.
-#'
-#'   Sometimes it can be useful to hide the outliers, for example when overlaying
-#'   the raw data points on top of the boxplot. Hiding the outliers can be achieved
-#'   by setting `outlier.shape = NA`. Importantly, this does not remove the outliers,
-#'   it only hides them, so the range calculated for the y-axis will be the
-#'   same with outliers shown and outliers hidden.
-#' 
-#' @param show.errorbar boolean
-#' @param width.errorbar width of errorbar.
-#' @param notch If `FALSE` (default) make a standard box plot. If
-#'   `TRUE`, make a notched box plot. Notches are used to compare groups;
-#'   if the notches of two boxes do not overlap, this suggests that the medians
-#'   are significantly different.
-#' @param notchwidth For a notched box plot, width of the notch relative to
-#'   the body (defaults to `notchwidth = 0.5`).
-#' @param varwidth If `FALSE` (default) make a standard box plot. If
-#'   `TRUE`, boxes are drawn with widths proportional to the
-#'   square-roots of the number of observations in the groups (possibly
-#'   weighted, using the `weight` aesthetic).
+#' @references
+#' 1. McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of box plots.
+#'    The American Statistician 32, 12-16.
 #' @import ggplot2
 #' @importFrom grid grobTree
-#' 
 #' @export
-#'
-#' @references McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
-#'     box plots. The American Statistician 32, 12-16.
 #' @example man/examples/ex-geom_boxplot2.R
 geom_boxplot2 <- function(mapping = NULL, data = NULL,
                           stat = "boxplot", position = "dodge2",
@@ -123,132 +78,130 @@ geom_boxplot2 <- function(mapping = NULL, data = NULL,
 # ' @usage NULL
 #' @export
 GeomBoxplot2 <- ggproto("GeomBoxplot2", Geom,
-                        
-                        # need to declare `width`` here in case this geom is used with a stat that
-                        # doesn't have a `width` parameter (e.g., `stat_identity`).
-                        extra_params = c("na.rm", "width"),
-                        
-                        setup_data = function(data, params) {
-                            data$width <- data$width %||%
-                                params$width %||% (resolution(data$x, FALSE) * 0.9)
-                            
-                            data$outliers <- NULL
-                            if (!is.null(data$outliers)) {
-                                suppressWarnings({
-                                    out_min <- vapply(data$outliers, min, numeric(1))
-                                    out_max <- vapply(data$outliers, max, numeric(1))
-                                })
-                                
-                                data$ymin_final <- pmin(out_min, data$ymin)
-                                data$ymax_final <- pmax(out_max, data$ymax)
-                            }
-                            
-                            # if `varwidth` not requested or not available, don't use it
-                            if (is.null(params) || is.null(params$varwidth) || !params$varwidth || is.null(data$relvarwidth)) {
-                                data$xmin <- data$x - data$width / 2
-                                data$xmax <- data$x + data$width / 2
-                            } else {
-                                # make `relvarwidth` relative to the size of the largest group
-                                data$relvarwidth <- data$relvarwidth / max(data$relvarwidth)
-                                data$xmin <- data$x - data$relvarwidth * data$width / 2
-                                data$xmax <- data$x + data$relvarwidth * data$width / 2
-                            }
-                            # data$width <- NULL
-                            if (!is.null(data$relvarwidth)) data$relvarwidth <- NULL
-                            data
-                        },
-                        
-                        draw_group = function(data, panel_params, coord, fatten = 2,
-                                              outlier.colour = NULL, outlier.fill = NULL,
-                                              outlier.shape = 19,
-                                              outlier.size = 1.5, outlier.stroke = 0.5,
-                                              outlier.alpha = NULL,
-                                              show.errorbar = TRUE,
-                                              width.errorbar = 0.7,
-                                              notch = FALSE, notchwidth = 0.5, varwidth = FALSE) {
-                            common <- list(
-                                colour   = data$colour,
-                                size     = data$size,
-                                linetype = data$linetype,
-                                fill     = alpha(data$fill, data$alpha),
-                                group    = data$group
-                            )
+    # need to declare `width`` here in case this geom is used with a stat that
+    # doesn't have a `width` parameter (e.g., `stat_identity`).
+    extra_params = c("na.rm", "width"),
 
-                            whiskers <- new_data_frame(c(
-                                list(
-                                    x     = c(data$x, data$x),
-                                    xend  = c(data$x, data$x),
-                                    y     = c(data$upper, data$lower),
-                                    yend  = c(data$ymax, data$ymin),
-                                    alpha = c(NA_real_, NA_real_)
-                                ),
-                                common
-                            ), n = 2)
+    setup_data = function(data, params) {
+        data$width <- data$width %||%
+            params$width %||% (resolution(data$x, FALSE) * 0.9)
+        
+        data$outliers <- NULL
+        if (!is.null(data$outliers)) {
+            suppressWarnings({
+                out_min <- vapply(data$outliers, min, numeric(1))
+                out_max <- vapply(data$outliers, max, numeric(1))
+            })
+            
+            data$ymin_final <- pmin(out_min, data$ymin)
+            data$ymax_final <- pmax(out_max, data$ymax)
+        }
+        
+        # if `varwidth` not requested or not available, don't use it
+        if (is.null(params) || is.null(params$varwidth) || !params$varwidth || is.null(data$relvarwidth)) {
+            data$xmin <- data$x - data$width / 2
+            data$xmax <- data$x + data$width / 2
+        } else {
+            # make `relvarwidth` relative to the size of the largest group
+            data$relvarwidth <- data$relvarwidth / max(data$relvarwidth)
+            data$xmin <- data$x - data$relvarwidth * data$width / 2
+            data$xmax <- data$x + data$relvarwidth * data$width / 2
+        }
+        # data$width <- NULL
+        if (!is.null(data$relvarwidth)) data$relvarwidth <- NULL
+        data
+    },
 
-                            box <- new_data_frame(c(
-                                list(
-                                    xmin = data$xmin,
-                                    xmax = data$xmax,
-                                    ymin = data$lower,
-                                    y = data$middle,
-                                    ymax = data$upper,
-                                    ynotchlower = ifelse(notch, data$notchlower, NA),
-                                    ynotchupper = ifelse(notch, data$notchupper, NA),
-                                    notchwidth = notchwidth,
-                                    alpha = data$alpha
-                                ),
-                                common
-                            ))
-                            
-                            errorbar <- new_data_frame(c(
-                                list(
-                                    xmin = data$x - width.errorbar / 2, 
-                                    xmax = data$x + width.errorbar / 2,
-                                    x = data$x, 
-                                    ymin = data$ymin,
-                                    ymax = data$ymax, 
-                                    alpha = data$alpha
-                                ), 
-                                common
-                            ))
+    draw_group = function(data, panel_params, coord, fatten = 2,
+                            outlier.colour = NULL, outlier.fill = NULL,
+                            outlier.shape = 19,
+                            outlier.size = 1.5, outlier.stroke = 0.5,
+                            outlier.alpha = NULL,
+                            show.errorbar = TRUE,
+                            width.errorbar = 0.7,
+                            notch = FALSE, notchwidth = 0.5, varwidth = FALSE) {
+        common <- list(
+            colour   = data$colour,
+            size     = data$size,
+            linetype = data$linetype,
+            fill     = alpha(data$fill, data$alpha),
+            group    = data$group
+        )
 
-                            grob_whiskers <- GeomSegment$draw_panel(whiskers, panel_params, coord)
-                            grob_errorbar <- NULL
+        whiskers <- new_data_frame(c(
+            list(
+                x     = c(data$x, data$x),
+                xend  = c(data$x, data$x),
+                y     = c(data$upper, data$lower),
+                yend  = c(data$ymax, data$ymin),
+                alpha = c(NA_real_, NA_real_)
+            ),
+            common
+        ), n = 2)
 
-                            if (show.errorbar) {
-                                grob_errorbar <- GeomErrorbar$draw_panel(errorbar, panel_params, coord)
-                            }
-                            # if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
-                            #     outliers <- new_data_frame(
-                            #         y = data$outliers[[1]],
-                            #         x = data$x[1],
-                            #         colour = outlier.colour %||% data$colour[1],
-                            #         fill = outlier.fill %||% data$fill[1],
-                            #         shape = outlier.shape %||% data$shape[1],
-                            #         size = outlier.size %||% data$size[1],
-                            #         stroke = outlier.stroke %||% data$stroke[1],
-                            #         fill = NA,
-                            #         alpha = outlier.alpha %||% data$alpha[1],
-                            #         stringsAsFactors = FALSE
-                            #     )
-                            #     outliers_grob <- GeomPoint$draw_panel(outliers, panel_params, coord)
-                            # } else {
-                            #     outliers_grob <- NULL
-                            # }
-                            
-                            ggplot2:::ggname("geom_boxplot2", grobTree(
-                                # outliers_grob,
-                                grob_errorbar,
-                                # grob_whiskers,
-                                GeomCrossbar$draw_panel(box, fatten = fatten, panel_params, coord)
-                            ))
-                        },
-                        
-                        draw_key = draw_key_boxplot,
-                        default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
-                                          alpha = NA, shape = 19, linetype = "solid"),
-                        
-                        required_aes = c("x", "lower", "upper", "middle", "ymin", "ymax")
+        box <- new_data_frame(c(
+            list(
+                xmin = data$xmin,
+                xmax = data$xmax,
+                ymin = data$lower,
+                y = data$middle,
+                ymax = data$upper,
+                ynotchlower = ifelse(notch, data$notchlower, NA),
+                ynotchupper = ifelse(notch, data$notchupper, NA),
+                notchwidth = notchwidth,
+                alpha = data$alpha
+            ),
+            common
+        ))
+        
+        errorbar <- new_data_frame(c(
+            list(
+                xmin = data$x - width.errorbar / 2, 
+                xmax = data$x + width.errorbar / 2,
+                x = data$x, 
+                ymin = data$ymin,
+                ymax = data$ymax, 
+                alpha = data$alpha
+            ), 
+            common
+        ))
+
+        grob_whiskers <- GeomSegment$draw_panel(whiskers, panel_params, coord)
+        grob_errorbar <- NULL
+
+        if (show.errorbar) {
+            grob_errorbar <- GeomErrorbar$draw_panel(errorbar, panel_params, coord)
+        }
+        # if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
+        #     outliers <- new_data_frame(
+        #         y = data$outliers[[1]],
+        #         x = data$x[1],
+        #         colour = outlier.colour %||% data$colour[1],
+        #         fill = outlier.fill %||% data$fill[1],
+        #         shape = outlier.shape %||% data$shape[1],
+        #         size = outlier.size %||% data$size[1],
+        #         stroke = outlier.stroke %||% data$stroke[1],
+        #         fill = NA,
+        #         alpha = outlier.alpha %||% data$alpha[1],
+        #         stringsAsFactors = FALSE
+        #     )
+        #     outliers_grob <- GeomPoint$draw_panel(outliers, panel_params, coord)
+        # } else {
+        #     outliers_grob <- NULL
+        # }
+        
+        ggplot2:::ggname("geom_boxplot2", grobTree(
+            # outliers_grob,
+            grob_errorbar,
+            # grob_whiskers,
+            GeomCrossbar$draw_panel(box, fatten = fatten, panel_params, coord)
+        ))
+    },
+
+    draw_key = draw_key_boxplot,
+    default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
+                        alpha = NA, shape = 19, linetype = "solid"),
+    required_aes = c("x", "lower", "upper", "middle", "ymin", "ymax")
 )
 
 `%||%` <- function (a, b) 
