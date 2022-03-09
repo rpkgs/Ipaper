@@ -7,22 +7,24 @@
 #' label_tag(1:5)
 #' char2expr(1:5)
 #' @export
-label_tag <- function(labels, tag = TRUE, letter_begin = 1) {
+label_tag <- function(labels, tag = TRUE, expression = TRUE, letter_begin = 1) {
     n <- length(labels)
     tags = c(letters, LETTERS)
-    sapply(seq_along(labels), function(i) {
-        name = labels[[i]]
-        data <- list(tag = tags[i + letter_begin - 1], x = name)
-        if (tag) {
-            eval(substitute(expression(bold("(" * tag * ")" ~ x)), data))
-            # eval(substitute(expression(bold(tag * ". " ~ x)), data))
-        } else {
-            eval(substitute(expression(bold(x)), data))
-        }
-    })
-    # sprintf("(%s) %s", letters[1:n], labels)
+    if (expression) {
+        sapply(seq_along(labels), function(i) {
+            name = labels[[i]]
+            data <- list(tag = tags[i + letter_begin - 1], x = name)
+            if (tag) {
+                eval(substitute(expression(bold("(" * tag * ")" ~ x)), data))
+                # eval(substitute(expression(bold(tag * ". " ~ x)), data))
+            } else {
+                eval(substitute(expression(bold(x)), data))
+            }
+        })
+    } else {
+        sprintf("(%s) %s", tags[1:n], labels)
+    }
 }
-
 
 #' @rdname label_tag
 #' @export

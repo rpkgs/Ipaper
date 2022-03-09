@@ -5,7 +5,7 @@
 \alias{char2expr}
 \title{label_tag}
 \usage{
-label_tag(labels, tag = TRUE, letter_begin = 1)
+label_tag(labels, tag = TRUE, expression = TRUE, letter_begin = 1)
 
 char2expr(labels)
 }
