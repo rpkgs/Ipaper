@@ -43,15 +43,15 @@ After install, run `Ipaper::key_blind()` to make those shortcuts work.
 
 ### Visualization
 
--   `draw.colorkey`: modified from lattice, add triangle head and tail
+<!-- -   `draw.colorkey`: modified from lattice, add triangle head and tail
 
     ![](man/figures/lgd_draw.colorkey.svg)
 
 -   `geom_boxplot2`: boxplot without outlier
 
-    ![](man/figures/geom_boxplot2.svg)
+    ![](man/figures/geom_boxplot2.svg) -->
 
--   `ggplot_legend`: get the legend (grid obj) of ggplot object
+<!-- -   `ggplot_legend`: get the legend (grid obj) of ggplot object -->
 
 -   `write_fig`: Unify figure writing functions, e.g. png, pdf, tif, svg
 

@@ -1,3 +1,18 @@
+#' @name ggplot2-ggproto
+#' @title ggplot2-ggproto
+#' 
+#' @format NULL
+#' @usage NULL
+#' @keywords internal
+#' @importFrom ggplot2 Stat
+NULL
+
+check_required_aesthetics <- ggplot2:::check_required_aesthetics
+ggproto_formals <- ggplot2:::ggproto_formals
+snake_class <- ggplot2:::snake_class
+uniquecols <- ggplot2:::uniquecols
+has_groups <- ggplot2:::has_groups
+
 #' A box and whiskers plot (in the style of Tukey)
 #'
 #' The boxplot compactly displays the distribution of a continuous variable.

@@ -1,3 +1,15 @@
+#' @export
+crayon::bold
+
+#' @export
+crayon::red
+
+#' @export
+crayon::green
+
+#' @export
+crayon::underline
+
 #' Colored terminal output
 #'
 #' @param ... Strings to style.
