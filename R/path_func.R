@@ -12,6 +12,11 @@ path.mnt <- function(path) {
             pan  = substr(path, 1, 1) %>% tolower()
             path = sprintf("/mnt/%s/%s", pan, substr(path, 4, nchar(path)))
         }
+    } else if (is_win()) {
+        if (substr(path, 1, 4) == "/mnt") {
+            pan = substr(path, 6, 6) %>% toupper()
+            path = sprintf("%s:%s", pan, substr(path, 7, nchar(path)))
+        }
     }
     path
 }
