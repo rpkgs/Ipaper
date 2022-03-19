@@ -1,7 +1,7 @@
 library(data.table)
 
 test_that("melt_list works", {
-    expect_silent({
+    expect_true({
         df <- data.frame(year = 2010, day = 1:2, month = 1, site = "A")
         l  <- list(a = df, b = df)
         melt_list(l, "id")
@@ -13,5 +13,6 @@ test_that("melt_list works", {
         df <- data.table(year = 2010, day = 1:2, month = 1, site = "A")
         l  <- list(a = df, b = df)
         melt_list(l, "id")
+        TRUE
     })
 })
