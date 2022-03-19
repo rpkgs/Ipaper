@@ -16,6 +16,8 @@
 \alias{mutate}
 \alias{top_n}
 \alias{top_frac}
+\alias{as_tibble}
+\alias{tribble}
 \alias{\%>\%}
 \alias{\%<>\%}
 \alias{set_names}
@@ -52,7 +54,7 @@ below to see their documentation.
 
   \item{data.table}{\code{\link[data.table]{as.data.table}}, \code{\link[data.table]{data.table}}, \code{\link[data.table:as.data.table]{is.data.table}}}
 
-  \item{dplyr}{\code{\link[dplyr:nth]{first}}, \code{\link[dplyr:nth]{last}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr:top_n]{top_frac}}, \code{\link[dplyr]{top_n}}}
+  \item{dplyr}{\code{\link[dplyr:reexports]{as_tibble}}, \code{\link[dplyr:nth]{first}}, \code{\link[dplyr:nth]{last}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr:top_n]{top_frac}}, \code{\link[dplyr]{top_n}}, \code{\link[dplyr:reexports]{tribble}}}
 
   \item{foreach}{\code{\link[foreach:foreach]{\%do\%}}, \code{\link[foreach:foreach]{\%dopar\%}}}
 

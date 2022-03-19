@@ -2,9 +2,12 @@
 % Please edit documentation in R/path_func.R
 \name{path.mnt}
 \alias{path.mnt}
+\alias{path_mnt}
 \title{convert windows path to wsl}
 \usage{
 path.mnt(path)
+
+path_mnt(path)
 }
 \arguments{
 \item{path}{character vector of file paths.}

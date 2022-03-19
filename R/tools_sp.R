@@ -36,28 +36,3 @@ get_legend <- function(brks) {
     write_fig(g, "test/dem_legend.jpg", 9.2, 0.75)
 }
 
-#' get regular cdo grid
-#' 
-#' @param range `[lon_min, lon_max, lat_min, lat_max]`
-#' @param cellsize double
-#' @param outfile character, path of output file
-#' @param mid If `TRUE`, the first coordinate is on the middle; otherwise, on the 
-#' edge. 
-#' 
-#' @export 
-cdo_grid <- function(range = c(70, 140, 15, 55), cellsize = 0.1, mid = FALSE, outfile = "grid.txt") {
-    nlon = diff(range[1:2])/cellsize
-    nlat = diff(range[3:4])/cellsize
-
-    hcell = cellsize/2 * mid
-    grid = glue("
-    gridtype = lonlat
-    xsize = {nlon}
-    ysize = {nlat}
-    xfirst = {range[1] + hcell}
-    xinc = {cellsize}
-    yfirst = {range[3] + hcell}
-    yinc = {cellsize}
-    ")
-    writeLines(grid, outfile)
-}

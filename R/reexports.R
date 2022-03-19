@@ -8,7 +8,7 @@ plyr::mapvalues
 #' @export
 plyr::revalue
 
-#' @importFrom dplyr first last mutate top_n top_frac
+#' @importFrom dplyr first last mutate top_n top_frac as_tibble tribble
 #' @export
 dplyr::first
 
@@ -23,6 +23,12 @@ dplyr::top_n
 
 #' @export
 dplyr::top_frac
+
+#' @export
+dplyr::as_tibble
+
+#' @export 
+dplyr::tribble
 
 #' @export
 magrittr::`%>%`

@@ -21,6 +21,10 @@ path.mnt <- function(path) {
     path
 }
 
+#' @export
+#' @rdname path.mnt
+path_mnt = path.mnt
+
 win_path <- function(path, winslash = "\\\\"){
     if (substr(path, 1, 4) == "/mnt") {
         pan = substr(path, 6, 6)

@@ -82,5 +82,5 @@ file_size <- function(file) {
 #' @seealso [base::dir()]
 #' @export
 dir2 <- function(path = ".", pattern = NULL, full.names = TRUE, ...) {
-    dir(path, pattern, ..., full.names = full.names)
+    dir(path_mnt(path), pattern, ..., full.names = full.names)
 }
