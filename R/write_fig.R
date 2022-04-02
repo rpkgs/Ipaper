@@ -45,20 +45,24 @@ write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5,
     if (length(file_exts) == 1 && (is.na(file_exts) || file_exts == "")) file_exts = "pdf"
 
     env = parent.frame()
-    for(i in seq_along(file_exts)) {
-        file_ext = file_exts[i]
-        outfile  = sprintf("%s/%s.%s", outdir, filename, file_ext)
-        
-        dev_open(outfile, width, height, res, use.cairo_pdf)
-        # 1. print plot
-        if (is_expr) {
-            suppressWarnings(eval(expr, envir = env))
-        } else {
-            temp <- suppressWarnings(FUN(p))
+    process <- function() {
+        for(i in seq_along(file_exts)) {
+            file_ext = file_exts[i]
+            outfile  = sprintf("%s/%s.%s", outdir, filename, file_ext)
+            
+            dev_open(outfile, width, height, res, use.cairo_pdf)
+            # 1. print plot
+            if (is_expr) {
+                suppressWarnings(eval(expr, envir = env))
+            } else {
+                temp <- suppressWarnings(FUN(p))
+            }
+            dev.off() # close device
+            if (show) showfig(outfile, use.file_show)
         }
-        dev.off() # close device
-        if (show) showfig(outfile, use.file_show)
     }
+    # TODO: job::job fails occasionally
+    process()
 }
 
 #' open device for plot
