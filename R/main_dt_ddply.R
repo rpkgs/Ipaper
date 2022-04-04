@@ -1,5 +1,5 @@
 
-list_to_dataframe = plyr:::list_to_dataframe
+# list_to_dataframe = plyr:::list_to_dataframe
 loop_apply = plyr:::loop_apply
 splitter_d = plyr:::splitter_d
 
@@ -31,29 +31,30 @@ unrowname <- . %>% set_rownames(NULL)
 #' @example R/examples/ex-ddply.R
 #' @export
 dt_ddply <- function(.data, .variables, .f = NULL, ..., .progress = "none",
-                   .inform = FALSE, .drop = TRUE, .parallel = FALSE) {
+                   .drop = TRUE, .parallel = FALSE) {
     if (empty(.data)) {
         return(.data)
     }
     .f <- as_mapper(.f, ...)
     .variables <- as.quoted(.variables)
     pieces <- splitter_d(.data, .variables, drop = .drop)
+    
     dt_ldply(
         .data = pieces, .f = .f, ..., .progress = .progress,
-        .inform = .inform, .parallel = .parallel
+        .parallel = .parallel
     )
 }
 
 #' @rdname dt_ddply
 #' @export
 dt_ldply <- function(.data, .f = NULL, ..., .progress = "none", 
-    .inform = FALSE, .parallel = FALSE, .id = NA) {
+    .parallel = FALSE, .id = NA) {
 
      if (!inherits(.data, "split")) 
         .data <- as.list(.data)
      
     res <- llply(.data = .data, .f = .f, ..., .progress = .progress, 
-        .inform = .inform, .parallel = .parallel)
+        .parallel = .parallel)
     # res <- llply(
     #     .data = .data, .f = .f, ..., .progress = .progress,
     #     .parallel = .parallel)
@@ -69,12 +70,11 @@ dt_ldply <- function(.data, .f = NULL, ..., .progress = "none",
 #' @rdname dt_ddply
 #' @export
 dt_dlply <- function (.data, .variables, .f = NULL, ..., .progress = "none", 
-    .inform = FALSE, .drop = TRUE, .parallel = FALSE) 
+    .drop = TRUE, .parallel = FALSE) 
 {
     .variables <- as.quoted(.variables)
     pieces <- splitter_d(.data, .variables, drop = .drop)
     llply(.data = pieces, .f = .f, ..., .progress = .progress, 
-        .inform = .inform, 
         .parallel = .parallel)
 }
 

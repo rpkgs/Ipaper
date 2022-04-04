@@ -12,7 +12,6 @@ dt_ddply(
   .f = NULL,
   ...,
   .progress = "none",
-  .inform = FALSE,
   .drop = TRUE,
   .parallel = FALSE
 )
@@ -22,7 +21,6 @@ dt_ldply(
   .f = NULL,
   ...,
   .progress = "none",
-  .inform = FALSE,
   .parallel = FALSE,
   .id = NA
 )
@@ -33,7 +31,6 @@ dt_dlply(
   .f = NULL,
   ...,
   .progress = "none",
-  .inform = FALSE,
   .drop = TRUE,
   .parallel = FALSE
 )
@@ -68,10 +65,6 @@ present, the value of \code{.default} will be returned.}
 
 \item{.progress}{name of the progress bar to use, see
 \code{\link[plyr]{create_progress_bar}}}
-
-\item{.inform}{produce informative error messages?  This is turned off
-by default because it substantially slows processing speed, but is very
-useful for debugging}
 
 \item{.drop}{should combinations of variables that do not appear in the
 input data be preserved (FALSE) or dropped (TRUE, default)}

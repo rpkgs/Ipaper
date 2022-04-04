@@ -27,16 +27,15 @@ llply <- function(.data, .f = NULL, .progress = "none", .parallel = FALSE, ...) 
     if (is_empty(.data)) return(.data)
     n = length(.data)
     
+    .progress = (isTRUE(.progress) || .progress == "text")
     `%dof%` = ifelse(.parallel, `%dopar%`, `%do%`)
     if (.parallel) .progress = FALSE
-
-    if (isTRUE(.progress) || .progress == "text") {
-        pro_map(.data, .f, ...)
-    } else {
-        .f <- as_mapper(.f, ...)
-        foreach(x = .data) %dof% {
-            .f(x)
-        }
+    .f <- as_mapper(.f, ...)
+    # pro_map(.data, .f, ...)
+    if (.progress) pb = make_progress(n)
+    foreach(x = .data) %dof% {
+        if (.progress) pb$tick()
+        .f(x)
     }
 }
 
