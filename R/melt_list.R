@@ -33,12 +33,13 @@ melt_list <- function(list, ..., na.rm = TRUE) {
     key = names(params)[1]
     vals = params[[1]]
     if (is.null(key)) {
-        key = vals;
+        key = vals; # variable name
         vals = names(list)
     }
     if (is.null(vals)) vals <- seq_along(list)
     if (length(vals) == 1) vals = rep(vals, n)
-    
+    if (is.character(vals)) vals %<>% as.factor()
+
     first <- list[[1]]
     if (is.data.frame(first)) {    
         for (i in seq_along(list)) {
