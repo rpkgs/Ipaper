@@ -54,12 +54,24 @@ purrr::map
 #     .Call(purrr:::map_impl, environment(), ".x", ".f2", "list")
 # }
 
-#' @importFrom data.table data.table is.data.table as.data.table
+#' @importFrom data.table data.table is.data.table as.data.table fread fwrite
 #' @export
 data.table::data.table
 
 #' @export
 data.table::is.data.table
+
+#' @export
+data.table::fread
+
+#' @export
+data.table::fwrite
+
+#' @export
+print.data.table <- function(d, ...) {
+  cat("[data.table]: \n")
+  print(as_tibble(d))
+}
 
 #' @export
 data.table::as.data.table
@@ -97,6 +109,7 @@ matrixStats::rowSums2
 matrixStats::rowMeans2
 
 #' @export
+matrixStats::rowQuantiles
 matrixStats::rowQuantiles
 
 #' @export

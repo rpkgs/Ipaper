@@ -24,6 +24,8 @@
 \alias{map}
 \alias{data.table}
 \alias{is.data.table}
+\alias{fread}
+\alias{fwrite}
 \alias{as.data.table}
 \alias{make_date}
 \alias{make_datetime}
@@ -52,7 +54,7 @@ below to see their documentation.
 \describe{
   \item{crayon}{\code{\link[crayon:crayon]{bold}}, \code{\link[crayon:crayon]{green}}, \code{\link[crayon:crayon]{red}}, \code{\link[crayon:crayon]{underline}}}
 
-  \item{data.table}{\code{\link[data.table]{as.data.table}}, \code{\link[data.table]{data.table}}, \code{\link[data.table:as.data.table]{is.data.table}}}
+  \item{data.table}{\code{\link[data.table]{as.data.table}}, \code{\link[data.table]{data.table}}, \code{\link[data.table]{fread}}, \code{\link[data.table]{fwrite}}, \code{\link[data.table:as.data.table]{is.data.table}}}
 
   \item{dplyr}{\code{\link[dplyr:reexports]{as_tibble}}, \code{\link[dplyr:nth]{first}}, \code{\link[dplyr:nth]{last}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr:top_n]{top_frac}}, \code{\link[dplyr]{top_n}}, \code{\link[dplyr:reexports]{tribble}}}
 

@@ -18,12 +18,13 @@ write_sp2rgb <- function(grid, brks, cols, file = "sp_rgb.tif",
     col2dt <- function(cols) col2rgb(cols) %>% t() %>% as.data.table()
     colormap = col2dt(cols)
 
-    ind   = findInterval(grid$band1, brks) # %>% summary()
+    ind   = findInterval(grid@data[, 1], brks) # %>% summary()
     d_rgb = colormap[ind, ]
     
-    grid_rgb   = grid
+    grid_rgb = grid
     grid_rgb@data <- d_rgb
-    writeGDAL(grid_rgb, file, options = c("COMPRESS=DEFLATE")) # 
+    rgdal::writeGDAL(grid_rgb, file, options = c("COMPRESS=DEFLATE")) # 
+    grid_rgb
 }
 
 # if (!is.null(mask)) {
@@ -35,4 +36,3 @@ get_legend <- function(brks) {
     g <- draw.colorkey(key)
     write_fig(g, "test/dem_legend.jpg", 9.2, 0.75)
 }
-
