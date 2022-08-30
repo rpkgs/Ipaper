@@ -70,7 +70,7 @@ data.table::fwrite
 #' @export
 print.data.table <- function(d, ...) {
   cat("[data.table]: \n")
-  print(as_tibble(d))
+  print(as_tibble(d), ...)
 }
 
 #' @export
