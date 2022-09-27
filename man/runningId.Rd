@@ -19,7 +19,7 @@ runningId(i, step = 1, N, prefix = "")
 print the running ID in the console
 }
 \examples{
-for (i in 1:10){
-    runningId(i, prefix = "phenofit")
+for (i in 1:10) {
+  runningId(i, prefix = "phenofit")
 }
 }
