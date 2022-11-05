@@ -68,7 +68,7 @@ data.table::fread
 data.table::fwrite
 
 #' @export
-print.data.table <- function(d, n = 50, ...) {
+print.data.table <- function(d, n = 10, ...) {
   cat("[data.table]: \n")
   print(as_tibble(d), n = n, ...)
 }

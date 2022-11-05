@@ -132,3 +132,12 @@ print2 <- function(..., max.level = NA) {
   # .tmp <- print(str(l, max.level = max.level))
   invisible()
 }
+
+is_num_char <- function(x) {
+  tryCatch({
+    as.numeric(x)
+    TRUE
+  }, warning = function(e) {
+    FALSE
+  })
+}
