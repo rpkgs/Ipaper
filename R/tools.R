@@ -74,6 +74,11 @@ unique_length <- function(x) {
 }
 
 #' @export
+unique_sort <- function(x) {
+  unique(x) %>% sort()
+}
+
+#' @export
 match2 <- function(x, y) {
   I <- match(x, y)
   I_x <- which.notna(I)
