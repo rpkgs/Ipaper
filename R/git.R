@@ -66,3 +66,10 @@ install_gitee <- function(repo) {
         install_git(url)
     }
 }
+
+#' @export
+use_github_action2 <- function() {
+    usethis::use_github_action_check_standard()
+    usethis::use_github_action("test-coverage")
+    usethis::use_github_action("pkgdown")
+}
