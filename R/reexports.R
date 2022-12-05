@@ -140,3 +140,10 @@ usethis::use_git_ignore
 
 #' @export
 usethis::use_build_ignore
+
+#' @import zeallot
+#' @export
+zeallot::`%->%`
+
+#' @export
+zeallot::`%<-%`

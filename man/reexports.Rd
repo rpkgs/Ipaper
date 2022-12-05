@@ -45,6 +45,8 @@
 \alias{edit_r_profile}
 \alias{use_git_ignore}
 \alias{use_build_ignore}
+\alias{\%->\%}
+\alias{\%<-\%}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -77,5 +79,7 @@ below to see their documentation.
   \item{remotes}{\code{\link[remotes]{install_git}}, \code{\link[remotes]{install_github}}, \code{\link[remotes]{install_gitlab}}}
 
   \item{usethis}{\code{\link[usethis:edit]{edit_r_environ}}, \code{\link[usethis:edit]{edit_r_profile}}, \code{\link[usethis]{use_build_ignore}}, \code{\link[usethis]{use_git_ignore}}}
+
+  \item{zeallot}{\code{\link[zeallot:operator]{\%->\%}}, \code{\link[zeallot:operator]{\%<-\%}}}
 }}
 

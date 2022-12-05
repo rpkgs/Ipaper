@@ -30,7 +30,8 @@ Imports:
     matrixStats, 
     rstudioapi, 
     remotes, usethis, checkmate,
-    crayon
+    crayon, 
+    zeallot
 Suggests: 
     testthat (>= 3.1.0),
     knitr,
