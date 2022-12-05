@@ -5,6 +5,8 @@
 \alias{which.notna}
 \alias{which.isnull}
 \alias{which.notnull}
+\alias{which.notempty}
+\alias{which.empty}
 \title{which functions}
 \usage{
 which.na(x)
@@ -14,6 +16,10 @@ which.notna(x)
 which.isnull(x)
 
 which.notnull(x)
+
+which.notempty(x)
+
+which.empty(x)
 }
 \arguments{
 \item{x}{numeric vector}

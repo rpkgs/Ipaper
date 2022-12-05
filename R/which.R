@@ -27,3 +27,16 @@ which.notnull <- function(x) {
 `%!in%` <- function(x, table) {
     !(x %in% table)
 }
+
+# ' @importFrom purrr is_empty
+#' @rdname which.na
+#' @export
+which.notempty <- function(x) {
+    which(!sapply(x, is_empty))
+}
+
+#' @rdname which.na
+#' @export
+which.empty <- function(x) {
+    which(sapply(x, is_empty))
+}
