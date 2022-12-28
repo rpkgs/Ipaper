@@ -1,0 +1,10 @@
+R/addin.R
+R/cmd_func.R
+R/getwd_clip.R
+R/git.R
+R/module.R
+R/parallel_init.R
+R/path_func.R
+R/purrrprogress.R
+R/set_font.R
+R/tools_pdf.R

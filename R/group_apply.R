@@ -47,7 +47,9 @@ upper_envelope <- function(x, y, interval = c(.50, .80, .90, .95), nchunk = 50) 
         
     d_prob = data.table(I = seq_along(interval),
                         interval = sprintf("%d%%", interval*100) %>% {factor(., rev(.))},
-                        lower = (1 - interval)/2, upper = 1 - (1 - interval)/2, mid = 0.5)
+                        lower = (1 - interval)/2, 
+                        upper = 1 - (1 - interval)/2, 
+                        mid = 0.5)
 
     rows = (1:nrow(d_prob)) %>% set_names(., .)
     d = foreach(i = rows) %do% {

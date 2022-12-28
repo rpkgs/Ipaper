@@ -8,7 +8,7 @@
 \usage{
 dt_round(d, digits = 2)
 
-dt_chr2num(d)
+dt_chr2num(d, fun = as.numeric)
 }
 \description{
 data.frame manipulating function by \code{dplyr::across}

@@ -5,9 +5,9 @@
 \alias{code_ChrVec}
 \title{generate R script of character vector}
 \usage{
-char2script(x, collapse = "\\"")
+char2script(x, collapse = "\\"", verbose = TRUE)
 
-code_ChrVec(x, collapse = "\\"")
+code_ChrVec(x, collapse = "\\"", verbose = TRUE)
 }
 \arguments{
 \item{x}{character vector, data.frame or list.}

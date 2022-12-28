@@ -7,3 +7,4 @@
 ^vignettes$
 ^inst/font$
 ^\.github$
+^\.covrignore$

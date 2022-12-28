@@ -9,10 +9,10 @@
 #' @export
 label_tag <- function(labels, tag = TRUE, expression = TRUE, letter_begin = 1) {
     n <- length(labels)
-    tags = c(letters, LETTERS)
+    tags <- c(letters, LETTERS)
     if (expression) {
         sapply(seq_along(labels), function(i) {
-            name = labels[[i]]
+            name <- labels[[i]]
             data <- list(tag = tags[i + letter_begin - 1], x = name)
             if (tag) {
                 eval(substitute(expression(bold("(" * tag * ")" ~ x)), data))
@@ -40,7 +40,7 @@ char2expr <- function(labels) {
 #' @param collapse an optional character string to separate the results. Not NA_character_.
 #'
 #' @export
-char2script <- function(x, collapse = '"') {
+char2script <- function(x, collapse = '"', verbose = TRUE) {
     if (is.list(x)) {
         x <- names(x)
     }
@@ -52,7 +52,7 @@ char2script <- function(x, collapse = '"') {
     script <- paste(x, collapse = collapse) %>% paste0(head, ., tail)
 
     if (.Platform$OS.type == "windows") writeLines(script, "clipboard")
-    cat(script)
+    if (verbose) cat(script) else script
 }
 
 #' @export
