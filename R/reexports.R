@@ -8,12 +8,21 @@ plyr::mapvalues
 #' @export
 plyr::revalue
 
-#' @importFrom dplyr first last mutate top_n top_frac as_tibble tribble
-#' @export
-dplyr::first
+#' @importFrom dplyr mutate top_n top_frac as_tibble tribble
+# #' @export
+# dplyr::first
 
-#' @export
-dplyr::last
+# #' @export
+# dplyr::last
+
+first <- function(x) {
+  x[1]
+}
+
+last <- function(x) {
+  x[length(x)]
+}
+
 
 #' @export
 dplyr::mutate

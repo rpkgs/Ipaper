@@ -11,8 +11,6 @@
 \alias{.}
 \alias{mapvalues}
 \alias{revalue}
-\alias{first}
-\alias{last}
 \alias{mutate}
 \alias{top_n}
 \alias{top_frac}
@@ -58,7 +56,7 @@ below to see their documentation.
 
   \item{data.table}{\code{\link[data.table]{as.data.table}}, \code{\link[data.table]{data.table}}, \code{\link[data.table]{fread}}, \code{\link[data.table]{fwrite}}, \code{\link[data.table:as.data.table]{is.data.table}}}
 
-  \item{dplyr}{\code{\link[dplyr:reexports]{as_tibble}}, \code{\link[dplyr:nth]{first}}, \code{\link[dplyr:nth]{last}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr:top_n]{top_frac}}, \code{\link[dplyr]{top_n}}, \code{\link[dplyr:reexports]{tribble}}}
+  \item{dplyr}{\code{\link[dplyr:reexports]{as_tibble}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr:top_n]{top_frac}}, \code{\link[dplyr]{top_n}}, \code{\link[dplyr:reexports]{tribble}}}
 
   \item{foreach}{\code{\link[foreach:foreach]{\%do\%}}, \code{\link[foreach:foreach]{\%dopar\%}}}
 
