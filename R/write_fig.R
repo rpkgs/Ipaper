@@ -123,7 +123,7 @@ showfig <- function(file, use.file_show = FALSE) {
     file_ext = file_ext(file)
     app = ""
     if (.Platform$OS.type == "windows") 
-        app = '"C:/Program Files/RStudio/bin/sumatra/SumatraPDF.exe"'
+        app = '"C:/Program Files/RStudio/resources/app/bin/sumatra/SumatraPDF.exe"'
     if (.Platform$OS.type == "unix") app <- "evince"
     
     # if `is_wsl_rserver` is true, `file.show` will be called.
