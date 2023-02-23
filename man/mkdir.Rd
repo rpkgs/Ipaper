@@ -2,10 +2,13 @@
 % Please edit documentation in R/cmd_func.R
 \name{mkdir}
 \alias{mkdir}
+\alias{file_mv}
 \alias{check_dir}
 \title{mkdir}
 \usage{
 mkdir(path)
+
+file_mv(files, outdir)
 
 check_dir(path)
 }

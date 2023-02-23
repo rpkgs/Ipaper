@@ -151,6 +151,13 @@ mkdir <- function(path){
 
 #' @rdname mkdir
 #' @export
+file_mv <- function(files, outdir) {
+  files_new = paste0(outdir, "/", basename(files))
+  file.rename(files, files_new)
+}
+
+#' @rdname mkdir
+#' @export
 check_dir <- mkdir
 
 #' @keywords internal
