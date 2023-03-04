@@ -2,9 +2,12 @@
 % Please edit documentation in R/set_font.R
 \name{set_font}
 \alias{set_font}
+\alias{clear_font}
 \title{settting font family for plot}
 \usage{
 set_font()
+
+clear_font()
 }
 \description{
 settting font family for plot

@@ -1,6 +1,6 @@
-
+```{r}
 # 暂且使用rTIMES
-set_font()
+# set_font()
 
 write_fig({
     # plot(0)
@@ -17,15 +17,34 @@ write_fig({
 }, "a.pdf", 10, 6)
 # `Times` also works for Linux system
 
+# clear_font()
+```
+
+```{r}
 write_fig({
     par(family = "TimesSimSun", cex = 1.4)
     plot(0, main = "测试字体 Times New Roman")
     plot(0, main = "测试字体 Times New Roman")
 }, "TimesSimSun.pdf", 10, 6)
+```
 
+```{r}
 # 1. jpg, tif：对于中文可以自动设置宋体
 # 2. emf 可以自动设置中文字体，但是不支持AI编辑
 write_fig({
     par(family = "Times", cex = 1.4)
     plot(0, main = "测试字体 Times New Roman")
 }, "a.jpg", 10, 6, devices = c("tif", "jpg", "png", "emf", "svg"))
+```
+
+```{r}
+library(ggplot2)
+
+
+ggplot(trees, aes(Girth, Height)) + 
+  geom_line() + 
+  theme(plot.title = element_text(family = "rTimes")) + 
+  labs(title = "测试字体 rTimes") -> p
+
+write_fig(p, 'Rplot.pdf', 10, 5)
+```

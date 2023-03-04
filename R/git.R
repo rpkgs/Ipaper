@@ -5,8 +5,8 @@ NULL
 #' @rdname git_tools
 #' @export
 git_push <- function(f = FALSE) {
-    cmd = ifelse(f, "git push -f", "git push")
-    system(cmd)
+  cmd = ifelse(f, "git push -f", "git push")
+  system(cmd)
 }
 
 #' @rdname git_tools
