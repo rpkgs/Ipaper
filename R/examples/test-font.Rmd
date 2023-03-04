@@ -1,4 +1,8 @@
 ```{r}
+library(extrafont)
+font_import()
+```
+```{r}
 # 暂且使用rTIMES
 # set_font()
 

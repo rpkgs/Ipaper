@@ -8,7 +8,7 @@ plyr::mapvalues
 #' @export
 plyr::revalue
 
-#' @importFrom dplyr mutate top_n top_frac as_tibble tribble
+#' @importFrom dplyr mutate top_n top_frac as_tibble tribble select rename arrange
 # #' @export
 # dplyr::first
 
@@ -23,6 +23,15 @@ last <- function(x) {
   x[length(x)]
 }
 
+
+#' @export
+dplyr::select
+
+#' @export
+dplyr::rename
+
+#' @export
+dplyr::arrange
 
 #' @export
 dplyr::mutate
