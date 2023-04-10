@@ -93,7 +93,9 @@ pdf_view <- function(file, ...) {
 
 #' @rdname pdf_view
 #' @export
-SumatraPDF <- cmd_func("C:/Program Files/RStudio/resources/app/bin/sumatra/SumatraPDF.exe")
+SumatraPDF <- cmd_func("SumatraPDF.exe")
+
+# C:/Program Files/RStudio/resources/app/bin/sumatra/SumatraPDF.exe
 
 #' @rdname pdf_view
 #' @export

@@ -9,6 +9,8 @@
 \alias{green}
 \alias{underline}
 \alias{.}
+\alias{\%||\%}
+\alias{map}
 \alias{mapvalues}
 \alias{revalue}
 \alias{select}
@@ -22,7 +24,6 @@
 \alias{\%>\%}
 \alias{\%<>\%}
 \alias{set_names}
-\alias{map}
 \alias{data.table}
 \alias{is.data.table}
 \alias{fread}
@@ -76,7 +77,7 @@ below to see their documentation.
 
   \item{plyr}{\code{\link[plyr:quoted]{.}}, \code{\link[plyr]{mapvalues}}, \code{\link[plyr]{revalue}}}
 
-  \item{purrr}{\code{\link[purrr]{map}}}
+  \item{purrr}{\code{\link[purrr:reexports]{\%||\%}}, \code{\link[purrr]{map}}}
 
   \item{remotes}{\code{\link[remotes]{install_git}}, \code{\link[remotes]{install_github}}, \code{\link[remotes]{install_gitlab}}}
 

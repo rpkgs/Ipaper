@@ -1,0 +1,36 @@
+---
+title: "parallel"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{parallel}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, eval=FALSE}
+library(Ipaper)
+
+InitCluster(4)
+cl = getOption("cl")
+```
+
+```{r, eval=FALSE}
+library(parallel)
+
+# 加载共享函数
+clusterEvalQ(cl, {
+  library(Ipaper)
+})
+# parallel::clusterExport(cl, )
+
+foreach(i = icount(10)) %dopar% {
+  runningId(i)
+}
+```

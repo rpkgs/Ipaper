@@ -3,6 +3,8 @@
 
 - fix `cdo_grid` corner coordinate error.
 - set `kill=FALSE` as default in `InitCluster`
+- Please manually add `C:/Program Files/RStudio/resources/app/bin/sumatra/SumatraPDF.exe` to your system path
+- add rio: support csv, fst, rda, rds
 
 # Ipaper 0.1.7
 
