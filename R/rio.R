@@ -10,7 +10,7 @@ import_fst <- function(
 }
 
 #' @export
-export <- function(x, path) {
+export <- function(x, path, ...) {
   ext <- tools::file_ext(path) %>% tolower()
   if (ext == "rda") {
     save(x, file = path, ...)
