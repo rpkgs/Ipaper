@@ -13,13 +13,18 @@ import_fst <- function(
 export <- function(x, path, ...) {
   ext <- tools::file_ext(path) %>% tolower()
   if (ext == "rda") {
-    save(x, file = path, ...)
+    var = deparse(substitute(x))
+    eval(parse(text=glue("save({var}, ..., file = path, envir = parent.frame())")))
+    # print(var)
+    # save(x, file = path, ...)
   } else if (ext == "rds") {
     saveRDS(x, path, ...)
   } else if (ext == "fst") {
     write_fst(x, path, ...)
   } else if (ext == "csv") {
     fwrite(x, path, ...)
+  } else {
+    message("unsupported file type!")
   }
 }
 
@@ -27,12 +32,14 @@ export <- function(x, path, ...) {
 import <- function(path, ...) {
   ext <- tools::file_ext(path) %>% tolower()
   if (ext == "rda") {
-    load(path)
+    load(path, envir = parent.frame())
   } else if (ext == "rds") {
     readRDS(path)
   } else if (ext == "fst") {
     import_fst(path, ...)
   } else if (ext == "csv") {
     fread(x, path, ...)
+  } else {
+    message("unsupported file type!")
   }
 }

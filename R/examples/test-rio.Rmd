@@ -1,0 +1,11 @@
+```{r}
+library(Ipaper)
+
+
+
+```
+
+```{r}
+rm(list = ls())
+load("a.rda")
+```
