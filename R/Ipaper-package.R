@@ -34,11 +34,11 @@ NULL
     # suppressMessages
     # suppressWarnings
     # suppressMessages({
-    library(magrittr)
-    #     # library(lattice)
+    #     library(lattice)
     #     library(devtools)
     # })
     # set_font()
     # Sys.setenv(TZ = "Asia/Shanghai")
+    options("datatable.print.class" = TRUE)
     invisible()
 }
