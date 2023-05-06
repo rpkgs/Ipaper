@@ -89,21 +89,6 @@ data.table::fread
 #' @export
 data.table::fwrite
 
-
-# #' @importFrom pillar dim_desc 
-#' @export
-print.data.table <- function(d, n = 10, ..., maxrows = 1e6) {
-  # cat(sprintf("[data.table]: %s \n", dim_desc(d)))
-  if (nrow(d) <= maxrows) {
-    cat("[data.table]: \n")
-    
-    class(d) <- c("tbl", "data.table", "data.frame")
-    print(d, n = n, ...)
-  } else {
-    data.table:::print.data.table(d)
-  }
-}
-
 #' @export
 data.table::as.data.table
 
