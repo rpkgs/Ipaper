@@ -40,6 +40,8 @@ write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5,
         }    
     }
     outdir    = dirname(file)
+    mkdir(outdir)
+    
     filename  = file_name(file)
     file_exts = if (is.null(devices)) file_ext(file) else devices
     if (length(file_exts) == 1 && (is.na(file_exts) || file_exts == "")) file_exts = "pdf"
@@ -48,7 +50,7 @@ write_fig <- function (p, file = "Rplot.pdf", width = 10, height = 5,
     process <- function() {
         for(i in seq_along(file_exts)) {
             file_ext = file_exts[i]
-            outfile  = sprintf("%s/%s.%s", outdir, filename, file_ext)
+            outfile  = sprintf("%s/%s.%s", outdir, filename, file_ext) %>% path_mnt()
             
             dev_open(outfile, width, height, res, use.cairo_pdf)
             # 1. print plot
