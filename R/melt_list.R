@@ -20,13 +20,50 @@ melt_list <- function(list, ..., na.rm = TRUE) {
   n <- length(list)
 
   params <- list(...)
-  key <- names(params)[1]
-  vals <- params[[1]]
-  if (is.null(key)) {
-    key <- vals # variable name
-    vals <- names(list)
+
+  # check keys and values
+  nkey = length(params)  
+  l_vals = rep(list(NULL), nkey)
+
+  for (k in 1:nkey) {
+    key <- names(params)[k]
+    vals <- params[[k]]
+
+    if (is.null(key)) {
+      key <- vals # variable name
+      vals <- names(list)
+    }
+    vals %<>% check_vals(n)
+    
+    l_vals[[k]] = vals
+    names(l_vals)[k] = key
   }
-  if (is.null(vals)) vals <- seq_along(list)
+
+  first <- list[[1]]
+  if (is.data.frame(first)) {
+    for (i in seq_along(list)) {
+      x <- list[[i]]
+
+      for (k in 1:nkey) {
+        vals = l_vals[[k]]
+        key = names(l_vals)[k]
+        eval(parse(text = sprintf("x$%s <- vals[i]", key)))
+      }
+      list[[i]] <- x
+    }
+    res <- rbindlist(list)
+    # } else {
+    #     id.vars <- colnames(first)
+    #     res <- data.table::melt(list, ..., id.vars = id.vars, na.rm = na.rm)
+    #     colnames(res) <- c(id.vars, keys)
+  }
+  keys = names(l_vals)
+  res %>% dplyr::relocate(all_of(keys))
+}
+
+# n: the number of variables
+check_vals <- function(vals, n) {
+  if (is.null(vals)) vals <- 1:n
   if (length(vals) == 1) vals <- rep(vals, n)
   if (is.character(vals)) {
     if (is_num_char(vals)) {
@@ -35,22 +72,7 @@ melt_list <- function(list, ..., na.rm = TRUE) {
       vals %<>% as.factor()
     }
   }
-
-  first <- list[[1]]
-  if (is.data.frame(first)) {
-    for (i in seq_along(list)) {
-      x <- list[[i]]
-      eval(parse(text = sprintf("x$%s <- vals[i]", key)))
-      list[[i]] <- x
-    }
-    # res <- do.call(rbind, list) %>% data.table() # return
-    res <- rbindlist(list)
-    # } else {
-    #     id.vars <- colnames(first)
-    #     res <- data.table::melt(list, ..., id.vars = id.vars, na.rm = na.rm)
-    #     colnames(res) <- c(id.vars, key)
-  }
-  res %>% dplyr::relocate(key)
+  vals
 }
 
 #' @rdname melt_list
