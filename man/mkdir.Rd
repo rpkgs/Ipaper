@@ -3,12 +3,15 @@
 \name{mkdir}
 \alias{mkdir}
 \alias{file_mv}
+\alias{file_cp}
 \alias{check_dir}
 \title{mkdir}
 \usage{
 mkdir(path)
 
 file_mv(files, outdir)
+
+file_cp(files, outdir)
 
 check_dir(path)
 }

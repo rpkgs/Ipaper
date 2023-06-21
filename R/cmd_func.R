@@ -160,6 +160,13 @@ file_mv <- function(files, outdir) {
 
 #' @rdname mkdir
 #' @export
+file_cp <- function(files, outdir) {
+  files_new = paste0(outdir, "/", basename(files))
+  file.copy(files, files_new)
+}
+
+#' @rdname mkdir
+#' @export
 check_dir <- mkdir
 
 #' @keywords internal
