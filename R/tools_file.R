@@ -53,18 +53,22 @@ file_name <- function(file) {
     # +:  one or more
 }
 
-#' obj.size
+#' obj_size
 #'
 #' Get object size in `unit`
 #' @param obj Object
 #' @param unit "Kb", "Mb" or "Gb"
 #'
 #' @examples
-#' obj.size(1:100)
+#' obj_size(1:100)
 #' @export
-obj.size <- function(obj, unit = "Mb") {
+obj_size <- function(obj, unit = "Mb") {
     cat(format(object.size(obj), unit), "\n")
 }
+
+#' @rdname obj_size
+#' @export
+obj.size <- obj_size
 
 #' file_size
 #'
