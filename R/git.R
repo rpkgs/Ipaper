@@ -38,6 +38,12 @@ github <- function(path = getwd()) {
     system(cmd)
 }
 
+# https://github.com/r-lib/pak/pull/289#issuecomment-1052455984
+#' @export
+pkg_upgrade <- function() {
+  if (length(pkgs <- setdiff(rownames(old.packages()), "pak")) > 0) pak::pkg_install(pkgs)
+}
+
 # #' @rdname install_gitee
 # #' @export
 # install <- install_local
