@@ -1,45 +1,46 @@
-cmd_wsl = "/mnt/c/WINDOWS/system32/cmd.exe"
+cmd_wsl <- "/mnt/c/WINDOWS/system32/cmd.exe"
 
 cmd_func <- function(command) {
-    app = ""
-    if (file.exists(cmd_wsl)) app = paste0(cmd_wsl, " /c ")
+  app <- ""
+  if (file.exists(cmd_wsl)) app <- paste0(cmd_wsl, " /c ")
 
-    function (path = getwd(), verbose = FALSE) {
-        command %<>% path.mnt()
-        path %<>% normalizePath()
-        
-        # command %<>% path.mnt()
-        is_longname = !(basename(command) == command) # longname means windows 
-        # fmt = ifelse(is_longname, '%s""%s" "%s""',  '%s%s "%s"')
-        fmt = '%s%s "%s"'
-        if (is_wsl() || is_win()) path %<>% win_path()
-        
-        if (is_longname) {
-            app = ""
-            fmt = '%s"%s" "%s"'
-            if (is_win()) fmt = '%s""%s" "%s""'
-        }
-        cmd <- sprintf(fmt, app, command, path)
-        if (verbose) cat(cmd, "\n")
-        shell(cmd)
+  function(path = getwd(), verbose = FALSE) {
+    command %<>% path.mnt()
+    path %<>% normalizePath()
+
+    # command %<>% path.mnt()
+    is_longname <- !(basename(command) == command) # longname means windows
+    # fmt = ifelse(is_longname, '%s""%s" "%s""',  '%s%s "%s"')
+    fmt <- '%s%s "%s"'
+    if (is_wsl() || is_win()) path %<>% win_path()
+
+    if (is_longname) {
+      app <- ""
+      fmt <- '%s"%s" "%s"'
+      if (is_win()) fmt <- '%s""%s" "%s""'
     }
+    cmd <- sprintf(fmt, app, command, path)
+    if (verbose) cat(cmd, "\n")
+    shell(cmd)
+  }
 }
 
-shell <- function(..., ignore.stderr = FALSE, wait = FALSE){
-    FUN <- switch(.Platform$OS.type, 
-        "windows" = base::shell, 
-        "unix" = base::system)
-    suppressWarnings(FUN(..., ignore.stderr = ignore.stderr, wait = wait))
-    invisible()
+shell <- function(..., ignore.stderr = FALSE, wait = FALSE) {
+  FUN <- switch(.Platform$OS.type,
+    "windows" = base::shell,
+    "unix" = base::system
+  )
+  suppressWarnings(FUN(..., ignore.stderr = ignore.stderr, wait = wait))
+  invisible()
 }
 
 #' @title code editor
 #' @name code_editor
-#' 
+#'
 #' @description sublime text3 ad vscode
-#' 
+#'
 #' @param verbose Boolean. Whether to print command into console?
-#' 
+#'
 #' @keywords internal
 NULL
 
@@ -54,19 +55,19 @@ is_win <- function() .Platform$OS.type == "windows"
 
 #' @rdname code_editor
 #' @export
-OS_type <- function(){
-    OS.type = .Platform$OS.type
-    if (is_wsl()) OS.type = "wsl"
-    OS.type
+OS_type <- function() {
+  OS.type <- .Platform$OS.type
+  if (is_wsl()) OS.type <- "wsl"
+  OS.type
 }
 
 #' @rdname code_editor
 #' @export
-subl = cmd_func("subl")
+subl <- cmd_func("subl")
 
 #' @rdname code_editor
 #' @export
-code = cmd_func("code")
+code <- cmd_func("code")
 # code <- function(path = getwd(), verbose = FALSE) {
 #     # path <- check_path(path)
 #     cmd <- sprintf("/opt/bin/code '%s'", path)
@@ -76,19 +77,19 @@ code = cmd_func("code")
 
 #' @rdname code_editor
 #' @export
-smerge = cmd_func("smerge")
+smerge <- cmd_func("smerge")
 
 #' pdf_view
 #' @param file the path of pdf file
-#' 
+#'
 #' @note not work in wsl
 #' @export
 pdf_view <- function(file, ...) {
-    if (is_win() || is_wsl()) {
-        SumatraPDF(file, ...)
-    } else {
-        evince(file, ...)
-    }
+  if (is_win() || is_wsl()) {
+    SumatraPDF(file, ...)
+  } else {
+    evince(file, ...)
+  }
 }
 
 #' @rdname pdf_view
@@ -104,29 +105,30 @@ evince <- cmd_func("evince")
 
 
 #' Open directory in Explorer
-#' 
-#' @description open assign path in windows explorer, and default path is 
+#'
+#' @description open assign path in windows explorer, and default path is
 #' current directory. This function is only designed for windows system.
-#' 
+#'
 #' @param path the path you want to open
 #' @export
-dir.show <- function (path = getwd()) {
-    if (!dir.exists(path)) path %<>% dirname()
-    path <- check_path(path)
-    
-    cmd <- switch(OS_type(), 
-        "windows" = paste("Explorer /e, ", path), 
-        "unix" = sprintf("nautilus '%s'", path), 
-        "wsl" = sprintf("%s /c Explorer /e, '%s'", cmd_wsl, path))
-    shell(cmd)
+dir.show <- function(path = getwd(), verbose=FALSE) {
+  if (!dir.exists(path)) path %<>% dirname()
+  path <- check_path(path)
+  cmd <- switch(OS_type(),
+    "windows" = paste("explorer.exe /e, ", path),
+    "unix" = sprintf("nautilus '%s'", path),
+    "wsl" = sprintf("%s /c Explorer /e, '%s'", cmd_wsl, path)
+  )
+  if (verbose) print(cmd)
+  shell(cmd)
 }
 
-# # display_tif <- function (data = NULL, file = NULL, width = NULL, height = NULL) 
+# # display_tif <- function (data = NULL, file = NULL, width = NULL, height = NULL)
 # # IRdisplay:::display_raw("image/tif", TRUE, data, file, IRdisplay:::img_metadata(width,  height))
 # #' jupyter display images
-# #' 
+# #'
 # #' Only support jpeg, png, pdf and svg
-# #' 
+# #'
 # #' @keywords internal
 # #' @importFrom IRdisplay display_jpeg display_png display_pdf display_svg
 # #' @export
@@ -137,31 +139,31 @@ dir.show <- function (path = getwd()) {
 # }
 
 #' mkdir
-#' 
-#' @param path character vectors 
-#' 
+#'
+#' @param path character vectors
+#'
 #' @importFrom foreach %do%
 #' @export
-mkdir <- function(path){
-    for (path_i in unique(path)) {
-       if (!dir.exists(path_i)) {
-           dir.create(path_i, recursive = TRUE)
-       }
+mkdir <- function(path) {
+  for (path_i in unique(path)) {
+    if (!dir.exists(path_i)) {
+      dir.create(path_i, recursive = TRUE)
     }
-    path
+  }
+  path
 }
 
 #' @rdname mkdir
 #' @export
 file_mv <- function(files, outdir) {
-  files_new = paste0(outdir, "/", basename(files))
+  files_new <- paste0(outdir, "/", basename(files))
   file.rename(files, files_new)
 }
 
 #' @rdname mkdir
 #' @export
 file_cp <- function(files, outdir) {
-  files_new = paste0(outdir, "/", basename(files))
+  files_new <- paste0(outdir, "/", basename(files))
   file.copy(files, files_new)
 }
 
@@ -172,6 +174,6 @@ check_dir <- mkdir
 #' @keywords internal
 #' @export
 touch <- function(file) {
-    mkdir(dirname(file))
-    writeLines("", file)
+  mkdir(dirname(file))
+  writeLines("", file)
 }

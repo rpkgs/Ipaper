@@ -30,7 +30,7 @@ win_path <- function(path, winslash = "\\\\") {
     pan <- substr(path, 6, 6)
     path <- paste0(pan, ":", substr(path, 7, nchar(path)))
   }
-  gsub(winslash, "/", path)
+  gsub("/", winslash, path)
 }
 
 check_path <- function(path) {

@@ -4,7 +4,7 @@
 \alias{dir.show}
 \title{Open directory in Explorer}
 \usage{
-dir.show(path = getwd())
+dir.show(path = getwd(), verbose = FALSE)
 }
 \arguments{
 \item{path}{the path you want to open}
