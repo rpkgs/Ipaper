@@ -1,0 +1,5 @@
+#' @export 
+degc = "℃"
+
+#' @export 
+pm = "±"

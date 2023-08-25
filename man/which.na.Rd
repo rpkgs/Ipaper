@@ -4,6 +4,7 @@
 \alias{which.na}
 \alias{which.notna}
 \alias{which.isnull}
+\alias{which.null}
 \alias{which.notnull}
 \alias{which.notempty}
 \alias{which.empty}
@@ -14,6 +15,8 @@ which.na(x)
 which.notna(x)
 
 which.isnull(x)
+
+which.null(x)
 
 which.notnull(x)
 

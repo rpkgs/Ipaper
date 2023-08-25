@@ -17,6 +17,10 @@ which.isnull <- function(x) {
     which(sapply(x, is.null))
 }
 
+#' @export
+#' @rdname which.na
+which.null <- which.isnull
+
 #' @rdname which.na
 #' @export
 which.notnull <- function(x) {
