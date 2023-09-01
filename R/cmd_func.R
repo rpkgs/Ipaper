@@ -167,6 +167,16 @@ file_cp <- function(files, outdir) {
   file.copy(files, files_new)
 }
 
+#' @export
+file_show <- function(f, ...) {
+  f = normalizePath(f)
+  if (is_win()) {
+    shell.exec(f)
+  } else {
+    file.show(f, ...)
+  }
+}
+
 #' @rdname mkdir
 #' @export
 check_dir <- mkdir

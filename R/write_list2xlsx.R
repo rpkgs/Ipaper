@@ -35,7 +35,7 @@ write_list2xlsx <- function(x, file, .progress = "none", rowNames = FALSE, show 
     tmp <- llply(seq_along(x), writeIn, .progress = .progress)
     if (.progress != "none") cat(sprintf("[---- Writing into xlsx file: %s ----]\n", file))
     saveWorkbook(wb, file, overwrite = TRUE)
-    if (show) file.show(file)
+    if (show) file_show(file)
 }
 
 #' read_xlsx2list

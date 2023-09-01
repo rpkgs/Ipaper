@@ -132,7 +132,7 @@ showfig <- function(file, use.file_show = FALSE) {
     is_wsl_rserver = dir.exists("/mnt/c") &&
         file.exists("/usr/sbin/rstudio-server") && file_ext == "pdf"
     if (file_ext %in% c("svg", "emf", "jpg", "png") || (is_wsl_rserver && use.file_show)) {
-        file.show(file)
+        file_show(file)
     } else {
         pdf_view(file)
     }
