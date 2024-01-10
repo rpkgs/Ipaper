@@ -34,11 +34,11 @@ plyr::revalue
 # #' @export
 # dplyr::last
 first <- function(x) {
-  x[1]
+  x[[1]]
 }
 
 last <- function(x) {
-  x[length(x)]
+  x[[length(x)]]
 }
 
 
