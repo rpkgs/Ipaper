@@ -3,7 +3,6 @@
 \docType{package}
 \name{Ipaper}
 \alias{Ipaper}
-\alias{_PACKAGE}
 \alias{Ipaper-package}
 \title{Ipaper}
 \description{

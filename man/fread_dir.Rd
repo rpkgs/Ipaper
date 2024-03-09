@@ -4,7 +4,7 @@
 \alias{fread_dir}
 \title{fread_dir}
 \usage{
-fread_dir(indir, pattern = "*.csv", ..., list2df = TRUE)
+fread_dir(indir, pattern = "*.csv", ..., .progress = "text", list2df = TRUE)
 }
 \arguments{
 \item{...}{others to \code{\link[data.table:fread]{data.table::fread()}}}

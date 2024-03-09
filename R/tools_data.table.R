@@ -4,11 +4,11 @@
 #' 
 #' @importFrom data.table rbindlist data.table
 #' @export
-fread_dir <- function(indir, pattern = "*.csv", ..., list2df=TRUE) {
+fread_dir <- function(indir, pattern = "*.csv", ..., .progress="text", list2df=TRUE) {
   fs = dir(indir, pattern, full.names = TRUE)
   fs = set_names(fs, basename(fs))
 
-  res = lapply(fs, fread, ...)
+  res = llply(fs, fread, .progress=.progress, ...)
   if (!list2df) return(res)
 
   tryCatch({
