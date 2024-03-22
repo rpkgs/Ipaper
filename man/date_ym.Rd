@@ -3,11 +3,17 @@
 \name{date_ym}
 \alias{date_ym}
 \alias{date_y}
+\alias{date_yj}
+\alias{date_ydn}
 \title{The corresponding date of the first day of month}
 \usage{
 date_ym(date)
 
 date_y(date)
+
+date_yj(year, doy)
+
+date_ydn(year, dn, delta = 8)
 }
 \description{
 The corresponding date of the first day of month
