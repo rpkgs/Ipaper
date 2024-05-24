@@ -16,7 +16,7 @@ Imports:
     jsonlite,
     magrittr,
     purrr, rlang, progress,
-    lubridate,
+    lubridate, stringr,
     data.table, fst,
     openxlsx,
     readxl,
