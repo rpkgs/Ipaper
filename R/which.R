@@ -44,3 +44,9 @@ which.notempty <- function(x) {
 which.empty <- function(x) {
     which(sapply(x, is_empty))
 }
+
+#' @rdname which.na
+#' @export
+which.dup <- function(x) {
+  x[duplicated(x)]
+}

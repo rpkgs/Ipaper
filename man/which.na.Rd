@@ -8,6 +8,7 @@
 \alias{which.notnull}
 \alias{which.notempty}
 \alias{which.empty}
+\alias{which.dup}
 \title{which functions}
 \usage{
 which.na(x)
@@ -23,6 +24,8 @@ which.notnull(x)
 which.notempty(x)
 
 which.empty(x)
+
+which.dup(x)
 }
 \arguments{
 \item{x}{numeric vector}
