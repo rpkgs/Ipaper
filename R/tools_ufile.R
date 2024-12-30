@@ -33,7 +33,7 @@ read_excel <- function(f, ...) {
   fun <- switch(file_ext(f),
     csv = data.table::fread,
     xls = readxl::read_xls,
-    xlsx = read_xlsx
+    xlsx = readxl::read_xlsx
   )
   d <- fun(f, ...)
   if ("DOY" %in% names(d)) d <- dplyr::select(d, -DOY)
