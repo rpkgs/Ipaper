@@ -88,3 +88,8 @@ file_size <- function(file) {
 dir2 <- function(path = ".", pattern = NULL, full.names = TRUE, ...) {
     dir(path_mnt(path), pattern, ..., full.names = full.names)
 }
+
+#' @export
+isfile <- function(f) {
+  file.exists(file)
+}
