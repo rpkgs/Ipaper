@@ -12,7 +12,7 @@
 #' @references
 #' 1. <https://stackoverflow.com/questions/15673550/why-is-rbindlist-better-than-rbind>
 #' @export
-melt_list <- function(list, ..., na.rm = TRUE) {
+melt_list <- function(list, ..., na.rm = TRUE, str2num = TRUE, str2factor = TRUE) {
   list <- rm_empty(list)
   if (is.null(list) || length(list) == 0) {
     return(NULL)
@@ -22,8 +22,8 @@ melt_list <- function(list, ..., na.rm = TRUE) {
   params <- list(...)
 
   # check keys and values
-  nkey = length(params)  
-  l_vals = rep(list(NULL), nkey)
+  nkey <- length(params)
+  l_vals <- rep(list(NULL), nkey)
 
   for (k in 1:nkey) {
     key <- names(params)[k]
@@ -33,10 +33,10 @@ melt_list <- function(list, ..., na.rm = TRUE) {
       key <- vals # variable name
       vals <- names(list)
     }
-    vals %<>% check_vals(n)
-    
-    l_vals[[k]] = vals
-    names(l_vals)[k] = key
+    vals %<>% check_vals(n, str2num, str2factor)
+
+    l_vals[[k]] <- vals
+    names(l_vals)[k] <- key
   }
 
   first <- list[[1]]
@@ -45,8 +45,8 @@ melt_list <- function(list, ..., na.rm = TRUE) {
       x <- list[[i]]
 
       for (k in 1:nkey) {
-        vals = l_vals[[k]]
-        key = names(l_vals)[k]
+        vals <- l_vals[[k]]
+        key <- names(l_vals)[k]
         eval(parse(text = sprintf("x$%s <- vals[i]", key)))
       }
       list[[i]] <- x
@@ -57,18 +57,18 @@ melt_list <- function(list, ..., na.rm = TRUE) {
     #     res <- data.table::melt(list, ..., id.vars = id.vars, na.rm = na.rm)
     #     colnames(res) <- c(id.vars, keys)
   }
-  keys = names(l_vals)
+  keys <- names(l_vals)
   res %>% dplyr::relocate(all_of(keys))
 }
 
 # n: the number of variables
-check_vals <- function(vals, n) {
+check_vals <- function(vals, n, str2num = TRUE, str2factor = TRUE) {
   if (is.null(vals)) vals <- 1:n
   if (length(vals) == 1) vals <- rep(vals, n)
   if (is.character(vals)) {
-    if (is_num_char(vals)) {
+    if (str2num && is_num_char(vals)) {
       vals %<>% as.numeric()
-    } else {
+    } else if (str2factor) {
       vals %<>% as.factor()
     }
   }

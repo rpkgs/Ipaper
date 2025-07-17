@@ -31,14 +31,17 @@
 NULL
 
 .onLoad <- function(libname, pkgname) {
-    # suppressMessages
-    # suppressWarnings
-    # suppressMessages({
-    #     library(lattice)
-    #     library(devtools)
-    # })
-    # set_font()
-    # Sys.setenv(TZ = "Asia/Shanghai")
     options("datatable.print.class" = TRUE)
     invisible()
+}
+
+
+file_info <- function(..., extra_cols = TRUE) {
+  res <- suppressWarnings(.Internal(file.info(fn <- c(...), extra_cols)))
+  res$mtime <- .POSIXct(res$mtime)
+  res$ctime <- .POSIXct(res$ctime)
+  res$atime <- .POSIXct(res$atime)
+  class(res) <- "data.frame"
+  attr(res, "row.names") <- fn
+  res
 }

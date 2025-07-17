@@ -90,6 +90,4 @@ dir2 <- function(path = ".", pattern = NULL, full.names = TRUE, ...) {
 }
 
 #' @export
-isfile <- function(f) {
-  file.exists(file)
-}
+isfile <- \(f) file.exists(f)

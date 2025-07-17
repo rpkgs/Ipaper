@@ -5,7 +5,7 @@
 \alias{melt_tree}
 \title{melt_list}
 \usage{
-melt_list(list, ..., na.rm = TRUE)
+melt_list(list, ..., na.rm = TRUE, str2num = TRUE, str2factor = TRUE)
 
 melt_tree(x, names, ...)
 }
