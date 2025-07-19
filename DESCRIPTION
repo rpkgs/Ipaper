@@ -1,7 +1,7 @@
 Package: Ipaper
 Type: Package
 Title: Collection of personal practical R functions
-Version: 0.1.10
+Version: 0.1.11
 Authors@R: person("Dongdong", "Kong", email = "kongdd.sysu@gmail.com",
   role = c("aut", "cre"))
 Description: Awesome functions in R.
@@ -12,14 +12,12 @@ Depends:
     R (>= 3.4), 
     magrittr
 Imports:
-    ggplot2,
     jsonlite,
     magrittr,
     purrr, rlang, progress,
     lubridate, stringr,
-    data.table, fst,
-    openxlsx,
-    readxl,
+    data.table, fst, qs, 
+    openxlsx, readxl,
     graphics,
     methods,
     parallel,
@@ -34,6 +32,7 @@ Imports:
     showtext, sysfonts,
     zeallot
 Suggests: 
+    ggplot2,
     testthat (>= 3.1.0),
     knitr,
     rmarkdown,

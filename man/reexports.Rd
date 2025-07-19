@@ -13,6 +13,9 @@
 \alias{map}
 \alias{mapvalues}
 \alias{revalue}
+\alias{qsavem}
+\alias{qload}
+\alias{qsave}
 \alias{select}
 \alias{rename}
 \alias{arrange}
@@ -78,6 +81,8 @@ below to see their documentation.
   \item{plyr}{\code{\link[plyr:quoted]{.}}, \code{\link[plyr]{mapvalues}}, \code{\link[plyr]{revalue}}}
 
   \item{purrr}{\code{\link[purrr:reexports]{\%||\%}}, \code{\link[purrr]{map}}}
+
+  \item{qs}{\code{\link[qs:qreadm]{qload}}, \code{\link[qs:qreadm]{qload}}, \code{\link[qs]{qsave}}, \code{\link[qs]{qsavem}}}
 
   \item{remotes}{\code{\link[remotes]{install_git}}, \code{\link[remotes]{install_github}}, \code{\link[remotes]{install_gitlab}}}
 

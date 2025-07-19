@@ -43,6 +43,20 @@ last <- function(x) {
 
 
 #' @export
+qs::qsavem
+
+#' @export
+qs::qload
+
+
+#' @export
+qs::qsave
+
+#' @export
+qs::qload
+
+
+#' @export
 dplyr::select
 
 #' @export
