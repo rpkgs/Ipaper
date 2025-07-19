@@ -3,8 +3,7 @@
 NULL
 
 # ' @importFrom tidyselect where
-#' @importFrom dplyr mutate across group_keys group_map
-#' @importFrom tibble tibble
+#' @importFrom dplyr tibble mutate across group_keys group_map
 #' @rdname dt_tools
 #' @export
 dt_round <- function(d, digits = 2) {
@@ -104,6 +103,8 @@ export_fst.grouped_list <- function(x, path, compress = 100, uniform_encoding = 
   write_fst(df, path, compress, uniform_encoding)
 }
 
+# 另一种策略保存为chunks，仿照parquet
+# write_dataset, read_dataset
 
 #' @export
 import_fst <- function(
