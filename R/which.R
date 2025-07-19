@@ -2,19 +2,19 @@
 #' @param x numeric vector
 #' @export
 which.na <- function(x) {
-    which(is.na(x))
+  which(is.na(x))
 }
 
 #' @export
 #' @rdname which.na
 which.notna <- function(x) {
-    which(!is.na(x))
+  which(!is.na(x))
 }
 
 #' @export
 #' @rdname which.na
 which.isnull <- function(x) {
-    which(sapply(x, is.null))
+  which(sapply(x, is.null))
 }
 
 #' @export
@@ -24,25 +24,25 @@ which.null <- which.isnull
 #' @rdname which.na
 #' @export
 which.notnull <- function(x) {
-    which(!sapply(x, is.null))
+  which(!sapply(x, is.null))
 }
 
-#' @export 
+#' @export
 `%!in%` <- function(x, table) {
-    !(x %in% table)
+  !(x %in% table)
 }
 
 # ' @importFrom purrr is_empty
 #' @rdname which.na
 #' @export
 which.notempty <- function(x) {
-    which(!sapply(x, is_empty))
+  which(!sapply(x, is_empty))
 }
 
 #' @rdname which.na
 #' @export
 which.empty <- function(x) {
-    which(sapply(x, is_empty))
+  which(sapply(x, is_empty))
 }
 
 #' @rdname which.na

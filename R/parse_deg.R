@@ -30,13 +30,13 @@ clean_str_deg <- function(x) {
 }
 
 #' parse_deg
-#' 
+#'
 #' @description
 #' - `*`: zero or more
 #' - `+`: one or more
 #' - `?`: zero or one
 #' @importFrom stringr str_detect str_replace_all str_extract_all str_trim
-#' @export 
+#' @export
 parse_deg <- function(xs) {
   sapply(xs %>% clean_str_deg(), .parse_deg) %>% setNames(NULL)
 }

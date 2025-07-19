@@ -9,34 +9,34 @@ make_progress <- function(total = 100,
                           clear = FALSE,
                           show_after = 0,
                           width = getOption("width")) {
-
   progress::progress_bar$new(
     format = format,
     total = total,
     clear = clear,
-    width= width,
-    show_after = show_after)
+    width = width,
+    show_after = show_after
+  )
 }
 
 .make_args <- function(args, .args, env) {
-  mapper_type <- attr(.args, 'type')
-  n <- switch(
-    mapper_type,
-    .x  = length(eval(args[[.args[['.xarg']]]], envir = env)),
-
-    .y  = max(length(eval(args[[.args[['.xarg']]]], envir = env)),
-              length(eval(args[[.args[['.yarg']]]], envir = env))),
-
-    .l  = max(purrr::map_int(eval(args[[.args[['.larg']]]], envir = env), length)),
-
-    .if = sum(purrr:::probe(eval(args[[.args[['.xarg']]]], envir = env),
-                            eval(args[[.args[['.parg']]]], envir = env))),
-
-    .at = sum(purrr:::inv_which(eval(args[[.args[['.xarg']]]], envir = env),
-                                eval(args[[.args[['.atarg']]]], envir = env)))
-
+  mapper_type <- attr(.args, "type")
+  n <- switch(mapper_type,
+    .x = length(eval(args[[.args[[".xarg"]]]], envir = env)),
+    .y = max(
+      length(eval(args[[.args[[".xarg"]]]], envir = env)),
+      length(eval(args[[.args[[".yarg"]]]], envir = env))
+    ),
+    .l = max(purrr::map_int(eval(args[[.args[[".larg"]]]], envir = env), length)),
+    .if = sum(purrr:::probe(
+      eval(args[[.args[[".xarg"]]]], envir = env),
+      eval(args[[.args[[".parg"]]]], envir = env)
+    )),
+    .at = sum(purrr:::inv_which(
+      eval(args[[.args[[".xarg"]]]], envir = env),
+      eval(args[[.args[[".atarg"]]]], envir = env)
+    ))
   )
-  attr(args, 'n') <- n
+  attr(args, "n") <- n
   return(args)
 }
 
@@ -44,14 +44,14 @@ make_progress <- function(total = 100,
   pf <- function(...) {
     args <- .make_args(as.list(match.call())[-1], .args, rlang::caller_env())
 
-    pb <- make_progress(attr(args,"n"))
-    g <- eval(args[[.args[['.farg']]]], rlang::caller_env())
+    pb <- make_progress(attr(args, "n"))
+    g <- eval(args[[.args[[".farg"]]]], rlang::caller_env())
     mod_f <- function(...) {
       .out <- purrr::as_mapper(g)(...)
       pb$tick()
       .out
     }
-    args[[.args[['.farg']]]] <- mod_f
+    args[[.args[[".farg"]]]] <- mod_f
     do.call(.mapper, args, envir = rlang::caller_env())
   }
 
@@ -64,20 +64,21 @@ make_progress <- function(total = 100,
   # checkmate::assert_subset(unlist(args, use.names = F), rlang::fn_fmls_names(.mapper))
 
   arg_names <- names(args)
-  attr(args, 'type') <-
-    dplyr::case_when('.atarg' %in% arg_names ~ '.at',
-                     '.parg'  %in% arg_names ~ '.if',
-                     '.larg'  %in% arg_names ~ '.l',
-                     '.y'     %in% arg_names ~ '.y',
-                     TRUE ~ '.x')
+  attr(args, "type") <-
+    dplyr::case_when(
+      ".atarg" %in% arg_names ~ ".at",
+      ".parg" %in% arg_names ~ ".if",
+      ".larg" %in% arg_names ~ ".l",
+      ".y" %in% arg_names ~ ".y",
+      TRUE ~ ".x"
+    )
   return(args)
 }
 
 
 #' Helper function for generating progress bar functions
 #' @export
-progressively <- function(.mapper, .farg = NULL, .xarg = NULL,  .yarg = NULL, .larg = NULL, .atarg = NULL, .parg = NULL) {
-
+progressively <- function(.mapper, .farg = NULL, .xarg = NULL, .yarg = NULL, .larg = NULL, .atarg = NULL, .parg = NULL) {
   args <- rlang::call_args(match.call())[-1]
   args <- .verify_args(.mapper, args)
 
@@ -88,4 +89,4 @@ progressively <- function(.mapper, .farg = NULL, .xarg = NULL,  .yarg = NULL, .l
 #' @inheritParams purrr::map
 #'
 #' @export
-pro_map <- progressively(purrr::map, .farg = '.f', .xarg = '.x')
+pro_map <- progressively(purrr::map, .farg = ".f", .xarg = ".x")

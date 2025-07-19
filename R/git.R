@@ -5,37 +5,37 @@ NULL
 #' @rdname git_tools
 #' @export
 git_push <- function(f = FALSE) {
-  cmd = ifelse(f, "git push -f", "git push")
+  cmd <- ifelse(f, "git push -f", "git push")
   system(cmd)
 }
 
 #' @rdname git_tools
 #' @export
 git_commit_amend <- function() {
-    system("git add -A")
-    system("git commit --amend --no-verify --no-edit")
+  system("git add -A")
+  system("git commit --amend --no-verify --no-edit")
 }
 
 #' @rdname git_tools
 #' @export
 git_commit <- function(title = Sys.time()) {
-    system("git add -A")
-    system(sprintf('git commit -a -m "%s" --no-edit', title))
+  system("git add -A")
+  system(sprintf('git commit -a -m "%s" --no-edit', title))
 }
 
 #' @rdname git_tools
 #' @export
 git_set_remote <- function(url) {
-    cmd = sprintf("git remote set-url origin %s", url)
-    system(cmd)
+  cmd <- sprintf("git remote set-url origin %s", url)
+  system(cmd)
 }
 
 
 #' github
 #' @export
 github <- function(path = getwd()) {
-    cmd <- sprintf("github '%s'", path)
-    system(cmd)
+  cmd <- sprintf("github '%s'", path)
+  system(cmd)
 }
 
 # https://github.com/r-lib/pak/pull/289#issuecomment-1052455984
@@ -67,15 +67,15 @@ pkg_upgrade <- function() {
 #' }
 #' @export
 install_gitee <- function(repo) {
-    foreach(str = repo) %do% {
-        url <- paste0("https://gitee.com/", str)
-        install_git(url)
-    }
+  foreach(str = repo) %do% {
+    url <- paste0("https://gitee.com/", str)
+    install_git(url)
+  }
 }
 
 #' @export
 use_github_action2 <- function() {
-    usethis::use_github_action_check_standard()
-    usethis::use_github_action("test-coverage")
-    usethis::use_github_action("pkgdown")
+  usethis::use_github_action_check_standard()
+  usethis::use_github_action("test-coverage")
+  usethis::use_github_action("pkgdown")
 }

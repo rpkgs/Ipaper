@@ -13,9 +13,9 @@ listk(...)
 listk
 }
 \examples{
-a = 1
-b = 1:2
-c = 1:3
+a <- 1
+b <- 1:2
+c <- 1:3
 l1 <- listk(a, b, c)
 l2 <- listk(a, b, c = 1:3)
 l3 <- listk(a = 1, b = 1:2, c = 1:3)

@@ -53,7 +53,7 @@ qs::qload
 qs::qsave
 
 #' @export
-qs::qload
+qs::qread
 
 
 #' @export

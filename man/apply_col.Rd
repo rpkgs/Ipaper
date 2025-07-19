@@ -35,7 +35,7 @@ if you want to aggregate by region (grids), \code{apply_col} should be used.
 This function also suits for big.matrix object.
 }
 \examples{
-mat <- matrix(rnorm(4*6), 4, 6)
+mat <- matrix(rnorm(4 * 6), 4, 6)
 mat_bycol <- apply_col(mat, c(1, 1, 2, 2), colMeans)
 mat_byrow <- apply_row(mat, c(1, 1, 2, 2, 3, 3), rowMeans)
 

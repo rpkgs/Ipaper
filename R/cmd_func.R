@@ -111,7 +111,7 @@ evince <- cmd_func("evince")
 #'
 #' @param path the path you want to open
 #' @export
-dir.show <- function(path = getwd(), verbose=FALSE) {
+dir.show <- function(path = getwd(), verbose = FALSE) {
   if (!dir.exists(path)) path %<>% dirname()
   path <- check_path(path)
   cmd <- switch(OS_type(),
@@ -169,7 +169,7 @@ file_cp <- function(files, outdir) {
 
 #' @export
 file_show <- function(f, ...) {
-  f = normalizePath(f)
+  f <- normalizePath(f)
   if (is_win()) {
     shell.exec(f)
   } else {

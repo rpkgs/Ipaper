@@ -46,7 +46,7 @@ NA values will be removed automatically
 \examples{
 set.seed(1)
 size <- c(10, 8, 31)
-arr <- array(rnorm(10*8*31), dim = size)
+arr <- array(rnorm(10 * 8 * 31), dim = size)
 
 by <- c(rep(1, 10), rep(2, 21))
 r2 <- apply_3d(arr, 3, by = by, FUN = rowMeans)

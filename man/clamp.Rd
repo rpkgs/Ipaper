@@ -24,5 +24,5 @@ constrained in the range of \code{lims}.}
 clamp values in the range of \code{lims}
 }
 \examples{
-clamp(1:10, lims = c(4, 7), fill.na = TRUE) 
+clamp(1:10, lims = c(4, 7), fill.na = TRUE)
 }

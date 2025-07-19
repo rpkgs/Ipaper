@@ -1,5 +1,5 @@
 #' Tidy functions for data.frame
-#' 
+#'
 #' - `reorder_name`: reorder the name of data.frame, date.table or list.
 #'
 #' @param headvars headvars will be in the head columns.
@@ -24,20 +24,20 @@ reorder_name <- function(
     headvars = c("site", "date", "year", "doy", "d8", "d16"),
     tailvars = "")
 {
-    names <- names(d)
-    headvars %<>% intersect(names)
-    tailvars %<>% intersect(names)
-    varnames <- c(headvars, setdiff(names, union(headvars, tailvars)), tailvars)
+  names <- names(d)
+  headvars %<>% intersect(names)
+  tailvars %<>% intersect(names)
+  varnames <- c(headvars, setdiff(names, union(headvars, tailvars)), tailvars)
 
-    if (is.data.table(d)) {
-        d[, varnames, with = F]
-    } else if (is.data.frame(d)) {
-        d[, varnames]
-    } else if (is.list(d)){
-        d[varnames]
-    } else{
-        stop("Unknown data type!")
-    }
+  if (is.data.table(d)) {
+    d[, varnames, with = F]
+  } else if (is.data.frame(d)) {
+    d[, varnames]
+  } else if (is.list(d)) {
+    d[varnames]
+  } else {
+    stop("Unknown data type!")
+  }
 }
 
 #' contain
@@ -51,5 +51,5 @@ reorder_name <- function(
 #' @rdname tools
 #' @export
 contain <- function(d, pattern = "NDVI|EVI") {
-    names(d) %>% .[grep(pattern, .)]
+  names(d) %>% .[grep(pattern, .)]
 }

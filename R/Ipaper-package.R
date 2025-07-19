@@ -3,7 +3,7 @@
 #' @aliases Ipaper-package
 #' @docType package
 #' @keywords paper
-#' 
+#'
 #' @importFrom jsonlite fromJSON read_json
 #' @importFrom purrr map transpose
 #' @importFrom methods as
@@ -18,9 +18,9 @@
 #' @importFrom stats acf as.formula lm median na.omit pnorm qnorm density
 #' @importFrom utils write.table modifyList str
 #' @importFrom plyr llply ddply aaply
-#' 
+#'
 #' @import magrittr
-#' 
+#'
 #' @keywords internal
 "_PACKAGE"
 
@@ -31,8 +31,8 @@
 NULL
 
 .onLoad <- function(libname, pkgname) {
-    options("datatable.print.class" = TRUE)
-    invisible()
+  options("datatable.print.class" = TRUE)
+  invisible()
 }
 
 

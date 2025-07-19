@@ -10,7 +10,7 @@
 print.data.table
 }
 \examples{
-d = data.table(1:100)
+d <- data.table(1:100)
 options(datatable.print.nrow = 100)
 print(d)
 }

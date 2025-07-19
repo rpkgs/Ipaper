@@ -14,10 +14,10 @@
 #' pdf_to_emf(filename = "~/test.pdf")
 #' }
 pdf_to_emf <- function(filename) {
-    input <- normalizePath(filename)
-    output <- gsub("\\.pdf$", "\\.emf", input)
-    expr <- paste0("inkscape --file=", input, " --export-emf=", output)
-    system(expr)
+  input <- normalizePath(filename)
+  output <- gsub("\\.pdf$", "\\.emf", input)
+  expr <- paste0("inkscape --file=", input, " --export-emf=", output)
+  system(expr)
 }
 
 #' merge_pdf
@@ -36,14 +36,15 @@ pdf_to_emf <- function(filename) {
 #' }
 #' @export
 merge_pdf <- function(outfile = "RPlot.pdf", indir = "Figure",
-         pattern = "*.pdf", del = FALSE) {
-    files <- dir(indir, pattern, full.names = TRUE)
-    order <- str_extract(basename(files), "(?<=\\[)\\d*(?=.*\\])") %>%
-        as.numeric() %>% order()
-    if (all(is.finite(order))) files <- files[order]
-    # print(basename(files))
-    pdftools::pdf_combine(files, outfile)
-    if (del) file.remove(files)
+                      pattern = "*.pdf", del = FALSE) {
+  files <- dir(indir, pattern, full.names = TRUE)
+  order <- str_extract(basename(files), "(?<=\\[)\\d*(?=.*\\])") %>%
+    as.numeric() %>%
+    order()
+  if (all(is.finite(order))) files <- files[order]
+  # print(basename(files))
+  pdftools::pdf_combine(files, outfile)
+  if (del) file.remove(files)
 }
 
 

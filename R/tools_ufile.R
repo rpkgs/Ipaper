@@ -26,7 +26,7 @@ write_ufile.unit_df <- function(l, fout) {
 }
 
 #' read csv or xls/xlsx file
-#' 
+#'
 #' @param ... others to fun, one of [data.table::fread()], [readxl::read_xls()], [read_xlsx()]
 #' @export
 read_excel <- function(f, ...) {

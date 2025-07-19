@@ -13,8 +13,8 @@ set_dim(x, dim)
 Set dimensions of an Object
 }
 \examples{
-x <- 1:12 
-set_dim(x, c(3,4))
+x <- 1:12
+set_dim(x, c(3, 4))
 }
 \seealso{
 \link[base:dim]{base::dim}
