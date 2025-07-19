@@ -48,12 +48,12 @@ qs::qsavem
 #' @export
 qs::qload
 
-
 #' @export
 qs::qsave
 
 #' @export
 qs::qread
+
 
 
 #' @export
@@ -79,6 +79,13 @@ dplyr::as_tibble
 
 #' @export 
 dplyr::tribble
+
+#' @export
+dplyr::group_by
+
+#' @export
+dplyr::group_map
+
 
 #' @export
 magrittr::`%>%`

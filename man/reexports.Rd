@@ -25,6 +25,8 @@
 \alias{top_frac}
 \alias{as_tibble}
 \alias{tribble}
+\alias{group_by}
+\alias{group_map}
 \alias{\%>\%}
 \alias{\%<>\%}
 \alias{set_names}
@@ -65,7 +67,7 @@ below to see their documentation.
 
   \item{data.table}{\code{\link[data.table]{as.data.table}}, \code{\link[data.table]{data.table}}, \code{\link[data.table]{fread}}, \code{\link[data.table]{fwrite}}, \code{\link[data.table:as.data.table]{is.data.table}}}
 
-  \item{dplyr}{\code{\link[dplyr]{arrange}}, \code{\link[dplyr:reexports]{as_tibble}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{select}}, \code{\link[dplyr:top_n]{top_frac}}, \code{\link[dplyr]{top_n}}, \code{\link[dplyr:reexports]{tribble}}}
+  \item{dplyr}{\code{\link[dplyr]{arrange}}, \code{\link[dplyr:reexports]{as_tibble}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{group_map}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{select}}, \code{\link[dplyr:top_n]{top_frac}}, \code{\link[dplyr]{top_n}}, \code{\link[dplyr:reexports]{tribble}}}
 
   \item{foreach}{\code{\link[foreach:foreach]{\%do\%}}, \code{\link[foreach:foreach]{\%dopar\%}}}
 

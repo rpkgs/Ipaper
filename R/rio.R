@@ -1,15 +1,3 @@
-#' @importFrom fst write_fst read_fst
-export_fst <- function(x, path, compress = 100, uniform_encoding = TRUE) {
-  write_fst(x, path, compress, uniform_encoding)
-}
-
-import_fst <- function(
-    path, columns = NULL, from = 1, to = NULL,
-    as.data.table = TRUE, old_format = FALSE) {
-  read_fst(path, columns, from, to, as.data.table, old_format)
-}
-
-
 #' export data
 #' @details Support rda, rds, fst, csv, qs
 #' @export
@@ -31,6 +19,7 @@ export <- function(x, path, ..., nthreads = 6) {
     message("unsupported file type!")
   }
 }
+
 
 #' import data to R
 #' @details Support rda, rds, fst, csv, qs

@@ -3,7 +3,8 @@
 NULL
 
 # ' @importFrom tidyselect where
-#' @importFrom dplyr mutate across
+#' @importFrom dplyr mutate across group_keys group_map
+#' @importFrom tibble tibble
 #' @rdname dt_tools
 #' @export
 dt_round <- function(d, digits = 2) {
@@ -40,7 +41,7 @@ make_dt <- function(..., ncol = 3) {
   }) %>% do.call(rbind, .)
 }
 
-#' @importFrom dplyr cur_group_id is_grouped_df
+#' @importFrom dplyr cur_group_id is_grouped_df mutate
 #' @export
 add_group_id <- function(d) {
   if (is_grouped_df(d)) {
@@ -50,8 +51,73 @@ add_group_id <- function(d) {
   }
 }
 
-# tribble(
-#   ~x,  ~y,
-#   "a", 1:3,
-#   "b", 4:6
-# )
+#' grouped_list
+#'
+#' @param data A list object, `length(data) = nrow(group)`, with elements in the
+#' same order as group rows
+#' @param group A data.frame or data.table object
+#'
+#' @export
+grouped_list <- function(data, group) {
+  R <- tibble(data, group)
+  set_class(R, c("grouped_list", "tbl_df", "tbl", "data.frame"))
+}
+
+#' grouped_list
+#'
+#' @export
+group_map2 <- function(df, .f, result.name = "data", ..., .keep = FALSE, .progress = FALSE) {
+  group <- group_keys(df) %>% add_group_id()
+  .f <- dplyr:::as_group_map_function(.f)
+
+  if (.progress) {
+    n <- nrow(group)
+    pb <- make_progress(n)
+    fun <- function(.x, .y, ...) {
+      pb$tick() # 更新进度条
+      .f(.x, .y, ...)
+    }
+  } else {
+    fun <- .f
+  }
+  data <- group_map(df, fun, ..., .keep = .keep)
+  R <- tibble(!!result.name := data, group)
+  set_class(R, c("grouped_list", "tbl_df", "tbl", "data.frame"))
+}
+
+
+#' @export
+export_fst <- function(x, ...) UseMethod("export_fst")
+
+#' @importFrom fst write_fst read_fst
+#' @export
+export_fst.data.frame <- function(x, path, compress = 100, uniform_encoding = TRUE) {
+  write_fst(x, path, compress, uniform_encoding)
+}
+
+#' @export
+export_fst.grouped_list <- function(x, path, compress = 100, uniform_encoding = TRUE) {
+  fcsv <- gsub(".fst", "_group.csv", path)
+  fwrite(x[, -1], fcsv)
+
+  df <- x[[1]] %>% melt_list("I") # first column is data
+  write_fst(df, path, compress, uniform_encoding)
+}
+
+
+#' @export
+import_fst <- function(
+    path, columns = NULL, from = 1, to = NULL,
+    as.data.table = TRUE, old_format = FALSE) {
+  fcsv <- gsub(".fst", "_group.csv", path)
+  data <- read_fst(path, columns, from, to, as.data.table, old_format)
+  if (as.data.table) data = data.table(data)
+
+  if (file.exists(fcsv)) {
+    group <- fread(fcsv)
+    lst <- split(select(data, -I), data$I)
+    grouped_list(lst, group)
+  } else {
+    data
+  }
+}
