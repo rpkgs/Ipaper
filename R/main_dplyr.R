@@ -40,6 +40,12 @@ make_dt <- function(..., ncol = 3) {
   }) %>% do.call(rbind, .)
 }
 
+#' @importFrom dplyr cur_group_id
+#' @export
+add_group_id <- function(d) {
+  mutate(d, I = cur_group_id(), .before = 1)
+}
+
 # tribble(
 #   ~x,  ~y,
 #   "a", 1:3,

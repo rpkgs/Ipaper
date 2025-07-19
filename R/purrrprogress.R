@@ -3,6 +3,7 @@
 # with the GPL3 license.
 # Copywrite (c) 2019 Tyler Smith
 
+#' @export
 make_progress <- function(total = 100,
                           format = "(:current/:total) [:bar] :percent [Elapsed: :elapsed ETA: :eta]",
                           clear = FALSE,
