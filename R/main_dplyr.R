@@ -40,10 +40,14 @@ make_dt <- function(..., ncol = 3) {
   }) %>% do.call(rbind, .)
 }
 
-#' @importFrom dplyr cur_group_id
+#' @importFrom dplyr cur_group_id is_grouped_df
 #' @export
 add_group_id <- function(d) {
-  mutate(d, I = cur_group_id(), .before = 1)
+  if (is_grouped_df(d)) {
+    mutate(d, I = cur_group_id(), .before = 1)
+  } else {
+    mutate(d, I = 1:nrow(d), .before = 1)
+  }
 }
 
 # tribble(
