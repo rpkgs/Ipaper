@@ -27,7 +27,7 @@ Imports:
     clipr, glue,
     matrixStats, 
     rstudioapi, 
-    remotes, usethis, checkmate,
+    remotes, usethis,
     crayon, 
     showtext, sysfonts,
     zeallot

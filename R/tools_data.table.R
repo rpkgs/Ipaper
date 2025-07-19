@@ -18,3 +18,9 @@ fread_dir <- function(indir, pattern = "*.csv", ..., .progress="text", list2df=T
     res
   })
 }
+
+
+#' @export
+fwrite2 <- function(x, file) {
+  write.table(x, file, sep = ",", row.names = FALSE, fileEncoding = "gbk")
+}

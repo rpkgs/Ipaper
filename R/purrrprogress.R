@@ -60,8 +60,8 @@ make_progress <- function(total = 100,
 }
 
 .verify_args <- function(.mapper, args) {
-  checkmate::assert_function(.mapper)
-  checkmate::assert_subset(unlist(args, use.names = F), rlang::fn_fmls_names(.mapper))
+  # checkmate::assert_function(.mapper)
+  # checkmate::assert_subset(unlist(args, use.names = F), rlang::fn_fmls_names(.mapper))
 
   arg_names <- names(args)
   attr(args, 'type') <-
