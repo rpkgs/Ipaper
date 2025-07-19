@@ -8,7 +8,6 @@
 <url><loc>/news/index.html</loc></url>
 <url><loc>/reference/Ipaper.html</loc></url>
 <url><loc>/reference/add_dn.html</loc></url>
-<url><loc>/reference/add_gridLine.html</loc></url>
 <url><loc>/reference/addin_cutLines.html</loc></url>
 <url><loc>/reference/addin_insertIn.html</loc></url>
 <url><loc>/reference/apply_3d.html</loc></url>
@@ -37,6 +36,8 @@
 <url><loc>/reference/git_tools.html</loc></url>
 <url><loc>/reference/github.html</loc></url>
 <url><loc>/reference/group_apply.html</loc></url>
+<url><loc>/reference/group_map2.html</loc></url>
+<url><loc>/reference/grouped_list.html</loc></url>
 <url><loc>/reference/ifelse2.html</loc></url>
 <url><loc>/reference/import.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
