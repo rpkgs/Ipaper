@@ -4,9 +4,9 @@
 #' 
 #' @importFrom data.table rbindlist data.table
 #' @export
-fread_dir <- function(indir, pattern = "*.csv", ..., .progress="text", list2df=TRUE) {
+fread_dir <- function(indir, pattern = "*.csv", ..., .progress="text", list2df=FALSE) {
   fs = dir(indir, pattern, full.names = TRUE)
-  fs = set_names(fs, basename(fs))
+  fs = set_names(fs, gsub(".csv", "", basename(fs)))
 
   res = llply(fs, fread, .progress=.progress, ...)
   if (!list2df) return(res)
