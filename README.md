@@ -18,6 +18,7 @@
 devtools::install_git("https://gitee.com/adv-r/Ipaper")
 # or from gz file
 install.packages("../Ipaper_0.1.5.9000.tar.gz", repos = NULL, type = "source", dependencies = TRUE)
+install.packages("Ipaper", repos = "https://rpkgs.r-universe.dev")
 # $sudo apt-get install libfftw3-dev
 ```
 
