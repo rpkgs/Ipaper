@@ -42,6 +42,7 @@ last <- function(x) {
 }
 
 
+#' @importFrom qs qsavem qsave qload qread
 #' @export
 qs::qsavem
 
@@ -56,6 +57,7 @@ qs::qread
 
 
 
+#' @importFrom dplyr group_by
 #' @export
 dplyr::select
 
