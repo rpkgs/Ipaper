@@ -9,12 +9,12 @@ slope_arr(arr, FUN = rtrend::slope_mk, return.list = FALSE)
 \arguments{
 \item{arr}{a matrix (\verb{[ngrid, ntime]}) or array (\verb{[nlon, nlat, ntime]}).}
 
-\item{FUN}{slope functions, see \code{\link[=slope_mk]{slope_mk()}}.}
+\item{FUN}{slope functions, see \code{\link[rtrend:slope]{rtrend::slope_mk()}}.}
 
 \item{return.list}{boolean,
 \itemize{
 \item \code{TRUE}: list(slope, pvalue) will be return
-\item \code{FALSE}: a array, with the dim of \link{nx, ny, 2}.
+\item \code{FALSE}: a array, with the dim of \verb{[nx, ny, 2]}.
 }}
 }
 \value{

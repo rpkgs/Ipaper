@@ -4,7 +4,7 @@
 #' @param FUN slope functions, see [slope_mk()].
 #' @param return.list boolean,
 #' - `TRUE`: list(slope, pvalue) will be return
-#' - `FALSE`: a array, with the dim of [nx, ny, 2].
+#' - `FALSE`: a array, with the dim of `[nx, ny, 2]`.
 #'
 #' @return t, A 3d array, with the dim of `[nx, ny, 2]`.
 #' - `t[,,1]`: slope
