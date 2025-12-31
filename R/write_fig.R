@@ -72,6 +72,7 @@ write_fig <- function(
 #' @inheritParams grDevices::cairo_pdf
 #' @inheritParams write_fig
 #' @keywords internal
+#' @importFrom svglite svglite
 #' @export
 dev_open <- function(file = "Rplot.pdf", width = 10, height = 5, res = 300, use.cairo_pdf = FALSE) {
   file_ext <- file_ext(file)
@@ -81,7 +82,7 @@ dev_open <- function(file = "Rplot.pdf", width = 10, height = 5, res = 300, use.
     devicefun <- ifelse(use.cairo_pdf, cairo_pdf, Cairo::CairoPDF)
     # param %<>% c(list(family = "Times"))
   } else if (file_ext == "svg") {
-    devicefun <- svg
+    devicefun <- svglite::svglite
   } else if (file_ext == "emf") {
     devicefun <- switch(.Platform$OS.type,
       "windows" = grDevices::win.metafile,

@@ -18,7 +18,7 @@ Imports:
     lubridate, stringr,
     data.table, fst, qs, 
     openxlsx, readxl,
-    graphics,
+    graphics, svglite,
     methods,
     parallel,
     doParallel,
