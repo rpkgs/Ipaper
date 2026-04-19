@@ -13,8 +13,8 @@ export <- function(x, path, ..., nthreads = 6) {
     write_fst(x, path, ...)
   } else if (ext == "csv") {
     fwrite(x, path, ...)
-  } else if (ext == "qs") {
-    qsave(x, path, ..., nthreads = nthreads)
+  } else if (ext == "qs" || ext == "qs2") {
+    qd_save(x, path, ..., nthreads = nthreads)
   } else {
     message("unsupported file type!")
   }
@@ -22,8 +22,8 @@ export <- function(x, path, ..., nthreads = 6) {
 
 
 #' import data to R
-#' @details Support rda, rds, fst, csv, qs
-#' @inheritParams qs::qread
+#' @details Support rda, rds, fst, csv, qs2
+#' @inheritParams qs2::qd_read
 #' @export
 import <- function(path, ..., nthreads = 6) {
   ext <- tools::file_ext(path) %>% tolower()
@@ -35,8 +35,8 @@ import <- function(path, ..., nthreads = 6) {
     import_fst(path, ...)
   } else if (ext == "csv") {
     fread(path, ...)
-  } else if (ext == "qs") {
-    qread(path, ..., nthreads = nthreads)
+  } else if (ext == "qs2" || ext == "qs") {
+    qd_read(path, ..., nthreads = nthreads)
   } else {
     message("unsupported file type!")
   }

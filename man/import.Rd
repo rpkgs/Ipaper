@@ -7,11 +7,11 @@
 import(path, ..., nthreads = 6)
 }
 \arguments{
-\item{nthreads}{Number of threads to use. Default \code{1}.}
+\item{nthreads}{The number of threads to use when reading data (the initial value is 1L). When TBB is not available, values greater than 1 emit a warning and fall back to 1.}
 }
 \description{
 import data to R
 }
 \details{
-Support rda, rds, fst, csv, qs
+Support rda, rds, fst, csv, qs2
 }

@@ -42,19 +42,12 @@ last <- function(x) {
 }
 
 
-#' @importFrom qs qsavem qsave qload qread
+#' @importFrom qs2 qd_save qd_read
 #' @export
-qs::qsavem
+qs2::qd_save
 
 #' @export
-qs::qload
-
-#' @export
-qs::qsave
-
-#' @export
-qs::qread
-
+qs2::qd_read
 
 
 #' @importFrom dplyr group_by

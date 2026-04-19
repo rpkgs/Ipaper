@@ -16,7 +16,7 @@ Imports:
     magrittr,
     purrr, rlang, progress,
     lubridate, stringr,
-    data.table, fst, qs, 
+    data.table, fst, qs2, 
     openxlsx, readxl,
     graphics, svglite,
     methods,
