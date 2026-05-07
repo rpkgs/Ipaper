@@ -45,8 +45,8 @@ write_sheet <- function(d, file, sheetName, overwrite = FALSE) {
     dims <- wb_dims(rows = 1, cols = seq_len(nc))
     wb$add_fill(sheetName, dims = dims, color = wb_color(hex = HEADING_FILL_COLOR))
     wb$add_font(sheetName, dims = dims, italic = "1")
-    wb$add_border(sheetName, dims = dims,
-                  bottom_border = "thin", bottom_color = wb_color(hex = "000000"))
+    # wb$add_border(sheetName, dims = dims,
+    #               bottom_border = "thin", bottom_color = wb_color(hex = "000000"))
   }
 
   if (!is.null(pos)) {
