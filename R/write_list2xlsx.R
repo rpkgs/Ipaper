@@ -129,7 +129,7 @@ write_list2xlsx <- write_sheets
 #' @param file xlsx or xls file path
 #' @param ... other parameters to [readxl::read_excel()]
 #'
-#' @import openxlsx2 readxl
+#' @import openxlsx2
 #' @importFrom plyr llply
 #' @export
 read_xlsx2list <- function(file, ...) {
