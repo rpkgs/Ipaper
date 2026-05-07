@@ -17,7 +17,7 @@ Imports:
     purrr, rlang, progress,
     lubridate, stringr,
     data.table, fst, qs2, 
-    openxlsx, readxl,
+    openxlsx2, readxl,
     graphics, svglite,
     methods,
     parallel,

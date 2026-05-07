@@ -21,7 +21,7 @@ write_list2xlsx(
 \arguments{
 \item{d}{A data frame.}
 
-\item{file}{A file path string or an existing \code{Workbook} object.}
+\item{file}{A file path string or an existing \code{wbWorkbook} object.}
 
 \item{sheetName}{Sheet name string.}
 
@@ -38,18 +38,18 @@ write_list2xlsx(
 load and append to an existing file.}
 }
 \value{
-The (modified) \code{Workbook} object, invisibly.
+The (modified) \code{wbWorkbook} object, invisibly.
 
-The (modified) \code{Workbook} object, invisibly.
+The (modified) \code{wbWorkbook} object, invisibly.
 }
 \description{
 Write a single data frame into one sheet of a Workbook.
-\code{wb} can be a \code{Workbook} object or a file path string. When a file path is
-given, the workbook is loaded (or created if the file does not exist),
+\code{file} can be a \code{wbWorkbook} object or a file path string. When a file path
+is given, the workbook is loaded (or created if the file does not exist),
 the sheet is written, and the file is saved back automatically.
 
 Write a list of data frames into a Workbook, one sheet per
-element. \code{wb} can be a \code{Workbook} object or a file path string. When a file
-path is given, the workbook is loaded (or created if absent), written, and
-saved back automatically. The file extension is normalised to \code{.xlsx}.
+element. \code{file} can be a \code{wbWorkbook} object or a file path string. When a
+file path is given, the workbook is loaded (or created if absent), written,
+and saved back automatically. The file extension is normalised to \code{.xlsx}.
 }
