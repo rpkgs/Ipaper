@@ -7,7 +7,7 @@
 read_excel(f, ...)
 }
 \arguments{
-\item{...}{others to fun, one of \code{\link[data.table:fread]{data.table::fread()}}, \code{\link[readxl:read_excel]{readxl::read_xls()}}, \code{\link[=read_xlsx]{read_xlsx()}}}
+\item{...}{others to fun, one of \code{\link[data.table:fread]{data.table::fread()}}, \code{\link[readxl:read_xls]{readxl::read_xls()}}, \code{\link[=read_xlsx]{read_xlsx()}}}
 }
 \description{
 read csv or xls/xlsx file

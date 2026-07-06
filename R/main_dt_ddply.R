@@ -3,7 +3,7 @@ loop_apply <- plyr:::loop_apply
 splitter_d <- plyr:::splitter_d
 
 #' @importFrom plyr . each progress_none create_progress_bar as.quoted
-#' quickdf rbind.fill.matrix
+#' @importFrom plyr quickdf rbind.fill.matrix
 #' @export
 plyr::.
 

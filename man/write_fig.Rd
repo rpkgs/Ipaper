@@ -30,9 +30,8 @@ not specified, devices will be determined according to the postpix of \code{file
 The default type is pdf.}
 
 \item{res}{The nominal resolution in \abbr{ppi} which will be recorded in the
-    bitmap file, if a positive integer.  Also used for units other than
-    the default.  If not specified, taken as 72 \abbr{ppi} to set the size of
-    text and line widths.}
+    bitmap file, if a positive integer.  Also used for \code{units}
+    other than the default, and to convert points to pixels.}
 
 \item{show}{Boolean. Whether show file after finished writing?}
 
@@ -110,5 +109,5 @@ write_fig(expr, "fig_expr2.pdf")
 }
 }
 \seealso{
-\code{\link[grDevices:cairo]{grDevices::cairo_pdf()}}, \code{\link[grDevices:png]{grDevices::png()}}, \code{\link[Cairo:Cairo]{Cairo::Cairo()}}
+\code{\link[grDevices:cairo_pdf]{grDevices::cairo_pdf()}}, \code{\link[grDevices:png]{grDevices::png()}}, \code{\link[Cairo:Cairo]{Cairo::Cairo()}}
 }

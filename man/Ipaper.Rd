@@ -11,6 +11,11 @@ Awesome functions in R.
 \author{
 \strong{Maintainer}: Dongdong Kong \email{kongdd.sysu@gmail.com}
 
+Authors:
+\itemize{
+  \item Dongdong Kong \email{kongdd.sysu@gmail.com}
+}
+
 }
 \keyword{internal}
 \keyword{paper}

@@ -9,7 +9,7 @@ slope_arr(arr, FUN = rtrend::slope_mk, return.list = FALSE)
 \arguments{
 \item{arr}{a matrix (\verb{[ngrid, ntime]}) or array (\verb{[nlon, nlat, ntime]}).}
 
-\item{FUN}{slope functions, see \code{\link[rtrend:slope]{rtrend::slope_mk()}}.}
+\item{FUN}{slope functions, see \code{\link[rtrend:slope_mk]{slope_mk()}}.}
 
 \item{return.list}{boolean,
 \itemize{

@@ -21,11 +21,11 @@ dir2(path = ".", pattern = NULL, full.names = TRUE, ...)
     path is prepended to the file names to give a relative file path.
     If \code{FALSE}, the file names (rather than paths) are returned.}
 
-\item{...}{other parameters to \code{\link[base:list.files]{base::dir()}}}
+\item{...}{other parameters to \code{\link[base:dir]{base::dir()}}}
 }
 \description{
 dir2
 }
 \seealso{
-\code{\link[base:list.files]{base::dir()}}
+\code{\link[base:dir]{base::dir()}}
 }

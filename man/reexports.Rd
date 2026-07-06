@@ -61,36 +61,36 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{crayon}{\code{\link[crayon:crayon]{bold}}, \code{\link[crayon:crayon]{green}}, \code{\link[crayon:crayon]{red}}, \code{\link[crayon:crayon]{underline}}}
+  \item{crayon}{\code{\link[crayon:bold]{bold()}}, \code{\link[crayon:green]{green()}}, \code{\link[crayon:red]{red()}}, \code{\link[crayon:underline]{underline()}}}
 
-  \item{data.table}{\code{\link[data.table]{as.data.table}}, \code{\link[data.table]{data.table}}, \code{\link[data.table]{fread}}, \code{\link[data.table]{fwrite}}, \code{\link[data.table:as.data.table]{is.data.table}}}
+  \item{data.table}{\code{\link[data.table:as.data.table]{as.data.table()}}, \code{\link[data.table:data.table]{data.table()}}, \code{\link[data.table:fread]{fread()}}, \code{\link[data.table:fwrite]{fwrite()}}, \code{\link[data.table:is.data.table]{is.data.table()}}}
 
-  \item{dplyr}{\code{\link[dplyr]{arrange}}, \code{\link[dplyr:reexports]{as_tibble}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr]{group_map}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{select}}, \code{\link[dplyr:top_n]{top_frac}}, \code{\link[dplyr]{top_n}}, \code{\link[dplyr:reexports]{tribble}}}
+  \item{dplyr}{\code{\link[dplyr:arrange]{arrange()}}, \code{\link[dplyr:as_tibble]{as_tibble}}, \code{\link[dplyr:group_by]{group_by()}}, \code{\link[dplyr:group_map]{group_map()}}, \code{\link[dplyr:mutate]{mutate()}}, \code{\link[dplyr:rename]{rename()}}, \code{\link[dplyr:select]{select()}}, \code{\link[dplyr:top_frac]{top_frac()}}, \code{\link[dplyr:top_n]{top_n()}}, \code{\link[dplyr:tribble]{tribble}}}
 
-  \item{foreach}{\code{\link[foreach:foreach]{\%do\%}}, \code{\link[foreach:foreach]{\%dopar\%}}}
+  \item{foreach}{\code{\link[foreach:\%do\%]{\%do\%}}, \code{\link[foreach:\%dopar\%]{\%dopar\%}}}
 
-  \item{glue}{\code{\link[glue]{glue}}}
+  \item{glue}{\code{\link[glue:glue]{glue()}}}
 
-  \item{iterators}{\code{\link[iterators]{icount}}, \code{\link[iterators]{iter}}}
+  \item{iterators}{\code{\link[iterators:icount]{icount()}}, \code{\link[iterators:iter]{iter()}}}
 
-  \item{lubridate}{\code{\link[lubridate]{days_in_month}}, \code{\link[lubridate:make_datetime]{make_date}}, \code{\link[lubridate]{make_datetime}}}
+  \item{lubridate}{\code{\link[lubridate:days_in_month]{days_in_month()}}, \code{\link[lubridate:make_date]{make_date()}}, \code{\link[lubridate:make_datetime]{make_datetime()}}}
 
-  \item{magrittr}{\code{\link[magrittr:compound]{\%<>\%}}, \code{\link[magrittr:pipe]{\%>\%}}, \code{\link[magrittr:aliases]{set_names}}}
+  \item{magrittr}{\code{\link[magrittr:\%<>\%]{\%<>\%}}, \code{\link[magrittr:\%>\%]{\%>\%}}, \code{\link[magrittr:set_names]{set_names()}}}
 
-  \item{matrixStats}{\code{\link[matrixStats]{rowMeans2}}, \code{\link[matrixStats]{rowQuantiles}}, \code{\link[matrixStats]{rowSums2}}}
+  \item{matrixStats}{\code{\link[matrixStats:rowMeans2]{rowMeans2()}}, \code{\link[matrixStats:rowQuantiles]{rowQuantiles()}}, \code{\link[matrixStats:rowSums2]{rowSums2()}}}
 
-  \item{plyr}{\code{\link[plyr:quoted]{.}}, \code{\link[plyr]{mapvalues}}, \code{\link[plyr]{revalue}}}
+  \item{plyr}{\code{\link[plyr:.]{.()}}, \code{\link[plyr:mapvalues]{mapvalues()}}, \code{\link[plyr:revalue]{revalue()}}}
 
-  \item{purrr}{\code{\link[purrr:reexports]{\%||\%}}, \code{\link[purrr]{map}}}
+  \item{purrr}{\code{\link[purrr:\%||\%]{\%||\%}}, \code{\link[purrr:map]{map()}}}
 
-  \item{qs2}{\code{\link[qs2]{qd_read}}, \code{\link[qs2]{qd_save}}}
+  \item{qs2}{\code{\link[qs2:qd_read]{qd_read()}}, \code{\link[qs2:qd_save]{qd_save()}}}
 
-  \item{remotes}{\code{\link[remotes]{install_git}}, \code{\link[remotes]{install_github}}, \code{\link[remotes]{install_gitlab}}}
+  \item{remotes}{\code{\link[remotes:install_git]{install_git()}}, \code{\link[remotes:install_github]{install_github()}}, \code{\link[remotes:install_gitlab]{install_gitlab()}}}
 
-  \item{showtext}{\code{\link[showtext]{showtext_auto}}}
+  \item{showtext}{\code{\link[showtext:showtext_auto]{showtext_auto()}}}
 
-  \item{usethis}{\code{\link[usethis:edit]{edit_r_environ}}, \code{\link[usethis:edit]{edit_r_profile}}, \code{\link[usethis]{use_build_ignore}}, \code{\link[usethis]{use_git_ignore}}}
+  \item{usethis}{\code{\link[usethis:edit_r_environ]{edit_r_environ()}}, \code{\link[usethis:edit_r_profile]{edit_r_profile()}}, \code{\link[usethis:use_build_ignore]{use_build_ignore()}}, \code{\link[usethis:use_git_ignore]{use_git_ignore()}}}
 
-  \item{zeallot}{\code{\link[zeallot:operator]{\%->\%}}, \code{\link[zeallot:operator]{\%<-\%}}}
+  \item{zeallot}{\code{\link[zeallot:\%->\%]{\%->\%}}, \code{\link[zeallot:\%<-\%]{\%<-\%}}}
 }}
 
