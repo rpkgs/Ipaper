@@ -5,10 +5,10 @@ cmd_func <- function(command) {
   if (file.exists(cmd_wsl)) app <- paste0(cmd_wsl, " /c ")
 
   function(path = getwd(), verbose = FALSE) {
-    command %<>% path.mnt()
+    command %<>% path_win() # TODO: bug here
     path %<>% normalizePath()
 
-    # command %<>% path.mnt()
+    # command %<>% path_mnt()
     is_longname <- !(basename(command) == command) # longname means windows
     # fmt = ifelse(is_longname, '%s""%s" "%s""',  '%s%s "%s"')
     fmt <- '%s%s "%s"'
@@ -51,6 +51,9 @@ is_wsl <- function() file.exists("/mnt/c/WINDOWS/system32/cmd.exe")
 #' @rdname code_editor
 #' @export
 is_win <- function() .Platform$OS.type == "windows"
+
+# TODO: how about wsl?
+is_linux <- function() .Platform$OS.type == "unix"
 
 
 #' @rdname code_editor
