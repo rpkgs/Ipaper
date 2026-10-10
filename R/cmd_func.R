@@ -52,6 +52,10 @@ is_wsl <- function() file.exists("/mnt/c/WINDOWS/system32/cmd.exe")
 #' @export
 is_win <- function() .Platform$OS.type == "windows"
 
+#' @rdname code_editor
+#' @export
+is_mac <- function() Sys.info()[["sysname"]] == "Darwin"
+
 # TODO: how about wsl?
 is_linux <- function() .Platform$OS.type == "unix"
 
@@ -88,8 +92,8 @@ smerge <- cmd_func("smerge")
 #' @note not work in wsl
 #' @export
 pdf_view <- function(file, ...) {
-  if (is_win() || is_wsl()) {
-    SumatraPDF(file, ...)
+  if (is_win() || is_wsl() || is_mac()) {
+    sumatrapdf(file, ...)
   } else {
     evince(file, ...)
   }
@@ -97,7 +101,9 @@ pdf_view <- function(file, ...) {
 
 #' @rdname pdf_view
 #' @export
-SumatraPDF <- cmd_func("SumatraPDF.exe")
+sumatrapdf <- cmd_func(
+  if (is_mac()) "open -a sumatrapdf" else "SumatraPDF.exe"
+)
 
 # C:/Program Files/RStudio/resources/app/bin/sumatra/SumatraPDF.exe
 

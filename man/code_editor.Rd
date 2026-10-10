@@ -4,6 +4,7 @@
 \alias{code_editor}
 \alias{is_wsl}
 \alias{is_win}
+\alias{is_mac}
 \alias{OS_type}
 \alias{subl}
 \alias{code}
@@ -13,6 +14,8 @@
 is_wsl()
 
 is_win()
+
+is_mac()
 
 OS_type()
 

@@ -2,13 +2,13 @@
 % Please edit documentation in R/cmd_func.R
 \name{pdf_view}
 \alias{pdf_view}
-\alias{SumatraPDF}
+\alias{sumatrapdf}
 \alias{evince}
 \title{pdf_view}
 \usage{
 pdf_view(file, ...)
 
-SumatraPDF(path = getwd(), verbose = FALSE)
+sumatrapdf(path = getwd(), verbose = FALSE)
 
 evince(path = getwd(), verbose = FALSE)
 }

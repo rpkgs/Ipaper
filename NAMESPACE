@@ -17,7 +17,7 @@ export("%||%")
 export(.)
 export(InitCluster)
 export(OS_type)
-export(SumatraPDF)
+export(sumatrapdf)
 export(add_dn)
 export(add_group_id)
 export(addin_copyLines)
@@ -120,6 +120,7 @@ export(install_gitlab)
 export(interp_hisavg_month)
 export(is.data.table)
 export(is_empty)
+export(is_mac)
 export(is_win)
 export(is_wsl)
 export(isfile)
@@ -234,141 +235,191 @@ import(openxlsx2)
 import(showtext)
 import(usethis)
 import(zeallot)
-importFrom(crayon,bold)
-importFrom(crayon,green)
-importFrom(crayon,red)
-importFrom(crayon,underline)
-importFrom(data.table,CJ)
-importFrom(data.table,as.data.table)
-importFrom(data.table,chmatch)
-importFrom(data.table,data.table)
-importFrom(data.table,dcast)
-importFrom(data.table,fread)
-importFrom(data.table,fwrite)
-importFrom(data.table,is.data.table)
-importFrom(data.table,melt)
-importFrom(data.table,rbindlist)
+importFrom(crayon,
+  bold,
+  green,
+  red,
+  underline
+)
+importFrom(data.table,
+  CJ,
+  as.data.table,
+  chmatch,
+  data.table,
+  dcast,
+  fread,
+  fwrite,
+  is.data.table,
+  melt,
+  rbindlist
+)
 importFrom(doParallel,registerDoParallel)
-importFrom(dplyr,across)
-importFrom(dplyr,arrange)
-importFrom(dplyr,as_tibble)
-importFrom(dplyr,cur_group_id)
-importFrom(dplyr,group_by)
-importFrom(dplyr,group_keys)
-importFrom(dplyr,group_map)
-importFrom(dplyr,is_grouped_df)
-importFrom(dplyr,mutate)
-importFrom(dplyr,rename)
-importFrom(dplyr,select)
-importFrom(dplyr,tibble)
-importFrom(dplyr,top_frac)
-importFrom(dplyr,top_n)
-importFrom(dplyr,tribble)
-importFrom(foreach,"%do%")
-importFrom(foreach,"%dopar%")
-importFrom(foreach,foreach)
-importFrom(fst,read_fst)
-importFrom(fst,write_fst)
+importFrom(dplyr,
+  across,
+  arrange,
+  as_tibble,
+  cur_group_id,
+  group_by,
+  group_keys,
+  group_map,
+  is_grouped_df,
+  mutate,
+  rename,
+  select,
+  tibble,
+  top_frac,
+  top_n,
+  tribble
+)
+importFrom(foreach,
+  "%do%",
+  "%dopar%",
+  foreach
+)
+importFrom(fst,
+  read_fst,
+  write_fst
+)
 importFrom(glue,glue)
-importFrom(grDevices,cairo_pdf)
-importFrom(grDevices,col2rgb)
-importFrom(grDevices,colorRampPalette)
-importFrom(grDevices,dev.off)
-importFrom(grDevices,jpeg)
-importFrom(grDevices,svg)
-importFrom(grDevices,tiff)
-importFrom(grDevices,xy.coords)
-importFrom(graphics,abline)
-importFrom(graphics,grid)
-importFrom(graphics,legend)
-importFrom(graphics,par)
-importFrom(graphics,plot)
-importFrom(graphics,rect)
-importFrom(grid,gpar)
-importFrom(grid,grid.newpage)
-importFrom(grid,textGrob)
-importFrom(iterators,icount)
-importFrom(iterators,iter)
-importFrom(jsonlite,fromJSON)
-importFrom(jsonlite,read_json)
-importFrom(jsonlite,write_json)
-importFrom(lubridate,day)
-importFrom(lubridate,days_in_month)
-importFrom(lubridate,make_date)
-importFrom(lubridate,make_datetime)
-importFrom(lubridate,month)
-importFrom(lubridate,yday)
-importFrom(lubridate,year)
-importFrom(lubridate,ymd)
-importFrom(magrittr,"%<>%")
-importFrom(magrittr,"%>%")
-importFrom(magrittr,set_names)
-importFrom(matrixStats,colMaxs)
-importFrom(matrixStats,colMeans2)
-importFrom(matrixStats,colMins)
-importFrom(matrixStats,rowMaxs)
-importFrom(matrixStats,rowMeans2)
-importFrom(matrixStats,rowMins)
-importFrom(matrixStats,rowQuantiles)
-importFrom(matrixStats,rowSums2)
+importFrom(grDevices,
+  cairo_pdf,
+  col2rgb,
+  colorRampPalette,
+  dev.off,
+  jpeg,
+  svg,
+  tiff,
+  xy.coords
+)
+importFrom(graphics,
+  abline,
+  grid,
+  legend,
+  par,
+  plot,
+  rect
+)
+importFrom(grid,
+  gpar,
+  grid.newpage,
+  textGrob
+)
+importFrom(iterators,
+  icount,
+  iter
+)
+importFrom(jsonlite,
+  fromJSON,
+  read_json,
+  write_json
+)
+importFrom(lubridate,
+  day,
+  days_in_month,
+  make_date,
+  make_datetime,
+  month,
+  yday,
+  year,
+  ymd
+)
+importFrom(magrittr,
+  "%<>%",
+  "%>%",
+  set_names
+)
+importFrom(matrixStats,
+  colMaxs,
+  colMeans2,
+  colMins,
+  rowMaxs,
+  rowMeans2,
+  rowMins,
+  rowQuantiles,
+  rowSums2
+)
 importFrom(methods,as)
 importFrom(openxlsx2,wb_read)
-importFrom(parallel,makeCluster)
-importFrom(parallel,parLapply)
-importFrom(plyr,.)
-importFrom(plyr,aaply)
-importFrom(plyr,as.quoted)
-importFrom(plyr,create_progress_bar)
-importFrom(plyr,ddply)
-importFrom(plyr,each)
-importFrom(plyr,llply)
-importFrom(plyr,mapvalues)
-importFrom(plyr,progress_none)
-importFrom(plyr,quickdf)
-importFrom(plyr,rbind.fill.matrix)
-importFrom(plyr,revalue)
-importFrom(purrr,`%||%`)
-importFrom(purrr,as_mapper)
-importFrom(purrr,map)
-importFrom(purrr,map_depth)
-importFrom(purrr,transpose)
-importFrom(qs2,qd_read)
-importFrom(qs2,qd_save)
-importFrom(remotes,install_git)
-importFrom(remotes,install_github)
-importFrom(remotes,install_gitlab)
-importFrom(rlang,eval_bare)
-importFrom(rlang,expr)
-importFrom(rlang,parse_exprs)
-importFrom(rstudioapi,getActiveDocumentContext)
-importFrom(rstudioapi,getSourceEditorContext)
-importFrom(rstudioapi,modifyRange)
+importFrom(parallel,
+  makeCluster,
+  parLapply
+)
+importFrom(plyr,
+  .,
+  aaply,
+  as.quoted,
+  create_progress_bar,
+  ddply,
+  each,
+  llply,
+  mapvalues,
+  progress_none,
+  quickdf,
+  rbind.fill.matrix,
+  revalue
+)
+importFrom(purrr,
+  `%||%`,
+  as_mapper,
+  map,
+  map_depth,
+  transpose
+)
+importFrom(qs2,
+  qd_read,
+  qd_save
+)
+importFrom(remotes,
+  install_git,
+  install_github,
+  install_gitlab
+)
+importFrom(rlang,
+  eval_bare,
+  expr,
+  parse_exprs
+)
+importFrom(rstudioapi,
+  getActiveDocumentContext,
+  getSourceEditorContext,
+  modifyRange
+)
 importFrom(showtext,showtext_auto)
-importFrom(stats,acf)
-importFrom(stats,as.formula)
-importFrom(stats,density)
-importFrom(stats,end)
-importFrom(stats,lm)
-importFrom(stats,median)
-importFrom(stats,na.omit)
-importFrom(stats,pnorm)
-importFrom(stats,qnorm)
-importFrom(stats,quantile)
-importFrom(stats,setNames)
-importFrom(stats,start)
-importFrom(stringr,str_detect)
-importFrom(stringr,str_extract_all)
-importFrom(stringr,str_replace_all)
-importFrom(stringr,str_trim)
+importFrom(stats,
+  acf,
+  as.formula,
+  density,
+  end,
+  lm,
+  median,
+  na.omit,
+  pnorm,
+  qnorm,
+  quantile,
+  setNames,
+  start
+)
+importFrom(stringr,
+  str_detect,
+  str_extract_all,
+  str_replace_all,
+  str_trim
+)
 importFrom(svglite,svglite)
 importFrom(sysfonts,font_add)
-importFrom(usethis,edit_r_environ)
-importFrom(usethis,edit_r_profile)
-importFrom(usethis,use_build_ignore)
-importFrom(usethis,use_git_ignore)
-importFrom(utils,modifyList)
-importFrom(utils,object.size)
-importFrom(utils,str)
-importFrom(utils,write.table)
-importFrom(zeallot,"%->%")
-importFrom(zeallot,"%<-%")
+importFrom(usethis,
+  edit_r_environ,
+  edit_r_profile,
+  use_build_ignore,
+  use_git_ignore
+)
+importFrom(utils,
+  modifyList,
+  object.size,
+  str,
+  write.table
+)
+importFrom(zeallot,
+  "%->%",
+  "%<-%"
+)
