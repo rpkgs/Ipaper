@@ -38,7 +38,7 @@ write_sheet <- function(d, file, sheetName, overwrite = FALSE) {
   }
 
   wb$add_worksheet(sheetName)
-  wb$add_data(sheetName, d, col_names = TRUE, row_names = FALSE)
+  wb$add_data(sheetName, d, col_names = TRUE, row_names = FALSE, na = "")
 
   nc <- ncol(d)
   if (nc > 0L) {
@@ -134,11 +134,11 @@ write_list2xlsx <- write_sheets
 #' @export
 read_xlsx2list <- function(file, ...) {
   cat(sprintf("[---- Reading File: %s ----]\n", file))
-  if (length(grep("xls$", basename(file))) != 0) {
-    sheetNames <- excel_sheets(file)
+  if (grepl("\\.xls$", basename(file), ignore.case = TRUE)) {
+    sheetNames <- readxl::excel_sheets(file)
     lst <- llply(
       sheetNames,
-      function(sheet) as.data.table(read_excel(file, sheet, ...)),
+      function(sheet) as.data.table(readxl::read_excel(file, sheet, ...)),
       .progress = "text"
     )
   } else {

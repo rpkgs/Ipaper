@@ -56,14 +56,15 @@ is_win <- function() .Platform$OS.type == "windows"
 #' @export
 is_mac <- function() Sys.info()[["sysname"]] == "Darwin"
 
-# TODO: how about wsl?
-is_linux <- function() .Platform$OS.type == "unix"
+# Includes WSL, which uses the Linux kernel.
+is_linux <- function() Sys.info()[["sysname"]] == "Linux"
 
 
 #' @rdname code_editor
 #' @export
 OS_type <- function() {
   OS.type <- .Platform$OS.type
+  if (is_mac()) OS.type <- "mac"
   if (is_wsl()) OS.type <- "wsl"
   OS.type
 }
@@ -113,10 +114,10 @@ evince <- cmd_func("evince")
 
 
 
-#' Open directory in Explorer
+#' Open directory in the system file manager
 #'
-#' @description open assign path in windows explorer, and default path is
-#' current directory. This function is only designed for windows system.
+#' @description Open a directory in the system file manager on Windows,
+#' macOS or Linux. The default path is the current directory.
 #'
 #' @param path the path you want to open
 #' @export
@@ -125,6 +126,7 @@ dir.show <- function(path = getwd(), verbose = FALSE) {
   path <- check_path(path)
   cmd <- switch(OS_type(),
     "windows" = paste("explorer.exe /e, ", path),
+    "mac" = sprintf("open %s", shQuote(path)),
     "unix" = sprintf("nautilus '%s'", path),
     "wsl" = sprintf("%s /c Explorer /e, '%s'", cmd_wsl, path)
   )
@@ -181,6 +183,8 @@ file_show <- function(f, ...) {
   f <- normalizePath(f)
   if (is_win()) {
     shell.exec(f)
+  } else if (is_mac()) {
+    system2("open", shQuote(f))
   } else {
     file.show(f, ...)
   }

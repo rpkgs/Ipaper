@@ -16,7 +16,7 @@ setwd_clip()
 }
 }
 \note{
-Only works in windows
+Uses the system clipboard on Windows, macOS and Linux.
 }
 \examples{
 \dontrun{

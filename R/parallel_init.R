@@ -50,7 +50,7 @@ gc_cluster <- function(n) {
 # For bigmemory crash
 #' @export
 gc_linux <- function() {
-  if (.Platform$OS.type == "unix") {
+  if (is_linux()) {
     system("rm /dev/shm -r", ignore.stderr = TRUE)
   }
 }

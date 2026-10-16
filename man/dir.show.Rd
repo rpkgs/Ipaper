@@ -2,7 +2,7 @@
 % Please edit documentation in R/cmd_func.R
 \name{dir.show}
 \alias{dir.show}
-\title{Open directory in Explorer}
+\title{Open directory in the system file manager}
 \usage{
 dir.show(path = getwd(), verbose = FALSE)
 }
@@ -10,6 +10,6 @@ dir.show(path = getwd(), verbose = FALSE)
 \item{path}{the path you want to open}
 }
 \description{
-open assign path in windows explorer, and default path is
-current directory. This function is only designed for windows system.
+Open a directory in the system file manager on Windows,
+macOS or Linux. The default path is the current directory.
 }

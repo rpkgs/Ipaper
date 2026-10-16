@@ -8,7 +8,7 @@
 #' @references
 #' 1. https://stackoverflow.com/questions/10959521/how-to-write-to-clipboard-on-ubuntu-linux-in-r
 #'
-#' @note Only works in windows
+#' @note Uses the system clipboard on Windows, macOS and Linux.
 #'
 #' @examples
 #' \dontrun{
@@ -19,11 +19,10 @@
 #' @import clipr
 #' @export
 getwd_clip <- function() {
-  if (.Platform$OS.type == "windows") {
-    path <- suppressWarnings(gsub("\\\\", "/", read_clip()))
-    write_clip(path)
-    path # quickly return
-  }
+  path <- suppressWarnings(read_clip())
+  if (is_win()) path <- gsub("\\\\", "/", path)
+  write_clip(path)
+  path
 }
 
 #' @rdname getwd_clip

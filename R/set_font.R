@@ -46,27 +46,24 @@ clear_font <- function() {
 
 
 guess_font_path <- function(fonts) {
-  font_local <- paste0(Sys.getenv("LOCALAPPDATA"), "/Microsoft")
-  dir_font <- c("c:", font_local)
+  info <- sysfonts::font_files()
+  info <- info[order(info$face != "Regular"), ]
+  fonts_find <- tools::file_path_sans_ext(info$file)
+  ind <- match(tolower(fonts), tolower(fonts_find))
 
-  info <- expand.grid(dir = dir_font, font = fonts, type = c("ttf", "ttc"))
-
-  fs <- sprintf(
-    "%s/Windows/Fonts/%s.%s",
-    info$dir, info$font, info$type
-  )
-  fs <- fs[file.exists(fs)]
-
-  fonts_find <- basename(fs) %>% stringr::str_extract(".*(?=\\.)")
-  ind <- match(fonts_find, fonts)
-  set_names(fs, names(fonts[ind]))
+  # Match family names when font filenames differ across systems.
+  missing <- is.na(ind)
+  ind[missing] <- match(tolower(fonts[missing]), tolower(info$family))
+  keep <- !is.na(ind)
+  info <- info[ind[keep], ]
+  set_names(file.path(info$path, info$file), names(fonts)[keep])
 }
 
 #' @importFrom sysfonts font_add
 add_fonts <- function(fonts) {
   fonts_path <- guess_font_path(fonts)
   for (i in seq_along(fonts_path)) {
-    family <- names(fonts)[i]
+    family <- names(fonts_path)[i]
     path <- fonts_path[i]
     tryCatch({
       font_add(family, path)
