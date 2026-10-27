@@ -17,6 +17,28 @@ test_that("write_xlsx works", {
     file.remove(f)
 })
 
+test_that("write_list2xlsx opens the saved file with macOS open", {
+    f <- tempfile(pattern = "中文 空格 ' ", fileext = ".xlsx")
+    on.exit(unlink(f))
+    command <- NULL
+    opener <- file_show
+    environment(opener) <- list2env(list(
+        is_win = function() FALSE,
+        is_mac = function() TRUE,
+        system2 = function(command, args) {
+            expect_true(file.exists(f))
+            expect_equal(sheet_names(f), "数据")
+            command <<- c(command, args)
+            0L
+        },
+        file.show = function(...) stop("Excel must not be opened as text")
+    ), parent = environment(opener))
+    local_mocked_bindings(file_show = opener)
+
+    expect_output(write_list2xlsx(list(数据 = head(iris)), f, show = TRUE), NA)
+    expect_identical(command, c("open", shQuote(normalizePath(f))))
+})
+
 test_that("write_sheets creates new file with correct sheets", {
     f <- tempfile(fileext = ".xlsx")
     write_sheets(list(A = iris, B = mtcars), file = f)

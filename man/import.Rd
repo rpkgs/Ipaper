@@ -13,5 +13,5 @@ import(path, ..., nthreads = 6)
 import data to R
 }
 \details{
-Support rda, rds, fst, csv, qs2
+Support rda, rds, fst, csv, qs2, qdata, arrow, feather
 }

@@ -367,7 +367,9 @@ importFrom(purrr,
 )
 importFrom(qs2,
   qd_read,
-  qd_save
+  qd_save,
+  qs_read,
+  qs_save
 )
 importFrom(remotes,
   install_git,

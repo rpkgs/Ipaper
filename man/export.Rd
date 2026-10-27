@@ -10,5 +10,5 @@ export(x, path, ..., nthreads = 6)
 export data
 }
 \details{
-Support rda, rds, fst, csv, qs
+Support rda, rds, fst, csv, qs2, qdata, arrow, feather
 }
