@@ -52,8 +52,9 @@ test_that("dir.show uses the platform file manager", {
     check_path = identity,
     shell = function(cmd) command <<- cmd
   )
-  fun(file.path(path, "file.xlsx"))
-  expect_identical(command, sprintf("open %s", shQuote(path)))
+  file <- file.path(path, "file.xlsx")
+  fun(file)
+  expect_identical(command, sprintf("open %s", shQuote(dirname(file))))
 })
 
 test_that("fonts match filenames and families without shifting aliases", {
@@ -100,12 +101,15 @@ test_that("getwd_clip handles Windows and Unix clipboard paths", {
 })
 
 test_that("char2script uses the cross-platform clipboard helper", {
-  copied <- NULL
-  fun <- mock_compat(char2script,
-    write_clip2 = function(script) copied <<- script
-  )
-  expect_identical(fun(c("ID", "NAME"), verbose = FALSE), 'c("ID", "NAME")')
-  expect_identical(copied, 'c("ID", "NAME")')
+  for (interactive in c(TRUE, FALSE)) {
+    copied <- NULL
+    fun <- mock_compat(char2script,
+      interactive = function() interactive,
+      write_clip2 = function(script) copied <<- script
+    )
+    expect_identical(fun(c("ID", "NAME"), verbose = FALSE), 'c("ID", "NAME")')
+    expect_identical(copied, if (interactive) 'c("ID", "NAME")' else NULL)
+  }
 })
 
 test_that("gc_linux only invokes cleanup on Linux", {
