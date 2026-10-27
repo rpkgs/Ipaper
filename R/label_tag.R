@@ -51,7 +51,7 @@ char2script <- function(x, collapse = '"', verbose = TRUE) {
 
   script <- paste(x, collapse = collapse) %>% paste0(head, ., tail)
 
-  write_clip2(script)
+  if (interactive()) write_clip2(script)
   if (verbose) cat(script) else script
 }
 
