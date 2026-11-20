@@ -11,7 +11,9 @@ import(path, ..., nthreads = 6)
 export(x, path, ..., nthreads = 6)
 }
 \arguments{
-\item{path}{Path to the data file.}
+\item{path}{Path to the data file. Supports glue templates such as
+\code{"{stem}.rds"}. Expressions inside \code{{}} are evaluated in the caller's
+environment.}
 
 \item{...}{Arguments passed to the format-specific reader or writer.}
 
@@ -23,6 +25,6 @@ export(x, path, ..., nthreads = 6)
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 }
 \details{
-Use \code{\link[=read_auto]{read_auto()}} instead of \code{import()} and \code{\link[=write_auto]{write_auto()}} instead of
+Use \code{\link[=auto_read]{auto_read()}} instead of \code{import()} and \code{\link[=auto_write]{auto_write()}} instead of
 \code{export()}.
 }

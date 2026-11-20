@@ -104,7 +104,7 @@ export_fst.grouped_list <- function(x, path, compress = 100, uniform_encoding = 
 }
 
 # 另一种策略保存为chunks，仿照parquet
-# write_auto, read_auto
+# auto_write, auto_read
 
 #' @export
 import_fst <- function(

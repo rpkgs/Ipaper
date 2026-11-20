@@ -1,7 +1,7 @@
 
 # Ipaper 0.1.11
 
-- `import()` and `export()` are deprecated. Use `read_auto()` and `write_auto()` instead.
+- `import()` and `export()` are deprecated. Use `auto_read()` and `auto_write()` instead.
 
 # Ipaper 0.1.9
 

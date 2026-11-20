@@ -1,11 +1,12 @@
 #' Write a data file, inferring the format from the extension
 #' @details Supports rda, rds, fst, csv, qs, qs2, qdata, arrow, and feather.
 #' @param x Object to write.
-#' @inheritParams read_auto
+#' @inheritParams auto_read
 #' @importFrom qs2 qd_save qs_save qd_read qs_read
 #' @export
-write_auto <- function(x, path, ..., nthreads = 6) {
-  ext <- tools::file_ext(glue(path)) %>% tolower()
+auto_write <- function(x, path, ..., nthreads = 6) {
+  path <- glue(path, .envir = parent.frame())
+  ext <- tools::file_ext(path) %>% tolower()
   if (ext == "rda") {
     var <- deparse(substitute(x))
     save(list = var, ..., file = path, envir = parent.frame())
@@ -29,12 +30,15 @@ write_auto <- function(x, path, ..., nthreads = 6) {
 
 #' Read a data file, inferring the format from the extension
 #' @details Supports rda, rds, fst, csv, qs, qs2, qdata, arrow, and feather.
-#' @param path Path to the data file.
+#' @param path Path to the data file. Supports glue templates such as
+#'   `"{stem}.rds"`. Expressions inside `{}` are evaluated in the caller's
+#'   environment.
 #' @param ... Arguments passed to the format-specific reader or writer.
 #' @param nthreads Number of threads to use for qs2 and qdata files.
 #' @export
-read_auto <- function(path, ..., nthreads = 6) {
-  ext <- tools::file_ext(glue(path)) %>% tolower()
+auto_read <- function(path, ..., nthreads = 6) {
+  path <- glue(path, .envir = parent.frame())
+  ext <- tools::file_ext(path) %>% tolower()
   if (ext == "rda") {
     load(path, envir = parent.frame())
   } else if (ext == "rds") {
@@ -54,33 +58,41 @@ read_auto <- function(path, ..., nthreads = 6) {
   }
 }
 
+#' @rdname auto_read
+#' @export
+read_auto <- auto_read
+
+#' @rdname auto_write
+#' @export
+write_auto <- auto_write
+
 #' Deprecated dataset I/O functions
 #'
 #' `r lifecycle::badge("deprecated")`
 #'
-#' Use [read_auto()] instead of `import()` and [write_auto()] instead of
+#' Use [auto_read()] instead of `import()` and [auto_write()] instead of
 #' `export()`.
-#' @inheritParams write_auto
+#' @inheritParams auto_write
 #' @name Ipaper-deprecated
 NULL
 
 #' @rdname Ipaper-deprecated
 #' @export
 import <- function(path, ..., nthreads = 6) {
-  lifecycle::deprecate_warn("0.1.11", "import()", "read_auto()")
+  lifecycle::deprecate_warn("0.1.11", "import()", "auto_read()")
 
   # Keep the caller's environment and argument expressions for .rda files.
   call <- sys.call()
-  call[[1L]] <- read_auto
+  call[[1L]] <- auto_read
   eval(call, parent.frame())
 }
 
 #' @rdname Ipaper-deprecated
 #' @export
 export <- function(x, path, ..., nthreads = 6) {
-  lifecycle::deprecate_warn("0.1.11", "export()", "write_auto()")
+  lifecycle::deprecate_warn("0.1.11", "export()", "auto_write()")
 
   call <- sys.call()
-  call[[1L]] <- write_auto
+  call[[1L]] <- auto_write
   eval(call, parent.frame())
 }
