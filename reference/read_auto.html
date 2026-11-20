@@ -65,7 +65,9 @@
 
 
 <dl><dt id="arg-path">path<a class="anchor" aria-label="anchor" href="#arg-path"></a></dt>
-<dd><p>Path to the data file.</p></dd>
+<dd><p>Path to the data file. Supports glue templates such as
+<code>"{stem}.rds"</code>. Expressions inside <code><a href="https://rdrr.io/r/base/Paren.html" class="external-link">{}</a></code> are evaluated in the caller's
+environment.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
