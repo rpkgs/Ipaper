@@ -19,7 +19,7 @@ test_that("qs and qs2 imports read qs2 files", {
 
   for (f in files) {
     qs2::qs_save(x, f, nthreads = 1)
-    expect_identical(import(f, nthreads = 1), x)
+    expect_identical(read_auto(f, nthreads = 1), x)
   }
 })
 
@@ -28,12 +28,12 @@ test_that("qdata import and export match qs2", {
   f <- tempfile(fileext = ".qdata")
   on.exit(unlink(f))
 
-  export(x, f, nthreads = 1)
+  write_auto(x, f, nthreads = 1)
   expect_identical(qs2::qd_read(f, nthreads = 1), x)
-  expect_identical(import(f, nthreads = 1), x)
+  expect_identical(read_auto(f, nthreads = 1), x)
 
   qs2::qd_save(x, f, nthreads = 1)
-  expect_identical(import(f, nthreads = 1), x)
+  expect_identical(read_auto(f, nthreads = 1), x)
 })
 
 test_that("qs2 and qdata round-trips preserve types and match official readers", {
@@ -47,11 +47,11 @@ test_that("qs2 and qdata round-trips preserve types and match official readers",
     write <- if (tolower(ext) == "qdata") qs2::qd_save else qs2::qs_save
     f <- file.path(path, paste0("中文 空格 ' .", ext))
     for (n in c(1, 6)) {
-      export(x, f, nthreads = n, compress_level = 1)
-      expect_identical(import(f, nthreads = n), x)
+      write_auto(x, f, nthreads = n, compress_level = 1)
+      expect_identical(read_auto(f, nthreads = n), x)
       expect_identical(read(f, nthreads = n), x)
       write(x, f, nthreads = n)
-      expect_identical(import(f, nthreads = n), x)
+      expect_identical(read_auto(f, nthreads = n), x)
     }
   }
 })
@@ -65,12 +65,23 @@ test_that("arrow and feather round-trips preserve column types", {
 
   for (ext in c("arrow", "feather", "ARROW", "FEATHER")) {
     f <- file.path(path, paste0("中文 空格 ' .", ext))
-    export(x, f, compression = "uncompressed")
-    expect_identical(as.data.frame(import(f)), x)
+    write_auto(x, f, compression = "uncompressed")
+    expect_identical(as.data.frame(read_auto(f)), x)
     expect_identical(as.data.frame(arrow::read_feather(f)), x)
-    expect_s3_class(import(f, as_data_frame = FALSE), "Table")
+    expect_s3_class(read_auto(f, as_data_frame = FALSE), "Table")
 
     arrow::write_feather(x, f)
-    expect_identical(as.data.frame(import(f)), x)
+    expect_identical(as.data.frame(read_auto(f)), x)
   }
+})
+
+test_that("deprecated dataset functions warn and preserve the .rda caller", {
+  f <- tempfile(fileext = ".rda")
+  on.exit(unlink(f))
+  value <- 42L
+
+  lifecycle::expect_deprecated(export(value, f, compress = FALSE), "write_auto")
+  rm(value)
+  lifecycle::expect_deprecated(import(f), "read_auto")
+  expect_identical(value, 42L)
 })

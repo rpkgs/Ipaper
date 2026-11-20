@@ -1,4 +1,8 @@
 
+# Ipaper 0.1.11
+
+- `import()` and `export()` are deprecated. Use `read_auto()` and `write_auto()` instead.
+
 # Ipaper 0.1.9
 
 - fix `cdo_grid` corner coordinate error.

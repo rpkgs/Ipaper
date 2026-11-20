@@ -17,6 +17,7 @@ tests/testthat/*.tif
 
 *.png
 *.svg
+!/man/figures/lifecycle-deprecated.svg
 *.exe
 src-x64/
 src-i386/

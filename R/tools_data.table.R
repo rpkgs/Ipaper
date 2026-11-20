@@ -38,7 +38,7 @@ fwrite2 <- function(x, file) {
 array2dt <- function(arr, dimnames) {
   # 注意顺序要匹配，aperm非常必要!
   do.call(CJ, c(dimnames, sorted = FALSE)) %>%
-    cbind(value = c(aperm(arr)))
+    cbind(value = c(aperm(arr))) # aperm: revert dim by default, necessary!
 }
 
 #' @rdname array2dt

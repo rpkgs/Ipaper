@@ -1,19 +1,21 @@
-#' export data
-#' @details Support rda, rds, fst, csv, qs2, qdata, arrow, feather
+#' Write a data file, inferring the format from the extension
+#' @details Supports rda, rds, fst, csv, qs, qs2, qdata, arrow, and feather.
+#' @param x Object to write.
+#' @inheritParams read_auto
 #' @importFrom qs2 qd_save qs_save qd_read qs_read
 #' @export
-export <- function(x, path, ..., nthreads = 6) {
-  ext <- tools::file_ext(path) %>% tolower()
+write_auto <- function(x, path, ..., nthreads = 6) {
+  ext <- tools::file_ext(glue(path)) %>% tolower()
   if (ext == "rda") {
     var <- deparse(substitute(x))
-    eval(parse(text = glue("save({var}, ..., file = path, envir = parent.frame())")))
+    save(list = var, ..., file = path, envir = parent.frame())
     # print(var)
   } else if (ext == "rds") {
     saveRDS(x, path, ...)
   } else if (ext == "fst") {
     write_fst(x, path, ...)
   } else if (ext == "csv") {
-    fwrite(x, path, ...)
+    fwrite(x, path, ..., bom = TRUE) # !add BOM for UTF-8 encoding
   } else if (ext %in% c("qs", "qs2")) {
     qs_save(x, path, ..., nthreads = nthreads) # qs also used qs2
   } else if (ext %in% c("qdata")) {
@@ -25,13 +27,14 @@ export <- function(x, path, ..., nthreads = 6) {
   }
 }
 
-
-#' import data to R
-#' @details Support rda, rds, fst, csv, qs2, qdata, arrow, feather
-#' @inheritParams qs2::qd_read
+#' Read a data file, inferring the format from the extension
+#' @details Supports rda, rds, fst, csv, qs, qs2, qdata, arrow, and feather.
+#' @param path Path to the data file.
+#' @param ... Arguments passed to the format-specific reader or writer.
+#' @param nthreads Number of threads to use for qs2 and qdata files.
 #' @export
-import <- function(path, ..., nthreads = 6) {
-  ext <- tools::file_ext(path) %>% tolower()
+read_auto <- function(path, ..., nthreads = 6) {
+  ext <- tools::file_ext(glue(path)) %>% tolower()
   if (ext == "rda") {
     load(path, envir = parent.frame())
   } else if (ext == "rds") {
@@ -49,4 +52,35 @@ import <- function(path, ..., nthreads = 6) {
   } else {
     message("unsupported file type!")
   }
+}
+
+#' Deprecated dataset I/O functions
+#'
+#' `r lifecycle::badge("deprecated")`
+#'
+#' Use [read_auto()] instead of `import()` and [write_auto()] instead of
+#' `export()`.
+#' @inheritParams write_auto
+#' @name Ipaper-deprecated
+NULL
+
+#' @rdname Ipaper-deprecated
+#' @export
+import <- function(path, ..., nthreads = 6) {
+  lifecycle::deprecate_warn("0.1.11", "import()", "read_auto()")
+
+  # Keep the caller's environment and argument expressions for .rda files.
+  call <- sys.call()
+  call[[1L]] <- read_auto
+  eval(call, parent.frame())
+}
+
+#' @rdname Ipaper-deprecated
+#' @export
+export <- function(x, path, ..., nthreads = 6) {
+  lifecycle::deprecate_warn("0.1.11", "export()", "write_auto()")
+
+  call <- sys.call()
+  call[[1L]] <- write_auto
+  eval(call, parent.frame())
 }
