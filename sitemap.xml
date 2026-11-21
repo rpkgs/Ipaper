@@ -15,6 +15,8 @@
 <url><loc>/reference/apply_col.html</loc></url>
 <url><loc>/reference/array2dt.html</loc></url>
 <url><loc>/reference/array_3dTo2d.html</loc></url>
+<url><loc>/reference/auto_read.html</loc></url>
+<url><loc>/reference/auto_write.html</loc></url>
 <url><loc>/reference/char2script.html</loc></url>
 <url><loc>/reference/chunk.html</loc></url>
 <url><loc>/reference/clamp.html</loc></url>
@@ -59,7 +61,6 @@
 <url><loc>/reference/print.data.table.html</loc></url>
 <url><loc>/reference/pro_map.html</loc></url>
 <url><loc>/reference/progressively.html</loc></url>
-<url><loc>/reference/read_auto.html</loc></url>
 <url><loc>/reference/read_excel.html</loc></url>
 <url><loc>/reference/read_xlsx.html</loc></url>
 <url><loc>/reference/read_xlsx2list.html</loc></url>
@@ -72,7 +73,6 @@
 <url><loc>/reference/slope_arr.html</loc></url>
 <url><loc>/reference/tools.html</loc></url>
 <url><loc>/reference/which.na.html</loc></url>
-<url><loc>/reference/write_auto.html</loc></url>
 <url><loc>/reference/write_fig.html</loc></url>
 <url><loc>/reference/write_sheets.html</loc></url>
 </urlset>
